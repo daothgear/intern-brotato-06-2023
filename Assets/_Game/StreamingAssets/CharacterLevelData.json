@@ -1,0 +1,14 @@
+{
+    "characterInfo": [
+        {
+            "characterID": 1,
+            "maxHP": 100,
+            "moveSpeed": 5.0
+        },
+        {
+            "characterID": 2,
+            "maxHP": 50,
+            "moveSpeed": 2.0
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "waveInfo": [
+        {
+            "waveID": 4,
+            "totalTime": 2.0,
+            "weaponBuyableAfterFinish": 4.0,
+            "subWaveTimeArray": [
+                1,
+                2
+            ],
+            "subWave1stSpawnEnemyData": [],
+            "subWaveSpawnIncreasePercentage": 2
+        },
+        {
+            "waveID": 2,
+            "totalTime": 2.0,
+            "weaponBuyableAfterFinish": 4.0,
+            "subWaveTimeArray": [
+                1,
+                2
+            ],
+            "subWave1stSpawnEnemyData": [
+                4
+            ],
+            "subWaveSpawnIncreasePercentage": 0
+        }
+    ]
+}

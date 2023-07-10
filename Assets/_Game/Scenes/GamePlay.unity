@@ -654,7 +654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: 31.079956, y: -278.51}
+  m_AnchoredPosition: {x: 31.079956, y: -278.51004}
   m_SizeDelta: {x: -842.95, y: -730.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961232636
@@ -700,7 +700,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 961232637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BlueprintLoader, Assembly-CSharp
+        m_MethodName: outputJson
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &961232637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,6 +989,108 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743749345}
   m_CullTransparentMesh: 1
+--- !u!1 &1896700772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1896700774}
+  - component: {fileID: 1896700773}
+  m_Layer: 0
+  m_Name: JSONLoadData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1896700773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896700772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d922419216f6947408cefa1bbcced901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterLevelData:
+    characterInfo:
+    - characterID: 1
+      maxHP: 100
+      moveSpeed: 5
+    - characterID: 2
+      maxHP: 50
+      moveSpeed: 2
+  weaponLevelData:
+    weaponInfo:
+    - cost: 10
+      damage: 10
+      attackRange: 10
+      attackSpeed: 10
+      pierce: 10
+      pierceDamageReduce: 10
+    - cost: 5
+      damage: 5
+      attackRange: 5
+      attackSpeed: 5
+      pierce: 5
+      pierceDamageReduce: 5
+  waveData:
+    waveInfo:
+    - waveID: 4
+      totalTime: 2
+      weaponBuyableAfterFinish: 4
+      subWaveTimeArray: 0100000002000000
+      subWave1stSpawnEnemyData: 
+      subWaveSpawnIncreasePercentage: 2
+    - waveID: 2
+      totalTime: 2
+      weaponBuyableAfterFinish: 4
+      subWaveTimeArray: 0100000002000000
+      subWave1stSpawnEnemyData: 04000000
+      subWaveSpawnIncreasePercentage: 0
+  enemyData:
+    enemyInfo:
+    - enemyID: 0
+      moveSpeed: 0
+      maxHP: 0
+      meleeAttackDamage: 0
+      meleeAttackRange: 0
+      meleeAttackSpeed: 0
+      gunAttackDamage: 0
+      gunAttackRange: 0
+      gunAttackSpeed: 0
+      laoAttackSpeed: 0
+    - enemyID: 0
+      moveSpeed: 0
+      maxHP: 0
+      meleeAttackDamage: 0
+      meleeAttackRange: 0
+      meleeAttackSpeed: 0
+      gunAttackDamage: 0
+      gunAttackRange: 0
+      gunAttackSpeed: 0
+      laoAttackSpeed: 0
+--- !u!4 &1896700774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896700772}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1335123, y: 0.058846667, z: 306.0561}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1926256356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.61, y: 312.89}
+  m_AnchoredPosition: {x: -430.61002, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996
