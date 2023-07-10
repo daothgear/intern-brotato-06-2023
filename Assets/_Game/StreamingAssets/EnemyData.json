@@ -1,0 +1,11 @@
+{
+    "moveSpeed": 0.0,
+    "maxHP": 0,
+    "meleeAttackDamage": 0,
+    "meleeAttackRange": 0.0,
+    "meleeAttackSpeed": 0.0,
+    "gunAttackDamage": 0,
+    "gunAttackRange": 0.0,
+    "gunAttackSpeed": 0.0,
+    "laoAttackSpeed": 0.0
+}
