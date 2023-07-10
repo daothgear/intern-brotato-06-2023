@@ -290,7 +290,6 @@ GameObject:
   - component: {fileID: 455761218}
   - component: {fileID: 455761217}
   - component: {fileID: 455761221}
-  - component: {fileID: 455761222}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -392,44 +391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f7ff044fad142bab4484f670feaf8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &455761222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455761216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d922419216f6947408cefa1bbcced901, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterLevelDataArray:
-  - maxHP: 0
-    moveSpeed: 0
-  weaponLevelDataArray:
-  - cost: 0
-    damage: 0
-    attackRange: 0
-    attackSpeed: 0
-    pierce: 0
-    pierceDamageReduce: 0
-  waveDataArray:
-  - totalTime: 0
-    weaponBuyableAfterFinish: 0
-    subWaveTimeArray: 
-    subWave1stSpawnEnemyData: 
-    subWaveSpawnIncreasePercentage: 0
-  enemyDataArray:
-  - moveSpeed: 0
-    maxHP: 0
-    meleeAttackDamage: 0
-    meleeAttackRange: 0
-    meleeAttackSpeed: 0
-    gunAttackDamage: 0
-    gunAttackRange: 0
-    gunAttackSpeed: 0
-    laoAttackSpeed: 0
 --- !u!1 &565422260
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: 31.079956, y: -278.51004}
+  m_AnchoredPosition: {x: 31.079956, y: -278.51}
   m_SizeDelta: {x: -842.95, y: -730.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961232636
@@ -739,19 +700,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 961232637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: JSonWriter, Assembly-CSharp
-        m_MethodName: outputJson
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &961232637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1149,7 +1098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.61002, y: 312.89}
+  m_AnchoredPosition: {x: -430.61, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996
