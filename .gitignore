@@ -46,6 +46,8 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.pyc
+.idea/
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -70,3 +72,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Plugins/Editor/JetBrains/
+Assets/Plugins/Editor/JetBrains.meta
+*.DS_Store
+/Logs/
