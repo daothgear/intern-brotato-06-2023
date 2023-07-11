@@ -1021,11 +1021,14 @@ MonoBehaviour:
   characterLevelData:
     characterInfo:
     - characterID: 1
-      maxHP: 100
+      maxHP: 10
       moveSpeed: 5
     - characterID: 2
-      maxHP: 50
-      moveSpeed: 2
+      maxHP: 11
+      moveSpeed: 6
+    - characterID: 3
+      maxHP: 12
+      moveSpeed: 7
   weaponLevelData:
     weaponInfo:
     - cost: 10
@@ -1218,7 +1221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.61, y: 312.89}
+  m_AnchoredPosition: {x: -430.61002, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996
