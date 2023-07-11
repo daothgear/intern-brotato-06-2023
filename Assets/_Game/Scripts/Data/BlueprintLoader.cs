@@ -29,8 +29,6 @@ public class BlueprintLoader : MonoBehaviour
         string enemyDataJson = JsonUtility.ToJson(enemyData, true);
         string enemyDataPath = Path.Combine(Application.streamingAssetsPath, "EnemyData.json");
         File.WriteAllText(enemyDataPath, enemyDataJson);
-
-        AssetDatabase.Refresh();
     }
 
     public void LoadJson()
