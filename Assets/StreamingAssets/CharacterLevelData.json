@@ -4,16 +4,6 @@
             "characterID": 1,
             "maxHP": 10,
             "moveSpeed": 5.0
-        },
-        {
-            "characterID": 2,
-            "maxHP": 11,
-            "moveSpeed": 6.0
-        },
-        {
-            "characterID": 3,
-            "maxHP": 12,
-            "moveSpeed": 7.0
         }
     ]
 }
