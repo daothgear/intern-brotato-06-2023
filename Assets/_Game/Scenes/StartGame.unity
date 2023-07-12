@@ -7589,18 +7589,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1058422513}
   joystick: {fileID: 149279359}
-  weapon_1: {fileID: 341425620}
-  weapon_2: {fileID: 1307084192}
-  weapon_3: {fileID: 120655286}
-  weapon_4: {fileID: 992103499}
-  weapon_5: {fileID: 143151995}
+  weapons:
+  - {fileID: 341425620}
+  - {fileID: 1307084192}
+  - {fileID: 120655286}
+  - {fileID: 992103499}
+  - {fileID: 143151995}
   speed: 0
   characterLevelData:
     characterInfo: []
-  currentCharacterInfo:
-    characterID: 0
-    maxHP: 0
-    moveSpeed: 0
 --- !u!61 &1058422512
 BoxCollider2D:
   m_ObjectHideFlags: 0
