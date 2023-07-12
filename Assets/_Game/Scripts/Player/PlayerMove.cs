@@ -9,11 +9,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Joystick joystick;
 
-    // [SerializeField] private gameObject weapon_1;
-    // [SerializeField] private gameObject weapon_2;
-    // [SerializeField] private gameObject weapon_3;
-    // [SerializeField] private gameObject weapon_4;
-    // [SerializeField] private gameObject weapon_5;
+    [SerializeField] private GameObject weapon_1;
+    [SerializeField] private GameObject weapon_2;
+    [SerializeField] private GameObject weapon_3;
+    [SerializeField] private GameObject weapon_4;
+    [SerializeField] private GameObject weapon_5;
 
     [SerializeField] private float speed;
     
@@ -84,6 +84,7 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.tag == "UpLevel")
         {
             LoadCharacterInfo(currentCharacterInfo.characterID + 1);
+            animator.SetTrigger("UpLevel");
             Debug.Log("Trigger");
         }
     }
