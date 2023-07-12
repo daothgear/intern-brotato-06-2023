@@ -1025,53 +1025,79 @@ MonoBehaviour:
       moveSpeed: 5
     - characterID: 2
       maxHP: 11
-      moveSpeed: 8
+      moveSpeed: 5.25
+    - characterID: 3
+      maxHP: 12
+      moveSpeed: 5.5
+    - characterID: 4
+      maxHP: 13
+      moveSpeed: 5.75
+    - characterID: 5
+      maxHP: 14
+      moveSpeed: 6
+    - characterID: 6
+      maxHP: 15
+      moveSpeed: 6.25
+    - characterID: 7
+      maxHP: 16
+      moveSpeed: 6.5
+    - characterID: 8
+      maxHP: 17
+      moveSpeed: 6.75
+    - characterID: 9
+      maxHP: 18
+      moveSpeed: 7
+    - characterID: 10
+      maxHP: 19
+      moveSpeed: 7.25
   weaponLevelData:
     weaponInfo:
-    - cost: 10
-      damage: 10
+    - weaponID: 1
+      cost: 25
+      damage: 8
+      attackRange: 20
+      attackSpeed: 15
+      pierce: 10
+      pierceDamageReduce: 15
+    - weaponID: 2
+      cost: 10
+      damage: 3
       attackRange: 10
       attackSpeed: 10
-      pierce: 10
-      pierceDamageReduce: 10
-    - cost: 5
-      damage: 5
-      attackRange: 5
-      attackSpeed: 5
       pierce: 5
-      pierceDamageReduce: 5
+      pierceDamageReduce: 10
   waveData:
     waveInfo:
-    - waveID: 4
-      totalTime: 2
-      weaponBuyableAfterFinish: 4
-      subWaveTimeArray: 0100000002000000
-      subWave1stSpawnEnemyData: 
-      subWaveSpawnIncreasePercentage: 2
-    - waveID: 2
-      totalTime: 2
-      weaponBuyableAfterFinish: 4
+    - waveID: 0
+      totalTime: 60
+      weaponBuyableAfterFinish: 0
       subWaveTimeArray: 010000000200000003000000
-      subWave1stSpawnEnemyData: 050000000500000015000000
-      subWaveSpawnIncreasePercentage: 1
-    - waveID: 2
-      totalTime: 2
-      weaponBuyableAfterFinish: 4
+      subWave1stSpawnEnemyData: 050000000a0000000f000000
+      subWaveSpawnIncreasePercentage: 5
+    - waveID: 1
+      totalTime: 60
+      weaponBuyableAfterFinish: 0
       subWaveTimeArray: 010000000200000003000000
-      subWave1stSpawnEnemyData: 050000000500000015000000
-      subWaveSpawnIncreasePercentage: 1
+      subWave1stSpawnEnemyData: 0a0000000f0000001e000000
+      subWaveSpawnIncreasePercentage: 5
+    - waveID: 2
+      totalTime: 60
+      weaponBuyableAfterFinish: 0
+      subWaveTimeArray: 010000000200000003000000
+      subWave1stSpawnEnemyData: 0f0000001900000023000000
+      subWaveSpawnIncreasePercentage: 5
   enemyData:
     enemyInfo:
-    - enemyID: 0
-      moveSpeed: 0
-      maxHP: 0
-      meleeAttackDamage: 0
+    - enemyID: 1
+      moveSpeed: 4
+      maxHP: 10
+      meleeAttackDamage: 5
       meleeAttackRange: 0
-      meleeAttackSpeed: 0
-      gunAttackDamage: 0
-      gunAttackRange: 0
-      gunAttackSpeed: 0
-      laoAttackSpeed: 0
+      meleeAttackSpeed: 8
+      gunAttackDamage: 10
+      gunAttackRange: 10
+      gunAttackSpeed: 10
+      laoAttackSpeed: 10
     - enemyID: 0
       moveSpeed: 0
       maxHP: 0
@@ -1218,7 +1244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.6101, y: 312.89}
+  m_AnchoredPosition: {x: -430.61005, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996
