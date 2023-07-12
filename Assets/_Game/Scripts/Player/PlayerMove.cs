@@ -59,9 +59,17 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "wall")
+        if (collision.gameObject.tag == "UpLevel")
         {
             LoadCharacterInfo(currentCharacterInfo.characterID + 1);
+            Debug.Log("Trigger");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
             Debug.Log("Collision");
         }
     }
