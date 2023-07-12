@@ -9,8 +9,14 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Joystick joystick;
 
-    [SerializeField] private float speed;
+    // [SerializeField] private gameObject weapon_1;
+    // [SerializeField] private gameObject weapon_2;
+    // [SerializeField] private gameObject weapon_3;
+    // [SerializeField] private gameObject weapon_4;
+    // [SerializeField] private gameObject weapon_5;
 
+    [SerializeField] private float speed;
+    
     [SerializeField] private CharacterLevelData characterLevelData; 
     [SerializeField] private CharacterLevelData.CharacterInfo currentCharacterInfo;
 
@@ -37,7 +43,7 @@ public class PlayerMove : MonoBehaviour
             animator.SetTrigger("Idle");
         }
     }
-    
+
     private void LoadCharacterInfo(int currentLevel)
     {
         // Load JSON data from file
