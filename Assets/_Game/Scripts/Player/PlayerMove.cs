@@ -6,22 +6,38 @@ using System.IO;
 
 public class PlayerMove : MonoBehaviour
 {
-    public Joystick joystick;
-    public float speed;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Joystick joystick;
 
-    public CharacterLevelData characterLevelData; 
-    public CharacterLevelData.CharacterInfo currentCharacterInfo;
+    [SerializeField] private float speed;
+
+    [SerializeField] private CharacterLevelData characterLevelData; 
+    [SerializeField] private CharacterLevelData.CharacterInfo currentCharacterInfo;
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         LoadCharacterInfo(1);
     }
 
     private void Update()
     {
-        transform.position += new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * speed;
+        Move();
     }
 
+    private void Move()
+    {
+        transform.position += new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * speed;
+        if (joystick.Horizontal!= 0 || joystick.Vertical!= 0)
+        {
+            animator.SetTrigger("Walk");
+        }
+        else
+        {
+            animator.SetTrigger("Idle");
+        }
+    }
+    
     private void LoadCharacterInfo(int currentLevel)
     {
         // Load JSON data from file
