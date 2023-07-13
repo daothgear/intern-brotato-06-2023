@@ -15,23 +15,25 @@ public class BlueprintLoader : MonoBehaviour
     public void OutputJson()
     {
         string characterLevelJson = JsonUtility.ToJson(characterLevelData, true);
-        File.WriteAllText(Application.dataPath + "/_Game/StreamingAssets/CharacterLevelData.json", characterLevelJson);
+        string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
+        File.WriteAllText(characterLevelPath, characterLevelJson);
 
         string weaponLevelJson = JsonUtility.ToJson(weaponLevelData, true);
-        File.WriteAllText(Application.dataPath + "/_Game/StreamingAssets/WeaponLevelData.json", weaponLevelJson);
+        string weaponLevelPath = Path.Combine(Application.streamingAssetsPath, "WeaponLevelData.json");
+        File.WriteAllText(weaponLevelPath, weaponLevelJson);
 
         string waveDataJson = JsonUtility.ToJson(waveData, true);
-        File.WriteAllText(Application.dataPath + "/_Game/StreamingAssets/WaveData.json", waveDataJson);
+        string waveDataPath = Path.Combine(Application.streamingAssetsPath, "WaveData.json");
+        File.WriteAllText(waveDataPath, waveDataJson);
 
         string enemyDataJson = JsonUtility.ToJson(enemyData, true);
-        File.WriteAllText(Application.dataPath + "/_Game/StreamingAssets/EnemyData.json", enemyDataJson);
-
-        AssetDatabase.Refresh();
+        string enemyDataPath = Path.Combine(Application.streamingAssetsPath, "EnemyData.json");
+        File.WriteAllText(enemyDataPath, enemyDataJson);
     }
 
     public void LoadJson()
     {
-        string characterLevelPath = Application.dataPath + "/_Game/StreamingAssets/CharacterLevelData.json";
+        string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
         if (File.Exists(characterLevelPath))
         {
             string characterLevelJson = File.ReadAllText(characterLevelPath);
