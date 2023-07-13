@@ -12,16 +12,20 @@ public class PlayerMove : MonoBehaviour
   [SerializeField] private GameObject[] weapons;
 
   [SerializeField] private float speed;
-
+  //
+  [SerializeField] private int characterlevel;
   //
   [SerializeField] private int maxHealth;
   [SerializeField] private int currentHealth;
   [SerializeField] private Slider playerHealthSlider;
-  //
+  [SerializeField] private Text textHealth;
 
+
+  //
   [SerializeField] private int maxExp;
-  [SerializeField] private int currentExp = 20;
+  [SerializeField] private int currentExp;
   [SerializeField] private Slider playerExpSlider;
+  [SerializeField] private Text textExp;
 
   [SerializeField] private CharacterLevelData characterLevelData;
 
@@ -36,18 +40,15 @@ public class PlayerMove : MonoBehaviour
   private void Start()
   {
     animator = GetComponent<Animator>();
-    Health();
-    Exp();
+    currentHealth = maxHealth;
+    currentExp = maxExp;
   }
 
   private void Update()
   {
     Move();
-
-    if (ShouldFlip())
-    {
-      Flip();
-    }
+    Health();
+    Exp();
   }
 
   private void Move()
@@ -62,6 +63,11 @@ public class PlayerMove : MonoBehaviour
     else
     {
       animator.SetTrigger("Idle");
+    }
+
+    if (ShouldFlip())
+    {
+      Flip();
     }
   }
 
@@ -101,6 +107,7 @@ public class PlayerMove : MonoBehaviour
         {
           currentCharacterInfo = characterInfo;
           Debug.Log("Character level data loaded successfully.");
+          characterlevel = currentCharacterInfo.characterID;
           speed = currentCharacterInfo.moveSpeed;
           maxHealth = currentCharacterInfo.maxHP;
           maxExp = currentCharacterInfo.exp;
@@ -121,15 +128,15 @@ public class PlayerMove : MonoBehaviour
 
   private void Health()
   {
-    currentHealth = maxHealth / 2;
     playerHealthSlider.maxValue = maxHealth;
     playerHealthSlider.value = currentHealth;
+    textHealth.text = currentHealth + "/" + maxHealth;
   }
   private void Exp()
   {
-    currentExp = 20;
     playerExpSlider.maxValue = maxExp;
     playerExpSlider.value = currentExp;
+    textExp.text = "LV." + characterlevel;
   }
   private void OnTriggerEnter2D(Collider2D collision)
   {
