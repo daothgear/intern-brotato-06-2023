@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 using System.IO;
 
 public class PlayerMove : MonoBehaviour
@@ -9,16 +10,34 @@ public class PlayerMove : MonoBehaviour
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
   [SerializeField] private GameObject[] weapons;
+
   [SerializeField] private float speed;
+
+  //
+  [SerializeField] private int maxHealth;
+  [SerializeField] private int currentHealth;
+  [SerializeField] private Slider playerHealthSlider;
+  //
+
+  [SerializeField] private int maxExp;
+  [SerializeField] private int currentExp = 20;
+  [SerializeField] private Slider playerExpSlider;
+
   [SerializeField] private CharacterLevelData characterLevelData;
 
   private CharacterLevelData.CharacterInfo currentCharacterInfo;
   private bool isFacingRight = true;
 
+  private void Awake()
+  {
+    LoadCharacterInfo(1);
+  }
+
   private void Start()
   {
     animator = GetComponent<Animator>();
-    LoadCharacterInfo(1);
+    Health();
+    Exp();
   }
 
   private void Update()
@@ -33,10 +52,10 @@ public class PlayerMove : MonoBehaviour
 
   private void Move()
   {
-    Vector3 movement = new Vector3(joystick.Horizontal , joystick.Vertical , 0) * Time.deltaTime * speed;
+    Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * speed;
     transform.position += movement;
 
-    if ( movement.magnitude > 0 )
+    if (movement.magnitude > 0)
     {
       animator.SetTrigger("Walk");
     }
@@ -68,26 +87,28 @@ public class PlayerMove : MonoBehaviour
     transform.localScale = scale;
   }
 
-  private void LoadCharacterInfo( int currentLevel )
+  private void LoadCharacterInfo(int currentLevel)
   {
-    string characterLevelPath = Path.Combine(Application.streamingAssetsPath , "CharacterLevelData.json");
-    if ( File.Exists(characterLevelPath) )
+    string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
+    if (File.Exists(characterLevelPath))
     {
       string characterLevelJson = File.ReadAllText(characterLevelPath);
       characterLevelData = JsonConvert.DeserializeObject<CharacterLevelData>(characterLevelJson);
 
-      foreach ( var characterInfo in characterLevelData.characterInfo )
+      foreach (var characterInfo in characterLevelData.characterInfo)
       {
-        if ( characterInfo.characterID == currentLevel )
+        if (characterInfo.characterID == currentLevel)
         {
           currentCharacterInfo = characterInfo;
           Debug.Log("Character level data loaded successfully.");
           speed = currentCharacterInfo.moveSpeed;
+          maxHealth = currentCharacterInfo.maxHP;
+          maxExp = currentCharacterInfo.exp;
           break;
         }
       }
 
-      if ( currentCharacterInfo == null )
+      if (currentCharacterInfo == null)
       {
         Debug.LogError("Character info not found for level: " + currentLevel);
       }
@@ -98,7 +119,19 @@ public class PlayerMove : MonoBehaviour
     }
   }
 
-  private void OnTriggerEnter2D( Collider2D collision )
+  private void Health()
+  {
+    currentHealth = maxHealth / 2;
+    playerHealthSlider.maxValue = maxHealth;
+    playerHealthSlider.value = currentHealth;
+  }
+  private void Exp()
+  {
+    currentExp = 20;
+    playerExpSlider.maxValue = maxExp;
+    playerExpSlider.value = currentExp;
+  }
+  private void OnTriggerEnter2D(Collider2D collision)
   {
     if (collision.gameObject.tag == "UpLevel")
     {
@@ -108,7 +141,7 @@ public class PlayerMove : MonoBehaviour
     }
   }
 
-  private void OnCollisionEnter2D( Collision2D collision )
+  private void OnCollisionEnter2D(Collision2D collision)
   {
     if (collision.gameObject.tag == "Wall")
     {
