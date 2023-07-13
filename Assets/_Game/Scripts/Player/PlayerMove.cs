@@ -25,7 +25,7 @@ public class PlayerMove : MonoBehaviour
   {
     Move();
 
-    if ( ShouldFlip() )
+    if (ShouldFlip())
     {
       Flip();
     }
@@ -48,11 +48,11 @@ public class PlayerMove : MonoBehaviour
 
   private bool ShouldFlip()
   {
-    if ( joystick.Horizontal < 0 && isFacingRight )
+    if (joystick.Horizontal < 0 && isFacingRight)
     {
       return true;
     }
-    else if ( joystick.Horizontal > 0 && !isFacingRight )
+    else if (joystick.Horizontal > 0 && !isFacingRight)
     {
       return true;
     }
@@ -100,7 +100,7 @@ public class PlayerMove : MonoBehaviour
 
   private void OnTriggerEnter2D( Collider2D collision )
   {
-    if ( collision.gameObject.tag == "UpLevel" )
+    if (collision.gameObject.tag == "UpLevel")
     {
       LoadCharacterInfo(currentCharacterInfo.characterID + 1);
       animator.SetTrigger("UpLevel");
@@ -110,7 +110,7 @@ public class PlayerMove : MonoBehaviour
 
   private void OnCollisionEnter2D( Collision2D collision )
   {
-    if ( collision.gameObject.tag == "Wall" )
+    if (collision.gameObject.tag == "Wall")
     {
       Debug.Log("Collision");
     }

@@ -5,14 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class CharacterLevelData
 {
-    [System.Serializable]
-    public class CharacterInfo
-    {
-        public int characterID;
-        public int exp;
-        public int maxHP;
-        public float moveSpeed;
-    }
+  [System.Serializable]
+  public class CharacterInfo
+  {
+    public int characterID;
+    public int exp;
+    public int maxHP;
+    public float moveSpeed;
+  }
 
-    public List<CharacterInfo> characterInfo = new List<CharacterInfo>();
+  public List<CharacterInfo> characterInfo = new List<CharacterInfo>();
 }
