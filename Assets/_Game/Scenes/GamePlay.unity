@@ -1131,41 +1131,13 @@ MonoBehaviour:
       maxHP: 10
       moveSpeed: 5
     - characterID: 2
-      exp: 20
+      exp: 11
       maxHP: 11
-      moveSpeed: 5.25
+      moveSpeed: 5
     - characterID: 3
-      exp: 30
+      exp: 12
       maxHP: 12
-      moveSpeed: 5.5
-    - characterID: 4
-      exp: 40
-      maxHP: 13
-      moveSpeed: 5.75
-    - characterID: 5
-      exp: 50
-      maxHP: 14
-      moveSpeed: 6
-    - characterID: 6
-      exp: 60
-      maxHP: 15
-      moveSpeed: 6.25
-    - characterID: 7
-      exp: 70
-      maxHP: 16
-      moveSpeed: 6.5
-    - characterID: 8
-      exp: 80
-      maxHP: 17
-      moveSpeed: 6.75
-    - characterID: 9
-      exp: 90
-      maxHP: 18
-      moveSpeed: 7
-    - characterID: 10
-      exp: 100
-      maxHP: 19
-      moveSpeed: 7.25
+      moveSpeed: 5
   weaponLevelData:
     weaponInfo:
     - weaponID: 1
@@ -1175,13 +1147,6 @@ MonoBehaviour:
       attackSpeed: 15
       pierce: 10
       pierceDamageReduce: 15
-    - weaponID: 2
-      cost: 10
-      damage: 3
-      attackRange: 10
-      attackSpeed: 10
-      pierce: 5
-      pierceDamageReduce: 10
   waveData:
     waveInfo:
     - waveID: 0
@@ -1445,7 +1410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.61005, y: 312.89}
+  m_AnchoredPosition: {x: -430.61, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996

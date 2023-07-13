@@ -8539,9 +8539,12 @@ GameObject:
   - component: {fileID: 1058422510}
   - component: {fileID: 1058422509}
   - component: {fileID: 1058422508}
-  - component: {fileID: 1058422511}
   - component: {fileID: 1058422512}
   - component: {fileID: 1058422513}
+  - component: {fileID: 1058422511}
+  - component: {fileID: 1058422518}
+  - component: {fileID: 1058422517}
+  - component: {fileID: 1058422515}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -8652,23 +8655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1058422513}
   joystick: {fileID: 149279359}
-  weapons:
-  - {fileID: 341425620}
-  - {fileID: 1307084192}
-  - {fileID: 120655286}
-  - {fileID: 992103499}
-  - {fileID: 143151995}
   speed: 0
-  maxHealth: 0
-  currentHealth: 0
-  playerHealthSlider: {fileID: 849933767}
-  textHealth: {fileID: 1787223260}
-  maxExp: 0
-  currentExp: 0
-  playerExpSlider: {fileID: 305599677}
-  textExp: {fileID: 1197681121}
-  characterLevelData:
-    characterInfo: []
 --- !u!61 &1058422512
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8715,6 +8702,53 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1058422515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058422507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab9f4b60784a3640b1ed67fbdc4c21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterLevel: 0
+  maxExp: 0
+  currentExp: 0
+  playerExpSlider: {fileID: 305599677}
+  textExp: {fileID: 1197681121}
+--- !u!114 &1058422517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058422507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f4f5d57da5e5a4e8ba1bfe89b47cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  currentHealth: 0
+  playerHealthSlider: {fileID: 849933767}
+  textHealth: {fileID: 1787223260}
+--- !u!114 &1058422518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058422507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9863d6fcebd7a542887d4e3f7af2521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterLevelData:
+    characterInfo: []
 --- !u!1 &1092795577
 GameObject:
   m_ObjectHideFlags: 0
