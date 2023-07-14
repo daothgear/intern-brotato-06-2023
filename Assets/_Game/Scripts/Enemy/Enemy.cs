@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : EnemyLoader
 {
-  [SerializeField] private EnemyState enemyState;
-  [SerializeField] private float speed;
+  private EnemyLoader enemyLoader;
+  public float speed;
+  [SerializeField] private EnemyState currentState;
+  [SerializeField] private GameObject player;
+
+  private bool isFacingRight = true;
   private enum EnemyState
   {
     Idle,
@@ -15,12 +19,13 @@ public class Enemy : MonoBehaviour
   }
   private void Start()
   {
-    enemyState = EnemyState.Idle;
+    enemyLoader = GetComponent<EnemyLoader>();
+    currentState = EnemyState.Idle;
   }
 
   private void Update()
   {
-    switch (enemyState)
+    switch (currentState)
     {
       case EnemyState.Idle:
         Idle();
@@ -37,14 +42,29 @@ public class Enemy : MonoBehaviour
     }
   }
 
+  private void Flip()
+  {
+    isFacingRight = !isFacingRight;
+    transform.Rotate(0f, 180f, 0f);
+  }
   private void Idle()
   {
-    enemyState = EnemyState.Walk;
+    currentState = EnemyState.Walk;
   }
 
   private void Walk()
   {
+    speed = enemyLoader.moveSpeed;
+    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
 
+    if (transform.position.x > player.transform.position.x && isFacingRight)
+    {
+      Flip();
+    }
+    else if (transform.position.x < player.transform.position.x && !isFacingRight)
+    {
+      Flip();
+    }
   }
 
   private void Attack()

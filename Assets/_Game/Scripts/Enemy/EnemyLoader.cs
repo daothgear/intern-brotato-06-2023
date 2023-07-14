@@ -8,7 +8,7 @@ public class EnemyLoader : MonoBehaviour
   private EnemyData enemyData;
 
   //Data
-  [SerializeField] private float moveSpeed;
+  public float moveSpeed;
   [SerializeField] private int maxHP;
   [SerializeField] private int meleeAttackDamage;
   [SerializeField] private float meleeAttackRange;
