@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
 
   private void Idle()
   {
-
+    enemyState = EnemyState.Walk;
   }
 
   private void Walk()
