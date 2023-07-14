@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerExp : MonoBehaviour
+public class PlayerExp : PlayerLoader
 {
-  public int characterLevel;
-  public int maxExp;
   [SerializeField] private int currentExp;
   [SerializeField] private Slider playerExpSlider;
   [SerializeField] private Text textExp;
@@ -24,16 +22,16 @@ public class PlayerExp : MonoBehaviour
   }
   private void UpdateExpUI()
   {
-    playerExpSlider.maxValue = maxExp;
+    playerExpSlider.maxValue = playerLoader.maxExp;
     playerExpSlider.value = currentExp;
-    textExp.text = "LV." + characterLevel;
+    textExp.text = "LV." + playerLoader.characterLevel;
   }
 
   private void OnTriggerEnter2D( Collider2D collision )
   {
     if ( collision.gameObject.tag == "UpLevel" )
     {
-      playerLoader.LoadCharacterInfo(characterLevel + 1);
+      playerLoader.LoadCharacterInfo(playerLoader.characterLevel + 1);
       GetComponent<Animator>().SetTrigger("UpLevel");
       Debug.Log("Trigger");
     }

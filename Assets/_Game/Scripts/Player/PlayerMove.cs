@@ -6,12 +6,14 @@ public class PlayerMove : MonoBehaviour
 {
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
-  public float speed;
+
+  private PlayerLoader playerLoader;
 
   private bool isFacingRight = true;
 
   private void Start()
   {
+    playerLoader = GetComponent<PlayerLoader>();
     animator = GetComponent<Animator>();
   }
 
@@ -22,7 +24,7 @@ public class PlayerMove : MonoBehaviour
 
   private void Move()
   {
-    Vector3 movement = new Vector3(joystick.Horizontal , joystick.Vertical , 0) * Time.deltaTime * speed;
+    Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * playerLoader.speed;
     transform.position += movement;
 
     if ( movement.magnitude > 0 )

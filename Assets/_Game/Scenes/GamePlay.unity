@@ -1126,69 +1126,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterLevelData:
     characterInfo:
-    - characterID: 1
-      exp: 10
-      maxHP: 10
-      moveSpeed: 5
-    - characterID: 2
-      exp: 11
-      maxHP: 11
-      moveSpeed: 5
-    - characterID: 3
-      exp: 12
-      maxHP: 12
-      moveSpeed: 5
-  weaponLevelData:
-    weaponInfo:
-    - weaponID: 1
-      cost: 25
-      damage: 8
-      attackRange: 20
-      attackSpeed: 15
-      pierce: 10
-      pierceDamageReduce: 15
-  waveData:
-    waveInfo:
-    - waveID: 0
-      totalTime: 60
-      weaponBuyableAfterFinish: 0
-      subWaveTimeArray: 010000000200000003000000
-      subWave1stSpawnEnemyData: 050000000a0000000f000000
-      subWaveSpawnIncreasePercentage: 5
-    - waveID: 1
-      totalTime: 60
-      weaponBuyableAfterFinish: 0
-      subWaveTimeArray: 010000000200000003000000
-      subWave1stSpawnEnemyData: 0a0000000f0000001e000000
-      subWaveSpawnIncreasePercentage: 5
-    - waveID: 2
-      totalTime: 60
-      weaponBuyableAfterFinish: 0
-      subWaveTimeArray: 010000000200000003000000
-      subWave1stSpawnEnemyData: 0f0000001900000023000000
-      subWaveSpawnIncreasePercentage: 5
-  enemyData:
-    enemyInfo:
-    - enemyID: 1
-      moveSpeed: 4
-      maxHP: 10
-      meleeAttackDamage: 5
-      meleeAttackRange: 0
-      meleeAttackSpeed: 8
-      gunAttackDamage: 10
-      gunAttackRange: 10
-      gunAttackSpeed: 10
-      laoAttackSpeed: 10
-    - enemyID: 0
-      moveSpeed: 0
+    - characterID: 0
+      exp: 0
       maxHP: 0
-      meleeAttackDamage: 0
-      meleeAttackRange: 0
-      meleeAttackSpeed: 0
-      gunAttackDamage: 0
-      gunAttackRange: 0
-      gunAttackSpeed: 0
-      laoAttackSpeed: 0
+      moveSpeed: 0
+  weaponLevelData:
+    weaponInfo: []
+  waveData:
+    waveInfo: []
+  enemyData:
+    enemyInfo: []
 --- !u!4 &1896700774
 Transform:
   m_ObjectHideFlags: 0
