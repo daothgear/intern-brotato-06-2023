@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyData
 {
+  public EnemyInfo[] enemyInfo;
   [System.Serializable]
   public class EnemyInfo
   {
@@ -19,6 +20,4 @@ public class EnemyData
     public float gunAttackSpeed;
     public float laoAttackSpeed;
   }
-
-  public List<EnemyInfo> enemyInfo = new List<EnemyInfo>();
 }

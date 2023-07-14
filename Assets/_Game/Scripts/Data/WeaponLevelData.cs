@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class WeaponLevelData
 {
+  public WeaponInfo[] weaponInfo;
   [System.Serializable]
   public class WeaponInfo
   {
@@ -16,6 +17,4 @@ public class WeaponLevelData
     public int pierce;
     public float pierceDamageReduce;
   }
-
-  public List<WeaponInfo> weaponInfo = new List<WeaponInfo>();
 }

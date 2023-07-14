@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class WaveData
 {
+	public WaveInfo[] waveInfo;
+
 	[System.Serializable]
 	public class WaveInfo
 	{
@@ -15,6 +17,4 @@ public class WaveData
 		public int[] subWave1stSpawnEnemyData;
 		public int subWaveSpawnIncreasePercentage;
 	}
-
-	public List<WaveInfo> waveInfo = new List<WaveInfo>();
 }
