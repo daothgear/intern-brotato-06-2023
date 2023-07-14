@@ -21,7 +21,10 @@ public class MenuCanvas : MonoBehaviour
 
   private void Start()
   {
-    currentCanvasMenu = MenuState.MenuGame;
+    if (currentCanvasMenu == null)
+    {
+      currentCanvasMenu = MenuState.MenuGame;
+    }
     ShowCanvas(currentCanvasMenu);
   }
 

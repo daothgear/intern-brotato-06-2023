@@ -4,14 +4,8 @@ using Newtonsoft.Json;
 
 public class PlayerLoader : MonoBehaviour
 {
-  //Json File
+  [SerializeField] private PlayerLoader playerLoader;
   private CharacterLevelData characterLevelData;
-
-  //
-  public float speed;
-  public int maxHealth;
-  public int characterLevel;
-  public int maxExp;
 
   private void Awake()
   {
@@ -32,10 +26,10 @@ public class PlayerLoader : MonoBehaviour
         {
           CharacterLevelData.CharacterInfo currentCharacterInfo = characterInfo;
           Debug.Log("Character level data loaded successfully.");
-          speed = currentCharacterInfo.moveSpeed;
-          maxHealth = currentCharacterInfo.maxHP;
-          characterLevel = currentCharacterInfo.characterID;
-          maxExp = currentCharacterInfo.exp;
+          GetComponent<PlayerMove>().speed = currentCharacterInfo.moveSpeed;
+          GetComponent<PlayerHealth>().maxHealth = currentCharacterInfo.maxHP;
+          GetComponent<PlayerExp>().characterLevel = currentCharacterInfo.characterID;
+          GetComponent<PlayerExp>().maxExp = currentCharacterInfo.exp;
           break;
         }
       }

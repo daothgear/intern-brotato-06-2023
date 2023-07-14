@@ -3,15 +3,14 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+  public int maxHealth;
   [SerializeField] private int currentHealth;
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
-  private PlayerLoader playerLoader;
 
   private void Start()
   {
-    playerLoader = GetComponent<PlayerLoader>();
-    currentHealth = playerLoader.maxHealth;
+    currentHealth = maxHealth;
     UpdateHealthUI();
   }
 
@@ -21,9 +20,9 @@ public class PlayerHealth : MonoBehaviour
   }
   private void UpdateHealthUI()
   {
-    playerHealthSlider.maxValue = playerLoader.maxHealth;
+    playerHealthSlider.maxValue = maxHealth;
     playerHealthSlider.value = currentHealth;
-    textHealth.text = currentHealth + "/" + playerLoader.maxHealth;
+    textHealth.text = currentHealth + "/" + maxHealth;
   }
 
   private void OnTriggerEnter2D( Collider2D collision )
