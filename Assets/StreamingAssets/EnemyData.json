@@ -1,14 +1,3 @@
 {
-    "enemyInfo": [{
-        "enemyID": 1,
-        "moveSpeed": 4.0,
-        "maxHP": 10,
-        "meleeAttackDamage": 5,
-        "meleeAttackRange": 0.0,
-        "meleeAttackSpeed": 8.0,
-        "gunAttackDamage": 10,
-        "gunAttackRange": 10.0,
-        "gunAttackSpeed": 10.0,
-        "laoAttackSpeed": 10.0
-    }]
+    "enemyInfo": []
 }
