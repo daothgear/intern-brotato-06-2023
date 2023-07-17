@@ -10,9 +10,10 @@ public class TimeManager : MonoBehaviour
   public Text waveText;
   public Text subWaveText;
   public Text countdownText;
+  public Text totalTimerText;
 
-  private float waveTimer;
-  private float subWaveTimer;
+  private float timer;
+  private float totalTimer;
   private int currentWave;
   private int currentSubWave;
 
@@ -23,19 +24,14 @@ public class TimeManager : MonoBehaviour
 
   private void Update()
   {
-    if (waveTimer > 0f)
+    if ( timer > 0f )
     {
-      waveTimer -= Time.deltaTime;
-      subWaveTimer -= Time.deltaTime;
+      timer -= Time.deltaTime;
+      totalTimer -= Time.deltaTime;
 
-      if (subWaveTimer <= 0f)
+      if ( timer <= 0f )
       {
         StartNextSubWave();
-      }
-
-      if (waveTimer <= 0f)
-      {
-        StartNextWave();
       }
 
       UpdateText();
@@ -46,8 +42,8 @@ public class TimeManager : MonoBehaviour
   {
     currentWave = 1;
     currentSubWave = 1;
-    waveTimer = waveDuration;
-    subWaveTimer = waveDuration / numSubWaves;
+    timer = waveDuration;
+    totalTimer = waveDuration * numSubWaves;
     SpawnEnemies();
     UpdateText();
   }
@@ -55,24 +51,15 @@ public class TimeManager : MonoBehaviour
   private void StartNextSubWave()
   {
     currentSubWave++;
-    if (currentSubWave > numSubWaves)
+    if ( currentSubWave > numSubWaves )
     {
       ClearEnemies();
-      StartNextWave();
+      currentWave++;
+      currentSubWave = 1;
+      totalTimer = waveDuration * numSubWaves;// Reset totalTimer at the start of a new wave
     }
-    else
-    {
-      subWaveTimer = waveDuration / numSubWaves;
-      SpawnEnemies();
-    }
-  }
-
-  private void StartNextWave()
-  {
-    currentWave++;
-    currentSubWave = 1;
-    waveTimer = waveDuration;
     SpawnEnemies();
+    timer = waveDuration;
   }
 
   private void SpawnEnemies()
@@ -83,17 +70,14 @@ public class TimeManager : MonoBehaviour
 
   private void ClearEnemies()
   {
-    if (currentSubWave > 0)
-    {
-      Debug.Log("Cleared enemies of wave " + currentWave);
-    }
+    Debug.Log("Cleared enemies of wave " + ( currentWave - 1 ));
   }
-
 
   private void UpdateText()
   {
     waveText.text = "Wave: " + currentWave.ToString();
     subWaveText.text = "Sub wave: " + currentSubWave.ToString() + " / " + numSubWaves.ToString();
-    countdownText.text = "Countdown: " + Mathf.Round(waveTimer).ToString() + "s";
+    countdownText.text = "Countdown: " + Mathf.Round(timer).ToString() + "s";
+    totalTimerText.text = "Total Timer: " + Mathf.Round(totalTimer).ToString() + "s";
   }
 }

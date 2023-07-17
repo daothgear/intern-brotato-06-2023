@@ -22,7 +22,11 @@ public class Enemy : MonoBehaviour
 
   private void Start()
   {
-    animator = GetComponent<Animator>();
+
+    if(animator == null )
+    {
+      animator = FindAnyObjectByType<Animator>();
+    }
     enemyLoader = GetComponent<EnemyLoader>();
     currentState = EnemyState.Idle;
     playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
