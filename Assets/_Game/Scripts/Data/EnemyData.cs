@@ -13,6 +13,7 @@ public class EnemyData
     public float moveSpeed;
     public int maxHP;
     public int damage;
+    public int expEnemy;
     // public int meleeAttackDamage;
     // public float meleeAttackRange;
     // public float meleeAttackSpeed;

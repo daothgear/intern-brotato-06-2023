@@ -27,11 +27,11 @@ public class PlayerMove : MonoBehaviour
 
     if ( movement.magnitude > 0 )
     {
-      animator.SetTrigger("Walk");
+      animator.SetTrigger("PlayerWalk");
     }
     else
     {
-      animator.SetTrigger("Idle");
+      animator.SetTrigger("PlayerIdle");
     }
 
     if ( ShouldFlip() )
