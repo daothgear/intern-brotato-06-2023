@@ -21,7 +21,8 @@ public class PlayerCoin : MonoBehaviour
     if (collision.tag == "Coin")
     {
       coinAmount++;
-      Destroy(collision.gameObject);
+      ObjectPool.Instance.ReturnToPool("Coin" , collision.gameObject);
+      Debug.Log("return done");
     }
   }
 }

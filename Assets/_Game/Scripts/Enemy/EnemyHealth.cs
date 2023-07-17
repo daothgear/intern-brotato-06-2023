@@ -38,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
     Destroy(gameObject, 1.5f);
     if (drop)
     {
-      Instantiate(coinItem, transform.position, Quaternion.identity);
+      ObjectPool.Instance.SpawnFromPool("Coin", gameObject.transform.position , Quaternion.identity);
     }
   }
 
