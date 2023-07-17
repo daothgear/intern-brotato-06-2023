@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : EnemyLoader
+public class Enemy : MonoBehaviour
 {
   private EnemyLoader enemyLoader;
   public float speed;
+  public float damage;
+
   [SerializeField] private EnemyState currentState;
-  [SerializeField] private GameObject player;
+  private PlayerHealth playerHealth;
 
   private bool isFacingRight = true;
+
   private enum EnemyState
   {
     Idle,
@@ -17,10 +18,12 @@ public class Enemy : EnemyLoader
     Attack,
     Dead
   }
+
   private void Start()
   {
     enemyLoader = GetComponent<EnemyLoader>();
     currentState = EnemyState.Idle;
+    playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
   }
 
   private void Update()
@@ -34,10 +37,10 @@ public class Enemy : EnemyLoader
         Walk();
         break;
       case EnemyState.Attack:
-        Attack();
+        //Attack();
         break;
       case EnemyState.Dead:
-        Dead();
+        //Dead();
         break;
     }
   }
@@ -47,6 +50,7 @@ public class Enemy : EnemyLoader
     isFacingRight = !isFacingRight;
     transform.Rotate(0f, 180f, 0f);
   }
+
   private void Idle()
   {
     currentState = EnemyState.Walk;
@@ -54,26 +58,18 @@ public class Enemy : EnemyLoader
 
   private void Walk()
   {
-    speed = enemyLoader.moveSpeed;
-    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-
-    if (transform.position.x > player.transform.position.x && isFacingRight)
+    if (playerHealth != null)
     {
-      Flip();
+      transform.position = Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
+
+      if (transform.position.x > playerHealth.transform.position.x && isFacingRight)
+      {
+        Flip();
+      }
+      else if (transform.position.x < playerHealth.transform.position.x && !isFacingRight)
+      {
+        Flip();
+      }
     }
-    else if (transform.position.x < player.transform.position.x && !isFacingRight)
-    {
-      Flip();
-    }
-  }
-
-  private void Attack()
-  {
-
-  }
-
-  private void Dead()
-  {
-
   }
 }

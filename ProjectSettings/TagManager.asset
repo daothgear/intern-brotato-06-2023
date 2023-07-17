@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UpLevel
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX

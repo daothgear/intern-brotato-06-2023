@@ -1126,10 +1126,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterLevelData:
     characterInfo:
-    - characterID: 0
-      exp: 0
-      maxHP: 0
-      moveSpeed: 0
+    - characterID: 1
+      exp: 10
+      maxHP: 10
+      moveSpeed: 5
+    - characterID: 2
+      exp: 11
+      maxHP: 11
+      moveSpeed: 6
+    - characterID: 3
+      exp: 12
+      maxHP: 12
+      moveSpeed: 7
   weaponLevelData:
     weaponInfo: []
   waveData:
@@ -1145,7 +1153,17 @@ MonoBehaviour:
       - duration: 5
         numEnemies: 5
   enemyData:
-    enemyInfo: []
+    enemyInfo:
+    - enemyID: 1
+      moveSpeed: 3
+      maxHP: 5
+      meleeAttackDamage: 5
+      meleeAttackRange: 5
+      meleeAttackSpeed: 5
+      gunAttackDamage: 5
+      gunAttackRange: 5
+      gunAttackSpeed: 5
+      laoAttackSpeed: 5
 --- !u!4 &1896700774
 Transform:
   m_ObjectHideFlags: 0
@@ -1367,7 +1385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.61005, y: 312.89}
+  m_AnchoredPosition: {x: -430.61, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996

@@ -1,42 +1,23 @@
 {
-  "waveInfo": [
-    {
-      "waveID": 1,
-      "totalTime": 60.0,
-      "weaponBuyableAfterFinish": 0.0,
-      "subWaves": [
+    "waveInfo": [
         {
-          "duration": 5.0,
-          "numEnemies": 5
-        },
-        {
-          "duration": 5.0,
-          "numEnemies": 5
-        },
-        {
-          "duration": 5.0,
-          "numEnemies": 5
+            "waveID": 1,
+            "totalTime": 60.0,
+            "weaponBuyableAfterFinish": 0.0,
+            "subWaves": [
+                {
+                    "duration": 5.0,
+                    "numEnemies": 5
+                },
+                {
+                    "duration": 5.0,
+                    "numEnemies": 5
+                },
+                {
+                    "duration": 5.0,
+                    "numEnemies": 5
+                }
+            ]
         }
-      ]
-    },
-    {
-      "waveID": 2,
-      "totalTime": 90.0,
-      "weaponBuyableAfterFinish": 10.0,
-      "subWaves": [
-        {
-          "duration": 7.0,
-          "numEnemies": 8
-        },
-        {
-          "duration": 6.0,
-          "numEnemies": 10
-        },
-        {
-          "duration": 5.0,
-          "numEnemies": 12
-        }
-      ]
-    }
-  ]
+    ]
 }

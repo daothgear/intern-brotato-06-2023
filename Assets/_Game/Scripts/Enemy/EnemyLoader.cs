@@ -6,22 +6,13 @@ public class EnemyLoader : MonoBehaviour
 {
   private EnemyLoader enemyLoader;
   private EnemyData enemyData;
-
-  //Data
-  public float moveSpeed;
-  [SerializeField] private int maxHP;
-  [SerializeField] private int meleeAttackDamage;
-  [SerializeField] private float meleeAttackRange;
-  [SerializeField] private float meleeAttackSpeed;
-  [SerializeField] private int gunAttackDamage;
-  [SerializeField] private float gunAttackRange;
-  [SerializeField] private float gunAttackSpeed;
-  [SerializeField] private float laoAttackSpeed;
-  [SerializeField] private int currentLevel = 1;
-
+  private Enemy enemy;
+  private EnemyHealth enemyHealth;
   private void Awake()
   {
-    LoadEnemyInfo(currentLevel);
+    enemy = GetComponent<Enemy>();
+    enemyHealth = GetComponent<EnemyHealth>();
+    LoadEnemyInfo(1);
   }
 
   public void LoadEnemyInfo(int enemyID)
@@ -37,16 +28,16 @@ public class EnemyLoader : MonoBehaviour
         if (enemyInfo.enemyID == enemyID)
         {
           EnemyData.EnemyInfo currentEnemyInfo = enemyInfo;
+          enemy.speed = currentEnemyInfo.moveSpeed;
+          enemyHealth.maxHealth = currentEnemyInfo.maxHP;
+          enemy.damage = currentEnemyInfo.damage;
           Debug.Log("Enemy data loaded successfully.");
-          moveSpeed = currentEnemyInfo.moveSpeed;
-          maxHP = currentEnemyInfo.maxHP;
-          meleeAttackDamage = currentEnemyInfo.meleeAttackDamage;
-          meleeAttackRange = currentEnemyInfo.meleeAttackRange;
-          meleeAttackSpeed = currentEnemyInfo.meleeAttackSpeed;
-          gunAttackDamage = currentEnemyInfo.gunAttackDamage;
-          gunAttackRange = currentEnemyInfo.gunAttackRange;
-          gunAttackSpeed = currentEnemyInfo.gunAttackSpeed;
-          laoAttackSpeed = currentEnemyInfo.laoAttackSpeed;
+          // meleeAttackRange = currentEnemyInfo.meleeAttackRange;
+          // meleeAttackSpeed = currentEnemyInfo.meleeAttackSpeed;
+          // gunAttackDamage = currentEnemyInfo.gunAttackDamage;
+          // gunAttackRange = currentEnemyInfo.gunAttackRange;
+          // gunAttackSpeed = currentEnemyInfo.gunAttackSpeed;
+          // laoAttackSpeed = currentEnemyInfo.laoAttackSpeed;
           break;
         }
       }

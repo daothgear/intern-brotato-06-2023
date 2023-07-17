@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-  public float waveDuration = 60f;
+  public float waveDuration;
   public int numSubWaves = 3;
   public int numEnemiesPerWave = 10;
 
@@ -15,6 +15,7 @@ public class TimeManager : MonoBehaviour
   private float subWaveTimer;
   private int currentWave;
   private int currentSubWave;
+  private bool isFirstWave;
 
   private void Start()
   {
@@ -23,17 +24,17 @@ public class TimeManager : MonoBehaviour
 
   private void Update()
   {
-    if ( waveTimer > 0f )
+    if (waveTimer > 0f)
     {
       waveTimer -= Time.deltaTime;
       subWaveTimer -= Time.deltaTime;
 
-      if ( subWaveTimer <= 0f )
+      if (subWaveTimer <= 0f)
       {
         StartNextSubWave();
       }
 
-      if ( waveTimer <= 0f )
+      if (waveTimer <= 0f)
       {
         StartNextWave();
       }
@@ -49,13 +50,14 @@ public class TimeManager : MonoBehaviour
     waveTimer = waveDuration;
     subWaveTimer = waveDuration / numSubWaves;
     SpawnEnemies();
+    isFirstWave = true;
     UpdateText();
   }
 
   private void StartNextSubWave()
   {
     currentSubWave++;
-    if ( currentSubWave > numSubWaves || currentSubWave == numSubWaves)
+    if (currentSubWave > numSubWaves)
     {
       ClearEnemies();
       StartNextWave();
@@ -73,6 +75,7 @@ public class TimeManager : MonoBehaviour
     currentSubWave = 1;
     waveTimer = waveDuration;
     SpawnEnemies();
+    isFirstWave = false;
   }
 
   private void SpawnEnemies()
@@ -83,8 +86,12 @@ public class TimeManager : MonoBehaviour
 
   private void ClearEnemies()
   {
-    Debug.Log("Cleared enemies of wave " + currentWave);
+    if (currentSubWave > 0)
+    {
+      Debug.Log("Cleared enemies of wave " + currentWave);
+    }
   }
+
 
   private void UpdateText()
   {

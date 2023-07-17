@@ -23496,6 +23496,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1797145579059262396, guid: c42c5c50c5beb654b98b402d54c57e0a, type: 3}
+      propertyPath: drop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797145579059262396, guid: c42c5c50c5beb654b98b402d54c57e0a, type: 3}
+      propertyPath: theDrop
+      value: 
+      objectReference: {fileID: 1177456871395797748, guid: c64279649b7c64a7c94a3f3853a1a16c, type: 3}
     - target: {fileID: 3870223618816763139, guid: c42c5c50c5beb654b98b402d54c57e0a, type: 3}
       propertyPath: player
       value: 
@@ -23503,6 +23511,10 @@ PrefabInstance:
     - target: {fileID: 5055641861431193258, guid: c42c5c50c5beb654b98b402d54c57e0a, type: 3}
       propertyPath: m_Name
       value: Pig-Minner-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5055641861431193258, guid: c42c5c50c5beb654b98b402d54c57e0a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5055641861431193269, guid: c42c5c50c5beb654b98b402d54c57e0a, type: 3}
       propertyPath: m_RootOrder
@@ -23858,8 +23870,9 @@ GameObject:
   m_Component:
   - component: {fileID: 617973923}
   - component: {fileID: 617973924}
+  - component: {fileID: 617973925}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: WaveController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23892,13 +23905,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eadeca4241874c43b49736d8b327612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalWaves: 60
   waveDuration: 5
   numSubWaves: 3
   numEnemiesPerWave: 10
   waveText: {fileID: 1190333839}
   subWaveText: {fileID: 1143541130}
   countdownText: {fileID: 2014384387}
+--- !u!114 &617973925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617973921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f049b583a7644fce8a4c99f0a7a8d94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: 
+    prefab: {fileID: 0}
+    size: 0
 --- !u!1 &757682834
 GameObject:
   m_ObjectHideFlags: 0
@@ -23993,6 +24021,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &818149761
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818149752}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &844527823
 GameObject:
   m_ObjectHideFlags: 0
@@ -24562,7 +24616,7 @@ GameObject:
   - component: {fileID: 1058422515}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24747,7 +24801,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 0
-  currentHealth: 0
   playerHealthSlider: {fileID: 849933767}
   textHealth: {fileID: 1787223260}
 --- !u!114 &1058422518

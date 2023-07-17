@@ -1,10 +1,22 @@
 {
     "characterInfo": [
         {
-            "characterID": 0,
-            "exp": 0,
-            "maxHP": 0,
-            "moveSpeed": 0.0
+            "characterID": 1,
+            "exp": 10,
+            "maxHP": 10,
+            "moveSpeed": 5.0
+        },
+        {
+            "characterID": 2,
+            "exp": 11,
+            "maxHP": 11,
+            "moveSpeed": 6.0
+        },
+        {
+            "characterID": 3,
+            "exp": 12,
+            "maxHP": 12,
+            "moveSpeed": 7.0
         }
     ]
 }
