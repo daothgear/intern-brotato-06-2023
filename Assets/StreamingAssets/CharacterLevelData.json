@@ -8,57 +8,15 @@
         },
         {
             "characterID": 2,
-            "exp": 20,
+            "exp": 11,
             "maxHP": 11,
-            "moveSpeed": 5.25
-        },
-        {
-            "characterID": 3,
-            "exp": 30,
-            "maxHP": 12,
-            "moveSpeed": 5.5
-        },
-        {
-            "characterID": 4,
-            "exp": 40,
-            "maxHP": 13,
-            "moveSpeed": 5.75
-        },
-        {
-            "characterID": 5,
-            "exp": 50,
-            "maxHP": 14,
             "moveSpeed": 6.0
         },
         {
-            "characterID": 6,
-            "exp": 60,
-            "maxHP": 15,
-            "moveSpeed": 6.25
-        },
-        {
-            "characterID": 7,
-            "exp": 70,
-            "maxHP": 16,
-            "moveSpeed": 6.5
-        },
-        {
-            "characterID": 8,
-            "exp": 80,
-            "maxHP": 17,
-            "moveSpeed": 6.75
-        },
-        {
-            "characterID": 9,
-            "exp": 90,
-            "maxHP": 18,
+            "characterID": 3,
+            "exp": 12,
+            "maxHP": 12,
             "moveSpeed": 7.0
-        },
-        {
-            "characterID": 10,
-            "exp": 100,
-            "maxHP": 19,
-            "moveSpeed": 7.25
         }
     ]
 }

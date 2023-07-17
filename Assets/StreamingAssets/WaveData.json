@@ -1,52 +1,23 @@
 {
     "waveInfo": [
         {
-            "waveID": 0,
-            "totalTime": 60.0,
-            "weaponBuyableAfterFinish": 0.0,
-            "subWaveTimeArray": [
-                1,
-                2,
-                3
-            ],
-            "subWave1stSpawnEnemyData": [
-                5,
-                10,
-                15
-            ],
-            "subWaveSpawnIncreasePercentage": 5
-        },
-        {
             "waveID": 1,
             "totalTime": 60.0,
             "weaponBuyableAfterFinish": 0.0,
-            "subWaveTimeArray": [
-                1,
-                2,
-                3
-            ],
-            "subWave1stSpawnEnemyData": [
-                10,
-                15,
-                30
-            ],
-            "subWaveSpawnIncreasePercentage": 5
-        },
-        {
-            "waveID": 2,
-            "totalTime": 60.0,
-            "weaponBuyableAfterFinish": 0.0,
-            "subWaveTimeArray": [
-                1,
-                2,
-                3
-            ],
-            "subWave1stSpawnEnemyData": [
-                15,
-                25,
-                35
-            ],
-            "subWaveSpawnIncreasePercentage": 5
+            "subWaves": [
+                {
+                    "duration": 5.0,
+                    "numEnemies": 5
+                },
+                {
+                    "duration": 5.0,
+                    "numEnemies": 5
+                },
+                {
+                    "duration": 5.0,
+                    "numEnemies": 5
+                }
+            ]
         }
     ]
 }

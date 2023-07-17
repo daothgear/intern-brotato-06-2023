@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class CharacterLevelData
 {
-    [System.Serializable]
-    public class CharacterInfo
-    {
-        public int characterID;
-        public int exp;
-        public int maxHP;
-        public float moveSpeed;
-    }
+  public CharacterInfo[] characterInfo;
 
-    public List<CharacterInfo> characterInfo = new List<CharacterInfo>();
+  [Serializable]
+  public class CharacterInfo
+  {
+    public int characterID;
+    public int exp;
+    public int maxHP;
+    public float moveSpeed;
+  }
 }

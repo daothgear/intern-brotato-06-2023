@@ -76,3 +76,5 @@ Assets/Plugins/Editor/JetBrains/
 Assets/Plugins/Editor/JetBrains.meta
 *.DS_Store
 /Logs/
+
+.fake

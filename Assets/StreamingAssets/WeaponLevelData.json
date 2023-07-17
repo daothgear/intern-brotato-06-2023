@@ -1,22 +1,3 @@
 {
-    "weaponInfo": [
-        {
-            "weaponID": 1,
-            "cost": 25,
-            "damage": 8,
-            "attackRange": 20.0,
-            "attackSpeed": 15.0,
-            "pierce": 10,
-            "pierceDamageReduce": 15.0
-        },
-        {
-            "weaponID": 2,
-            "cost": 10,
-            "damage": 3,
-            "attackRange": 10.0,
-            "attackSpeed": 10.0,
-            "pierce": 5,
-            "pierceDamageReduce": 10.0
-        }
-    ]
+    "weaponInfo": []
 }

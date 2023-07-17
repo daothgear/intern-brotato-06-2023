@@ -2,27 +2,9 @@
     "enemyInfo": [
         {
             "enemyID": 1,
-            "moveSpeed": 4.0,
-            "maxHP": 10,
-            "meleeAttackDamage": 5,
-            "meleeAttackRange": 0.0,
-            "meleeAttackSpeed": 8.0,
-            "gunAttackDamage": 10,
-            "gunAttackRange": 10.0,
-            "gunAttackSpeed": 10.0,
-            "laoAttackSpeed": 10.0
-        },
-        {
-            "enemyID": 0,
-            "moveSpeed": 0.0,
-            "maxHP": 0,
-            "meleeAttackDamage": 0,
-            "meleeAttackRange": 0.0,
-            "meleeAttackSpeed": 0.0,
-            "gunAttackDamage": 0,
-            "gunAttackRange": 0.0,
-            "gunAttackSpeed": 0.0,
-            "laoAttackSpeed": 0.0
+            "moveSpeed": 3.0,
+            "maxHP": 5,
+            "damage": 5
         }
     ]
 }
