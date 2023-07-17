@@ -1157,13 +1157,7 @@ MonoBehaviour:
     - enemyID: 1
       moveSpeed: 3
       maxHP: 5
-      meleeAttackDamage: 5
-      meleeAttackRange: 5
-      meleeAttackSpeed: 5
-      gunAttackDamage: 5
-      gunAttackRange: 5
-      gunAttackSpeed: 5
-      laoAttackSpeed: 5
+      damage: 5
 --- !u!4 &1896700774
 Transform:
   m_ObjectHideFlags: 0

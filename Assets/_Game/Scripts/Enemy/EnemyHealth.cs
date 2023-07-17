@@ -8,12 +8,13 @@ public class EnemyHealth : MonoBehaviour
 
   public float maxHealth;
   [SerializeField] private float currentHealth;
-
   [SerializeField] private bool drop;
   [SerializeField] private GameObject theDrop;
 
+  private Animator animator;
   void Start()
   {
+    animator = FindAnyObjectByType<Animator>();
     currentHealth = maxHealth;
     Debug.Log("max hp:" + maxHealth);
   }
@@ -29,7 +30,8 @@ public class EnemyHealth : MonoBehaviour
 
   public void makeDead()
   {
-    gameObject.SetActive(false);
+    animator.SetBool("Die", true);
+    Destroy(gameObject, 1.5f);
   }
 
   private void OnTriggerEnter2D(Collider2D collision)

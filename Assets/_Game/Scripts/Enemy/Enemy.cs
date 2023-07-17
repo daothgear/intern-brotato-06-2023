@@ -4,13 +4,18 @@ public class Enemy : MonoBehaviour
 {
   private EnemyLoader enemyLoader;
   public float speed;
-  public float damage;
+  public int damageEnemy;
 
   [SerializeField] private EnemyState currentState;
-  private PlayerHealth playerHealth;
 
+  private PlayerHealth playerHealth;
+  private Animator animator;
   private bool isFacingRight = true;
 
+  private void Awake()
+  {
+    animator = FindAnyObjectByType<Animator>();
+  }
   private enum EnemyState
   {
     Idle,
@@ -37,7 +42,7 @@ public class Enemy : MonoBehaviour
         Walk();
         break;
       case EnemyState.Attack:
-        //Attack();
+        Attack();
         break;
       case EnemyState.Dead:
         //Dead();
@@ -54,6 +59,7 @@ public class Enemy : MonoBehaviour
   private void Idle()
   {
     currentState = EnemyState.Walk;
+    animator.SetTrigger("Walk");
   }
 
   private void Walk()
@@ -70,6 +76,21 @@ public class Enemy : MonoBehaviour
       {
         Flip();
       }
+
+      float distanceToPlayer = Vector3.Distance(transform.position, playerHealth.transform.position);
+      if (distanceToPlayer <= 1f)
+      {
+        currentState = EnemyState.Attack;
+      }
     }
+  }
+
+  private void Attack()
+  {
+    if (playerHealth != null)
+    {
+      playerHealth.ReceiveDamage(damageEnemy);
+    }
+    //currentState = EnemyState.Walk;
   }
 }

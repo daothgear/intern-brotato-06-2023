@@ -15,7 +15,6 @@ public class TimeManager : MonoBehaviour
   private float subWaveTimer;
   private int currentWave;
   private int currentSubWave;
-  private bool isFirstWave;
 
   private void Start()
   {
@@ -50,7 +49,6 @@ public class TimeManager : MonoBehaviour
     waveTimer = waveDuration;
     subWaveTimer = waveDuration / numSubWaves;
     SpawnEnemies();
-    isFirstWave = true;
     UpdateText();
   }
 
@@ -75,7 +73,6 @@ public class TimeManager : MonoBehaviour
     currentSubWave = 1;
     waveTimer = waveDuration;
     SpawnEnemies();
-    isFirstWave = false;
   }
 
   private void SpawnEnemies()

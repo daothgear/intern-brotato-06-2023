@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 276547920498269641}
   - component: {fileID: 3870223618816763139}
   - component: {fileID: 1797145579059262396}
+  - component: {fileID: 1793854198327897207}
   m_Layer: 0
   m_Name: Pig-Minner-2
   m_TagString: Untagged
@@ -551,16 +552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d302a77f43e4353bef44b04e1dc901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  maxHP: 0
-  meleeAttackDamage: 0
-  meleeAttackRange: 0
-  meleeAttackSpeed: 0
-  gunAttackDamage: 0
-  gunAttackRange: 0
-  gunAttackSpeed: 0
-  laoAttackSpeed: 0
-  currentLevel: 1
 --- !u!114 &3870223618816763139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,19 +564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaafe016a34844250bfef2007a182075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  maxHP: 0
-  meleeAttackDamage: 0
-  meleeAttackRange: 0
-  meleeAttackSpeed: 0
-  gunAttackDamage: 0
-  gunAttackRange: 0
-  gunAttackSpeed: 0
-  laoAttackSpeed: 0
-  currentLevel: 1
   speed: 0
+  damageEnemy: 0
   currentState: 0
-  player: {fileID: 0}
 --- !u!114 &1797145579059262396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,9 +579,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4480f27edfe48c8b82472ed63222ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxhealth: 0
+  maxHealth: 0
+  currentHealth: 0
   drop: 0
   theDrop: {fileID: 0}
+--- !u!95 &1793854198327897207
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055641861431193258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e2e8b72fafc54238a352f07426c485e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &5055641861622367068
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +738,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5055641861764609029}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 97082ce959efc8d498ac6dc43f295778, type: 2}
   m_CullingMode: 0
