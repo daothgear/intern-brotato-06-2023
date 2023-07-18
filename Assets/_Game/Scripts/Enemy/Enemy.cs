@@ -6,17 +6,13 @@ public class Enemy : MonoBehaviour
   public float speed;
   public int damageEnemy;
 
-  [SerializeField] private EnemyState currentState;
+  public EnemyState currentState;
 
   private PlayerHealth playerHealth;
   private Animator animator;
   private bool isFacingRight = true;
 
-  private void Awake()
-  {
-    animator = FindAnyObjectByType<Animator>();
-  }
-  private enum EnemyState
+  public enum EnemyState
   {
     Idle,
     Walk,
@@ -26,6 +22,11 @@ public class Enemy : MonoBehaviour
 
   private void Start()
   {
+
+    if(animator == null )
+    {
+      animator = FindAnyObjectByType<Animator>();
+    }
     enemyLoader = GetComponent<EnemyLoader>();
     currentState = EnemyState.Idle;
     playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
         Attack();
         break;
       case EnemyState.Dead:
-        //Dead();
+        Dead();
         break;
     }
   }
@@ -93,4 +94,14 @@ public class Enemy : MonoBehaviour
     }
     //currentState = EnemyState.Walk;
   }
+
+  private void Dead()
+  {
+    if (animator != null)
+    {
+      animator.SetBool("Die", true);
+    }
+    Destroy(gameObject);
+  }
+
 }

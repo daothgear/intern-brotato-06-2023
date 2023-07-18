@@ -1158,6 +1158,7 @@ MonoBehaviour:
       moveSpeed: 3
       maxHP: 5
       damage: 5
+      expEnemy: 1
 --- !u!4 &1896700774
 Transform:
   m_ObjectHideFlags: 0

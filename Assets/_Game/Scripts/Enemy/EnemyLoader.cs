@@ -31,6 +31,7 @@ public class EnemyLoader : MonoBehaviour
           enemy.speed = currentEnemyInfo.moveSpeed;
           enemyHealth.maxHealth = currentEnemyInfo.maxHP;
           enemy.damageEnemy = currentEnemyInfo.damage;
+          enemyHealth.enemyExp = currentEnemyInfo.expEnemy;
           Debug.Log("Enemy data loaded successfully.");
           // meleeAttackRange = currentEnemyInfo.meleeAttackRange;
           // meleeAttackSpeed = currentEnemyInfo.meleeAttackSpeed;

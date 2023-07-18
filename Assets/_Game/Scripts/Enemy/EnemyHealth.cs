@@ -1,3 +1,4 @@
+// Lớp EnemyHealth
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +6,20 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-
+  private Enemy enemy;
+  public int enemyExp;
   public float maxHealth;
   [SerializeField] private float currentHealth;
   [SerializeField] private bool drop;
-  [SerializeField] private GameObject theDrop;
+  [SerializeField] private GameObject coinItem;
+  private PlayerExp playerExp;
 
-  private Animator animator;
-  void Start()
+  private void Start()
   {
-    animator = FindAnyObjectByType<Animator>();
+    enemy = GetComponent<Enemy>();
     currentHealth = maxHealth;
     Debug.Log("max hp:" + maxHealth);
+    playerExp = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerExp>();
   }
 
   public void TakeDamage(float dame)
@@ -30,19 +33,21 @@ public class EnemyHealth : MonoBehaviour
 
   public void makeDead()
   {
-    animator.SetBool("Die", true);
+    playerExp.AddExp(enemyExp);
+
     Destroy(gameObject, 1.5f);
+    if (drop)
+    {
+      ObjectPool.Instance.SpawnFromPool("Coin", gameObject.transform.position , Quaternion.identity);
+    }
   }
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
     if (collision.tag == "Player")
     {
+      enemy.currentState = Enemy.EnemyState.Dead;
       makeDead();
-      if (drop)
-      {
-        Instantiate(theDrop, transform.position, Quaternion.identity);
-      }
     }
   }
 }

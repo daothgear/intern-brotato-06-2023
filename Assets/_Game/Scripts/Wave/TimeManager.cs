@@ -3,18 +3,22 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-  public float waveDuration;
+  public float[] subWaveTimes; // Mảng chứa thời gian của các subwave
+
   public int numSubWaves = 3;
   public int numEnemiesPerWave = 10;
 
   public Text waveText;
   public Text subWaveText;
   public Text countdownText;
+  public Text totalTimerText;
 
-  private float waveTimer;
-  private float subWaveTimer;
+  private float timer;
+  private float totalTimer;
   private int currentWave;
   private int currentSubWave;
+
+  [SerializeField] private GameObject wallcheck;
 
   private void Start()
   {
@@ -23,19 +27,14 @@ public class TimeManager : MonoBehaviour
 
   private void Update()
   {
-    if (waveTimer > 0f)
+    if (timer > 0f)
     {
-      waveTimer -= Time.deltaTime;
-      subWaveTimer -= Time.deltaTime;
+      timer -= Time.deltaTime;
+      totalTimer -= Time.deltaTime;
 
-      if (subWaveTimer <= 0f)
+      if (timer <= 0f)
       {
         StartNextSubWave();
-      }
-
-      if (waveTimer <= 0f)
-      {
-        StartNextWave();
       }
 
       UpdateText();
@@ -46,8 +45,8 @@ public class TimeManager : MonoBehaviour
   {
     currentWave = 1;
     currentSubWave = 1;
-    waveTimer = waveDuration;
-    subWaveTimer = waveDuration / numSubWaves;
+    timer = subWaveTimes[currentSubWave - 1]; // Sử dụng giá trị time tương ứng cho subwave hiện tại
+    totalTimer = CalculateTotalTimer();
     SpawnEnemies();
     UpdateText();
   }
@@ -58,21 +57,12 @@ public class TimeManager : MonoBehaviour
     if (currentSubWave > numSubWaves)
     {
       ClearEnemies();
-      StartNextWave();
+      currentWave++;
+      currentSubWave = 1;
+      totalTimer = CalculateTotalTimer(); // Reset totalTimer at the start of a new wave
     }
-    else
-    {
-      subWaveTimer = waveDuration / numSubWaves;
-      SpawnEnemies();
-    }
-  }
-
-  private void StartNextWave()
-  {
-    currentWave++;
-    currentSubWave = 1;
-    waveTimer = waveDuration;
     SpawnEnemies();
+    timer = subWaveTimes[currentSubWave - 1]; // Sử dụng giá trị time tương ứng cho subwave hiện tại
   }
 
   private void SpawnEnemies()
@@ -83,17 +73,24 @@ public class TimeManager : MonoBehaviour
 
   private void ClearEnemies()
   {
-    if (currentSubWave > 0)
-    {
-      Debug.Log("Cleared enemies of wave " + currentWave);
-    }
+    Debug.Log("Cleared enemies of wave " + (currentWave - 1));
   }
-
 
   private void UpdateText()
   {
     waveText.text = "Wave: " + currentWave.ToString();
     subWaveText.text = "Sub wave: " + currentSubWave.ToString() + " / " + numSubWaves.ToString();
-    countdownText.text = "Countdown: " + Mathf.Round(waveTimer).ToString() + "s";
+    countdownText.text = "Countdown: " + Mathf.Round(timer).ToString() + "s";
+    totalTimerText.text = "Total Timer: " + Mathf.Round(totalTimer).ToString() + "s";
+  }
+
+  private float CalculateTotalTimer()
+  {
+    float total = 0f;
+    for (int i = 0; i < numSubWaves; i++)
+    {
+      total += subWaveTimes[i];
+    }
+    return total;
   }
 }

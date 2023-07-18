@@ -1,3 +1,4 @@
+// Lớp PlayerExp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class PlayerExp : MonoBehaviour
   private void Start()
   {
     playerLoader = GetComponent<PlayerLoader>();
-    currentExp = maxExp;
+    currentExp = 0;
     UpdateExpUI();
   }
 
@@ -22,6 +23,7 @@ public class PlayerExp : MonoBehaviour
   {
     UpdateExpUI();
   }
+
   private void UpdateExpUI()
   {
     playerExpSlider.maxValue = maxExp;
@@ -29,13 +31,23 @@ public class PlayerExp : MonoBehaviour
     textExp.text = "LV." + characterLevel;
   }
 
-  private void OnTriggerEnter2D( Collider2D collision )
+  public void AddExp(int expAmount)
   {
-    if ( collision.gameObject.tag == "UpLevel" )
+    currentExp += expAmount;
+
+    while (currentExp >= maxExp)
     {
-      playerLoader.LoadCharacterInfo(characterLevel + 1);
-      GetComponent<Animator>().SetTrigger("UpLevel");
-      Debug.Log("Trigger");
+      characterLevel++;
+      currentExp -= maxExp;
+      maxExp = CalculateMaxExp();
+      playerLoader.LoadCharacterInfo(characterLevel);
     }
+
+    UpdateExpUI();
+  }
+
+  private int CalculateMaxExp()
+  {
+    return 100 + (characterLevel * 50);
   }
 }
