@@ -3,22 +3,18 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+  private void OnValidate()
+  {
+    enemy = GetComponent<Enemy>();
+  }
+
   public int maxHealth;
   private int currentHealth;
+
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
 
-  private Enemy enemy;
-
-  private void Awake()
-  {
-    enemy = FindAnyObjectByType<Enemy>();
-    if (enemy == null)
-    {
-      Debug.LogError("Enemy component not found on the same GameObject or its children as PlayerHealth.");
-    }
-  }
-
+  public Enemy enemy;
 
   private void Start()
   {
@@ -56,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
   {
     if (collision.tag == "Enemy")
     {
-       ReceiveDamage(enemy.damageEnemy);
+      ReceiveDamage(enemy.damageEnemy);
     }
   }
 }

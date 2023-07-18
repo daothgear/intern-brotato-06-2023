@@ -23,10 +23,7 @@ public class Enemy : MonoBehaviour
   private void Start()
   {
 
-    if(animator == null )
-    {
-      animator = FindAnyObjectByType<Animator>();
-    }
+    animator = GetComponentInChildren<Animator>();
     enemyLoader = GetComponent<EnemyLoader>();
     currentState = EnemyState.Idle;
     playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
@@ -43,7 +40,7 @@ public class Enemy : MonoBehaviour
         Walk();
         break;
       case EnemyState.Attack:
-        Attack();
+        //Attack();
         break;
       case EnemyState.Dead:
         Dead();
@@ -100,8 +97,8 @@ public class Enemy : MonoBehaviour
     if (animator != null)
     {
       animator.SetBool("Die", true);
+      ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
+      Debug.Log("Return done");
     }
-    Destroy(gameObject);
   }
-
 }

@@ -22,7 +22,7 @@ public class PlayerCoin : MonoBehaviour
     {
       coinAmount++;
       ObjectPool.Instance.ReturnToPool("Coin" , collision.gameObject);
-      Debug.Log("return done");
+      Debug.Log("Coin return done");
     }
   }
 }

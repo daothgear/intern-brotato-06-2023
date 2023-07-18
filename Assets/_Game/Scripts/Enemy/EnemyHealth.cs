@@ -34,20 +34,18 @@ public class EnemyHealth : MonoBehaviour
   public void makeDead()
   {
     playerExp.AddExp(enemyExp);
-
-    Destroy(gameObject, 1.5f);
     if (drop)
     {
       ObjectPool.Instance.SpawnFromPool("Coin", gameObject.transform.position , Quaternion.identity);
     }
   }
 
-  // private void OnTriggerEnter2D(Collider2D collision)
-  // {
-  //   if (collision.tag == "Player")
-  //   {
-  //     enemy.currentState = Enemy.EnemyState.Dead;
-  //     makeDead();
-  //   }
-  // }
+  private void OnTriggerEnter2D(Collider2D collision)
+  {
+    if (collision.tag == "Player")
+    {
+      enemy.currentState = Enemy.EnemyState.Dead;
+      makeDead();
+    }
+  }
 }
