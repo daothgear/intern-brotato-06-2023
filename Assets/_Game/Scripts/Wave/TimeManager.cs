@@ -48,7 +48,7 @@ public class TimeManager : MonoBehaviour
   {
     currentWave = 1;
     currentSubWave = 1;
-    timer = subWaveTimes[currentSubWave - 1]; // Sử dụng giá trị time tương ứng cho subwave hiện tại
+    timer = subWaveTimes[currentSubWave - 1];
     totalTimer = CalculateTotalTimer();
     SpawnEnemies();
     UpdateText();
@@ -62,24 +62,24 @@ public class TimeManager : MonoBehaviour
       ClearEnemies();
       currentWave++;
       currentSubWave = 1;
-      totalTimer = CalculateTotalTimer(); // Reset totalTimer at the start of a new wave
+      totalTimer = CalculateTotalTimer(); 
     }
     SpawnEnemies();
-    timer = subWaveTimes[currentSubWave - 1]; // Sử dụng giá trị time tương ứng cho subwave hiện tại
+    timer = subWaveTimes[currentSubWave - 1]; 
   }
 
   private void SpawnEnemies()
   {
     int numEnemies = currentWave * numEnemiesPerWave * currentSubWave;
-    for (int i = 0; i < numEnemies; i++)
+    for ( int i = 0; i < numEnemies; i++ )
     {
-      float delayTime = i * spawnDelay; // Điều chỉnh độ trễ giữa các enemy spawn
+      float delayTime = i * spawnDelay;
       StartCoroutine(SpawnEnemyRandomWithDelay(delayTime));
     }
     Debug.Log("Spawned " + numEnemies + " enemies.");
   }
 
-  private IEnumerator SpawnEnemyRandomWithDelay(float delayTime)
+  private IEnumerator SpawnEnemyRandomWithDelay( float delayTime )
   {
     yield return new WaitForSeconds(delayTime);
     SpawnEnemyRandom();
@@ -88,8 +88,7 @@ public class TimeManager : MonoBehaviour
   private void SpawnEnemyRandom()
   {
     Vector3 spawnPosition = GetRandomSpawnPosition();
-    GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-    // Cập nhật các thông tin của enemy (ví dụ: loại enemy, hướng di chuyển, ...)
+    ObjectPool.Instance.SpawnFromPool("Enemy", spawnPosition, Quaternion.identity);
   }
 
   private Vector3 GetRandomSpawnPosition()

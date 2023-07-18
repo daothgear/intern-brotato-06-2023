@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -6,11 +6,9 @@ public class Enemy : MonoBehaviour
   public float speed;
   public int damageEnemy;
 
-  public EnemyState currentState;
-
   private PlayerHealth playerHealth;
   private Animator animator;
-  private bool isFacingRight = true;
+  public bool isFacingRight = true;
 
   public enum EnemyState
   {
@@ -20,9 +18,10 @@ public class Enemy : MonoBehaviour
     Dead
   }
 
+  public EnemyState currentState;
+
   private void Start()
   {
-
     animator = GetComponentInChildren<Animator>();
     enemyLoader = GetComponent<EnemyLoader>();
     currentState = EnemyState.Idle;
@@ -31,16 +30,17 @@ public class Enemy : MonoBehaviour
 
   private void Update()
   {
-    switch (currentState)
+    switch ( currentState )
     {
       case EnemyState.Idle:
         Idle();
         break;
       case EnemyState.Walk:
         Walk();
+        animator.SetTrigger("Walk");
         break;
       case EnemyState.Attack:
-        //Attack();
+        Attack();
         break;
       case EnemyState.Dead:
         Dead();
@@ -48,35 +48,38 @@ public class Enemy : MonoBehaviour
     }
   }
 
-  private void Flip()
+  public void Flip()
   {
     isFacingRight = !isFacingRight;
-    transform.Rotate(0f, 180f, 0f);
+    transform.Rotate(0f , 180f , 0f);
   }
 
   private void Idle()
   {
     currentState = EnemyState.Walk;
-    animator.SetTrigger("Walk");
+    if ( animator != null )
+    {
+      animator.SetTrigger("Walk");
+    }
   }
 
   private void Walk()
   {
-    if (playerHealth != null)
+    if ( playerHealth != null )
     {
-      transform.position = Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
+      transform.position = Vector3.MoveTowards(transform.position , playerHealth.transform.position , speed * Time.deltaTime);
 
-      if (transform.position.x > playerHealth.transform.position.x && isFacingRight)
+      if ( transform.position.x > playerHealth.transform.position.x && isFacingRight )
       {
         Flip();
       }
-      else if (transform.position.x < playerHealth.transform.position.x && !isFacingRight)
+      else if ( transform.position.x < playerHealth.transform.position.x && !isFacingRight )
       {
         Flip();
       }
 
-      float distanceToPlayer = Vector3.Distance(transform.position, playerHealth.transform.position);
-      if (distanceToPlayer <= 1f)
+      float distanceToPlayer = Vector3.Distance(transform.position , playerHealth.transform.position);
+      if ( distanceToPlayer <= 1f )
       {
         currentState = EnemyState.Attack;
       }
@@ -85,19 +88,19 @@ public class Enemy : MonoBehaviour
 
   private void Attack()
   {
-    if (playerHealth != null)
+    if ( playerHealth != null )
     {
-      playerHealth.ReceiveDamage(damageEnemy);
+      playerHealth.TakeDamage(damageEnemy);
+      currentState = EnemyState.Walk;
     }
-    //currentState = EnemyState.Walk;
   }
 
   private void Dead()
   {
-    if (animator != null)
+    if ( animator != null )
     {
-      animator.SetBool("Die", true);
-      ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
+      animator.SetBool("Die" , true);
+      ObjectPool.Instance.ReturnToPool("Enemy" , gameObject);
       Debug.Log("Return done");
     }
   }
