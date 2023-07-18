@@ -23855,7 +23855,7 @@ MonoBehaviour:
     size: 50
   - tag: Enemy
     prefab: {fileID: 2900440498428525068, guid: 6fc599b4efd394e77a90c98fb81b8ba5, type: 3}
-    size: 10
+    size: 20
 --- !u!1 &757682834
 GameObject:
   m_ObjectHideFlags: 0
@@ -24878,9 +24878,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 0
+  currentHealth: 0
   playerHealthSlider: {fileID: 849933767}
   textHealth: {fileID: 1787223260}
-  enemy: {fileID: 0}
 --- !u!114 &1058422518
 MonoBehaviour:
   m_ObjectHideFlags: 0
