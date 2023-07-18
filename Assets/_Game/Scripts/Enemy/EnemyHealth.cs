@@ -1,56 +1,50 @@
-using System.Runtime.ConstrainedExecution;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
   private Enemy enemy;
-  private Vector3 startPosition;
-  private Quaternion startRotation;
   public int enemyExp;
   public float maxHealth;
-  public float currentHealth;
-  private Animator animator;
+  [SerializeField] private float currentHealth;
+  [SerializeField] private bool drop;
+  [SerializeField] private GameObject coinItem;
+  private PlayerExp playerExp;
 
   private void Start()
   {
     enemy = GetComponent<Enemy>();
-    startPosition = transform.position;
-    startRotation = transform.rotation;
     currentHealth = maxHealth;
+    Debug.Log("max hp:" + maxHealth);
+    playerExp = FindAnyObjectByType<PlayerExp>();
   }
 
-  private void MakeDead()
+  public void TakeDamage(float dame)
   {
-    currentHealth = 0;
-    Debug.Log("mau ve 0 " + currentHealth);
-    PlayerExp playerExp = FindObjectOfType<PlayerExp>();
-    if ( playerExp != null )
+    currentHealth -= dame;
+    if (currentHealth <= 0)
     {
-      playerExp.AddExp(enemyExp);
-    }
-
-    ObjectPool.Instance.SpawnFromPool("Coin" , transform.position , Quaternion.identity);
-    ResetEnemy();
-  }
-
-  private void OnTriggerEnter2D( Collider2D collision )
-  {
-    if ( collision.CompareTag("Player") )
-    {
-      MakeDead();
+      makeDead();
     }
   }
 
-  public void ResetEnemy()
+  public void makeDead()
   {
-    enemy.currentState = Enemy.EnemyState.Walk;
-    currentHealth = maxHealth;
-    ResetEnemyState();
-    ObjectPool.Instance.ReturnToPool("Enemy" , gameObject);
+    playerExp.AddExp(enemyExp);
+    if (drop)
+    {
+      ObjectPool.Instance.SpawnFromPool("Coin", gameObject.transform.position , Quaternion.identity);
+    }
   }
 
-  private void ResetEnemyState()
+  private void OnTriggerEnter2D(Collider2D collision)
   {
-    enemy.currentState = Enemy.EnemyState.Idle;
+    if (collision.tag == "Player")
+    {
+      enemy.currentState = Enemy.EnemyState.Dead;
+      makeDead();
+    }
   }
 }
