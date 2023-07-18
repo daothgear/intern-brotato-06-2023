@@ -19,7 +19,7 @@ public class EnemyHealth : MonoBehaviour
     enemy = GetComponent<Enemy>();
     currentHealth = maxHealth;
     Debug.Log("max hp:" + maxHealth);
-    playerExp = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerExp>();
+    playerExp = FindAnyObjectByType<PlayerExp>();
   }
 
   public void TakeDamage(float dame)
@@ -42,12 +42,12 @@ public class EnemyHealth : MonoBehaviour
     }
   }
 
-  private void OnTriggerEnter2D(Collider2D collision)
-  {
-    if (collision.tag == "Player")
-    {
-      enemy.currentState = Enemy.EnemyState.Dead;
-      makeDead();
-    }
-  }
+  // private void OnTriggerEnter2D(Collider2D collision)
+  // {
+  //   if (collision.tag == "Player")
+  //   {
+  //     enemy.currentState = Enemy.EnemyState.Dead;
+  //     makeDead();
+  //   }
+  // }
 }

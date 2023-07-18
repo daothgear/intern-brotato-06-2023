@@ -15,9 +15,10 @@ public class PlayerHealth : MonoBehaviour
     enemy = FindAnyObjectByType<Enemy>();
     if (enemy == null)
     {
-      Debug.LogError("Enemy component not found on the same GameObject as PlayerHealth.");
+      Debug.LogError("Enemy component not found on the same GameObject or its children as PlayerHealth.");
     }
   }
+
 
   private void Start()
   {
