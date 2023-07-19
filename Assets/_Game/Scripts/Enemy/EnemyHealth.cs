@@ -43,8 +43,7 @@ public class EnemyHealth : MonoBehaviour
 
   public void ResetEnemy()
   {
-    enemy.currentState = Enemy.EnemyState.Walk;
-    currentHealth = maxHealth;
+    ResetHealth();
     ResetEnemyState();
     ObjectPool.Instance.ReturnToPool("Enemy" , gameObject);
   }
@@ -52,5 +51,10 @@ public class EnemyHealth : MonoBehaviour
   private void ResetEnemyState()
   {
     enemy.currentState = Enemy.EnemyState.Idle;
+  }
+
+  private void ResetHealth()
+  {
+    currentHealth = maxHealth;
   }
 }

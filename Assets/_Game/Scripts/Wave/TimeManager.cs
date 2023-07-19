@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-  public float[] subWaveTimes; // Mảng chứa thời gian của các subwave
+  public float[] subWaveTimes;
 
   public int numSubWaves = 3;
   public int numEnemiesPerWave = 10;
@@ -22,6 +22,7 @@ public class TimeManager : MonoBehaviour
 
   [SerializeField] private GameObject wallCheck;
   [SerializeField] private GameObject enemyPrefab;
+  [SerializeField] private GameObject spawnPointPrefab;
 
   private void Start()
   {
@@ -62,16 +63,16 @@ public class TimeManager : MonoBehaviour
       ClearEnemies();
       currentWave++;
       currentSubWave = 1;
-      totalTimer = CalculateTotalTimer(); 
+      totalTimer = CalculateTotalTimer();
     }
     SpawnEnemies();
-    timer = subWaveTimes[currentSubWave - 1]; 
+    timer = subWaveTimes[currentSubWave - 1];
   }
 
   private void SpawnEnemies()
   {
     int numEnemies = currentWave * numEnemiesPerWave * currentSubWave;
-    for ( int i = 0; i < numEnemies; i++ )
+    for (int i = 0; i < numEnemies; i++)
     {
       float delayTime = i * spawnDelay;
       StartCoroutine(SpawnEnemyRandomWithDelay(delayTime));
@@ -79,7 +80,7 @@ public class TimeManager : MonoBehaviour
     Debug.Log("Spawned " + numEnemies + " enemies.");
   }
 
-  private IEnumerator SpawnEnemyRandomWithDelay( float delayTime )
+  private IEnumerator SpawnEnemyRandomWithDelay(float delayTime)
   {
     yield return new WaitForSeconds(delayTime);
     SpawnEnemyRandom();
@@ -88,7 +89,19 @@ public class TimeManager : MonoBehaviour
   private void SpawnEnemyRandom()
   {
     Vector3 spawnPosition = GetRandomSpawnPosition();
-    ObjectPool.Instance.SpawnFromPool("Enemy", spawnPosition, Quaternion.identity);
+    GameObject spawnPoint = Instantiate(spawnPointPrefab, spawnPosition, Quaternion.identity);
+    StartCoroutine(SpawnEnemyWithDelay(spawnPoint));
+  }
+
+  private IEnumerator SpawnEnemyWithDelay(GameObject spawnPoint)
+  {
+    yield return new WaitForSeconds(spawnDelay);
+
+    // Spawn enemy
+    ObjectPool.Instance.SpawnFromPool("Enemy", spawnPoint.transform.position, Quaternion.identity);
+
+    // Destroy SpawnPoint
+    Destroy(spawnPoint);
   }
 
   private Vector3 GetRandomSpawnPosition()
@@ -106,6 +119,11 @@ public class TimeManager : MonoBehaviour
   private void ClearEnemies()
   {
     Debug.Log("Cleared enemies of wave " + (currentWave - 1));
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    foreach (GameObject enemy in enemies)
+    {
+      ObjectPool.Instance.ReturnToPool("Enemy", enemy);
+    }
   }
 
   private void UpdateText()

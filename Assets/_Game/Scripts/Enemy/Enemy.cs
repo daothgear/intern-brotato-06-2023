@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 
   private PlayerHealth playerHealth;
   private Animator animator;
-  public bool isFacingRight = true;
+  public bool isFacingRight;
 
   public enum EnemyState
   {
@@ -51,7 +51,8 @@ public class Enemy : MonoBehaviour
   public void Flip()
   {
     isFacingRight = !isFacingRight;
-    transform.Rotate(0f , 180f , 0f);
+    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
   }
 
   private void Idle()
@@ -63,16 +64,17 @@ public class Enemy : MonoBehaviour
     }
   }
 
-  private void Walk()
+  public void Walk()
   {
-    if ( playerHealth != null )
+    if (playerHealth != null)
     {
-      transform.position = Vector3.MoveTowards(transform.position , playerHealth.transform.position , speed * Time.deltaTime);
+      transform.position = Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
 
       if ( transform.position.x > playerHealth.transform.position.x && isFacingRight )
       {
         Flip();
       }
+
       else if ( transform.position.x < playerHealth.transform.position.x && !isFacingRight )
       {
         Flip();
