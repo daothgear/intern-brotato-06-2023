@@ -1,5 +1,6 @@
 {
-    "characterInfo": [{
+    "characterInfo": [
+        {
             "characterID": 1,
             "exp": 10,
             "maxHP": 10,
@@ -7,183 +8,15 @@
         },
         {
             "characterID": 2,
-            "exp": 20,
-            "maxHP": 15,
-            "moveSpeed": 5.25
-        },
-        {
-            "characterID": 3,
-            "exp": 30,
-            "maxHP": 20,
-            "moveSpeed": 5.50
-        },
-        {
-            "characterID": 4,
-            "exp": 40,
-            "maxHP": 25,
-            "moveSpeed": 5.75
-        },
-        {
-            "characterID": 5,
-            "exp": 50,
-            "maxHP": 30,
+            "exp": 11,
+            "maxHP": 11,
             "moveSpeed": 6.0
         },
         {
-            "characterID": 6,
-            "exp": 60,
-            "maxHP": 35,
-            "moveSpeed": 6.25
-        },
-        {
-            "characterID": 7,
-            "exp": 70,
-            "maxHP": 40,
-            "moveSpeed": 6.50
-        },
-        {
-            "characterID": 8,
-            "exp": 80,
-            "maxHP": 45,
-            "moveSpeed": 6.75
-        },
-        {
-            "characterID": 9,
-            "exp": 90,
-            "maxHP": 50,
+            "characterID": 3,
+            "exp": 12,
+            "maxHP": 12,
             "moveSpeed": 7.0
-        },
-        {
-            "characterID": 10,
-            "exp": 100,
-            "maxHP": 55,
-            "moveSpeed": 7.25
-        },
-        {
-            "characterID": 11,
-            "exp": 110,
-            "maxHP": 60,
-            "moveSpeed": 7.50
-        },
-        {
-            "characterID": 12,
-            "exp": 120,
-            "maxHP": 65,
-            "moveSpeed": 7.75
-        },
-        {
-            "characterID": 13,
-            "exp": 130,
-            "maxHP": 70,
-            "moveSpeed": 8.0
-        },
-        {
-            "characterID": 14,
-            "exp": 140,
-            "maxHP": 75,
-            "moveSpeed": 8.25
-        },
-        {
-            "characterID": 15,
-            "exp": 150,
-            "maxHP": 80,
-            "moveSpeed": 8.50
-        },
-        {
-            "characterID": 16,
-            "exp": 160,
-            "maxHP": 85,
-            "moveSpeed": 8.75
-        },
-        {
-            "characterID": 17,
-            "exp": 170,
-            "maxHP": 90,
-            "moveSpeed": 9
-        },
-        {
-            "characterID": 18,
-            "exp": 180,
-            "maxHP": 95,
-            "moveSpeed": 9.25
-        },
-        {
-            "characterID": 19,
-            "exp": 190,
-            "maxHP": 100,
-            "moveSpeed": 9.50
-        },
-        {
-            "characterID": 20,
-            "exp": 200,
-            "maxHP": 105,
-            "moveSpeed": 9.75
-        },
-        {
-            "characterID": 21,
-            "exp": 210,
-            "maxHP": 110,
-            "moveSpeed": 10.0
-        },
-        {
-            "characterID": 22,
-            "exp": 220,
-            "maxHP": 115,
-            "moveSpeed": 10.25
-        },
-        {
-            "characterID": 23,
-            "exp": 230,
-            "maxHP": 120,
-            "moveSpeed": 10.50
-        },
-        {
-            "characterID": 24,
-            "exp": 240,
-            "maxHP": 125,
-            "moveSpeed": 10.75
-        },
-        {
-            "characterID": 25,
-            "exp": 250,
-            "maxHP": 130,
-            "moveSpeed": 11.0
-        },
-        {
-            "characterID": 26,
-            "exp": 260,
-            "maxHP": 135,
-            "moveSpeed": 11.25
-        },
-        {
-            "characterID": 27,
-            "exp": 270,
-            "maxHP": 140,
-            "moveSpeed": 11.50
-        },
-        {
-            "characterID": 28,
-            "exp": 280,
-            "maxHP": 145,
-            "moveSpeed": 11.75
-        },
-        {
-            "characterID": 29,
-            "exp": 290,
-            "maxHP": 150,
-            "moveSpeed": 12.0
-        },
-        {
-            "characterID": 30,
-            "exp": 300,
-            "maxHP": 155,
-            "moveSpeed": 12.25
-        },
-        {
-            "characterID": 31,
-            "exp": 310,
-            "maxHP": 160,
-            "moveSpeed": 12.50
         }
     ]
 }
