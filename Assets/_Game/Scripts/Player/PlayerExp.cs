@@ -1,4 +1,3 @@
-// Lớp PlayerExp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,15 +38,10 @@ public class PlayerExp : MonoBehaviour
     {
       characterLevel++;
       currentExp -= maxExp;
-      maxExp = CalculateMaxExp();
       playerLoader.LoadCharacterInfo(characterLevel);
     }
 
     UpdateExpUI();
   }
 
-  private int CalculateMaxExp()
-  {
-    return 100 + (characterLevel * 50);
-  }
 }

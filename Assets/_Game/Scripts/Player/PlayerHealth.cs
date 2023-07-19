@@ -8,14 +8,25 @@ public class PlayerHealth : MonoBehaviour
 
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
+  private PlayerExp playerExp;
 
   private void Start()
   {
     currentHealth = maxHealth;
+    playerExp = GetComponent<PlayerExp>();
+  }
+
+  private void FixUpdate()
+  {
+    maxHealth = playerExp.characterLevel + maxHealth;
+  }
+
+  private void Update()
+  {
     UpdateHealthUI();
   }
 
-  private void UpdateHealthUI()
+  public void UpdateHealthUI()
   {
     playerHealthSlider.maxValue = maxHealth;
     playerHealthSlider.value = currentHealth;

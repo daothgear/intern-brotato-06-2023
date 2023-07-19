@@ -8,8 +8,7 @@ public class TimeManager : MonoBehaviour
 
   public int numSubWaves = 3;
   public int numEnemiesPerWave = 10;
-  public float spawnDelay = 0.5f; // Thời gian trễ giữa việc spawn các enemy
-
+  public float spawnDelay = 0.5f;
   public Text waveText;
   public Text subWaveText;
   public Text countdownText;
@@ -24,8 +23,10 @@ public class TimeManager : MonoBehaviour
   [SerializeField] private GameObject enemyPrefab;
   [SerializeField] private GameObject spawnPointPrefab;
 
+  private PlayerHealth playerHealth;
   private void Start()
   {
+    playerHealth = FindAnyObjectByType<PlayerHealth>();
     StartWave();
   }
 
@@ -55,6 +56,7 @@ public class TimeManager : MonoBehaviour
     UpdateText();
   }
 
+
   private void StartNextSubWave()
   {
     currentSubWave++;
@@ -64,11 +66,12 @@ public class TimeManager : MonoBehaviour
       currentWave++;
       currentSubWave = 1;
       totalTimer = CalculateTotalTimer();
+      playerHealth.currentHealth = playerHealth.maxHealth;
+      playerHealth.UpdateHealthUI();
     }
     SpawnEnemies();
     timer = subWaveTimes[currentSubWave - 1];
   }
-
   private void SpawnEnemies()
   {
     int numEnemies = currentWave * numEnemiesPerWave * currentSubWave;
