@@ -19,7 +19,7 @@ public class PlayerLoader : MonoBehaviour
     LoadCharacterInfo(1);
   }
 
-  public void LoadCharacterInfo( int currentLevel )
+  public void LoadCharacterInfo(int currentLevel)
   {
     string characterLevelPath = Path.Combine(Application.streamingAssetsPath , "CharacterLevelData.json");
     if ( File.Exists(characterLevelPath) )
@@ -27,12 +27,12 @@ public class PlayerLoader : MonoBehaviour
       string characterLevelJson = File.ReadAllText(characterLevelPath);
       characterLevelData = JsonConvert.DeserializeObject<CharacterLevelData>(characterLevelJson);
 
-      foreach ( var characterInfo in characterLevelData.characterInfo )
+      foreach (var characterInfo in characterLevelData.characterInfo)
       {
-        if ( characterInfo.characterID == currentLevel )
+        if (characterInfo.characterID == currentLevel)
         {
           CharacterLevelData.CharacterInfo currentCharacterInfo = characterInfo;
-          Debug.Log("Character level data loaded successfully.");
+          //Debug.Log("Character level data loaded successfully.");
           playerMove.speed = currentCharacterInfo.moveSpeed;
           playerHealth.maxHealth = currentCharacterInfo.maxHP;
           playerExp.characterLevel = currentCharacterInfo.characterID;
@@ -41,7 +41,7 @@ public class PlayerLoader : MonoBehaviour
         }
       }
 
-      if ( characterLevelData == null )
+      if (characterLevelData == null)
       {
         Debug.LogError("Character info not found for level: " + currentLevel);
       }

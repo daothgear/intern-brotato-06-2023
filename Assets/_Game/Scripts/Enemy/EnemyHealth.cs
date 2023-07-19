@@ -5,7 +5,6 @@ public class EnemyHealth : MonoBehaviour
 {
   private Enemy enemy;
   private Vector3 startPosition;
-  private Quaternion startRotation;
   public int enemyExp;
   public float maxHealth;
   public float currentHealth;
@@ -15,14 +14,11 @@ public class EnemyHealth : MonoBehaviour
   {
     enemy = GetComponent<Enemy>();
     startPosition = transform.position;
-    startRotation = transform.rotation;
     currentHealth = maxHealth;
   }
 
   private void MakeDead()
   {
-    currentHealth = 0;
-    Debug.Log("mau ve 0 " + currentHealth);
     PlayerExp playerExp = FindObjectOfType<PlayerExp>();
     if ( playerExp != null )
     {
@@ -33,10 +29,11 @@ public class EnemyHealth : MonoBehaviour
     ResetEnemy();
   }
 
-  private void OnTriggerEnter2D( Collider2D collision )
+  private void OnTriggerEnter2D(Collider2D collision)
   {
     if ( collision.CompareTag("Player") )
     {
+      Debug.Log("Enemy hit player");
       MakeDead();
     }
   }

@@ -33,12 +33,12 @@ public class PlayerHealth : MonoBehaviour
     textHealth.text = currentHealth + "/" + maxHealth;
   }
 
-  public void TakeDamage( int damage )
+  public void TakeDamage(int damage)
   {
-    if ( currentHealth > 0 )
+    if (currentHealth > 0)
     {
       currentHealth -= damage;
-      if ( currentHealth <= 0 )
+      if (currentHealth <= 0)
       {
         currentHealth = 0;
         Die();
@@ -46,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
       UpdateHealthUI();
     }
   }
+
 
   private void Die()
   {
@@ -57,11 +58,8 @@ public class PlayerHealth : MonoBehaviour
     if ( collision.CompareTag("Enemy") )
     {
       Enemy enemy = collision.GetComponent<Enemy>();
-      if ( enemy != null )
-      {
-        enemy.currentState = Enemy.EnemyState.Attack;
-        TakeDamage(enemy.damageEnemy);
-      }
+      enemy.currentState = Enemy.EnemyState.Attack;
+      TakeDamage(enemy.damageEnemy);
     }
   }
 }

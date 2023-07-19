@@ -37,10 +37,6 @@ public class Enemy : MonoBehaviour
         break;
       case EnemyState.Walk:
         Walk();
-        animator.SetTrigger("Walk");
-        break;
-      case EnemyState.Attack:
-        Attack();
         break;
       case EnemyState.Dead:
         Dead();
@@ -52,20 +48,17 @@ public class Enemy : MonoBehaviour
   {
     isFacingRight = !isFacingRight;
     transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
   }
 
   private void Idle()
   {
-    currentState = EnemyState.Walk;
-    if ( animator != null )
-    {
-      animator.SetTrigger("Walk");
-    }
+    animator.SetTrigger("Walk");
+    Invoke("Walk", 0.5f);
   }
 
   public void Walk()
   {
+    
     if (playerHealth != null)
     {
       transform.position = Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
@@ -73,11 +66,13 @@ public class Enemy : MonoBehaviour
       if ( transform.position.x > playerHealth.transform.position.x && isFacingRight )
       {
         Flip();
+    
       }
 
       else if ( transform.position.x < playerHealth.transform.position.x && !isFacingRight )
       {
         Flip();
+        
       }
 
       float distanceToPlayer = Vector3.Distance(transform.position , playerHealth.transform.position);
@@ -85,15 +80,6 @@ public class Enemy : MonoBehaviour
       {
         currentState = EnemyState.Attack;
       }
-    }
-  }
-
-  private void Attack()
-  {
-    if ( playerHealth != null )
-    {
-      playerHealth.TakeDamage(damageEnemy);
-      currentState = EnemyState.Walk;
     }
   }
 

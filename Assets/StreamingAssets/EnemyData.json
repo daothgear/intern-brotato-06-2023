@@ -1,11 +1,9 @@
 {
-    "enemyInfo": [
-        {
-            "enemyID": 1,
-            "moveSpeed": 3.0,
-            "maxHP": 5,
-            "damage": 5,
-            "expEnemy": 1
-        }
-    ]
+    "enemyInfo": [{
+        "enemyID": 1,
+        "moveSpeed": 3.0,
+        "maxHP": 5,
+        "damage": 1,
+        "expEnemy": 1
+    }]
 }

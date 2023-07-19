@@ -80,7 +80,7 @@ public class TimeManager : MonoBehaviour
       float delayTime = i * spawnDelay;
       StartCoroutine(SpawnEnemyRandomWithDelay(delayTime));
     }
-    Debug.Log("Spawned " + numEnemies + " enemies.");
+    //Debug.Log("Spawned " + numEnemies + " enemies.");
   }
 
   private IEnumerator SpawnEnemyRandomWithDelay(float delayTime)

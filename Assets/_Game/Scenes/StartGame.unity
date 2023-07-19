@@ -23825,11 +23825,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subWaveTimes:
-  - 15
-  - 20
-  - 25
+  - 5
+  - 5
+  - 5
   numSubWaves: 3
-  numEnemiesPerWave: 10
+  numEnemiesPerWave: 1
   spawnDelay: 0.5
   waveText: {fileID: 1190333839}
   subWaveText: {fileID: 1143541130}
@@ -23856,7 +23856,7 @@ MonoBehaviour:
     size: 50
   - tag: Enemy
     prefab: {fileID: 2900440498428525068, guid: 6fc599b4efd394e77a90c98fb81b8ba5, type: 3}
-    size: 20
+    size: 500
 --- !u!1 &757682834
 GameObject:
   m_ObjectHideFlags: 0
