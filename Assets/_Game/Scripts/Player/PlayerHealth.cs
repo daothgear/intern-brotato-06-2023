@@ -1,28 +1,24 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
   public int maxHealth;
-  private int currentHealth;
+  public int currentHealth;
+
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
-
-  private Enemy enemy;
-
-  private void Awake()
-  {
-    enemy = FindAnyObjectByType<Enemy>();
-    if (enemy == null)
-    {
-      Debug.LogError("Enemy component not found on the same GameObject as PlayerHealth.");
-    }
-  }
+  private PlayerExp playerExp;
 
   private void Start()
   {
     currentHealth = maxHealth;
-    UpdateHealthUI();
+    playerExp = GetComponent<PlayerExp>();
+  }
+
+  private void FixUpdate()
+  {
+    maxHealth = playerExp.characterLevel + maxHealth;
   }
 
   private void Update()
@@ -30,32 +26,42 @@ public class PlayerHealth : MonoBehaviour
     UpdateHealthUI();
   }
 
-  public void ReceiveDamage(int damage)
-  {
-    currentHealth -= damage;
-    if (currentHealth <= 0)
-    {
-      MakeDead();
-    }
-  }
-
-  private void UpdateHealthUI()
+  public void UpdateHealthUI()
   {
     playerHealthSlider.maxValue = maxHealth;
     playerHealthSlider.value = currentHealth;
     textHealth.text = currentHealth + "/" + maxHealth;
   }
 
-  private void MakeDead()
+  public void TakeDamage( int damage )
   {
-    gameObject.SetActive(false);
+    if ( currentHealth > 0 )
+    {
+      currentHealth -= damage;
+      if ( currentHealth <= 0 )
+      {
+        currentHealth = 0;
+        Die();
+      }
+      UpdateHealthUI();
+    }
   }
 
-  private void OnTriggerEnter2D(Collider2D collision)
+  private void Die()
   {
-    if (collision.tag == "Enemy")
+    Debug.Log("Player died!");
+  }
+
+  private void OnTriggerEnter2D( Collider2D collision )
+  {
+    if ( collision.CompareTag("Enemy") )
     {
-       ReceiveDamage(enemy.damageEnemy);
+      Enemy enemy = collision.GetComponent<Enemy>();
+      if ( enemy != null )
+      {
+        enemy.currentState = Enemy.EnemyState.Attack;
+        TakeDamage(enemy.damageEnemy);
+      }
     }
   }
 }
