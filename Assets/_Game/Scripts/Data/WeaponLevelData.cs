@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class WeaponLevelData
-{
+public class WeaponLevelData {
   public WeaponInfo[] weaponInfo;
+
   [System.Serializable]
-  public class WeaponInfo
-  {
+  public class WeaponInfo {
     public int weaponID;
     public int cost;
     public int damage;

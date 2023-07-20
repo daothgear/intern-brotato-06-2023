@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
   private EnemyLoader enemyLoader;
 
   public float speed;
@@ -22,7 +21,7 @@ public class Enemy : MonoBehaviour
   private void Start() {
     animator = GetComponentInChildren<Animator>();
     enemyLoader = GetComponent<EnemyLoader>();
-    playerHealth = GameObject.FindObjectOfType<PlayerHealth>(); 
+    playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
     currentState = EnemyState.Idle;
   }
 
@@ -50,15 +49,18 @@ public class Enemy : MonoBehaviour
     Invoke("Walk", 0.5f);
   }
 
-  public void Walk() {  
+  public void Walk() {
     if (playerHealth != null) {
-      transform.position = Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
+      transform.position =
+          Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
       if (transform.position.x > playerHealth.transform.position.x && isFacingRight) {
         Flip();
-      } else if (transform.position.x < playerHealth.transform.position.x && !isFacingRight) {
-        Flip();  
       }
-      float distanceToPlayer = Vector3.Distance(transform.position , playerHealth.transform.position);
+      else if (transform.position.x < playerHealth.transform.position.x && !isFacingRight) {
+        Flip();
+      }
+
+      float distanceToPlayer = Vector3.Distance(transform.position, playerHealth.transform.position);
       if (distanceToPlayer <= 1f) {
         currentState = EnemyState.Attack;
       }

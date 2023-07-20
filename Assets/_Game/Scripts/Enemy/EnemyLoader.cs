@@ -2,8 +2,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class EnemyLoader : MonoBehaviour
-{
+public class EnemyLoader : MonoBehaviour {
   private EnemyLoader enemyLoader;
   private EnemyData enemyData;
   private Enemy enemy;
@@ -37,7 +36,8 @@ public class EnemyLoader : MonoBehaviour
           break;
         }
       }
-    } else {
+    }
+    else {
       Debug.LogError("File not found: " + enemyDataPath);
     }
   }

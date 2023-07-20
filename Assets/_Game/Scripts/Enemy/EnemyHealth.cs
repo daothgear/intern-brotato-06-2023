@@ -1,8 +1,7 @@
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
-{
+public class EnemyHealth : MonoBehaviour {
   private Enemy enemy;
   private Vector3 startPosition;
   public int enemyExp;
@@ -21,6 +20,7 @@ public class EnemyHealth : MonoBehaviour
     if (playerExp != null) {
       playerExp.AddExp(enemyExp);
     }
+
     ObjectPool.Instance.SpawnFromPool("Coin", transform.position, Quaternion.identity);
     ResetEnemy();
   }

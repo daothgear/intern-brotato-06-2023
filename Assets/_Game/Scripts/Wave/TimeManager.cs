@@ -3,8 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeManager : MonoBehaviour
-{
+public class TimeManager : MonoBehaviour {
   public WaveDataLoader waveDataLoader;
 
   public float[] subWaveTimes;
@@ -41,19 +40,20 @@ public class TimeManager : MonoBehaviour
       if (timer <= 0f) {
         StartNextSubWave();
       }
+
       UpdateText();
     }
   }
 
-  private void LoadWaveData()
-  {
+  private void LoadWaveData() {
     if (waveDataLoader != null) {
       WaveData waveData = waveDataLoader.waveData;
       subWaveTimes = waveData.subWaveTimes;
       numSubWaves = waveData.numSubWaves;
       numEnemiesPerWave = waveData.numEnemiesPerWave;
       spawnDelay = waveData.spawnDelay;
-    } else {
+    }
+    else {
       Debug.LogError("WaveDataLoader is not assigned in TimeManager.");
     }
   }
@@ -61,7 +61,7 @@ public class TimeManager : MonoBehaviour
   private void StartWave() {
     currentWave = 1;
     currentSubWave = 1;
-    timer = subWaveTimes[ currentSubWave - 1 ];
+    timer = subWaveTimes[currentSubWave - 1];
     totalTimer = CalculateTotalTimer();
     SpawnEnemies();
     UpdateText();
@@ -77,6 +77,7 @@ public class TimeManager : MonoBehaviour
       playerHealth.currentHealth = playerHealth.maxHealth;
       playerHealth.UpdateHealthUI();
     }
+
     SpawnEnemies();
     timer = subWaveTimes[currentSubWave - 1];
   }
@@ -121,7 +122,7 @@ public class TimeManager : MonoBehaviour
 
   private void ClearEnemies() {
     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    foreach ( GameObject enemy in enemies ) {
+    foreach (GameObject enemy in enemies) {
       ObjectPool.Instance.ReturnToPool("Enemy", enemy);
     }
   }
@@ -136,8 +137,9 @@ public class TimeManager : MonoBehaviour
   private float CalculateTotalTimer() {
     float total = 0f;
     for (int i = 0; i < numSubWaves; i++) {
-      total += subWaveTimes[ i ];
+      total += subWaveTimes[i];
     }
+
     return total;
   }
 }

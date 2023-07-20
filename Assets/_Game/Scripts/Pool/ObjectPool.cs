@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ObjectPool : Singleton<ObjectPool>
-{
+public class ObjectPool : Singleton<ObjectPool> {
   [System.Serializable]
   public class Pool {
     public string tag;
@@ -20,12 +19,14 @@ public class ObjectPool : Singleton<ObjectPool>
       Queue<GameObject> objectPool = new Queue<GameObject>();
       for (int i = 0; i < pool.size; i++) {
         GameObject obj = Instantiate(pool.prefab);
-        if (obj == null) {
+        if (obj == null) {
           Debug.LogError("Null ");
         }
+
         obj.SetActive(false);
         objectPool.Enqueue(obj);
       }
+
       poolDictionary.Add(pool.tag, objectPool);
     }
   }
@@ -35,6 +36,7 @@ public class ObjectPool : Singleton<ObjectPool>
       Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
       return null;
     }
+
     GameObject objectToSpawn = poolDictionary[tag].Dequeue();
     objectToSpawn.SetActive(true);
     objectToSpawn.transform.position = position;
@@ -43,6 +45,7 @@ public class ObjectPool : Singleton<ObjectPool>
     if (pooledObject != null) {
       pooledObject.OnObjectSpawn();
     }
+
     return objectToSpawn;
   }
 
@@ -53,6 +56,7 @@ public class ObjectPool : Singleton<ObjectPool>
       poolDictionary[tag].Enqueue(objectToReturn);
       return;
     }
+
     objectToReturn.SetActive(false);
     poolDictionary[tag].Enqueue(objectToReturn);
   }

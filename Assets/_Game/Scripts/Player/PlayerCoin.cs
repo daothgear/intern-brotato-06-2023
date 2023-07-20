@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCoin : MonoBehaviour
-{
+public class PlayerCoin : MonoBehaviour {
   [SerializeField] private int coinAmount;
   [SerializeField] private Text textCoin;
 

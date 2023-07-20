@@ -2,8 +2,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class PlayerLoader : MonoBehaviour
-{
+public class PlayerLoader : MonoBehaviour {
   private CharacterLevelData characterLevelData;
   private PlayerMove playerMove;
   private PlayerHealth playerHealth;
@@ -17,7 +16,7 @@ public class PlayerLoader : MonoBehaviour
   }
 
   public void LoadCharacterInfo(int currentLevel) {
-    string characterLevelPath = Path.Combine(Application.streamingAssetsPath , "CharacterLevelData.json");
+    string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
     if (File.Exists(characterLevelPath)) {
       string characterLevelJson = File.ReadAllText(characterLevelPath);
       characterLevelData = JsonConvert.DeserializeObject<CharacterLevelData>(characterLevelJson);
@@ -32,10 +31,12 @@ public class PlayerLoader : MonoBehaviour
           break;
         }
       }
+
       if (characterLevelData == null) {
         Debug.LogError("Character info not found for level: " + currentLevel);
       }
-    } else {
+    }
+    else {
       Debug.LogError("File not found: " + characterLevelPath);
     }
   }

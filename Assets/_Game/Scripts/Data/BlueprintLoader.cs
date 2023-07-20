@@ -4,16 +4,14 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-public class BlueprintLoader : MonoBehaviour
-{
+public class BlueprintLoader : MonoBehaviour {
   public CharacterLevelData characterLevelData;
   public WeaponLevelData weaponLevelData;
   public WaveData waveData;
   public EnemyData enemyData;
 
   [ContextMenu("OutputJson")]
-  public void OutputJson()
-  {
+  public void OutputJson() {
     string characterLevelJson = JsonUtility.ToJson(characterLevelData, true);
     string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
     File.WriteAllText(characterLevelPath, characterLevelJson);
@@ -31,18 +29,15 @@ public class BlueprintLoader : MonoBehaviour
     File.WriteAllText(enemyDataPath, enemyDataJson);
   }
 
-  public void LoadJson()
-  {
+  public void LoadJson() {
     string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
-    if (File.Exists(characterLevelPath))
-    {
+    if (File.Exists(characterLevelPath)) {
       string characterLevelJson = File.ReadAllText(characterLevelPath);
       JsonUtility.FromJsonOverwrite(characterLevelJson, characterLevelData);
       Debug.Log(characterLevelJson);
       Debug.Log("Character level data loaded successfully.");
     }
-    else
-    {
+    else {
       Debug.LogError("File not found: " + characterLevelPath);
     }
   }

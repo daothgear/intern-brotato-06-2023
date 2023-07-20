@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerExp : MonoBehaviour
-{
+public class PlayerExp : MonoBehaviour {
   public int characterLevel;
   public int maxExp;
   [SerializeField] private int currentExp;
@@ -34,6 +33,7 @@ public class PlayerExp : MonoBehaviour
       currentExp -= maxExp;
       playerLoader.LoadCharacterInfo(characterLevel);
     }
+
     UpdateExpUI();
   }
 }

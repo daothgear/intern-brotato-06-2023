@@ -23,11 +23,13 @@ public class SetCanvasBounds : MonoBehaviour {
   //Check iphoneX
   private static bool isCheckDevice = false;
   private static bool _isIphoneX = false;
+
   public static bool isIPhoneX {
     get {
-      if(isCheckDevice) {
+      if (isCheckDevice) {
         return _isIphoneX;
-      } else {
+      }
+      else {
         return IsIphoneX();
       }
     }
@@ -53,8 +55,8 @@ public class SetCanvasBounds : MonoBehaviour {
 
   // Use this for initialization
   void Awake() {
-    if(isIPhoneX) {
-      if(isAutoSetup) {
+    if (isIPhoneX) {
+      if (isAutoSetup) {
         Setup();
       }
     }
@@ -63,10 +65,11 @@ public class SetCanvasBounds : MonoBehaviour {
   public void Setup() {
     //Set Canvas Scale
     CanvasScaler scaler = gameObject.GetComponent<CanvasScaler>();
-    if(scaler != null) {
-      if(isBackground) {
+    if (scaler != null) {
+      if (isBackground) {
         scaler.matchWidthOrHeight = scaleBackground;
-      } else {
+      }
+      else {
         scaler.matchWidthOrHeight = scaleCanvas;
       }
     }
@@ -81,7 +84,7 @@ public class SetCanvasBounds : MonoBehaviour {
     return true;
 #endif
 
-    if(((float)Screen.width / Screen.height) < 0.52f) {
+    if (((float)Screen.width / Screen.height) < 0.52f) {
       result = true;
 
       //show status bar for iphoneX
@@ -92,7 +95,7 @@ public class SetCanvasBounds : MonoBehaviour {
 
     _isIphoneX = result;
 
-    if(result) {
+    if (result) {
       CalculateNewScale();
     }
 
