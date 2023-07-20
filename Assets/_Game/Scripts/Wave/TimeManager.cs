@@ -1,9 +1,11 @@
 ﻿using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeManager : MonoBehaviour
-{
+public class TimeManager : MonoBehaviour {
+  public WaveDataLoader waveDataLoader;
+
   public float[] subWaveTimes;
 
   public int numSubWaves = 3;
@@ -24,21 +26,18 @@ public class TimeManager : MonoBehaviour
   [SerializeField] private GameObject spawnPointPrefab;
 
   private PlayerHealth playerHealth;
-  private void Start()
-  {
-    playerHealth = FindAnyObjectByType<PlayerHealth>();
+
+  private void Start() {
+    playerHealth = FindObjectOfType<PlayerHealth>();
+    LoadWaveData();
     StartWave();
   }
 
-  private void Update()
-  {
-    if (timer > 0f)
-    {
+  private void Update() {
+    if (timer > 0f) {
       timer -= Time.deltaTime;
       totalTimer -= Time.deltaTime;
-
-      if (timer <= 0f)
-      {
+      if (timer <= 0f) {
         StartNextSubWave();
       }
 
@@ -46,8 +45,20 @@ public class TimeManager : MonoBehaviour
     }
   }
 
-  private void StartWave()
-  {
+  private void LoadWaveData() {
+    if (waveDataLoader != null) {
+      WaveData waveData = waveDataLoader.waveData;
+      subWaveTimes = waveData.subWaveTimes;
+      numSubWaves = waveData.numSubWaves;
+      numEnemiesPerWave = waveData.numEnemiesPerWave;
+      spawnDelay = waveData.spawnDelay;
+    }
+    else {
+      Debug.LogError("WaveDataLoader is not assigned in TimeManager.");
+    }
+  }
+
+  private void StartWave() {
     currentWave = 1;
     currentSubWave = 1;
     timer = subWaveTimes[currentSubWave - 1];
@@ -56,12 +67,9 @@ public class TimeManager : MonoBehaviour
     UpdateText();
   }
 
-
-  private void StartNextSubWave()
-  {
+  private void StartNextSubWave() {
     currentSubWave++;
-    if (currentSubWave > numSubWaves)
-    {
+    if (currentSubWave > numSubWaves) {
       ClearEnemies();
       currentWave++;
       currentSubWave = 1;
@@ -69,46 +77,39 @@ public class TimeManager : MonoBehaviour
       playerHealth.currentHealth = playerHealth.maxHealth;
       playerHealth.UpdateHealthUI();
     }
+
     SpawnEnemies();
     timer = subWaveTimes[currentSubWave - 1];
   }
-  private void SpawnEnemies()
-  {
+
+  private void SpawnEnemies() {
     int numEnemies = currentWave * numEnemiesPerWave * currentSubWave;
-    for (int i = 0; i < numEnemies; i++)
-    {
+    for (int i = 0; i < numEnemies; i++) {
       float delayTime = i * spawnDelay;
       StartCoroutine(SpawnEnemyRandomWithDelay(delayTime));
     }
-    Debug.Log("Spawned " + numEnemies + " enemies.");
   }
 
-  private IEnumerator SpawnEnemyRandomWithDelay(float delayTime)
-  {
+  private IEnumerator SpawnEnemyRandomWithDelay(float delayTime) {
     yield return new WaitForSeconds(delayTime);
     SpawnEnemyRandom();
   }
 
-  private void SpawnEnemyRandom()
-  {
+  private void SpawnEnemyRandom() {
     Vector3 spawnPosition = GetRandomSpawnPosition();
     GameObject spawnPoint = Instantiate(spawnPointPrefab, spawnPosition, Quaternion.identity);
     StartCoroutine(SpawnEnemyWithDelay(spawnPoint));
   }
 
-  private IEnumerator SpawnEnemyWithDelay(GameObject spawnPoint)
-  {
+  private IEnumerator SpawnEnemyWithDelay(GameObject spawnPoint) {
     yield return new WaitForSeconds(spawnDelay);
-
     // Spawn enemy
     ObjectPool.Instance.SpawnFromPool("Enemy", spawnPoint.transform.position, Quaternion.identity);
-
     // Destroy SpawnPoint
     Destroy(spawnPoint);
   }
 
-  private Vector3 GetRandomSpawnPosition()
-  {
+  private Vector3 GetRandomSpawnPosition() {
     Collider2D wallCollider = wallCheck.GetComponent<Collider2D>();
     Vector3 wallSize = wallCollider.bounds.size;
     Vector3 spawnPosition = wallCheck.transform.position + new Vector3(
@@ -119,31 +120,26 @@ public class TimeManager : MonoBehaviour
     return spawnPosition;
   }
 
-  private void ClearEnemies()
-  {
-    Debug.Log("Cleared enemies of wave " + (currentWave - 1));
+  private void ClearEnemies() {
     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    foreach (GameObject enemy in enemies)
-    {
+    foreach (GameObject enemy in enemies) {
       ObjectPool.Instance.ReturnToPool("Enemy", enemy);
     }
   }
 
-  private void UpdateText()
-  {
+  private void UpdateText() {
     waveText.text = "Wave: " + currentWave.ToString();
     subWaveText.text = "Sub wave: " + currentSubWave.ToString() + " / " + numSubWaves.ToString();
     countdownText.text = "Countdown: " + Mathf.Round(timer).ToString() + "s";
     totalTimerText.text = "Total Timer: " + Mathf.Round(totalTimer).ToString() + "s";
   }
 
-  private float CalculateTotalTimer()
-  {
+  private float CalculateTotalTimer() {
     float total = 0f;
-    for (int i = 0; i < numSubWaves; i++)
-    {
+    for (int i = 0; i < numSubWaves; i++) {
       total += subWaveTimes[i];
     }
+
     return total;
   }
 }

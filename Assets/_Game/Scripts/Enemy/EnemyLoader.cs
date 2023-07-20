@@ -2,31 +2,25 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class EnemyLoader : MonoBehaviour
-{
+public class EnemyLoader : MonoBehaviour {
   private EnemyLoader enemyLoader;
   private EnemyData enemyData;
   private Enemy enemy;
   private EnemyHealth enemyHealth;
-  private void Awake()
-  {
+
+  private void Awake() {
     enemy = GetComponent<Enemy>();
     enemyHealth = GetComponent<EnemyHealth>();
     LoadEnemyInfo(1);
   }
 
-  public void LoadEnemyInfo(int enemyID)
-  {
+  public void LoadEnemyInfo(int enemyID) {
     string enemyDataPath = Path.Combine(Application.streamingAssetsPath, "EnemyData.json");
-    if (File.Exists(enemyDataPath))
-    {
+    if (File.Exists(enemyDataPath)) {
       string enemyDataJson = File.ReadAllText(enemyDataPath);
       enemyData = JsonConvert.DeserializeObject<EnemyData>(enemyDataJson);
-
-      foreach (var enemyInfo in enemyData.enemyInfo)
-      {
-        if (enemyInfo.enemyID == enemyID)
-        {
+      foreach (var enemyInfo in enemyData.enemyInfo) {
+        if (enemyInfo.enemyID == enemyID) {
           EnemyData.EnemyInfo currentEnemyInfo = enemyInfo;
           enemy.speed = currentEnemyInfo.moveSpeed;
           enemyHealth.maxHealth = currentEnemyInfo.maxHP;
@@ -42,14 +36,8 @@ public class EnemyLoader : MonoBehaviour
           break;
         }
       }
-
-      if (enemyData == null)
-      {
-        Debug.LogError("Enemy info not found for enemy ID: " + enemyID);
-      }
     }
-    else
-    {
+    else {
       Debug.LogError("File not found: " + enemyDataPath);
     }
   }

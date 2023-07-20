@@ -1,23 +1,10 @@
 {
-    "waveInfo": [
-        {
-            "waveID": 1,
-            "totalTime": 60.0,
-            "weaponBuyableAfterFinish": 0.0,
-            "subWaves": [
-                {
-                    "duration": 5.0,
-                    "numEnemies": 5
-                },
-                {
-                    "duration": 5.0,
-                    "numEnemies": 5
-                },
-                {
-                    "duration": 5.0,
-                    "numEnemies": 5
-                }
-            ]
-        }
-    ]
+    "subWaveTimes": [
+        5.0,
+        5.0,
+        5.0
+    ],
+    "numSubWaves": 1,
+    "numEnemiesPerWave": 15,
+    "spawnDelay": 0.5
 }

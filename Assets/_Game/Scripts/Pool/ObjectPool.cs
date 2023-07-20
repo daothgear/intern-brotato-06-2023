@@ -1,11 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ObjectPool : Singleton<ObjectPool>
-{
+public class ObjectPool : Singleton<ObjectPool> {
   [System.Serializable]
-  public class Pool
-  {
+  public class Pool {
     public string tag;
     public GameObject prefab;
     public int size;
@@ -14,21 +12,17 @@ public class ObjectPool : Singleton<ObjectPool>
   public List<Pool> pools;
   public Dictionary<string, Queue<GameObject>> poolDictionary;
 
-  void Start()
-  {
+  void Start() {
     poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
-    foreach (Pool pool in pools)
-    {
+    foreach (Pool pool in pools) {
       Queue<GameObject> objectPool = new Queue<GameObject>();
-
-      for (int i = 0; i < pool.size; i++)
-      {
+      for (int i = 0; i < pool.size; i++) {
         GameObject obj = Instantiate(pool.prefab);
-        if (obj == null)
-        {
+        if (obj == null) {
           Debug.LogError("Null ");
         }
+
         obj.SetActive(false);
         objectPool.Enqueue(obj);
       }
@@ -37,33 +31,26 @@ public class ObjectPool : Singleton<ObjectPool>
     }
   }
 
-  public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
-  {
-    if (!poolDictionary.ContainsKey(tag))
-    {
+  public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation) {
+    if (!poolDictionary.ContainsKey(tag)) {
       Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
       return null;
     }
 
     GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-
     objectToSpawn.SetActive(true);
     objectToSpawn.transform.position = position;
     objectToSpawn.transform.rotation = rotation;
-
     IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
-
-    if (pooledObject != null)
-    {
+    if (pooledObject != null) {
       pooledObject.OnObjectSpawn();
     }
+
     return objectToSpawn;
   }
 
-  public void ReturnToPool(string tag, GameObject objectToReturn)
-  {
-    if (!poolDictionary.ContainsKey(tag))
-    {
+  public void ReturnToPool(string tag, GameObject objectToReturn) {
+    if (!poolDictionary.ContainsKey(tag)) {
       Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
       objectToReturn.SetActive(false);
       poolDictionary[tag].Enqueue(objectToReturn);
@@ -71,8 +58,6 @@ public class ObjectPool : Singleton<ObjectPool>
     }
 
     objectToReturn.SetActive(false);
-
     poolDictionary[tag].Enqueue(objectToReturn);
   }
-
 }

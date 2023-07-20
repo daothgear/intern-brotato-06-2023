@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerExp : MonoBehaviour
-{
+public class PlayerExp : MonoBehaviour {
   public int characterLevel;
   public int maxExp;
   [SerializeField] private int currentExp;
@@ -11,31 +10,25 @@ public class PlayerExp : MonoBehaviour
 
   private PlayerLoader playerLoader;
 
-  private void Start()
-  {
+  private void Start() {
     playerLoader = GetComponent<PlayerLoader>();
     currentExp = 0;
     UpdateExpUI();
   }
 
-  private void Update()
-  {
+  private void Update() {
     UpdateExpUI();
   }
 
-  private void UpdateExpUI()
-  {
+  private void UpdateExpUI() {
     playerExpSlider.maxValue = maxExp;
     playerExpSlider.value = currentExp;
     textExp.text = "LV." + characterLevel;
   }
 
-  public void AddExp(int expAmount)
-  {
+  public void AddExp(int expAmount) {
     currentExp += expAmount;
-
-    while (currentExp >= maxExp)
-    {
+    while (currentExp >= maxExp) {
       characterLevel++;
       currentExp -= maxExp;
       playerLoader.LoadCharacterInfo(characterLevel);
@@ -43,5 +36,4 @@ public class PlayerExp : MonoBehaviour
 
     UpdateExpUI();
   }
-
 }

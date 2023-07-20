@@ -23790,6 +23790,7 @@ GameObject:
   - component: {fileID: 617973923}
   - component: {fileID: 617973924}
   - component: {fileID: 617973925}
+  - component: {fileID: 617973926}
   m_Layer: 0
   m_Name: WaveController
   m_TagString: Untagged
@@ -23824,12 +23825,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eadeca4241874c43b49736d8b327612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveDataLoader: {fileID: 617973926}
   subWaveTimes:
-  - 15
-  - 20
-  - 25
+  - 0
+  - 0
+  - 0
   numSubWaves: 3
-  numEnemiesPerWave: 10
+  numEnemiesPerWave: 1
   spawnDelay: 0.5
   waveText: {fileID: 1190333839}
   subWaveText: {fileID: 1143541130}
@@ -23856,7 +23858,27 @@ MonoBehaviour:
     size: 50
   - tag: Enemy
     prefab: {fileID: 2900440498428525068, guid: 6fc599b4efd394e77a90c98fb81b8ba5, type: 3}
-    size: 20
+    size: 500
+--- !u!114 &617973926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617973921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ddbb0fbca5f81340859be1bc0972b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveData:
+    subWaveTimes:
+    - 5
+    - 5
+    - 5
+    numSubWaves: 3
+    numEnemiesPerWave: 15
+    spawnDelay: 0.5
 --- !u!1 &757682834
 GameObject:
   m_ObjectHideFlags: 0

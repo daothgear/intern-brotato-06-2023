@@ -366,7 +366,7 @@ Transform:
   m_GameObject: {fileID: 2900440498428525068}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10.19, y: 0.92433846, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: -0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2900440499164586145}
@@ -407,7 +407,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.24561548, y: 0.11092335}
+  m_Offset: {x: -0.24144506, y: 0.010854781}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -418,7 +418,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1392312, y: 2.6796937}
+  m_Size: {x: 1.7299342, y: 1.5622631}
   m_EdgeRadius: 0
 --- !u!114 &7908091039727110511
 MonoBehaviour:
@@ -446,6 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   damageEnemy: 0
+  isFacingRight: 0
   currentState: 3
 --- !u!114 &8546123835671570202
 MonoBehaviour:
@@ -462,8 +463,6 @@ MonoBehaviour:
   enemyExp: 0
   maxHealth: 0
   currentHealth: 0
-  drop: 1
-  coinItem: {fileID: 1177456871395797748, guid: f71f8bcc98d8547f1afc9b5806b17f72, type: 3}
 --- !u!1 &2900440498496111427
 GameObject:
   m_ObjectHideFlags: 0
