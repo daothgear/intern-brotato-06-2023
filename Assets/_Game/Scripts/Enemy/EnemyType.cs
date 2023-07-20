@@ -5,8 +5,7 @@ using UnityEngine;
 public class EnemyType : MonoBehaviour
 {
     private Type currentType;
-    private enum Type
-    {
+    private enum Type {
         TankEnemy,
         SuicideEnemy,
         RangedEnemy

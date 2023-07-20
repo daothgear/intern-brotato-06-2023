@@ -8,20 +8,18 @@ public class PlayerCoin : MonoBehaviour
   [SerializeField] private int coinAmount;
   [SerializeField] private Text textCoin;
 
-  private void Start()
-  {
+  private void Start() {
     coinAmount = 0;
   }
-  private void Update()
-  {
+
+  private void Update() {
     textCoin.text = coinAmount.ToString();
   }
-  private void OnTriggerEnter2D(Collider2D collision)
-  {
-    if (collision.tag == "Coin")
-    {
+
+  private void OnTriggerEnter2D(Collider2D collision) {
+    if (collision.tag == "Coin") {
       coinAmount++;
-      ObjectPool.Instance.ReturnToPool("Coin" , collision.gameObject);
+      ObjectPool.Instance.ReturnToPool("Coin", collision.gameObject);
       Debug.Log("Coin return done");
     }
   }

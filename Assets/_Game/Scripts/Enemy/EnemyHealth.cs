@@ -10,48 +10,39 @@ public class EnemyHealth : MonoBehaviour
   public float currentHealth;
   private Animator animator;
 
-  private void Start()
-  {
+  private void Start() {
     enemy = GetComponent<Enemy>();
     startPosition = transform.position;
     currentHealth = maxHealth;
   }
 
-  private void MakeDead()
-  {
+  private void MakeDead() {
     PlayerExp playerExp = FindObjectOfType<PlayerExp>();
-    if ( playerExp != null )
-    {
+    if (playerExp != null) {
       playerExp.AddExp(enemyExp);
     }
-
-    ObjectPool.Instance.SpawnFromPool("Coin" , transform.position , Quaternion.identity);
+    ObjectPool.Instance.SpawnFromPool("Coin", transform.position, Quaternion.identity);
     ResetEnemy();
   }
 
-  private void OnTriggerEnter2D(Collider2D collision)
-  {
-    if ( collision.CompareTag("Player") )
-    {
+  private void OnTriggerEnter2D(Collider2D collision) {
+    if (collision.CompareTag("Player")) {
       Debug.Log("Enemy hit player");
       MakeDead();
     }
   }
 
-  public void ResetEnemy()
-  {
+  public void ResetEnemy() {
     ResetHealth();
     ResetEnemyState();
-    ObjectPool.Instance.ReturnToPool("Enemy" , gameObject);
+    ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
   }
 
-  private void ResetEnemyState()
-  {
+  private void ResetEnemyState() {
     enemy.currentState = Enemy.EnemyState.Idle;
   }
 
-  private void ResetHealth()
-  {
+  private void ResetHealth() {
     currentHealth = maxHealth;
   }
 }
