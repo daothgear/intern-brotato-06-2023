@@ -8,9 +8,9 @@ public class TimeManager : MonoBehaviour {
 
   public float[] subWaveTimes;
 
-  public int numSubWaves = 3;
-  public int numEnemiesPerWave = 10;
-  public float spawnDelay = 0.5f;
+  public int numSubWaves;
+  public int numEnemiesPerWave;
+  public float spawnDelay;
   public Text waveText;
   public Text subWaveText;
   public Text countdownText;

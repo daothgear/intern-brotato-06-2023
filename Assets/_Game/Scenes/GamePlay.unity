@@ -1145,7 +1145,7 @@ MonoBehaviour:
     - 5
     - 5
     - 5
-    numSubWaves: 1
+    numSubWaves: 3
     numEnemiesPerWave: 15
     spawnDelay: 0.5
   enemyData:
@@ -1376,7 +1376,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.61005, y: 312.89}
+  m_AnchoredPosition: {x: -430.61, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996
