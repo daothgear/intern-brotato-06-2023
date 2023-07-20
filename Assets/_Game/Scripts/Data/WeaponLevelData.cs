@@ -9,6 +9,7 @@ public class WeaponLevelData {
   [System.Serializable]
   public class WeaponInfo {
     public int weaponID;
+    public int currentlevel;
     public int cost;
     public int damage;
     public float attackRange;
