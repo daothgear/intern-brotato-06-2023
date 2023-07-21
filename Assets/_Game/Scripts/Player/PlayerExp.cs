@@ -11,7 +11,7 @@ public class PlayerExp : MonoBehaviour {
   private PlayerLoader playerLoader;
 
   private void Start() {
-    playerLoader = GetComponent<PlayerLoader>();
+    playerLoader = FindObjectOfType<PlayerLoader>();
     currentExp = 0;
     UpdateExpUI();
   }

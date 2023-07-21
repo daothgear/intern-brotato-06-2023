@@ -9,9 +9,9 @@ public class PlayerLoader : MonoBehaviour {
   private PlayerExp playerExp;
 
   private void Awake() {
-    playerMove = GetComponent<PlayerMove>();
-    playerHealth = GetComponent<PlayerHealth>();
-    playerExp = GetComponent<PlayerExp>();
+    playerMove = FindObjectOfType<PlayerMove>();
+    playerHealth = FindObjectOfType<PlayerHealth>();
+    playerExp = FindObjectOfType<PlayerExp>();
     LoadCharacterInfo(1);
   }
 

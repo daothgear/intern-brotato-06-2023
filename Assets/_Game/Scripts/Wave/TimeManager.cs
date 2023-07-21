@@ -28,6 +28,7 @@ public class TimeManager : MonoBehaviour {
   private PlayerHealth playerHealth;
 
   private void Start() {
+    waveDataLoader = FindObjectOfType<WaveDataLoader>();
     playerHealth = FindObjectOfType<PlayerHealth>();
     LoadWaveData();
     StartWave();
