@@ -1,43 +1,51 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour {
-  [SerializeField] private int currentID;
-  [SerializeField] private int currentLevel;
-  [SerializeField] private GameObject bullets;
-  [SerializeField] private int speedBullets;
-  [SerializeField] private float rangeAttack;
+  public GameObject bulletPrefab;
+  public float fireRate = 0.5f;
+  public float shootingRange = 10f;
 
-  public WeaponType weaponType;
+  private float fireTimer;
 
-  public enum WeaponType {
-    Smg,
-    Piston
-  }
+  void Update() {
+    fireTimer += Time.deltaTime;
 
-  public WeaponState weaponState;
+    if (fireTimer >= fireRate) {
+      fireTimer = 0f;
 
-  public enum WeaponState {
-    Idle,
-    Attack
-  }
-
-  private void Update() {
-    switch (weaponState) {
-      case WeaponState.Idle:
-        Idle();
-        break;
-      case WeaponState.Attack:
-        Attack();
-        break;
+      FindAndFireAtTarget();
     }
   }
 
-  private void Idle() {
+  void FindAndFireAtTarget() {
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+    Transform nearestEnemy = null;
+    float minDistance = Mathf.Infinity;
+
+    foreach (GameObject enemy in enemies) {
+      float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+      if (distanceToEnemy <= shootingRange) {
+        if (distanceToEnemy < minDistance) {
+          nearestEnemy = enemy.transform;
+          minDistance = distanceToEnemy;
+        }
+      }
+    }
+
+    if (nearestEnemy != null) {
+      FireBulletTowardsEnemy(nearestEnemy);
+    }
   }
 
-  private void Attack() {
+  void FireBulletTowardsEnemy(Transform targetEnemy) {
+    GameObject bulletObject = Instantiate(bulletPrefab, transform.position, transform.rotation);
+    Bullets bulletController = bulletObject.GetComponent<Bullets>();
+    bulletController.SetTarget(targetEnemy);
+  }
+
+  private void OnDrawGizmosSelected() {
+    Gizmos.color = Color.red;
+    Gizmos.DrawWireSphere(transform.position, shootingRange);
   }
 }

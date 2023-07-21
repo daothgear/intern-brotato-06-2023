@@ -1242,7 +1242,7 @@ MonoBehaviour:
     - 10
     - 15
     numSubWaves: 3
-    numEnemiesPerWave: 15
+    numEnemiesPerWave: 3
     spawnDelay: 0.5
   enemyData:
     enemyInfo:
