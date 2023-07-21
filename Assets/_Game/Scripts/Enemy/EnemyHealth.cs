@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
@@ -8,6 +9,11 @@ public class EnemyHealth : MonoBehaviour {
   public float maxHealth;
   public float currentHealth;
   private Animator animator;
+  private Bullets bullet;
+
+  private void Awake() {
+    bullet = FindObjectOfType<Bullets>();
+  }
 
   private void Start() {
     enemy = GetComponent<Enemy>();
@@ -26,8 +32,20 @@ public class EnemyHealth : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
+    if (collision.CompareTag("Bullet")) {
+      if (bullet == null) {
+        Debug.Log("Null");
+      }
+    }
+
     if (collision.CompareTag("Player")) {
-      Debug.Log("Enemy hit player");
+      MakeDead();
+    }
+  }
+
+  public void TakeDamage(float damage) {
+    currentHealth -= damage;
+    if (currentHealth <= 0) {
       MakeDead();
     }
   }

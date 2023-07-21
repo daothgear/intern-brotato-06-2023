@@ -8,9 +8,9 @@ public class TimeManager : MonoBehaviour {
 
   public float[] subWaveTimes;
 
-  public int numSubWaves = 3;
-  public int numEnemiesPerWave = 10;
-  public float spawnDelay = 0.5f;
+  public int numSubWaves;
+  public int numEnemiesPerWave;
+  public float spawnDelay;
   public Text waveText;
   public Text subWaveText;
   public Text countdownText;
@@ -128,10 +128,10 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void UpdateText() {
-    waveText.text = "Wave: " + currentWave.ToString();
+    waveText.text = "WAVE " + currentWave.ToString();
     subWaveText.text = "Sub wave: " + currentSubWave.ToString() + " / " + numSubWaves.ToString();
     countdownText.text = "Countdown: " + Mathf.Round(timer).ToString() + "s";
-    totalTimerText.text = "Total Timer: " + Mathf.Round(totalTimer).ToString() + "s";
+    totalTimerText.text = Mathf.Round(totalTimer).ToString();
   }
 
   private float CalculateTotalTimer() {

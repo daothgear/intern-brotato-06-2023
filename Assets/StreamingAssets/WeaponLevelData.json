@@ -1,3 +1,64 @@
 {
-    "weaponInfo": []
+    "weaponInfo": [
+        {
+            "weaponID": 1,
+            "currentlevel": 1,
+            "cost": 10,
+            "damage": 4,
+            "attackRange": 6.0,
+            "attackSpeed": 5.0,
+            "pierce": 0,
+            "pierceDamageReduce": 0.0
+        },
+        {
+            "weaponID": 1,
+            "currentlevel": 2,
+            "cost": 15,
+            "damage": 5,
+            "attackRange": 6.5,
+            "attackSpeed": 7.0,
+            "pierce": 0,
+            "pierceDamageReduce": 0.0
+        },
+        {
+            "weaponID": 1,
+            "currentlevel": 3,
+            "cost": 25,
+            "damage": 7,
+            "attackRange": 7.0,
+            "attackSpeed": 7.5,
+            "pierce": 0,
+            "pierceDamageReduce": 0.0
+        },
+        {
+            "weaponID": 2,
+            "currentlevel": 1,
+            "cost": 10,
+            "damage": 2,
+            "attackRange": 7.0,
+            "attackSpeed": 7.0,
+            "pierce": 1,
+            "pierceDamageReduce": 1.0
+        },
+        {
+            "weaponID": 2,
+            "currentlevel": 2,
+            "cost": 15,
+            "damage": 3,
+            "attackRange": 8.0,
+            "attackSpeed": 8.0,
+            "pierce": 2,
+            "pierceDamageReduce": 1.0
+        },
+        {
+            "weaponID": 2,
+            "currentlevel": 3,
+            "cost": 25,
+            "damage": 4,
+            "attackRange": 10.0,
+            "attackSpeed": 10.0,
+            "pierce": 3,
+            "pierceDamageReduce": 2.0
+        }
+    ]
 }

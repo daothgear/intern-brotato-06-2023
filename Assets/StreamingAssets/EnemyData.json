@@ -4,7 +4,7 @@
             "enemyID": 1,
             "moveSpeed": 3.0,
             "maxHP": 5,
-            "damage": 5,
+            "damage": 2,
             "expEnemy": 1
         }
     ]

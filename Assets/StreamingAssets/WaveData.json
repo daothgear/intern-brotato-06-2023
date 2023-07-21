@@ -1,10 +1,10 @@
 {
     "subWaveTimes": [
         5.0,
-        5.0,
-        5.0
+        10.0,
+        15.0
     ],
-    "numSubWaves": 1,
-    "numEnemiesPerWave": 15,
+    "numSubWaves": 3,
+    "numEnemiesPerWave": 3,
     "spawnDelay": 0.5
 }
