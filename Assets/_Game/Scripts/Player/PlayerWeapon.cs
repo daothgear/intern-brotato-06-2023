@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour {
-    [SerializeField] private Transform[] weapons;
+  [SerializeField] private Transform[] weapons;
 }

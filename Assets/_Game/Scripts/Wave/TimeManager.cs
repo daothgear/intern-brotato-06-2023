@@ -128,10 +128,10 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void UpdateText() {
-    waveText.text = "Wave: " + currentWave.ToString();
+    waveText.text = "WAVE " + currentWave.ToString();
     subWaveText.text = "Sub wave: " + currentSubWave.ToString() + " / " + numSubWaves.ToString();
     countdownText.text = "Countdown: " + Mathf.Round(timer).ToString() + "s";
-    totalTimerText.text = "Total Timer: " + Mathf.Round(totalTimer).ToString() + "s";
+    totalTimerText.text = Mathf.Round(totalTimer).ToString();
   }
 
   private float CalculateTotalTimer() {
