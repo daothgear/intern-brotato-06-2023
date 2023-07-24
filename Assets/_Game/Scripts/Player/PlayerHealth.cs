@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
   [SerializeField] private int currentHealth;
+  [SerializeField] private bool die = true;
+  [SerializeField] private GameObject UiEndGame;
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
@@ -16,6 +18,7 @@ public class PlayerHealth : MonoBehaviour {
   }
 
   private void Start() {
+    UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
     playerExp = GetComponent<PlayerExp>();
   }
@@ -48,6 +51,8 @@ public class PlayerHealth : MonoBehaviour {
 
   private void Die() {
     Debug.Log("Player died!");
+    die = true;
+    UiEndGame.SetActive(die);
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
