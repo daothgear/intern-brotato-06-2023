@@ -60,5 +60,9 @@ public class EnemyHealth : MonoBehaviour {
         Destroy(collision.gameObject); 
       }
     }
+
+    if (collision.CompareTag("Player")) {
+      ResetEnemy();
+    }
   }
 }

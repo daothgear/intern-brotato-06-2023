@@ -47,7 +47,11 @@ public class Enemy : MonoBehaviour {
 
   private void Idle() {
     animator.SetTrigger("Walk");
-    Invoke("Walk", 0.5f);
+    Invoke("TransitionToWalk" , 0.5f);
+  }
+
+  private void TransitionToWalk() {
+    currentState = EnemyState.Walk;
   }
 
   public void Walk() {

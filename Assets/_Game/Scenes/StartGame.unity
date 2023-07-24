@@ -23213,56 +23213,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.90820044, y: 1}
   m_EdgeRadius: 0
---- !u!1 &444946554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 444946555}
-  - component: {fileID: 444946556}
-  m_Layer: 0
-  m_Name: WaveLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &444946555
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444946554}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 988783768}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &444946556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444946554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ddbb0fbca5f81340859be1bc0972b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveData:
-    currentwaves: 0
-    subWaveTimes: []
-    numSubWaves: 0
-    numEnemiesPerWave: 0
-    spawnDelay: 0
 --- !u!1 &478080409
 GameObject:
   m_ObjectHideFlags: 0
@@ -24019,13 +23969,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveDataLoader: {fileID: 0}
-  subWaveTimes:
-  - 0
-  - 0
-  - 0
-  numSubWaves: 3
-  numEnemiesPerWave: 1
-  spawnDelay: 0.5
   waveText: {fileID: 1190333839}
   subWaveText: {fileID: 1143541130}
   countdownText: {fileID: 2014384387}
@@ -24804,7 +24747,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 444946555}
   - {fileID: 1192385808}
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -25578,7 +25520,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 988783768}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1192385809
 MonoBehaviour:
