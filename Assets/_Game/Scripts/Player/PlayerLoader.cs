@@ -2,16 +2,15 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class PlayerLoader : MonoBehaviour {
-  private CharacterLevelData characterLevelData;
-  private PlayerMove playerMove;
-  private PlayerHealth playerHealth;
-  private PlayerExp playerExp;
+public class PlayerLoader : Singleton<PlayerLoader> {
+  public CharacterLevelData characterLevelData;
+  public float speed;
+  public int maxHealth;
+  public int characterLevel;
+  public int maxExp;
 
-  private void Awake() {
-    playerMove = FindObjectOfType<PlayerMove>();
-    playerHealth = FindObjectOfType<PlayerHealth>();
-    playerExp = FindObjectOfType<PlayerExp>();
+  protected override void Awake() {
+    base.Awake();
     LoadCharacterInfo(1);
   }
 
@@ -24,10 +23,10 @@ public class PlayerLoader : MonoBehaviour {
         if (characterInfo.characterID == currentLevel) {
           CharacterLevelData.CharacterInfo currentCharacterInfo = characterInfo;
           Debug.Log("Character level data loaded successfully.");
-          playerMove.speed = currentCharacterInfo.moveSpeed;
-          playerHealth.maxHealth = currentCharacterInfo.maxHP;
-          playerExp.characterLevel = currentCharacterInfo.characterID;
-          playerExp.maxExp = currentCharacterInfo.exp;
+          speed = currentCharacterInfo.moveSpeed;
+          maxHealth = currentCharacterInfo.maxHP;
+          characterLevel = currentCharacterInfo.characterID;
+          maxExp = currentCharacterInfo.exp;
           break;
         }
       }

@@ -72,11 +72,11 @@ public class TimeManager : MonoBehaviour {
     currentSubWave++;
     if (currentSubWave > numSubWaves) {
       ClearEnemies();
-      currentWave++;
-      currentSubWave = 1;
-      totalTimer = CalculateTotalTimer();
-      playerHealth.currentHealth = playerHealth.maxHealth;
-      playerHealth.UpdateHealthUI();
+      // currentWave++;
+      // currentSubWave = 1;
+      // totalTimer = CalculateTotalTimer();
+      // currentHealth = playerHealth.maxHealth;
+      // playerHealth.UpdateHealthUI();
     }
 
     SpawnEnemies();

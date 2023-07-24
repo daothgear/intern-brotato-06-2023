@@ -3,26 +3,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
-  public int maxHealth;
-  public int currentHealth;
-
+  [SerializeField] private int currentHealth;
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
-
   private EnemyLoader enemyLoader;
+  private PlayerLoader playerLoader;
 
   private void Awake() {
     enemyLoader = EnemyLoader.Instance;
+    playerLoader = PlayerLoader.Instance;
   }
 
   private void Start() {
-    currentHealth = maxHealth;
+    currentHealth = playerLoader.maxHealth;
     playerExp = GetComponent<PlayerExp>();
   }
 
   private void FixUpdate() {
-    maxHealth = playerExp.characterLevel + maxHealth;
+    playerLoader.maxHealth = playerLoader.characterLevel + playerLoader.maxHealth;
   }
 
   private void Update() {
@@ -30,9 +29,9 @@ public class PlayerHealth : MonoBehaviour {
   }
 
   public void UpdateHealthUI() {
-    playerHealthSlider.maxValue = maxHealth;
+    playerHealthSlider.maxValue = playerLoader.maxHealth;
     playerHealthSlider.value = currentHealth;
-    textHealth.text = currentHealth + "/" + maxHealth;
+    textHealth.text = currentHealth + "/" + playerLoader.maxHealth;
   }
 
   public void TakeDamage(int damage) {
