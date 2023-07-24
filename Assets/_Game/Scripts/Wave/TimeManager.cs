@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class TimeManager : MonoBehaviour {
   public WaveDataLoader waveDataLoader;
@@ -26,6 +28,11 @@ public class TimeManager : MonoBehaviour {
   [SerializeField] private GameObject spawnPointPrefab;
 
   private PlayerHealth playerHealth;
+  private PlayerLoader playerLoader;
+
+  private void Awake() {
+    playerLoader = PlayerLoader.Instance;
+  }
 
   private void Start() {
     waveDataLoader = FindObjectOfType<WaveDataLoader>();
@@ -72,11 +79,11 @@ public class TimeManager : MonoBehaviour {
     currentSubWave++;
     if (currentSubWave > numSubWaves) {
       ClearEnemies();
-      // currentWave++;
-      // currentSubWave = 1;
-      // totalTimer = CalculateTotalTimer();
-      // currentHealth = playerHealth.maxHealth;
-      // playerHealth.UpdateHealthUI();
+      currentWave++;
+      currentSubWave = 1;
+      totalTimer = CalculateTotalTimer();
+      playerHealth.currentHealth = playerLoader.maxHealth;
+      playerHealth.UpdateHealthUI();
     }
 
     SpawnEnemies();

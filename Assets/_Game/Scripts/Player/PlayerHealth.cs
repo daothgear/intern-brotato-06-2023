@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
-  [SerializeField] private int currentHealth;
+  public int currentHealth;
   [SerializeField] private bool die = true;
   [SerializeField] private GameObject UiEndGame;
   [SerializeField] private Slider playerHealthSlider;
