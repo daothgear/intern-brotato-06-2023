@@ -1,10 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour {
   private EnemyLoader enemyLoader;
-
-  public float speed;
-  public int damageEnemy;
   public EnemyState currentState;
 
   private PlayerHealth playerHealth;
@@ -18,9 +16,12 @@ public class Enemy : MonoBehaviour {
     Dead
   }
 
+  private void Awake() {
+    enemyLoader = EnemyLoader.Instance;
+  }
+
   private void Start() {
     animator = GetComponentInChildren<Animator>();
-    enemyLoader = GetComponent<EnemyLoader>();
     playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
     currentState = EnemyState.Idle;
   }
@@ -52,7 +53,7 @@ public class Enemy : MonoBehaviour {
   public void Walk() {
     if (playerHealth != null) {
       transform.position =
-          Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
+          Vector3.MoveTowards(transform.position, playerHealth.transform.position, enemyLoader.speed * Time.deltaTime);
       if (transform.position.x > playerHealth.transform.position.x && isFacingRight) {
         Flip();
       }

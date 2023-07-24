@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
@@ -8,6 +9,12 @@ public class PlayerHealth : MonoBehaviour {
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
+
+  private EnemyLoader enemyLoader;
+
+  private void Awake() {
+    enemyLoader = EnemyLoader.Instance;
+  }
 
   private void Start() {
     currentHealth = maxHealth;
@@ -46,9 +53,7 @@ public class PlayerHealth : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag("Enemy")) {
-      Enemy enemy = collision.GetComponent<Enemy>();
-      enemy.currentState = Enemy.EnemyState.Attack;
-      TakeDamage(enemy.damageEnemy);
+      TakeDamage(enemyLoader.damageEnemy);
     }
   }
 }
