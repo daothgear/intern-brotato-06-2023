@@ -12,6 +12,12 @@ public class PlayerHealth : MonoBehaviour {
   private EnemyLoader enemyLoader;
   private PlayerLoader playerLoader;
 
+  private void OnValidate() {
+    if (playerExp == null) {
+      playerExp = GetComponent<PlayerExp>();
+    }
+  }
+
   private void Awake() {
     enemyLoader = EnemyLoader.Instance;
     playerLoader = PlayerLoader.Instance;
@@ -20,7 +26,6 @@ public class PlayerHealth : MonoBehaviour {
   private void Start() {
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
-    playerExp = GetComponent<PlayerExp>();
   }
 
   private void FixUpdate() {

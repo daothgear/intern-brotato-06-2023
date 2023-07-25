@@ -24,14 +24,22 @@ public class TimeManager : MonoBehaviour {
   private PlayerHealth playerHealth;
   private PlayerLoader playerLoader;
 
+  private void OnValidate() {
+    if (waveDataLoader == null) {
+      waveDataLoader = FindObjectOfType<WaveDataLoader>();
+    }
+
+    if (playerHealth == null) {
+      playerHealth = FindObjectOfType<PlayerHealth>();
+    }
+  }
+
   private void Awake() {
     playerLoader = PlayerLoader.Instance;
     waveDataLoader = WaveDataLoader.Instance;
   }
 
   private void Start() {
-    waveDataLoader = FindObjectOfType<WaveDataLoader>();
-    playerHealth = FindObjectOfType<PlayerHealth>();
     //LoadWaveData();
     StartWave();
   }

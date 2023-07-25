@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour {
@@ -8,6 +7,12 @@ public class EnemyHealth : MonoBehaviour {
   private Vector3 startPosition;
   public float currentHealth;
   private Animator animator;
+  public PlayerExp playerExp;
+  private void OnValidate() {
+    if (playerExp == null) {
+      playerExp = FindObjectOfType<PlayerExp>();
+    }
+  }
 
   private void Awake() {
     enemyLoader = EnemyLoader.Instance;
@@ -22,7 +27,6 @@ public class EnemyHealth : MonoBehaviour {
   }
 
   public void MakeDead() {
-    PlayerExp playerExp = FindObjectOfType<PlayerExp>();
     if (playerExp != null) {
       playerExp.AddExp(enemyLoader.enemyExp);
     }

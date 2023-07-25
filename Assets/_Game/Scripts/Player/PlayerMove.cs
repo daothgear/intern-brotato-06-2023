@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
@@ -6,14 +7,16 @@ public class PlayerMove : MonoBehaviour {
   [SerializeField] private Joystick joystick;
   private bool isFacingRight = true;
 
+  private void OnValidate() {
+    if (animator == null) {
+      animator = GetComponent<Animator>();
+    }
+  }
+
   private void Awake() {
     playerLoader = PlayerLoader.Instance;
   }
-
-  private void Start() {
-    animator = GetComponent<Animator>();
-  }
-
+  
   private void Update() {
     Move();
   }

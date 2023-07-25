@@ -2,18 +2,28 @@
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-  private EnemyLoader enemyLoader;
-  public EnemyState currentState;
-
-  private PlayerHealth playerHealth;
-  private Animator animator;
-  private bool isFacingRight;
-
   public enum EnemyState {
     Idle,
     Walk,
     Attack,
     Dead
+  }
+  
+  private EnemyLoader enemyLoader;
+  public EnemyState currentState;
+
+  public PlayerHealth playerHealth;
+  public Animator animator;
+  private bool isFacingRight;
+
+  private void OnValidate() {
+    if (animator == null) {
+      animator = GetComponentInChildren<Animator>();
+    }
+
+    if (playerHealth == null) {
+      playerHealth = FindObjectOfType<PlayerHealth>();
+    }
   }
 
   private void Awake() {
@@ -21,8 +31,6 @@ public class Enemy : MonoBehaviour {
   }
 
   private void Start() {
-    animator = GetComponentInChildren<Animator>();
-    playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
     currentState = EnemyState.Idle;
   }
 
