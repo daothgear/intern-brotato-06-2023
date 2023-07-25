@@ -8,17 +8,23 @@ public class Singleton<T> : MonoBehaviour where T : Component {
       if (instance == null) {
         instance = FindObjectOfType<T>();
         if (instance == null) {
-          CreateSingletonObject();
+          GameObject singletonObject = new GameObject();
+          instance = singletonObject.AddComponent<T>();
+          singletonObject.name = typeof(T).ToString() + " (Singleton)";
+          DontDestroyOnLoad(singletonObject);
         }
       }
-
       return instance;
     }
   }
 
-  private static void CreateSingletonObject() {
-    GameObject gameObject = new GameObject(typeof(T).Name);
-    instance = gameObject.AddComponent<T>();
-    DontDestroyOnLoad(gameObject);
+  protected virtual void Awake() {
+    if (instance == null) {
+      instance = this as T;
+      DontDestroyOnLoad(this.gameObject);
+    }
+    else {
+      Destroy(gameObject);
+    }
   }
 }

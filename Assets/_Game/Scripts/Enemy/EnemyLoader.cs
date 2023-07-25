@@ -1,19 +1,20 @@
+using System;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class EnemyLoader : MonoBehaviour {
-  private EnemyLoader enemyLoader;
-  private EnemyData enemyData;
-  private Enemy enemy;
-  private EnemyHealth enemyHealth;
+public class EnemyLoader : Singleton<EnemyLoader> {
+  public EnemyData enemyData;
+  public float speed;
+  public int maxHealth;
+  public int damageEnemy;
+  public int enemyExp;
 
-  private void Awake() {
-    enemy = GetComponent<Enemy>();
-    enemyHealth = GetComponent<EnemyHealth>();
+  protected override void Awake() {
+    base.Awake();
     LoadEnemyInfo(1);
   }
-
+  
   public void LoadEnemyInfo(int enemyID) {
     string enemyDataPath = Path.Combine(Application.streamingAssetsPath, "EnemyData.json");
     if (File.Exists(enemyDataPath)) {
@@ -22,17 +23,11 @@ public class EnemyLoader : MonoBehaviour {
       foreach (var enemyInfo in enemyData.enemyInfo) {
         if (enemyInfo.enemyID == enemyID) {
           EnemyData.EnemyInfo currentEnemyInfo = enemyInfo;
-          enemy.speed = currentEnemyInfo.moveSpeed;
-          enemyHealth.maxHealth = currentEnemyInfo.maxHP;
-          enemy.damageEnemy = currentEnemyInfo.damage;
-          enemyHealth.enemyExp = currentEnemyInfo.expEnemy;
+          speed = currentEnemyInfo.moveSpeed;
+          maxHealth = currentEnemyInfo.maxHP;
+          damageEnemy = currentEnemyInfo.damage;
+          enemyExp = currentEnemyInfo.expEnemy;
           Debug.Log("Enemy data loaded successfully.");
-          // meleeAttackRange = currentEnemyInfo.meleeAttackRange;
-          // meleeAttackSpeed = currentEnemyInfo.meleeAttackSpeed;
-          // gunAttackDamage = currentEnemyInfo.gunAttackDamage;
-          // gunAttackRange = currentEnemyInfo.gunAttackRange;
-          // gunAttackSpeed = currentEnemyInfo.gunAttackSpeed;
-          // laoAttackSpeed = currentEnemyInfo.laoAttackSpeed;
           break;
         }
       }

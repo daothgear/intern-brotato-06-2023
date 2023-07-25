@@ -1,27 +1,36 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-  private EnemyLoader enemyLoader;
-
-  public float speed;
-  public int damageEnemy;
-  public EnemyState currentState;
-
-  private PlayerHealth playerHealth;
-  private Animator animator;
-  private bool isFacingRight;
-
   public enum EnemyState {
     Idle,
     Walk,
     Attack,
     Dead
   }
+  
+  private EnemyLoader enemyLoader;
+  public EnemyState currentState;
+
+  public PlayerHealth playerHealth;
+  public Animator animator;
+  private bool isFacingRight;
+
+  private void OnValidate() {
+    if (animator == null) {
+      animator = GetComponentInChildren<Animator>();
+    }
+
+    if (playerHealth == null) {
+      playerHealth = FindObjectOfType<PlayerHealth>();
+    }
+  }
+
+  private void Awake() {
+    enemyLoader = EnemyLoader.Instance;
+  }
 
   private void Start() {
-    animator = GetComponentInChildren<Animator>();
-    enemyLoader = GetComponent<EnemyLoader>();
-    playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
     currentState = EnemyState.Idle;
   }
 
@@ -46,13 +55,17 @@ public class Enemy : MonoBehaviour {
 
   private void Idle() {
     animator.SetTrigger("Walk");
-    Invoke("Walk", 0.5f);
+    Invoke("TransitionToWalk" , 0.5f);
+  }
+
+  private void TransitionToWalk() {
+    currentState = EnemyState.Walk;
   }
 
   public void Walk() {
     if (playerHealth != null) {
       transform.position =
-          Vector3.MoveTowards(transform.position, playerHealth.transform.position, speed * Time.deltaTime);
+          Vector3.MoveTowards(transform.position, playerHealth.transform.position, enemyLoader.speed * Time.deltaTime);
       if (transform.position.x > playerHealth.transform.position.x && isFacingRight) {
         Flip();
       }

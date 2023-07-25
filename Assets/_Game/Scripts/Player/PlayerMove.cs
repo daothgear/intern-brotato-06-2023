@@ -1,23 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
+  private PlayerLoader playerLoader;
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
-  public float speed;
   private bool isFacingRight = true;
 
-  private void Start() {
-    animator = GetComponent<Animator>();
+  private void OnValidate() {
+    if (animator == null) {
+      animator = GetComponent<Animator>();
+    }
   }
 
+  private void Awake() {
+    playerLoader = PlayerLoader.Instance;
+  }
+  
   private void Update() {
     Move();
   }
 
   private void Move() {
-    Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * speed;
+    Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * playerLoader.speed;
     transform.position += movement;
     if (movement.magnitude > 0) {
       animator.SetTrigger("PlayerWalk");

@@ -1,21 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
-  public int maxHealth;
   public int currentHealth;
-
+  [SerializeField] private bool die = true;
+  [SerializeField] private GameObject UiEndGame;
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
+  private EnemyLoader enemyLoader;
+  private PlayerLoader playerLoader;
+
+  private void OnValidate() {
+    if (playerExp == null) {
+      playerExp = GetComponent<PlayerExp>();
+    }
+  }
+
+  private void Awake() {
+    enemyLoader = EnemyLoader.Instance;
+    playerLoader = PlayerLoader.Instance;
+  }
 
   private void Start() {
-    currentHealth = maxHealth;
-    playerExp = GetComponent<PlayerExp>();
+    UiEndGame.SetActive(die);
+    currentHealth = playerLoader.maxHealth;
   }
 
   private void FixUpdate() {
-    maxHealth = playerExp.characterLevel + maxHealth;
+    playerLoader.maxHealth = playerLoader.characterLevel + playerLoader.maxHealth;
   }
 
   private void Update() {
@@ -23,9 +37,9 @@ public class PlayerHealth : MonoBehaviour {
   }
 
   public void UpdateHealthUI() {
-    playerHealthSlider.maxValue = maxHealth;
+    playerHealthSlider.maxValue = playerLoader.maxHealth;
     playerHealthSlider.value = currentHealth;
-    textHealth.text = currentHealth + "/" + maxHealth;
+    textHealth.text = currentHealth + "/" + playerLoader.maxHealth;
   }
 
   public void TakeDamage(int damage) {
@@ -42,13 +56,13 @@ public class PlayerHealth : MonoBehaviour {
 
   private void Die() {
     Debug.Log("Player died!");
+    die = true;
+    UiEndGame.SetActive(die);
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag("Enemy")) {
-      Enemy enemy = collision.GetComponent<Enemy>();
-      enemy.currentState = Enemy.EnemyState.Attack;
-      TakeDamage(enemy.damageEnemy);
+      TakeDamage(enemyLoader.damageEnemy);
     }
   }
 }
