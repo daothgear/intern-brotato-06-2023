@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour {
   public enum EnemyState {
@@ -8,26 +7,24 @@ public class Enemy : MonoBehaviour {
     Attack,
     Dead
   }
-  
+
   private EnemyLoader enemyLoader;
   public EnemyState currentState;
 
-  public PlayerHealth playerHealth;
-  public Animator animator;
+  [SerializeField] private PlayerHealth playerHealth;
+  [SerializeField] private Animator animator;
+  
   private bool isFacingRight;
 
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponentInChildren<Animator>();
     }
-
-    if (playerHealth == null) {
-      playerHealth = FindObjectOfType<PlayerHealth>();
-    }
   }
 
   private void Awake() {
     enemyLoader = EnemyLoader.Instance;
+    playerHealth = PlayerHealth.Instance;
   }
 
   private void Start() {
@@ -55,7 +52,7 @@ public class Enemy : MonoBehaviour {
 
   private void Idle() {
     animator.SetTrigger("Walk");
-    Invoke("TransitionToWalk" , 0.5f);
+    Invoke("TransitionToWalk", 0.5f);
   }
 
   private void TransitionToWalk() {

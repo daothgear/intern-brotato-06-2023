@@ -6,11 +6,11 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TimeManager : MonoBehaviour {
-  public WaveDataLoader waveDataLoader;
-  public Text waveText;
-  public Text subWaveText;
-  public Text countdownText;
-  public Text totalTimerText;
+  private WaveDataLoader waveDataLoader;
+  [SerializeField] private Text waveText;
+  [SerializeField] private Text subWaveText;
+  [SerializeField] private Text countdownText;
+  [SerializeField] private Text totalTimerText;
 
   private float timer;
   private float totalTimer;
@@ -18,7 +18,6 @@ public class TimeManager : MonoBehaviour {
   private int currentSubWave;
 
   [SerializeField] private GameObject wallCheck;
-  [SerializeField] private GameObject enemyPrefab;
   [SerializeField] private GameObject spawnPointPrefab;
 
   private PlayerHealth playerHealth;
@@ -40,7 +39,6 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void Start() {
-    //LoadWaveData();
     StartWave();
   }
 

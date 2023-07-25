@@ -1,26 +1,28 @@
-using System;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour {
-  private Enemy enemy;
+  [SerializeField] private Enemy enemy;
+  [SerializeField] private PlayerExp playerExp;
+  
   private EnemyLoader enemyLoader;
   private Vector3 startPosition;
-  public float currentHealth;
+  
+  [SerializeField] private float currentHealth;
   private Animator animator;
-  public PlayerExp playerExp;
+  
+
   private void OnValidate() {
-    if (playerExp == null) {
-      playerExp = FindObjectOfType<PlayerExp>();
+    if ( enemy == null) {
+      enemy = GetComponent<Enemy>();
     }
   }
 
   private void Awake() {
     enemyLoader = EnemyLoader.Instance;
+    playerExp = PlayerExp.Instance;
   }
 
   private void Start() {
-    Debug.Log(enemyLoader.maxHealth);
-    enemy = GetComponent<Enemy>();
     startPosition = transform.position;
     currentHealth = enemyLoader.maxHealth;
     Debug.Log(enemyLoader.maxHealth);

@@ -3,7 +3,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 public class PlayerLoader : Singleton<PlayerLoader> {
-  public CharacterLevelData characterLevelData;
+  private CharacterLevelData characterLevelData;
   public float speed;
   public int maxHealth;
   public int characterLevel;

@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerExp : MonoBehaviour {
-
-
+public class PlayerExp : Singleton<PlayerExp> {
   [SerializeField] private int currentExp;
   [SerializeField] private Slider playerExpSlider;
   [SerializeField] private Text textExp;
 
   private PlayerLoader playerLoader;
-
+  
   private void Start() {
     playerLoader = PlayerLoader.Instance;
     currentExp = 0;

@@ -4,7 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 public class EnemyLoader : Singleton<EnemyLoader> {
-  public EnemyData enemyData;
+  private EnemyData enemyData;
   public float speed;
   public int maxHealth;
   public int damageEnemy;

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : Singleton<PlayerHealth> {
   public int currentHealth;
   [SerializeField] private bool die = true;
   [SerializeField] private GameObject UiEndGame;
@@ -18,7 +18,8 @@ public class PlayerHealth : MonoBehaviour {
     }
   }
 
-  private void Awake() {
+  protected override void Awake() {
+    base.Awake();
     enemyLoader = EnemyLoader.Instance;
     playerLoader = PlayerLoader.Instance;
   }
