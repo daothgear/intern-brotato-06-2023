@@ -29,6 +29,7 @@ public class EnemyHealth : MonoBehaviour {
   }
 
   public void MakeDead() {
+    Debug.Log("current state hien tai" + enemy.currentState);
     if (playerExp != null) {
       playerExp.AddExp(enemyLoader.enemyExp);
     }
@@ -47,7 +48,7 @@ public class EnemyHealth : MonoBehaviour {
   public void ResetEnemy() {
     ResetHealth();
     ResetEnemyState();
-    ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
+    enemy.currentState = Enemy.EnemyState.Dead;
   }
 
   private void ResetEnemyState() {
@@ -63,7 +64,6 @@ public class EnemyHealth : MonoBehaviour {
       Bullets bullet = collision.GetComponent<Bullets>();
       if (bullet != null) {
         TakeDamage(bullet.damage);
-        Destroy(collision.gameObject); 
       }
     }
 

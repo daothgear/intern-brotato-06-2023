@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : Singleton<Enemy> {
   public enum EnemyState {
     Idle,
     Walk,
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
   [SerializeField] private Animator animator;
   
   private bool isFacingRight;
-
+  public bool isTrigger;
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponentInChildren<Animator>();
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour {
 
   private void Start() {
     currentState = EnemyState.Idle;
+    Debug.Log(isTrigger);
   }
 
   private void Update() {
@@ -57,9 +58,12 @@ public class Enemy : MonoBehaviour {
 
   private void TransitionToWalk() {
     currentState = EnemyState.Walk;
+    isTrigger = true;
   }
 
   public void Walk() {
+    isTrigger = true;
+    Debug.Log(isTrigger);
     if (playerHealth != null) {
       transform.position =
           Vector3.MoveTowards(transform.position, playerHealth.transform.position, enemyLoader.speed * Time.deltaTime);
@@ -78,10 +82,19 @@ public class Enemy : MonoBehaviour {
   }
 
   private void Dead() {
-    if (animator != null) {
-      animator.SetBool("Die", true);
-      ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
-      Debug.Log("Return done");
+    isTrigger = false;
+    animator.SetBool("Die", true);
+    Invoke("ReturnEnemyToPool", 1.5f);
+  }
+
+  private void ReturnEnemyToPool() {
+    ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
+  }
+  private void OnTriggerEnter2D(Collider2D collision) {
+    if (collision.CompareTag("Player")) {
+      if (isTrigger == true) {
+        playerHealth.TakeDamage(enemyLoader.damageEnemy);
+      }
     }
   }
 }

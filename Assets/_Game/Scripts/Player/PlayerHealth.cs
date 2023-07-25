@@ -9,7 +9,6 @@ public class PlayerHealth : Singleton<PlayerHealth> {
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
-  private EnemyLoader enemyLoader;
   private PlayerLoader playerLoader;
 
   private void OnValidate() {
@@ -20,7 +19,6 @@ public class PlayerHealth : Singleton<PlayerHealth> {
 
   protected override void Awake() {
     base.Awake();
-    enemyLoader = EnemyLoader.Instance;
     playerLoader = PlayerLoader.Instance;
   }
 
@@ -59,11 +57,5 @@ public class PlayerHealth : Singleton<PlayerHealth> {
     Debug.Log("Player died!");
     die = true;
     UiEndGame.SetActive(die);
-  }
-
-  private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag("Enemy")) {
-      TakeDamage(enemyLoader.damageEnemy);
-    }
   }
 }
