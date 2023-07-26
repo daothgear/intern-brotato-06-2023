@@ -27,7 +27,7 @@ public class EnemyLoader : Singleton<EnemyLoader> {
           maxHealth = currentEnemyInfo.maxHP;
           damageEnemy = currentEnemyInfo.damage;
           enemyExp = currentEnemyInfo.expEnemy;
-          Debug.Log("Enemy data loaded successfully.");
+          //Debug.Log("Enemy data loaded successfully.");
           break;
         }
       }

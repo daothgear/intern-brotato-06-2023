@@ -29,11 +29,11 @@ public class EnemyHealth : MonoBehaviour {
   }
 
   public void MakeDead() {
+    ObjectPool.Instance.ReturnToPool("Enemy",gameObject);
     Debug.Log("current state hien tai" + enemy.currentState);
     if (playerExp != null) {
       playerExp.AddExp(enemyLoader.enemyExp);
     }
-
     ObjectPool.Instance.SpawnFromPool("Coin", transform.position, Quaternion.identity);
     ResetEnemy();
   }
@@ -41,6 +41,7 @@ public class EnemyHealth : MonoBehaviour {
   public void TakeDamage(int damage) {
     currentHealth -= damage;
     if (currentHealth <= 0) {
+      enemy.currentState = Enemy.EnemyState.Dead;
       MakeDead();
     }
   }
@@ -48,7 +49,6 @@ public class EnemyHealth : MonoBehaviour {
   public void ResetEnemy() {
     ResetHealth();
     ResetEnemyState();
-    enemy.currentState = Enemy.EnemyState.Dead;
   }
 
   private void ResetEnemyState() {
@@ -57,6 +57,7 @@ public class EnemyHealth : MonoBehaviour {
 
   private void ResetHealth() {
     currentHealth = enemyLoader.maxHealth;
+    //Debug.Log("Mau cua data la " + enemyLoader.maxHealth);
   }
   
   private void OnTriggerEnter2D(Collider2D collision) {

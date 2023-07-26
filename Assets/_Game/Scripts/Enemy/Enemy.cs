@@ -84,12 +84,8 @@ public class Enemy : Singleton<Enemy> {
   private void Dead() {
     isTrigger = false;
     animator.SetBool("Die", true);
-    Invoke("ReturnEnemyToPool", 1.5f);
   }
-
-  private void ReturnEnemyToPool() {
-    ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
-  }
+  
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag("Player")) {
       if (isTrigger == true) {

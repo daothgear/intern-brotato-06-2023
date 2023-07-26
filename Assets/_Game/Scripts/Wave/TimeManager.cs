@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using com.ootii.Messages;
 
 public class TimeManager : MonoBehaviour {
   private WaveDataLoader waveDataLoader;
@@ -16,9 +17,12 @@ public class TimeManager : MonoBehaviour {
   private float totalTimer;
   private int currentWave;
   private int currentSubWave;
+  private bool isFinishWave;
+  private bool isUiShop;
 
   [SerializeField] private GameObject wallCheck;
   [SerializeField] private GameObject spawnPointPrefab;
+  public GameObject uiShop;
 
   private PlayerHealth playerHealth;
   private PlayerLoader playerLoader;
@@ -39,6 +43,8 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void Start() {
+    //MessageDispatcher.AddListener("isFinishWave" , StartNextSubWave);
+    uiShop.SetActive(isUiShop);
     StartWave();
   }
 
@@ -49,7 +55,6 @@ public class TimeManager : MonoBehaviour {
       if (timer <= 0f) {
         StartNextSubWave();
       }
-
       UpdateText();
     }
   }
@@ -63,10 +68,21 @@ public class TimeManager : MonoBehaviour {
     UpdateText();
   }
 
-  private void StartNextSubWave() {
+  private void StartNextSubWave() {  //IMessage img
     currentSubWave++;
     if (currentSubWave > waveDataLoader.numSubWaves) {
       ClearEnemies();
+      isUiShop = true;
+      uiShop.SetActive(isUiShop);
+      
+      // if (isFinishWave == true) {
+      //   currentWave++;
+      //   currentSubWave = 1;
+      //   totalTimer = CalculateTotalTimer();
+      //   playerHealth.currentHealth = playerLoader.maxHealth;
+      //   playerHealth.UpdateHealthUI();
+      // }
+      
       currentWave++;
       currentSubWave = 1;
       totalTimer = CalculateTotalTimer();
@@ -77,10 +93,10 @@ public class TimeManager : MonoBehaviour {
     SpawnEnemies();
     timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
   }
-
+  
   private void SpawnEnemies() {
     int numEnemies = currentWave * waveDataLoader.numEnemiesPerWave * currentSubWave;
-    for (int i = 0 ; i < numEnemies ; i++) {
+    for (int i = 0; i < numEnemies; i++) {
       float delayTime = i * waveDataLoader.spawnDelay;
       StartCoroutine(SpawnEnemyRandomWithDelay(delayTime));
     }
@@ -93,14 +109,14 @@ public class TimeManager : MonoBehaviour {
 
   private void SpawnEnemyRandom() {
     Vector3 spawnPosition = GetRandomSpawnPosition();
-    GameObject spawnPoint = Instantiate(spawnPointPrefab , spawnPosition , Quaternion.identity);
+    GameObject spawnPoint = Instantiate(spawnPointPrefab, spawnPosition, Quaternion.identity);
     StartCoroutine(SpawnEnemyWithDelay(spawnPoint));
   }
 
   private IEnumerator SpawnEnemyWithDelay(GameObject spawnPoint) {
     yield return new WaitForSeconds(waveDataLoader.spawnDelay);
     // Spawn enemy
-    ObjectPool.Instance.SpawnFromPool("Enemy" , spawnPoint.transform.position , Quaternion.identity);
+    ObjectPool.Instance.SpawnFromPool("Enemy", spawnPoint.transform.position, Quaternion.identity);
     // Destroy SpawnPoint
     Destroy(spawnPoint);
   }
@@ -109,9 +125,9 @@ public class TimeManager : MonoBehaviour {
     Collider2D wallCollider = wallCheck.GetComponent<Collider2D>();
     Vector3 wallSize = wallCollider.bounds.size;
     Vector3 spawnPosition = wallCheck.transform.position + new Vector3(
-        Random.Range(-wallSize.x / 2f , wallSize.x / 2f) ,
-        Random.Range(-wallSize.y / 2f , wallSize.y / 2f) ,
-        Random.Range(-wallSize.z / 2f , wallSize.z / 2f)
+        Random.Range(-wallSize.x / 2f, wallSize.x / 2f),
+        Random.Range(-wallSize.y / 2f, wallSize.y / 2f),
+        Random.Range(-wallSize.z / 2f, wallSize.z / 2f)
     );
     return spawnPosition;
   }
@@ -119,7 +135,7 @@ public class TimeManager : MonoBehaviour {
   private void ClearEnemies() {
     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
     foreach (GameObject enemy in enemies) {
-      ObjectPool.Instance.ReturnToPool("Enemy" , enemy);
+      ObjectPool.Instance.ReturnToPool("Enemy", enemy);
     }
   }
 
@@ -132,7 +148,7 @@ public class TimeManager : MonoBehaviour {
 
   private float CalculateTotalTimer() {
     float total = 0f;
-    for (int i = 0 ; i < waveDataLoader.numSubWaves ; i++) {
+    for (int i = 0; i < waveDataLoader.numSubWaves; i++) {
       total += waveDataLoader.subWaveTimes[i];
     }
 
