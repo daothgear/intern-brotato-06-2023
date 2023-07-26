@@ -431,9 +431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaafe016a34844250bfef2007a182075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  damageEnemy: 0
   currentState: 3
+  playerHealth: {fileID: 0}
+  animator: {fileID: 2900440499164586146}
+  isTrigger: 0
 --- !u!114 &8546123835671570202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,8 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4480f27edfe48c8b82472ed63222ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyExp: 0
-  maxHealth: 0
+  enemy: {fileID: 6619336907801768357}
+  playerExp: {fileID: 0}
   currentHealth: 0
 --- !u!1 &2900440498496111427
 GameObject:
@@ -795,6 +796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2900440499164586145}
   - component: {fileID: 2900440499164586146}
+  - component: {fileID: 8408643771769858185}
   m_Layer: 0
   m_Name: Pig-Minner-2
   m_TagString: Untagged
@@ -848,6 +850,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &8408643771769858185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2900440499164586147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3fbaccb47019b24fa3c19415615cdcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2900440499315741086
 GameObject:
   m_ObjectHideFlags: 0

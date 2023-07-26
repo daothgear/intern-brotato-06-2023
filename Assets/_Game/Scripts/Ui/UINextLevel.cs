@@ -5,14 +5,13 @@ using UnityEngine;
 using com.ootii.Messages;
 
 public class UINextLevel : MonoBehaviour {
-    private TimeManager timeManager;
+  private TimeManager timeManager;
 
-    private void Awake() {
-        timeManager = FindObjectOfType<TimeManager>();
-    }
-    
-    public void ClickNextButton() {
-        timeManager.uiShop.SetActive(false);
-        MessageDispatcher.SendMessage("isFinishWave");
-    }
+  private void Awake() {
+    timeManager = FindObjectOfType<TimeManager>();
+  }
+
+  public void ClickNextButton() {
+    timeManager.CloseShopUI();
+  }
 }

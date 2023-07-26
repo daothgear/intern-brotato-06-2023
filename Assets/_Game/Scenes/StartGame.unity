@@ -23737,6 +23737,7 @@ GameObject:
   - component: {fileID: 516717797}
   - component: {fileID: 516717799}
   - component: {fileID: 516717798}
+  - component: {fileID: 516717800}
   m_Layer: 5
   m_Name: UIBuyWeapon
   m_TagString: Untagged
@@ -23803,6 +23804,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516717796}
   m_CullTransparentMesh: 1
+--- !u!114 &516717800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516717796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6366fbc3a44744bca8281476f7634ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -24486,9 +24499,11 @@ MonoBehaviour:
   subWaveText: {fileID: 1143541130}
   countdownText: {fileID: 2014384387}
   totalTimerText: {fileID: 918702190}
+  isPause: 0
   wallCheck: {fileID: 1105329708}
   spawnPointPrefab: {fileID: 7509030963474128735, guid: e4874ae909805471ea60f8db88a2a590, type: 3}
-  uiShop: {fileID: 516717796}
+  UIShop: {fileID: 516717796}
+  ButtonNextLevel: {fileID: 831139387}
 --- !u!114 &617973925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24507,7 +24522,7 @@ MonoBehaviour:
     size: 50
   - tag: Enemy
     prefab: {fileID: 2900440498428525068, guid: 6fc599b4efd394e77a90c98fb81b8ba5, type: 3}
-    size: 10
+    size: 100
   - tag: Bullets
     prefab: {fileID: 7509030963474128735, guid: adda5635ff37e412bb01c524c263f31d, type: 3}
     size: 500
@@ -24719,7 +24734,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1134331268}
         m_TargetAssemblyTypeName: UiPlayAgaint, Assembly-CSharp
-        m_MethodName: PlayAgain
+        m_MethodName: PLayAgaint
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24918,7 +24933,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 831139388}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 516717800}
+        m_TargetAssemblyTypeName: UINextLevel, Assembly-CSharp
+        m_MethodName: ClickNextButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &831139388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25968,7 +25995,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058422507}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe95ea96330ac4a8cb67d023b68604fe, type: 3}
   m_Name: 
