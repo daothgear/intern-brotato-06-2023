@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5829852352044861095}
   - component: {fileID: 5829852352044861094}
+  - component: {fileID: 7788012871347156316}
   m_Layer: 0
   m_Name: Piston
   m_TagString: Untagged
@@ -84,3 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7788012871347156316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5829852352044861097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eab4238d68014831bd579714cc48bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 7509030963474128735, guid: adda5635ff37e412bb01c524c263f31d, type: 3}
+  fireRate: 0.1
+  shootingRange: 10
