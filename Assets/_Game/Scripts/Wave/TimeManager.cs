@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using com.ootii.Messages;
 using UnityEngine;
@@ -6,17 +7,10 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TimeManager : Singleton<TimeManager> {
-  [SerializeField] private Text waveText;
-  [SerializeField] private Text subWaveText;
-  [SerializeField] private Text countdownText;
-  [SerializeField] private Text totalTimerText;
-
-  public bool isPause;
-
-  private float timer;
-  private float totalTimer;
-  private int currentWave;
-  private int currentSubWave;
+  public float timer;
+  public float totalTimer;
+  public int currentWave;
+  public int currentSubWave;
 
   [SerializeField] private GameObject wallCheck;
   [SerializeField] private GameObject spawnPointPrefab;
@@ -28,15 +22,21 @@ public class TimeManager : Singleton<TimeManager> {
   private WaveDataLoader waveDataLoader {
     get => WaveDataLoader.Instance;
   }
-  
+
+  private TextWave textWave;
 
   private bool isShowingShop = false;
   [SerializeField] private GameObject UIShop; 
   [SerializeField] private Button ButtonNextLevel;
-  
+
+  private void OnValidate() {
+    if (textWave == null) {
+      textWave = GetComponent<TextWave>();
+    }
+  }
+
   private void Start() {
     currentWave = 1;
-    currentSubWave = 0; 
     StartWave();
   }
 
@@ -48,7 +48,7 @@ public class TimeManager : Singleton<TimeManager> {
         StartNextSubWave();
       }
 
-      UpdateText();
+      textWave.UpdateText();
     }
   }
 
@@ -76,7 +76,7 @@ public class TimeManager : Singleton<TimeManager> {
     timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
     totalTimer = CalculateTotalTimer();
     SpawnEnemies();
-    UpdateText();
+    textWave.UpdateText();
   }
 
   private void StartNextSubWave() {
@@ -95,7 +95,7 @@ public class TimeManager : Singleton<TimeManager> {
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
     MessageDispatcher.SendMessage(Constants.Mess_resetHealth);
-    UpdateText();
+    textWave.UpdateText();
     StartWave();
     UIShop.SetActive(false);
   }
@@ -145,14 +145,7 @@ public class TimeManager : Singleton<TimeManager> {
       ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, enemy);
     }
   }
-
-  private void UpdateText() {
-    waveText.text = "WAVE " + currentWave.ToString();
-    subWaveText.text = "Sub wave: " + currentSubWave.ToString() + " / " + waveDataLoader.numSubWaves.ToString();
-    countdownText.text = "Countdown: " + Mathf.Round(timer).ToString() + "s";
-    totalTimerText.text = Mathf.Round(totalTimer).ToString();
-  }
-
+  
   private float CalculateTotalTimer() {
     float total = 0f;
     for (int i = 0 ; i < waveDataLoader.numSubWaves ; i++) {

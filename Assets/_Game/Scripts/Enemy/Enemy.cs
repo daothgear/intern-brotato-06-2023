@@ -9,30 +9,24 @@ public class Enemy : MonoBehaviour {
     Dead
   }
 
-  private EnemyDataLoader enemyLoader { get => EnemyDataLoader.Instance;}
+  private EnemyDataLoader enemyLoader {
+    get => EnemyDataLoader.Instance;
+  }
+
+  private PlayerFollow playerFollow {
+    get => PlayerFollow.Instance;
+  }
   public EnemyState currentState;
-  
+
   [SerializeField] private Animator animator;
-  
+
   private bool isFacingRight;
   public bool isTrigger;
   
-  public GameObject player;
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponentInChildren<Animator>();
     }
-  }
-
-  private void Awake() {
-    if (player == null) {
-      player = GameObject.FindGameObjectWithTag(Constants.Tag_Player);
-    }
-  }
-
-  private void Start() {
-    currentState = EnemyState.Idle;
-    Debug.Log(isTrigger);
   }
 
   private void Update() {
@@ -67,17 +61,17 @@ public class Enemy : MonoBehaviour {
   public void Walk() {
     isTrigger = true;
     Debug.Log(isTrigger);
-    if (player != null) {
+    if (playerFollow.player != null) {
       transform.position =
-          Vector3.MoveTowards(transform.position, player.transform.position, enemyLoader.speed * Time.deltaTime);
-      if (transform.position.x > player.transform.position.x && isFacingRight) {
+          Vector3.MoveTowards(transform.position, playerFollow.player.transform.position, enemyLoader.speed * Time.deltaTime);
+      if (transform.position.x > playerFollow.player.transform.position.x && isFacingRight) {
         Flip();
       }
-      else if (transform.position.x < player.transform.position.x && !isFacingRight) {
+      else if (transform.position.x < playerFollow.player.transform.position.x && !isFacingRight) {
         Flip();
       }
 
-      float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+      float distanceToPlayer = Vector3.Distance(transform.position, playerFollow.player.transform.position);
       if (distanceToPlayer <= 1f) {
         currentState = EnemyState.Attack;
       }
@@ -88,7 +82,7 @@ public class Enemy : MonoBehaviour {
     isTrigger = false;
     animator.SetBool(Constants.Anim_Die, true);
   }
-  
+
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag(Constants.Tag_Player)) {
       if (isTrigger == true) {

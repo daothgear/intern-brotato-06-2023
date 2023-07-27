@@ -1,3 +1,5 @@
+using System;
+using com.ootii.Messages;
 using UnityEngine;
 
 public class Bullets : MonoBehaviour {
@@ -17,6 +19,12 @@ public class Bullets : MonoBehaviour {
       if (distanceToTarget < 0.1f) {
         ObjectPool.Instance.ReturnToPool(Constants.Tag_Bullets, gameObject);
       }
+    }
+  }
+
+  private void OnTriggerEnter2D(Collider2D other) {
+    if (gameObject.CompareTag(Constants.Tag_Enemy)) {
+      MessageDispatcher.SendMessage(Constants.Mess_enemyTakeDamage);
     }
   }
 }

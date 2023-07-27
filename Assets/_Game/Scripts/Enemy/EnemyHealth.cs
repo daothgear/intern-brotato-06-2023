@@ -20,7 +20,6 @@ public class EnemyHealth : MonoBehaviour {
   }
   
   private void Start() {
-    startPosition = transform.position;
     currentHealth = enemyLoader.maxHealth;
     Debug.Log(enemyLoader.maxHealth);
   }
@@ -53,7 +52,7 @@ public class EnemyHealth : MonoBehaviour {
   private void ResetHealth() {
     currentHealth = enemyLoader.maxHealth;
   }
-  
+
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag("Bullet")) {
       Bullets bullet = collision.GetComponent<Bullets>();

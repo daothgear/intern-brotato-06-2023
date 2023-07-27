@@ -2,5 +2,5 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponDataLoader : MonoBehaviour {
+public class WeaponDataLoader : Singleton<WeaponDataLoader> {
 }

@@ -16,8 +16,6 @@ public class PlayerExp : MonoBehaviour {
   }
   
   private void Start() {
-    currentExp = 0;
-    UpdateExpUI();
     MessageDispatcher.AddListener(Constants.Mess_addExp,AddExp);
   }
 
@@ -29,7 +27,7 @@ public class PlayerExp : MonoBehaviour {
     playerExpSlider.maxValue = playerLoader.maxExp;
     playerExpSlider.value = currentExp;
     textExp.text = "LV." + playerLoader.characterLevel;
-  }
+  } 
 
   public void AddExp(IMessage img) {
     currentExp += enemyLoader.enemyExp;
