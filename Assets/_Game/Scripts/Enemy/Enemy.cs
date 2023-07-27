@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour {
 
   private void Awake() {
     if (player == null) {
-      player = GameObject.FindGameObjectWithTag("Player");
+      player = GameObject.FindGameObjectWithTag(Constants.Tag_Player);
     }
   }
 
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour {
   }
 
   private void Idle() {
-    animator.SetTrigger("Walk");
+    animator.SetTrigger(Constants.Anim_Walk);
     Invoke("TransitionToWalk", 0.5f);
   }
 
@@ -86,13 +86,13 @@ public class Enemy : MonoBehaviour {
 
   private void Dead() {
     isTrigger = false;
-    animator.SetBool("Die", true);
+    animator.SetBool(Constants.Anim_Die, true);
   }
   
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag("Player")) {
+    if (collision.CompareTag(Constants.Tag_Player)) {
       if (isTrigger == true) {
-        MessageDispatcher.SendMessage("playerTakeDamage");
+        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
       }
     }
   }

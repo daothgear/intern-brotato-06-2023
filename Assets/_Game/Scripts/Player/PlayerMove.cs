@@ -21,10 +21,10 @@ public class PlayerMove : MonoBehaviour {
     Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * playerLoader.speed;
     transform.position += movement;
     if (movement.magnitude > 0) {
-      animator.SetTrigger("PlayerWalk");
+      animator.SetTrigger(Constants.Anim_PlayerWalk);
     }
     else {
-      animator.SetTrigger("PlayerIdle");
+      animator.SetTrigger(Constants.Anim_PlayerIdle);
     }
 
     if (ShouldFlip()) {

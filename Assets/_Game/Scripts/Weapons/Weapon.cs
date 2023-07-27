@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour {
   }
 
   void FindAndFireAtTarget() {
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag(Constants.Tag_Enemy);
 
     Transform nearestEnemy = null;
     float minDistance = Mathf.Infinity;

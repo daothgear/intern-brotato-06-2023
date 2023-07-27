@@ -11,7 +11,7 @@ public class EnemyData {
     public int enemyID;
     public float moveSpeed;
     public int maxHP;
-    public int damage;
+    public int damage; 
     public int expEnemy;
   }
 }

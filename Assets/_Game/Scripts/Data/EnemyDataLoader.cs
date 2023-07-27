@@ -16,7 +16,7 @@ public class EnemyDataLoader : Singleton<EnemyDataLoader> {
   }
   
   public void LoadEnemyInfo(int enemyID) {
-    string enemyDataPath = Path.Combine(Application.streamingAssetsPath, "EnemyData.json");
+    string enemyDataPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Enemy);
     if (File.Exists(enemyDataPath)) {
       string enemyDataJson = File.ReadAllText(enemyDataPath);
       enemyData = JsonConvert.DeserializeObject<EnemyData>(enemyDataJson);

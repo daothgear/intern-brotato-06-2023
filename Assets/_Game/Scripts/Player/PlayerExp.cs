@@ -18,7 +18,7 @@ public class PlayerExp : MonoBehaviour {
   private void Start() {
     currentExp = 0;
     UpdateExpUI();
-    MessageDispatcher.AddListener("addExp",AddExp);
+    MessageDispatcher.AddListener(Constants.Mess_addExp,AddExp);
   }
 
   private void Update() {

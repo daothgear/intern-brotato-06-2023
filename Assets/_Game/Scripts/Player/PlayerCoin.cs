@@ -16,9 +16,9 @@ public class PlayerCoin : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.tag == "Coin") {
+    if (collision.tag == Constants.Tag_Coin) {
       coinAmount++;
-      ObjectPool.Instance.ReturnToPool("Coin", collision.gameObject);
+      ObjectPool.Instance.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
       Debug.Log("Coin return done");
     }
   }

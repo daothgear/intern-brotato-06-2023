@@ -15,7 +15,7 @@ public class Bullets : MonoBehaviour {
       transform.position += direction * bulletSpeed * Time.deltaTime;
       float distanceToTarget = Vector3.Distance(transform.position, targetEnemy.position);
       if (distanceToTarget < 0.1f) {
-        ObjectPool.Instance.ReturnToPool("Bullets", gameObject);
+        ObjectPool.Instance.ReturnToPool(Constants.Tag_Bullets, gameObject);
       }
     }
   }

@@ -15,7 +15,7 @@ public class PlayerDataLoader : Singleton<PlayerDataLoader> {
   }
 
   public void LoadCharacterInfo(int currentLevel) {
-    string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
+    string characterLevelPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Player);
     if (File.Exists(characterLevelPath)) {
       string characterLevelJson = File.ReadAllText(characterLevelPath);
       characterLevelData = JsonConvert.DeserializeObject<CharacterLevelData>(characterLevelJson);

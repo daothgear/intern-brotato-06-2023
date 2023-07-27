@@ -24,8 +24,8 @@ public class PlayerHealth : MonoBehaviour {
   private void Start() {
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
-    MessageDispatcher.AddListener("playerTakeDamage", TakeDamage);
-    MessageDispatcher.AddListener("resetHealth", ResetHealth);
+    MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
+    MessageDispatcher.AddListener(Constants.Mess_resetHealth, ResetHealth);
   }
 
   private void FixUpdate() {

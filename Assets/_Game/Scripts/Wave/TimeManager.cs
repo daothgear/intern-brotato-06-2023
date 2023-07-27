@@ -94,7 +94,7 @@ public class TimeManager : Singleton<TimeManager> {
     currentWave++;
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
-    MessageDispatcher.SendMessage("resetHealth");
+    MessageDispatcher.SendMessage(Constants.Mess_resetHealth);
     UpdateText();
     StartWave();
     UIShop.SetActive(false);
@@ -123,7 +123,7 @@ public class TimeManager : Singleton<TimeManager> {
   private IEnumerator SpawnEnemyWithDelay(GameObject spawnPoint) {
     yield return new WaitForSeconds(waveDataLoader.spawnDelay);
     // Spawn enemy
-    ObjectPool.Instance.SpawnFromPool("Enemy" , spawnPoint.transform.position , Quaternion.identity);
+    ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy , spawnPoint.transform.position , Quaternion.identity);
     // Destroy SpawnPoint
     Destroy(spawnPoint);
   }
@@ -140,9 +140,9 @@ public class TimeManager : Singleton<TimeManager> {
   }
 
   private void ClearEnemies() {
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag(Constants.Tag_Enemy);
     foreach (GameObject enemy in enemies) {
-      ObjectPool.Instance.ReturnToPool("Enemy" , enemy);
+      ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, enemy);
     }
   }
 

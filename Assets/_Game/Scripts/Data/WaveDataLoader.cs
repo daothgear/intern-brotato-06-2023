@@ -13,7 +13,7 @@ public class WaveDataLoader : Singleton<WaveDataLoader> {
   }
 
   private void LoadWaveData() {
-    string filePath = Path.Combine(Application.streamingAssetsPath, "waveData.json");
+    string filePath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Wave);
 
     if (File.Exists(filePath)) {
       string jsonData = File.ReadAllText(filePath);
