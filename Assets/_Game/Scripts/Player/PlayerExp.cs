@@ -6,10 +6,11 @@ public class PlayerExp : Singleton<PlayerExp> {
   [SerializeField] private Slider playerExpSlider;
   [SerializeField] private Text textExp;
 
-  private PlayerLoader playerLoader;
+  private PlayerLoader playerLoader {
+    get => PlayerLoader.Instance;
+  }
   
   private void Start() {
-    playerLoader = PlayerLoader.Instance;
     currentExp = 0;
     UpdateExpUI();
   }
@@ -31,7 +32,6 @@ public class PlayerExp : Singleton<PlayerExp> {
       currentExp -= playerLoader.maxExp;
       playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
     }
-
     UpdateExpUI();
   }
 }

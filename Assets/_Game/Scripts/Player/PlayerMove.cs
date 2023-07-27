@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
-  private PlayerLoader playerLoader;
+  private PlayerLoader playerLoader { get => PlayerLoader.Instance; }
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
   private bool isFacingRight = true;
@@ -11,10 +11,6 @@ public class PlayerMove : MonoBehaviour {
     if (animator == null) {
       animator = GetComponent<Animator>();
     }
-  }
-
-  private void Awake() {
-    playerLoader = PlayerLoader.Instance;
   }
   
   private void Update() {

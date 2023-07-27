@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour {
   [SerializeField] private Enemy enemy;
-  [SerializeField] private PlayerExp playerExp;
+
+  private PlayerExp playerExp {
+    get => PlayerExp.Instance;
+  }
   
-  private EnemyLoader enemyLoader;
+  private EnemyLoader enemyLoader {
+    get => EnemyLoader.Instance;
+  }
   private Vector3 startPosition;
   
   [SerializeField] private float currentHealth;
@@ -16,12 +21,7 @@ public class EnemyHealth : MonoBehaviour {
       enemy = GetComponent<Enemy>();
     }
   }
-
-  private void Awake() {
-    enemyLoader = EnemyLoader.Instance;
-    playerExp = PlayerExp.Instance;
-  }
-
+  
   private void Start() {
     startPosition = transform.position;
     currentHealth = enemyLoader.maxHealth;

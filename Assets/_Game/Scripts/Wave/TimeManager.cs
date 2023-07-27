@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class TimeManager : MonoBehaviour {
-  private WaveDataLoader waveDataLoader;
+public class TimeManager : Singleton<TimeManager> {
   [SerializeField] private Text waveText;
   [SerializeField] private Text subWaveText;
   [SerializeField] private Text countdownText;
@@ -21,29 +20,22 @@ public class TimeManager : MonoBehaviour {
   [SerializeField] private GameObject wallCheck;
   [SerializeField] private GameObject spawnPointPrefab;
 
-  private PlayerHealth playerHealth;
-  private PlayerLoader playerLoader;
+  private PlayerHealth playerHealth {
+    get => PlayerHealth.Instance;
+  }
+  private PlayerLoader playerLoader {
+    get => PlayerLoader.Instance;
+  }
+
+  private WaveDataLoader waveDataLoader {
+    get => WaveDataLoader.Instance;
+  }
+  
 
   private bool isShowingShop = false;
   [SerializeField] private GameObject UIShop; 
   [SerializeField] private Button ButtonNextLevel;
-
-  private void OnValidate() {
-    if (waveDataLoader == null) {
-      waveDataLoader = FindObjectOfType<WaveDataLoader>();
-    }
-
-    if (playerHealth == null) {
-      playerHealth = FindObjectOfType<PlayerHealth>();
-    }
-  }
-
-  private void Awake() {
-    playerLoader = PlayerLoader.Instance;
-    waveDataLoader = WaveDataLoader.Instance;
-    HideShop();
-  }
-
+  
   private void Start() {
     currentWave = 1;
     currentSubWave = 0; 
@@ -109,6 +101,7 @@ public class TimeManager : MonoBehaviour {
 
     UpdateText();
     StartWave();
+    UIShop.SetActive(false);
   }
 
 

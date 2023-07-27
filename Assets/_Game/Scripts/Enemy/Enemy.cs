@@ -8,10 +8,12 @@ public class Enemy : Singleton<Enemy> {
     Dead
   }
 
-  private EnemyLoader enemyLoader;
+  private EnemyLoader enemyLoader { get => EnemyLoader.Instance;}
+  [SerializeField] private PlayerHealth playerHealth {
+    get => PlayerHealth.Instance;
+  }
   public EnemyState currentState;
-
-  [SerializeField] private PlayerHealth playerHealth;
+  
   [SerializeField] private Animator animator;
   
   private bool isFacingRight;
@@ -23,8 +25,6 @@ public class Enemy : Singleton<Enemy> {
   }
 
   private void Awake() {
-    enemyLoader = EnemyLoader.Instance;
-    playerHealth = PlayerHealth.Instance;
   }
 
   private void Start() {

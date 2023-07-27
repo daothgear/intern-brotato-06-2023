@@ -5,12 +5,10 @@ using UnityEngine;
 using com.ootii.Messages;
 
 public class UINextLevel : MonoBehaviour {
-  private TimeManager timeManager;
-
-  private void Awake() {
-    timeManager = FindObjectOfType<TimeManager>();
+  private TimeManager timeManager {
+    get => TimeManager.Instance;
   }
-
+  
   public void ClickNextButton() {
     timeManager.CloseShopUI();
   }

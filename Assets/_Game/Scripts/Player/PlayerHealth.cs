@@ -9,19 +9,14 @@ public class PlayerHealth : Singleton<PlayerHealth> {
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
-  private PlayerLoader playerLoader;
+  private PlayerLoader playerLoader { get => PlayerLoader.Instance; }
 
   private void OnValidate() {
     if (playerExp == null) {
       playerExp = GetComponent<PlayerExp>();
     }
   }
-
-  protected override void Awake() {
-    base.Awake();
-    playerLoader = PlayerLoader.Instance;
-  }
-
+  
   private void Start() {
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
