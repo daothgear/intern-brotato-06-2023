@@ -1,15 +1,19 @@
 ﻿using System;
+using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : Singleton<PlayerHealth> {
+public class PlayerHealth : MonoBehaviour {
   public int currentHealth;
   [SerializeField] private bool die = true;
   [SerializeField] private GameObject UiEndGame;
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
-  private PlayerLoader playerLoader { get => PlayerLoader.Instance; }
+  private PlayerDataLoader playerLoader { get => PlayerDataLoader.Instance; }
+  private EnemyDataLoader enemyLoader {
+    get => EnemyDataLoader.Instance;
+  }
 
   private void OnValidate() {
     if (playerExp == null) {
@@ -20,6 +24,8 @@ public class PlayerHealth : Singleton<PlayerHealth> {
   private void Start() {
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
+    MessageDispatcher.AddListener("playerTakeDamage", TakeDamage);
+    MessageDispatcher.AddListener("resetHealth", ResetHealth);
   }
 
   private void FixUpdate() {
@@ -36,9 +42,9 @@ public class PlayerHealth : Singleton<PlayerHealth> {
     textHealth.text = currentHealth + "/" + playerLoader.maxHealth;
   }
 
-  public void TakeDamage(int damage) {
+  public void TakeDamage(IMessage img) {
     if (currentHealth > 0) {
-      currentHealth -= damage;
+      currentHealth -= enemyLoader.damageEnemy;
       if (currentHealth <= 0) {
         currentHealth = 0;
         Die();
@@ -52,5 +58,10 @@ public class PlayerHealth : Singleton<PlayerHealth> {
     Debug.Log("Player died!");
     die = true;
     UiEndGame.SetActive(die);
+  }
+
+  private void ResetHealth(IMessage img) {
+    currentHealth = playerLoader.maxHealth;
+    UpdateHealthUI();
   }
 }

@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class PlayerLoader : Singleton<PlayerLoader> {
+public class PlayerDataLoader : Singleton<PlayerDataLoader> {
   private CharacterLevelData characterLevelData;
   public float speed;
   public int maxHealth;

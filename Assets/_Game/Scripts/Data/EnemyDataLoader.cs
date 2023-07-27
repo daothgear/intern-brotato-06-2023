@@ -3,7 +3,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class EnemyLoader : Singleton<EnemyLoader> {
+public class EnemyDataLoader : Singleton<EnemyDataLoader> {
   private EnemyData enemyData;
   public float speed;
   public int maxHealth;

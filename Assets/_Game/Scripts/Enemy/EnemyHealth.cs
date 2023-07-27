@@ -1,14 +1,11 @@
+using com.ootii.Messages;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour {
   [SerializeField] private Enemy enemy;
-
-  private PlayerExp playerExp {
-    get => PlayerExp.Instance;
-  }
   
-  private EnemyLoader enemyLoader {
-    get => EnemyLoader.Instance;
+  private EnemyDataLoader enemyLoader {
+    get => EnemyDataLoader.Instance;
   }
   private Vector3 startPosition;
   
@@ -31,9 +28,7 @@ public class EnemyHealth : MonoBehaviour {
   public void MakeDead() {
     ObjectPool.Instance.ReturnToPool("Enemy",gameObject);
     Debug.Log("current state hien tai" + enemy.currentState);
-    if (playerExp != null) {
-      playerExp.AddExp(enemyLoader.enemyExp);
-    }
+    MessageDispatcher.SendMessage("addExp");
     ObjectPool.Instance.SpawnFromPool("Coin", transform.position, Quaternion.identity);
     ResetEnemy();
   }

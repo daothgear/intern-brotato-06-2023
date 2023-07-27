@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using com.ootii.Messages;
+using UnityEngine;
 
-public class Enemy : Singleton<Enemy> {
+public class Enemy : MonoBehaviour {
   public enum EnemyState {
     Idle,
     Walk,
@@ -8,16 +9,15 @@ public class Enemy : Singleton<Enemy> {
     Dead
   }
 
-  private EnemyLoader enemyLoader { get => EnemyLoader.Instance;}
-  [SerializeField] private PlayerHealth playerHealth {
-    get => PlayerHealth.Instance;
-  }
+  private EnemyDataLoader enemyLoader { get => EnemyDataLoader.Instance;}
   public EnemyState currentState;
   
   [SerializeField] private Animator animator;
   
   private bool isFacingRight;
   public bool isTrigger;
+  
+  public GameObject player;
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponentInChildren<Animator>();
@@ -25,6 +25,9 @@ public class Enemy : Singleton<Enemy> {
   }
 
   private void Awake() {
+    if (player == null) {
+      player = GameObject.FindGameObjectWithTag("Player");
+    }
   }
 
   private void Start() {
@@ -64,17 +67,17 @@ public class Enemy : Singleton<Enemy> {
   public void Walk() {
     isTrigger = true;
     Debug.Log(isTrigger);
-    if (playerHealth != null) {
+    if (player != null) {
       transform.position =
-          Vector3.MoveTowards(transform.position, playerHealth.transform.position, enemyLoader.speed * Time.deltaTime);
-      if (transform.position.x > playerHealth.transform.position.x && isFacingRight) {
+          Vector3.MoveTowards(transform.position, player.transform.position, enemyLoader.speed * Time.deltaTime);
+      if (transform.position.x > player.transform.position.x && isFacingRight) {
         Flip();
       }
-      else if (transform.position.x < playerHealth.transform.position.x && !isFacingRight) {
+      else if (transform.position.x < player.transform.position.x && !isFacingRight) {
         Flip();
       }
 
-      float distanceToPlayer = Vector3.Distance(transform.position, playerHealth.transform.position);
+      float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
       if (distanceToPlayer <= 1f) {
         currentState = EnemyState.Attack;
       }
@@ -89,7 +92,7 @@ public class Enemy : Singleton<Enemy> {
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag("Player")) {
       if (isTrigger == true) {
-        playerHealth.TakeDamage(enemyLoader.damageEnemy);
+        MessageDispatcher.SendMessage("playerTakeDamage");
       }
     }
   }

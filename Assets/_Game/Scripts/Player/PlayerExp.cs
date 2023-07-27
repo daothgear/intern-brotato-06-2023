@@ -1,18 +1,24 @@
+using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerExp : Singleton<PlayerExp> {
+public class PlayerExp : MonoBehaviour {
   [SerializeField] private int currentExp;
   [SerializeField] private Slider playerExpSlider;
   [SerializeField] private Text textExp;
 
-  private PlayerLoader playerLoader {
-    get => PlayerLoader.Instance;
+  private PlayerDataLoader playerLoader {
+    get => PlayerDataLoader.Instance;
+  }
+
+  private EnemyDataLoader enemyLoader {
+    get => EnemyDataLoader.Instance;
   }
   
   private void Start() {
     currentExp = 0;
     UpdateExpUI();
+    MessageDispatcher.AddListener("addExp",AddExp);
   }
 
   private void Update() {
@@ -25,8 +31,8 @@ public class PlayerExp : Singleton<PlayerExp> {
     textExp.text = "LV." + playerLoader.characterLevel;
   }
 
-  public void AddExp(int expAmount) {
-    currentExp += expAmount;
+  public void AddExp(IMessage img) {
+    currentExp += enemyLoader.enemyExp;
     while (currentExp >= playerLoader.maxExp) {
       playerLoader.characterLevel++;
       currentExp -= playerLoader.maxExp;

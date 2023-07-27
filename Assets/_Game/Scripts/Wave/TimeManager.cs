@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -19,12 +20,9 @@ public class TimeManager : Singleton<TimeManager> {
 
   [SerializeField] private GameObject wallCheck;
   [SerializeField] private GameObject spawnPointPrefab;
-
-  private PlayerHealth playerHealth {
-    get => PlayerHealth.Instance;
-  }
-  private PlayerLoader playerLoader {
-    get => PlayerLoader.Instance;
+  
+  private PlayerDataLoader playerLoader {
+    get => PlayerDataLoader.Instance;
   }
 
   private WaveDataLoader waveDataLoader {
@@ -96,9 +94,7 @@ public class TimeManager : Singleton<TimeManager> {
     currentWave++;
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
-    playerHealth.currentHealth = playerLoader.maxHealth;
-    playerHealth.UpdateHealthUI();
-
+    MessageDispatcher.SendMessage("resetHealth");
     UpdateText();
     StartWave();
     UIShop.SetActive(false);
