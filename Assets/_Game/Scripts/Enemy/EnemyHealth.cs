@@ -1,24 +1,21 @@
 using com.ootii.Messages;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour {
+
+public class EnemyHealth : MonoBehaviour, IPooledObject {
   [SerializeField] private Enemy enemy;
-  
   private EnemyDataLoader enemyLoader {
     get => EnemyDataLoader.Instance;
   }
-  private Vector3 startPosition;
-  
+
   [SerializeField] private float currentHealth;
-  private Animator animator;
-  
 
   private void OnValidate() {
-    if ( enemy == null) {
+    if (enemy == null) {
       enemy = GetComponent<Enemy>();
     }
   }
-  
+
   private void Start() {
     currentHealth = enemyLoader.maxHealth;
     Debug.Log(enemyLoader.maxHealth);
@@ -31,13 +28,13 @@ public class EnemyHealth : MonoBehaviour {
     ObjectPool.Instance.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
     ResetEnemy();
   }
-  
   public void TakeDamage(int damage) {
     currentHealth -= damage;
     if (currentHealth <= 0) {
       enemy.currentState = Enemy.EnemyState.Dead;
       MakeDead();
     }
+
   }
 
   public void ResetEnemy() {
@@ -64,5 +61,10 @@ public class EnemyHealth : MonoBehaviour {
     if (collision.CompareTag("Player")) {
       ResetEnemy();
     }
+  }
+
+  public void OnObjectSpawn() {
+    ResetHealth();
+    ResetEnemyState();
   }
 }

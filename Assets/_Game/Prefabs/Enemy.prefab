@@ -434,7 +434,6 @@ MonoBehaviour:
   currentState: 0
   animator: {fileID: 2900440499164586146}
   isTrigger: 0
-  player: {fileID: 0}
 --- !u!114 &8546123835671570202
 MonoBehaviour:
   m_ObjectHideFlags: 0
