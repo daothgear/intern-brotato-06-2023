@@ -4,7 +4,7 @@ public class Weapon : MonoBehaviour {
   public GameObject bulletPrefab;
   public float fireRate = 0.5f;
   public float shootingRange = 10f;
-
+  private bool isFacingRight = true;
   private float fireTimer;
 
   void Update() {

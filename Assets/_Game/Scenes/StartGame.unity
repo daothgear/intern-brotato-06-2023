@@ -22668,7 +22668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 120655287}
   m_Layer: 0
-  m_Name: WeaponPoint_3
+  m_Name: Point6
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -22699,7 +22699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 143151996}
   m_Layer: 0
-  m_Name: WeaponPoint_5
+  m_Name: Point2
   m_TagString: Untagged
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -23453,7 +23453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 341425621}
   m_Layer: 0
-  m_Name: WeaponPoint_1
+  m_Name: Point3
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -23858,7 +23858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &516717797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24693,7 +24693,7 @@ MonoBehaviour:
     size: 50
   - tag: Enemy
     prefab: {fileID: 2900440498428525068, guid: 6fc599b4efd394e77a90c98fb81b8ba5, type: 3}
-    size: 5
+    size: 100
   - tag: Bullets
     prefab: {fileID: 7509030963474128735, guid: adda5635ff37e412bb01c524c263f31d, type: 3}
     size: 500
@@ -25934,7 +25934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 992103500}
   m_Layer: 0
-  m_Name: WeaponPoint_4
+  m_Name: Point5
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -26240,18 +26240,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058422507}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe95ea96330ac4a8cb67d023b68604fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPositions:
-  - {fileID: 341425621}
   - {fileID: 1307084193}
-  - {fileID: 120655287}
-  - {fileID: 992103500}
   - {fileID: 143151996}
+  - {fileID: 341425621}
   - {fileID: 1629869652}
+  - {fileID: 992103500}
+  - {fileID: 120655287}
   defaultWeaponPrefab: {fileID: 5829852352044861097, guid: 1239ec2e202e34506ab4965e216459e4, type: 3}
   desiredWeaponTag: Piston
 --- !u!114 &1058422521
@@ -26943,7 +26943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1307084193}
   m_Layer: 0
-  m_Name: WeaponPoint_2
+  m_Name: Point1
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -27473,7 +27473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629869652}
   m_Layer: 0
-  m_Name: WeaponPoint_6
+  m_Name: Point4
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
