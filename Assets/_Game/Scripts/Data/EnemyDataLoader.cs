@@ -3,8 +3,8 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class EnemyLoader : Singleton<EnemyLoader> {
-  public EnemyData enemyData;
+public class EnemyDataLoader : Singleton<EnemyDataLoader> {
+  private EnemyData enemyData;
   public float speed;
   public int maxHealth;
   public int damageEnemy;
@@ -16,7 +16,7 @@ public class EnemyLoader : Singleton<EnemyLoader> {
   }
   
   public void LoadEnemyInfo(int enemyID) {
-    string enemyDataPath = Path.Combine(Application.streamingAssetsPath, "EnemyData.json");
+    string enemyDataPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Enemy);
     if (File.Exists(enemyDataPath)) {
       string enemyDataJson = File.ReadAllText(enemyDataPath);
       enemyData = JsonConvert.DeserializeObject<EnemyData>(enemyDataJson);
@@ -27,7 +27,7 @@ public class EnemyLoader : Singleton<EnemyLoader> {
           maxHealth = currentEnemyInfo.maxHP;
           damageEnemy = currentEnemyInfo.damage;
           enemyExp = currentEnemyInfo.expEnemy;
-          Debug.Log("Enemy data loaded successfully.");
+          //Debug.Log("Enemy data loaded successfully.");
           break;
         }
       }

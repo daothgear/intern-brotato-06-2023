@@ -1,46 +1,42 @@
 ﻿using System;
 using System.Collections;
-using System.IO;
+using System.Collections.Generic;
+using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class TimeManager : MonoBehaviour {
-  public WaveDataLoader waveDataLoader;
-  public Text waveText;
-  public Text subWaveText;
-  public Text countdownText;
-  public Text totalTimerText;
-
-  private float timer;
-  private float totalTimer;
-  private int currentWave;
-  private int currentSubWave;
+public class TimeManager : Singleton<TimeManager> {
+  public float timer;
+  public float totalTimer;
+  public int currentWave;
+  public int currentSubWave;
 
   [SerializeField] private GameObject wallCheck;
-  [SerializeField] private GameObject enemyPrefab;
   [SerializeField] private GameObject spawnPointPrefab;
-
-  private PlayerHealth playerHealth;
-  private PlayerLoader playerLoader;
-
-  private void OnValidate() {
-    if (waveDataLoader == null) {
-      waveDataLoader = FindObjectOfType<WaveDataLoader>();
-    }
-
-    if (playerHealth == null) {
-      playerHealth = FindObjectOfType<PlayerHealth>();
-    }
+  
+  private PlayerDataLoader playerLoader {
+    get => PlayerDataLoader.Instance;
   }
 
-  private void Awake() {
-    playerLoader = PlayerLoader.Instance;
-    waveDataLoader = WaveDataLoader.Instance;
+  private WaveDataLoader waveDataLoader {
+    get => WaveDataLoader.Instance;
+  }
+
+  private TextWave textWave;
+
+  private bool isShowingShop = false;
+  [SerializeField] private GameObject UIShop; 
+  [SerializeField] private Button ButtonNextLevel;
+
+  private void OnValidate() {
+    if (textWave == null) {
+      textWave = GetComponent<TextWave>();
+    }
   }
 
   private void Start() {
-    //LoadWaveData();
+    currentWave = 1;
     StartWave();
   }
 
@@ -52,33 +48,58 @@ public class TimeManager : MonoBehaviour {
         StartNextSubWave();
       }
 
-      UpdateText();
+      textWave.UpdateText();
     }
   }
 
+  private int CalculateTotalSubWaves() {
+    int totalSubWaves = 0;
+    for (int i = 0 ; i < currentWave - 1 ; i++) {
+      totalSubWaves += waveDataLoader.numSubWaves;
+    }
+    totalSubWaves += currentSubWave;
+    return totalSubWaves;
+  }
+
+  private void NextLevelButtonClicked() {
+    HideShop();
+    StartNextSubWave();
+  }
+
   private void StartWave() {
-    currentWave = 1;
-    currentSubWave = 1;
+    currentSubWave++;
+    if (currentSubWave > waveDataLoader.numSubWaves) {
+      ShowShop();
+      return;
+    }
+
     timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
     totalTimer = CalculateTotalTimer();
     SpawnEnemies();
-    UpdateText();
+    textWave.UpdateText();
   }
 
   private void StartNextSubWave() {
     currentSubWave++;
     if (currentSubWave > waveDataLoader.numSubWaves) {
       ClearEnemies();
-      currentWave++;
-      currentSubWave = 1;
-      totalTimer = CalculateTotalTimer();
-      playerHealth.currentHealth = playerLoader.maxHealth;
-      playerHealth.UpdateHealthUI();
+      ShowShop();
+      return;
     }
-
     SpawnEnemies();
     timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
   }
+
+  public void CloseShopUI() {
+    currentWave++;
+    currentSubWave = 0;
+    totalTimer = CalculateTotalTimer();
+    MessageDispatcher.SendMessage(Constants.Mess_resetHealth);
+    textWave.UpdateText();
+    StartWave();
+    UIShop.SetActive(false);
+  }
+
 
   private void SpawnEnemies() {
     int numEnemies = currentWave * waveDataLoader.numEnemiesPerWave * currentSubWave;
@@ -102,7 +123,7 @@ public class TimeManager : MonoBehaviour {
   private IEnumerator SpawnEnemyWithDelay(GameObject spawnPoint) {
     yield return new WaitForSeconds(waveDataLoader.spawnDelay);
     // Spawn enemy
-    ObjectPool.Instance.SpawnFromPool("Enemy" , spawnPoint.transform.position , Quaternion.identity);
+    ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy , spawnPoint.transform.position , Quaternion.identity);
     // Destroy SpawnPoint
     Destroy(spawnPoint);
   }
@@ -119,19 +140,12 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void ClearEnemies() {
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag(Constants.Tag_Enemy);
     foreach (GameObject enemy in enemies) {
-      ObjectPool.Instance.ReturnToPool("Enemy" , enemy);
+      ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, enemy);
     }
   }
-
-  private void UpdateText() {
-    waveText.text = "WAVE " + currentWave.ToString();
-    subWaveText.text = "Sub wave: " + currentSubWave.ToString() + " / " + waveDataLoader.numSubWaves.ToString();
-    countdownText.text = "Countdown: " + Mathf.Round(timer).ToString() + "s";
-    totalTimerText.text = Mathf.Round(totalTimer).ToString();
-  }
-
+  
   private float CalculateTotalTimer() {
     float total = 0f;
     for (int i = 0 ; i < waveDataLoader.numSubWaves ; i++) {
@@ -139,5 +153,27 @@ public class TimeManager : MonoBehaviour {
     }
 
     return total;
+  }
+
+  private void ShowShop() {
+    // Show the UI shop
+    UIShop.SetActive(true);
+
+    // Set the flag to true
+    isShowingShop = true;
+
+    // Debug message to indicate that the shop is shown
+    Debug.Log("Shop is shown!");
+  }
+
+  private void HideShop() {
+    // Hide the UI shop
+    UIShop.SetActive(false);
+
+    // Set the flag to false
+    isShowingShop = false;
+
+    // Debug message to indicate that the shop is hidden
+    Debug.Log("Shop is hidden!");
   }
 }

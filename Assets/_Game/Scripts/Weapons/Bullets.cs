@@ -1,3 +1,5 @@
+using System;
+using com.ootii.Messages;
 using UnityEngine;
 
 public class Bullets : MonoBehaviour {
@@ -15,12 +17,14 @@ public class Bullets : MonoBehaviour {
       transform.position += direction * bulletSpeed * Time.deltaTime;
       float distanceToTarget = Vector3.Distance(transform.position, targetEnemy.position);
       if (distanceToTarget < 0.1f) {
-        //Destroy(targetEnemy.gameObject);
-        Destroy(gameObject);
+        ObjectPool.Instance.ReturnToPool(Constants.Tag_Bullets, gameObject);
       }
     }
-    else {
-      Destroy(gameObject);
+  }
+
+  private void OnTriggerEnter2D(Collider2D other) {
+    if (gameObject.CompareTag(Constants.Tag_Enemy)) {
+      MessageDispatcher.SendMessage(Constants.Mess_enemyTakeDamage);
     }
   }
 }

@@ -2,8 +2,8 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class PlayerLoader : Singleton<PlayerLoader> {
-  public CharacterLevelData characterLevelData;
+public class PlayerDataLoader : Singleton<PlayerDataLoader> {
+  private CharacterLevelData characterLevelData;
   public float speed;
   public int maxHealth;
   public int characterLevel;
@@ -15,7 +15,7 @@ public class PlayerLoader : Singleton<PlayerLoader> {
   }
 
   public void LoadCharacterInfo(int currentLevel) {
-    string characterLevelPath = Path.Combine(Application.streamingAssetsPath, "CharacterLevelData.json");
+    string characterLevelPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Player);
     if (File.Exists(characterLevelPath)) {
       string characterLevelJson = File.ReadAllText(characterLevelPath);
       characterLevelData = JsonConvert.DeserializeObject<CharacterLevelData>(characterLevelJson);

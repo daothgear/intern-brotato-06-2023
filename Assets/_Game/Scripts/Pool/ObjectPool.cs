@@ -37,6 +37,12 @@ public class ObjectPool : Singleton<ObjectPool> {
       return null;
     }
 
+    if (poolDictionary[tag].Count == 0) {
+      GameObject newObj = Instantiate(pools.Find(pool => pool.tag == tag).prefab);
+      newObj.SetActive(false);
+      poolDictionary[tag].Enqueue(newObj);
+    }
+
     GameObject objectToSpawn = poolDictionary[tag].Dequeue();
     objectToSpawn.SetActive(true);
     objectToSpawn.transform.position = position;

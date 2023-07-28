@@ -1,4 +1,5 @@
 ﻿using System;
+using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,23 +10,22 @@ public class PlayerHealth : MonoBehaviour {
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
-  private EnemyLoader enemyLoader;
-  private PlayerLoader playerLoader;
+  private PlayerDataLoader playerLoader { get => PlayerDataLoader.Instance; }
+  private EnemyDataLoader enemyLoader {
+    get => EnemyDataLoader.Instance;
+  }
 
   private void OnValidate() {
     if (playerExp == null) {
       playerExp = GetComponent<PlayerExp>();
     }
   }
-
-  private void Awake() {
-    enemyLoader = EnemyLoader.Instance;
-    playerLoader = PlayerLoader.Instance;
-  }
-
+  
   private void Start() {
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
+    MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
+    MessageDispatcher.AddListener(Constants.Mess_resetHealth, ResetHealth);
   }
 
   private void FixUpdate() {
@@ -42,9 +42,9 @@ public class PlayerHealth : MonoBehaviour {
     textHealth.text = currentHealth + "/" + playerLoader.maxHealth;
   }
 
-  public void TakeDamage(int damage) {
+  public void TakeDamage(IMessage img) {
     if (currentHealth > 0) {
-      currentHealth -= damage;
+      currentHealth -= enemyLoader.damageEnemy;
       if (currentHealth <= 0) {
         currentHealth = 0;
         Die();
@@ -60,9 +60,8 @@ public class PlayerHealth : MonoBehaviour {
     UiEndGame.SetActive(die);
   }
 
-  private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag("Enemy")) {
-      TakeDamage(enemyLoader.damageEnemy);
-    }
+  private void ResetHealth(IMessage img) {
+    currentHealth = playerLoader.maxHealth;
+    UpdateHealthUI();
   }
 }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
-  private PlayerLoader playerLoader;
+  private PlayerDataLoader playerLoader { get => PlayerDataLoader.Instance; }
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
   private bool isFacingRight = true;
@@ -11,10 +11,6 @@ public class PlayerMove : MonoBehaviour {
     if (animator == null) {
       animator = GetComponent<Animator>();
     }
-  }
-
-  private void Awake() {
-    playerLoader = PlayerLoader.Instance;
   }
   
   private void Update() {
@@ -25,10 +21,10 @@ public class PlayerMove : MonoBehaviour {
     Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * playerLoader.speed;
     transform.position += movement;
     if (movement.magnitude > 0) {
-      animator.SetTrigger("PlayerWalk");
+      animator.SetTrigger(Constants.Anim_PlayerWalk);
     }
     else {
-      animator.SetTrigger("PlayerIdle");
+      animator.SetTrigger(Constants.Anim_PlayerIdle);
     }
 
     if (ShouldFlip()) {

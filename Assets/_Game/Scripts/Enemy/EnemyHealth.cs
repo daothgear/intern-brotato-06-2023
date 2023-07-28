@@ -1,51 +1,45 @@
-using System;
+using com.ootii.Messages;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour {
-  private Enemy enemy;
-  private EnemyLoader enemyLoader;
-  private Vector3 startPosition;
-  public float currentHealth;
-  private Animator animator;
-  public PlayerExp playerExp;
+
+public class EnemyHealth : MonoBehaviour, IPooledObject {
+  [SerializeField] private Enemy enemy;
+  private EnemyDataLoader enemyLoader {
+    get => EnemyDataLoader.Instance;
+  }
+
+  [SerializeField] private float currentHealth;
+
   private void OnValidate() {
-    if (playerExp == null) {
-      playerExp = FindObjectOfType<PlayerExp>();
+    if (enemy == null) {
+      enemy = GetComponent<Enemy>();
     }
   }
 
-  private void Awake() {
-    enemyLoader = EnemyLoader.Instance;
-  }
-
   private void Start() {
-    Debug.Log(enemyLoader.maxHealth);
-    enemy = GetComponent<Enemy>();
-    startPosition = transform.position;
     currentHealth = enemyLoader.maxHealth;
     Debug.Log(enemyLoader.maxHealth);
   }
 
   public void MakeDead() {
-    if (playerExp != null) {
-      playerExp.AddExp(enemyLoader.enemyExp);
-    }
-
-    ObjectPool.Instance.SpawnFromPool("Coin", transform.position, Quaternion.identity);
+    ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy,gameObject);
+    Debug.Log("current state hien tai" + enemy.currentState);
+    MessageDispatcher.SendMessage(Constants.Mess_addExp);
+    ObjectPool.Instance.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
     ResetEnemy();
   }
-  
   public void TakeDamage(int damage) {
     currentHealth -= damage;
     if (currentHealth <= 0) {
+      enemy.currentState = Enemy.EnemyState.Dead;
       MakeDead();
     }
+
   }
 
   public void ResetEnemy() {
     ResetHealth();
     ResetEnemyState();
-    ObjectPool.Instance.ReturnToPool("Enemy", gameObject);
   }
 
   private void ResetEnemyState() {
@@ -55,18 +49,22 @@ public class EnemyHealth : MonoBehaviour {
   private void ResetHealth() {
     currentHealth = enemyLoader.maxHealth;
   }
-  
+
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag("Bullet")) {
       Bullets bullet = collision.GetComponent<Bullets>();
       if (bullet != null) {
         TakeDamage(bullet.damage);
-        Destroy(collision.gameObject); 
       }
     }
 
     if (collision.CompareTag("Player")) {
       ResetEnemy();
     }
+  }
+
+  public void OnObjectSpawn() {
+    ResetHealth();
+    ResetEnemyState();
   }
 }

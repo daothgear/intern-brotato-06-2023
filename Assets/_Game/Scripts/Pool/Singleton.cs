@@ -11,7 +11,7 @@ public class Singleton<T> : MonoBehaviour where T : Component {
           GameObject singletonObject = new GameObject();
           instance = singletonObject.AddComponent<T>();
           singletonObject.name = typeof(T).ToString() + " (Singleton)";
-          DontDestroyOnLoad(singletonObject);
+          //DontDestroyOnLoad(singletonObject);
         }
       }
       return instance;
@@ -21,7 +21,7 @@ public class Singleton<T> : MonoBehaviour where T : Component {
   protected virtual void Awake() {
     if (instance == null) {
       instance = this as T;
-      DontDestroyOnLoad(this.gameObject);
+      //DontDestroyOnLoad(this.gameObject);
     }
     else {
       Destroy(gameObject);

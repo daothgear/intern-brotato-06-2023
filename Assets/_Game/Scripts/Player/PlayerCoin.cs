@@ -6,19 +6,12 @@ using UnityEngine.UI;
 public class PlayerCoin : MonoBehaviour {
   [SerializeField] private int coinAmount;
   [SerializeField] private Text textCoin;
-
-  private void Start() {
-    coinAmount = 0;
-  }
-
-  private void Update() {
-    textCoin.text = coinAmount.ToString();
-  }
-
+  
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.tag == "Coin") {
+    if (collision.CompareTag("Coin")) {
       coinAmount++;
-      ObjectPool.Instance.ReturnToPool("Coin", collision.gameObject);
+      textCoin.text = coinAmount.ToString();
+      ObjectPool.Instance.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
       Debug.Log("Coin return done");
     }
   }
