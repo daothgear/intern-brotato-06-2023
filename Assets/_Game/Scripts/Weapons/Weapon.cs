@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
   public GameObject bulletPrefab;
+  public Transform attackPoint;
   public float fireRate = 0.5f;
   public float shootingRange = 10f;
   private bool isFacingRight = true;
@@ -39,7 +40,7 @@ public class Weapon : MonoBehaviour {
   }
 
   void FireBulletTowardsEnemy(Transform targetEnemy) {
-    GameObject bulletObject = Instantiate(bulletPrefab, transform.position, transform.rotation);
+    GameObject bulletObject = Instantiate(bulletPrefab, attackPoint.transform.position, transform.rotation);
     Bullets bulletController = bulletObject.GetComponent<Bullets>();
     bulletController.SetTarget(targetEnemy);
   }
