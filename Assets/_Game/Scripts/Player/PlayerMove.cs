@@ -1,5 +1,7 @@
 using System;
+using System.Security.Cryptography;
 using UnityEngine;
+using com.ootii.Messages;
 
 public class PlayerMove : MonoBehaviour {
   private PlayerDataLoader playerLoader { get => PlayerDataLoader.Instance; }
@@ -34,9 +36,11 @@ public class PlayerMove : MonoBehaviour {
 
   private bool ShouldFlip() {
     if (joystick.Horizontal < 0 && isFacingRight) {
+      MessageDispatcher.SendMessage("Right");
       return true;
     }
     else if (joystick.Horizontal > 0 && !isFacingRight) {
+      MessageDispatcher.SendMessage("Left");
       return true;
     }
 
