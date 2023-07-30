@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour {
   public float bulletSpeed = 10f;
-  public int damage = 1;
   private Transform targetEnemy;
 
   public void SetTarget(Transform enemy) {
@@ -23,7 +22,7 @@ public class Bullets : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D other) {
-    if (gameObject.CompareTag(Constants.Tag_Enemy)) {
+    if (other.CompareTag(Constants.Tag_Enemy)) {
       MessageDispatcher.SendMessage(Constants.Mess_enemyTakeDamage);
     }
   }
