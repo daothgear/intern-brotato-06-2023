@@ -2,17 +2,17 @@
 using com.ootii.Messages;
 
 public class Weapon : MonoBehaviour {
-  public GameObject bulletPrefab;
+  private WeaponDataLoader weaponDataLoader {
+    get => WeaponDataLoader.Instance;
+  }
   public Transform attackPoint;
-  public float fireRate = 0.5f;
-  public float shootingRange = 10f;
   private bool isFacingRight = true;
   private float fireTimer;
 
   void Update() {
     fireTimer += Time.deltaTime;
 
-    if (fireTimer >= fireRate) {
+    if (fireTimer >= weaponDataLoader.firerate) {
       fireTimer = 0f;
 
       FindAndFireAtTarget();
@@ -33,7 +33,7 @@ public class Weapon : MonoBehaviour {
 
     foreach (GameObject enemy in enemies) {
       float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-      if (distanceToEnemy <= shootingRange) {
+      if (distanceToEnemy <= weaponDataLoader.weaponAttackRange) {
         if (distanceToEnemy < minDistance) {
           nearestEnemy = enemy.transform;
           minDistance = distanceToEnemy;
@@ -55,14 +55,14 @@ public class Weapon : MonoBehaviour {
   }
 
   void FireBulletTowardsEnemy(Transform targetEnemy) {
-    GameObject bulletObject = Instantiate(bulletPrefab, attackPoint.position, attackPoint.rotation);
-    Bullets bulletController = bulletObject.GetComponent<Bullets>();
-    bulletController.SetTarget(targetEnemy);
+    GameObject bulletObject = ObjectPool.Instance.SpawnFromPool(Constants.Tag_Bullets , attackPoint.position , attackPoint.rotation);
+    Bullets bullet = bulletObject.GetComponent<Bullets>();
+    bullet.SetTarget(targetEnemy);
   }
 
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, shootingRange);
+    Gizmos.DrawWireSphere(transform.position, weaponDataLoader.weaponAttackRange);
   }
 
 

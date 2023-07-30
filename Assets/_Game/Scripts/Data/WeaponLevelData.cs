@@ -10,6 +10,7 @@ public class WeaponLevelData {
   public class WeaponInfo {
     public int weaponID;
     public int currentlevel;
+    public float firerate;
     public int cost;
     public int damage;
     public float attackRange;
