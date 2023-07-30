@@ -3,6 +3,7 @@ using com.ootii.Messages;
 
 public class EnemyHealth : MonoBehaviour, IPooledObject {
   [SerializeField] private Enemy enemy;
+  private bool isAdd = true;
   private EnemyDataLoader enemyLoader {
     get => EnemyDataLoader.Instance;
   }
@@ -28,9 +29,6 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
 
   public void MakeDead() {
     ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy,gameObject);
-    Debug.Log("current state hien tai" + enemy.currentState);
-    MessageDispatcher.SendMessage(Constants.Mess_addExp);
-    ObjectPool.Instance.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
     ResetEnemy();
   }
 
@@ -38,8 +36,15 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     int damage = weaponDataLoader.weaponDamage;
     currentHealth -= damage;
     if (currentHealth <= 0) {
+      if(isAdd == true) {
+        MessageDispatcher.SendMessage(Constants.Mess_addExp);
+        ObjectPool.Instance.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
+        isAdd = false;
+      }
       enemy.currentState = Enemy.EnemyState.Dead;
-      MakeDead();
+      Invoke("MakeDead",1f);
+
+     //MakeDead();
     }
   }
 
