@@ -24130,9 +24130,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6086d3bc4785c42d4b9ae70a346f5466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1058422510}
-  smoothSpeed: 12
-  offset: {x: 0, y: 0, z: -11}
+  player: {fileID: 1058422510}
+  offset: {x: 0, y: 0}
+  smoothSpeed: 0.125
+  leftLimit: -10
+  rightLimit: 22
+  topLimit: 21
+  bottomLimit: -23
 --- !u!1 &530840609
 GameObject:
   m_ObjectHideFlags: 0
@@ -24309,6 +24313,7 @@ Transform:
   - {fileID: 2051767464}
   - {fileID: 580361709}
   - {fileID: 352845677}
+  - {fileID: 840532587}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25155,6 +25160,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831139385}
   m_CullTransparentMesh: 1
+--- !u!1 &840532586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 840532587}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &840532587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840532586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -33.7, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 557865991}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &842111411
 GameObject:
   m_ObjectHideFlags: 0
@@ -26157,7 +26193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058422507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.16, y: 3.3, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
