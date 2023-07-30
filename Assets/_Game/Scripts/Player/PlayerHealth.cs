@@ -47,6 +47,7 @@ public class PlayerHealth : MonoBehaviour {
       currentHealth -= enemyLoader.damageEnemy;
       if (currentHealth <= 0) {
         currentHealth = 0;
+        MessageDispatcher.SendMessage("PlayerDie");
         Die();
       }
 

@@ -24,7 +24,6 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
 
   private void Start() {
     currentHealth = enemyLoader.maxHealth;
-    MessageDispatcher.AddListener(Constants.Mess_enemyTakeDamage,TakeDamage);
   }
 
   public void MakeDead() {
@@ -35,7 +34,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     ResetEnemy();
   }
 
-  public void TakeDamage(IMessage img) {
+  public void TakeDamage() {
     int damage = weaponDataLoader.weaponDamage;
     currentHealth -= damage;
     if (currentHealth <= 0) {
@@ -58,6 +57,10 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
+    if (collision.CompareTag(Constants.Tag_Bullets)){
+      TakeDamage();
+    }
+
     if (collision.CompareTag("Player")) {
       ResetEnemy();
     }

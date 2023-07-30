@@ -20,10 +20,4 @@ public class Bullets : MonoBehaviour {
       }
     }
   }
-
-  private void OnTriggerEnter2D(Collider2D other) {
-    if (other.CompareTag(Constants.Tag_Enemy)) {
-      MessageDispatcher.SendMessage(Constants.Mess_enemyTakeDamage);
-    }
-  }
 }

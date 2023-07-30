@@ -8,8 +8,8 @@ TagManager:
   - Wall
   - Enemy
   - Coin
-  - Bullet
   - Piston
+  - Bullets
   layers:
   - Default
   - TransparentFX
