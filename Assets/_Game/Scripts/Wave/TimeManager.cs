@@ -39,6 +39,7 @@ public class TimeManager : Singleton<TimeManager> {
 
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_playerDie, Stoptime);
+    MessageDispatcher.AddListener("nextwave", UpWave);
     currentWave = 1;
     StartWave();
   }
@@ -124,7 +125,10 @@ public class TimeManager : Singleton<TimeManager> {
       yield return wait;
     }
   }
-
+  
+  private void UpWave(IMessage img) {
+    currentWave++;
+  }
   private void SpawnEnemyRandom() {
     GameObject newEnemy =
         ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
