@@ -13,8 +13,7 @@ public class TimeManager : Singleton<TimeManager> {
   public int currentSubWave;
 
   [SerializeField] private GameObject wallCheck;
-  [SerializeField] private GameObject spawnPointPrefab;
-  
+
   private PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Instance;
   }
@@ -26,8 +25,11 @@ public class TimeManager : Singleton<TimeManager> {
   private TextWave textWave;
 
   private bool isShowingShop = false;
-  [SerializeField] private GameObject UIShop; 
+  [SerializeField] private GameObject UIShop;
   [SerializeField] private Button ButtonNextLevel;
+
+  // Flag to control time updates
+  private bool isTimeStopped = false;
 
   private void OnValidate() {
     if (textWave == null) {
@@ -36,12 +38,17 @@ public class TimeManager : Singleton<TimeManager> {
   }
 
   private void Start() {
+    MessageDispatcher.AddListener(Constants.Mess_playerDie, Stoptime);
     currentWave = 1;
     StartWave();
   }
 
+  private void OnDestroy() {
+    MessageDispatcher.RemoveListener(Constants.Mess_playerDie, Stoptime);
+  }
+
   private void Update() {
-    if (timer > 0f) {
+    if (!isTimeStopped && timer > 0f) {
       timer -= Time.deltaTime;
       totalTimer -= Time.deltaTime;
       if (timer <= 0f) {
@@ -54,9 +61,10 @@ public class TimeManager : Singleton<TimeManager> {
 
   private int CalculateTotalSubWaves() {
     int totalSubWaves = 0;
-    for (int i = 0 ; i < currentWave - 1 ; i++) {
+    for (int i = 0; i < currentWave - 1; i++) {
       totalSubWaves += waveDataLoader.numSubWaves;
     }
+
     totalSubWaves += currentSubWave;
     return totalSubWaves;
   }
@@ -86,6 +94,7 @@ public class TimeManager : Singleton<TimeManager> {
       ShowShop();
       return;
     }
+
     SpawnEnemies();
     timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
   }
@@ -100,55 +109,50 @@ public class TimeManager : Singleton<TimeManager> {
     UIShop.SetActive(false);
   }
 
-
   private void SpawnEnemies() {
     int numEnemies = currentWave * waveDataLoader.numEnemiesPerWave * currentSubWave;
-    for (int i = 0 ; i < numEnemies ; i++) {
-      float delayTime = i * waveDataLoader.spawnDelay;
-      StartCoroutine(SpawnEnemyRandomWithDelay(delayTime));
+    StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
+  }
+
+  private IEnumerator SpawnEnemiesWithDelays(int numEnemies)
+  {
+    float delayTime = waveDataLoader.spawnDelay;
+    WaitForSeconds wait = new WaitForSeconds(delayTime);
+    for (int i = 0; i < numEnemies; i++)
+    {
+      SpawnEnemyRandom();
+      yield return wait;
     }
   }
 
-  private IEnumerator SpawnEnemyRandomWithDelay(float delayTime) {
-    yield return new WaitForSeconds(delayTime);
-    SpawnEnemyRandom();
-  }
-
   private void SpawnEnemyRandom() {
-    Vector3 spawnPosition = GetRandomSpawnPosition();
-    GameObject spawnPoint = Instantiate(spawnPointPrefab , spawnPosition , Quaternion.identity);
-    StartCoroutine(SpawnEnemyWithDelay(spawnPoint));
-  }
-
-  private IEnumerator SpawnEnemyWithDelay(GameObject spawnPoint) {
-    yield return new WaitForSeconds(waveDataLoader.spawnDelay);
-    // Spawn enemy
-    ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy , spawnPoint.transform.position , Quaternion.identity);
-    // Destroy SpawnPoint
-    Destroy(spawnPoint);
+    GameObject newEnemy =
+        ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
+    ObjectPool.Instance.enemyList.Add(newEnemy);
   }
 
   private Vector3 GetRandomSpawnPosition() {
     Collider2D wallCollider = wallCheck.GetComponent<Collider2D>();
     Vector3 wallSize = wallCollider.bounds.size;
     Vector3 spawnPosition = wallCheck.transform.position + new Vector3(
-        Random.Range(-wallSize.x / 2f , wallSize.x / 2f) ,
-        Random.Range(-wallSize.y / 2f , wallSize.y / 2f) ,
-        Random.Range(-wallSize.z / 2f , wallSize.z / 2f)
+        Random.Range(-wallSize.x / 2f, wallSize.x / 2f),
+        Random.Range(-wallSize.y / 2f, wallSize.y / 2f)
     );
+
     return spawnPosition;
   }
 
   private void ClearEnemies() {
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag(Constants.Tag_Enemy);
-    foreach (GameObject enemy in enemies) {
+    foreach (GameObject enemy in ObjectPool.Instance.enemyList) {
       ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, enemy);
     }
+
+    ObjectPool.Instance.enemyList.Clear();
   }
-  
+
   private float CalculateTotalTimer() {
     float total = 0f;
-    for (int i = 0 ; i < waveDataLoader.numSubWaves ; i++) {
+    for (int i = 0; i < waveDataLoader.numSubWaves; i++) {
       total += waveDataLoader.subWaveTimes[i];
     }
 
@@ -175,5 +179,10 @@ public class TimeManager : Singleton<TimeManager> {
 
     // Debug message to indicate that the shop is hidden
     Debug.Log("Shop is hidden!");
+  }
+
+  private void Stoptime(IMessage img) {
+    // Set the time stopped flag to true, which will stop further updates of timers.
+    isTimeStopped = true;
   }
 }

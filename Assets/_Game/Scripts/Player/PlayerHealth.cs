@@ -10,7 +10,11 @@ public class PlayerHealth : MonoBehaviour {
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
   private PlayerExp playerExp;
-  private PlayerDataLoader playerLoader { get => PlayerDataLoader.Instance; }
+
+  private PlayerDataLoader playerLoader {
+    get => PlayerDataLoader.Instance;
+  }
+
   private EnemyDataLoader enemyLoader {
     get => EnemyDataLoader.Instance;
   }
@@ -20,12 +24,17 @@ public class PlayerHealth : MonoBehaviour {
       playerExp = GetComponent<PlayerExp>();
     }
   }
-  
+
   private void Start() {
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
     MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
     MessageDispatcher.AddListener(Constants.Mess_resetHealth, ResetHealth);
+  }
+  
+  private void OnDestroy() {
+    MessageDispatcher.RemoveListener(Constants.Mess_playerTakeDamage, TakeDamage);
+    MessageDispatcher.RemoveListener(Constants.Mess_resetHealth, ResetHealth);
   }
 
   private void FixUpdate() {
@@ -47,6 +56,7 @@ public class PlayerHealth : MonoBehaviour {
       currentHealth -= enemyLoader.damageEnemy;
       if (currentHealth <= 0) {
         currentHealth = 0;
+        MessageDispatcher.SendMessage(Constants.Mess_playerDie);
         Die();
       }
 

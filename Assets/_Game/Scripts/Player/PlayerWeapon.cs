@@ -12,7 +12,8 @@ public class PlayerWeapon : MonoBehaviour {
 
   void Start() {
     if (weaponPositions.Length > 0 && weaponPositions[0] != null) {
-      GameObject defaultWeapon = Instantiate(defaultWeaponPrefab , weaponPositions[0].position , weaponPositions[0].rotation);
+      GameObject defaultWeapon =
+          Instantiate(defaultWeaponPrefab, weaponPositions[0].position, weaponPositions[0].rotation);
       defaultWeapon.transform.parent = weaponPositions[0];
       collectedWeapons.Add(defaultWeapon);
       nextAvailableWeaponIndex = 1;
@@ -36,7 +37,8 @@ public class PlayerWeapon : MonoBehaviour {
           Collider2D coll2D = other.GetComponent<Collider2D>();
           if (coll2D)
             coll2D.enabled = false;
-        } else {
+        }
+        else {
           Debug.LogWarning("Not enough weapon positions or position missing in weaponPositions array!");
         }
       }

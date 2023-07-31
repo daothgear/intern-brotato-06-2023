@@ -3,6 +3,7 @@
         {
             "weaponID": 1,
             "currentlevel": 1,
+            "firerate": 0.30000001192092898,
             "cost": 10,
             "damage": 4,
             "attackRange": 6.0,
@@ -13,6 +14,7 @@
         {
             "weaponID": 1,
             "currentlevel": 2,
+            "firerate": 0.4000000059604645,
             "cost": 15,
             "damage": 5,
             "attackRange": 6.5,
@@ -23,6 +25,7 @@
         {
             "weaponID": 1,
             "currentlevel": 3,
+            "firerate": 0.0,
             "cost": 25,
             "damage": 7,
             "attackRange": 7.0,
@@ -33,6 +36,7 @@
         {
             "weaponID": 2,
             "currentlevel": 1,
+            "firerate": 0.0,
             "cost": 10,
             "damage": 2,
             "attackRange": 7.0,
@@ -43,6 +47,7 @@
         {
             "weaponID": 2,
             "currentlevel": 2,
+            "firerate": 0.0,
             "cost": 15,
             "damage": 3,
             "attackRange": 8.0,
@@ -53,6 +58,7 @@
         {
             "weaponID": 2,
             "currentlevel": 3,
+            "firerate": 0.0,
             "cost": 25,
             "damage": 4,
             "attackRange": 10.0,

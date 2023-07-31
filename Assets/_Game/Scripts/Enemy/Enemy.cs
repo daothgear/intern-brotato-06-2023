@@ -16,13 +16,14 @@ public class Enemy : MonoBehaviour {
   private PlayerFollow playerFollow {
     get => PlayerFollow.Instance;
   }
+
   public EnemyState currentState;
 
   [SerializeField] private Animator animator;
 
   private bool isFacingRight;
   public bool isTrigger;
-  
+
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponentInChildren<Animator>();
@@ -49,11 +50,12 @@ public class Enemy : MonoBehaviour {
   }
 
   private void Idle() {
-    animator.SetTrigger(Constants.Anim_Walk);
+    animator.SetTrigger(Constants.Anim_Idle);
     Invoke("TransitionToWalk", 0.5f);
   }
 
   private void TransitionToWalk() {
+    animator.SetTrigger(Constants.Anim_Walk);
     currentState = EnemyState.Walk;
     isTrigger = true;
   }
@@ -63,7 +65,8 @@ public class Enemy : MonoBehaviour {
     Debug.Log(isTrigger);
     if (playerFollow.player != null) {
       transform.position =
-          Vector3.MoveTowards(transform.position, playerFollow.player.transform.position, enemyLoader.speed * Time.deltaTime);
+          Vector3.MoveTowards(transform.position, playerFollow.player.transform.position,
+              enemyLoader.speed * Time.deltaTime);
       if (transform.position.x > playerFollow.player.transform.position.x && isFacingRight) {
         Flip();
       }

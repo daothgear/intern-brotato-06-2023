@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  m_Color: {r: 0.90588236, g: 0.6431373, b: 0.34117648, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1191,6 +1191,7 @@ MonoBehaviour:
     weaponInfo:
     - weaponID: 1
       currentlevel: 1
+      firerate: 0.3
       cost: 10
       damage: 4
       attackRange: 6
@@ -1199,6 +1200,7 @@ MonoBehaviour:
       pierceDamageReduce: 0
     - weaponID: 1
       currentlevel: 2
+      firerate: 0.4
       cost: 15
       damage: 5
       attackRange: 6.5
@@ -1207,6 +1209,7 @@ MonoBehaviour:
       pierceDamageReduce: 0
     - weaponID: 1
       currentlevel: 3
+      firerate: 0
       cost: 25
       damage: 7
       attackRange: 7
@@ -1215,6 +1218,7 @@ MonoBehaviour:
       pierceDamageReduce: 0
     - weaponID: 2
       currentlevel: 1
+      firerate: 0
       cost: 10
       damage: 2
       attackRange: 7
@@ -1223,6 +1227,7 @@ MonoBehaviour:
       pierceDamageReduce: 1
     - weaponID: 2
       currentlevel: 2
+      firerate: 0
       cost: 15
       damage: 3
       attackRange: 8
@@ -1231,6 +1236,7 @@ MonoBehaviour:
       pierceDamageReduce: 1
     - weaponID: 2
       currentlevel: 3
+      firerate: 0
       cost: 25
       damage: 4
       attackRange: 10
