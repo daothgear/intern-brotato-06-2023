@@ -52,7 +52,7 @@ public class ObjectPool : Singleton<ObjectPool> {
     if (pooledObject != null) {
       pooledObject.OnObjectSpawn();
     }
-
+    
     return objectToSpawn;
   }
 

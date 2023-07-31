@@ -43,6 +43,10 @@ public class TimeManager : Singleton<TimeManager> {
     StartWave();
   }
 
+  private void OnDestroy() {
+    MessageDispatcher.RemoveListener(Constants.Mess_playerDie, Stoptime);
+  }
+
   private void Update() {
     if (!isTimeStopped && timer > 0f) {
       timer -= Time.deltaTime;
@@ -107,21 +111,21 @@ public class TimeManager : Singleton<TimeManager> {
 
   private void SpawnEnemies() {
     int numEnemies = currentWave * waveDataLoader.numEnemiesPerWave * currentSubWave;
-    for (int i = 0; i < numEnemies; i++) {
-      float delayTime = i * waveDataLoader.spawnDelay;
-      StartCoroutine(SpawnEnemyRandomWithDelay(delayTime));
-    }
+    StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
   }
 
-  private IEnumerator SpawnEnemyRandomWithDelay(float delayTime) {
-    yield return new WaitForSeconds(delayTime);
-    SpawnEnemyRandom();
+  private IEnumerator SpawnEnemiesWithDelays(int numEnemies) {
+    for (int i = 0; i < numEnemies; i++) {
+      float delayTime = i * waveDataLoader.spawnDelay;
+      SpawnEnemyRandom();
+      yield return new WaitForSeconds(delayTime);
+    }
   }
 
   private void SpawnEnemyRandom() {
     GameObject newEnemy =
         ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
-        ObjectPool.Instance.enemyList.Add(newEnemy);
+    ObjectPool.Instance.enemyList.Add(newEnemy);
   }
 
   private Vector3 GetRandomSpawnPosition() {
@@ -136,7 +140,7 @@ public class TimeManager : Singleton<TimeManager> {
   }
 
   private void ClearEnemies() {
-    foreach (GameObject enemy in  ObjectPool.Instance.enemyList) {
+    foreach (GameObject enemy in ObjectPool.Instance.enemyList) {
       ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, enemy);
     }
 

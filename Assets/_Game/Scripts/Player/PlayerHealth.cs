@@ -31,6 +31,11 @@ public class PlayerHealth : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
     MessageDispatcher.AddListener(Constants.Mess_resetHealth, ResetHealth);
   }
+  
+  private void OnDestroy() {
+    MessageDispatcher.RemoveListener(Constants.Mess_playerTakeDamage, TakeDamage);
+    MessageDispatcher.RemoveListener(Constants.Mess_resetHealth, ResetHealth);
+  }
 
   private void FixUpdate() {
     playerLoader.maxHealth = playerLoader.characterLevel + playerLoader.maxHealth;
