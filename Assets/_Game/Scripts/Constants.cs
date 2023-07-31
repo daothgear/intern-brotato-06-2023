@@ -25,5 +25,8 @@ public class Constants : MonoBehaviour {
   public const string Mess_playerTakeDamage = "playerTakeDamage";
   public const string Mess_addExp = "addExp";
   public const string Mess_resetHealth = "resetHealth";
-  public const string Mess_enemyTakeDamage = "enemyTakeDamage";
+  public const string Mess_playerDie = "PlayerDie";
+  public const string Mess_playerFlipRight = "Right";
+  public const string Mess_playerFlipLeft = "Left";
+  public const string Mess_enemyDied = "enemyDie";
 }

@@ -36,11 +36,11 @@ public class PlayerMove : MonoBehaviour {
 
   private bool ShouldFlip() {
     if (joystick.Horizontal < 0 && isFacingRight) {
-      MessageDispatcher.SendMessage("Right");
+      MessageDispatcher.SendMessage(Constants.Mess_playerFlipRight);
       return true;
     }
     else if (joystick.Horizontal > 0 && !isFacingRight) {
-      MessageDispatcher.SendMessage("Left");
+      MessageDispatcher.SendMessage(Constants.Mess_playerFlipRight);
       return true;
     }
 

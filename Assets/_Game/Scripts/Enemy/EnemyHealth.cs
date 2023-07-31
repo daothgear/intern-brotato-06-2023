@@ -4,8 +4,13 @@ using com.ootii.Messages;
 public class EnemyHealth : MonoBehaviour, IPooledObject {
   [SerializeField] private Enemy enemy;
   private bool isAdd = true;
+
   private EnemyDataLoader enemyLoader {
     get => EnemyDataLoader.Instance;
+  }
+
+  private TimeManager timeManager {
+    get => TimeManager.Instance;
   }
 
   private WeaponDataLoader weaponDataLoader {
@@ -20,7 +25,6 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     if (enemy == null) {
       enemy = GetComponent<Enemy>();
     }
-
   }
 
   private void Start() {
@@ -28,7 +32,8 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   public void MakeDead() {
-    ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy,gameObject);
+    ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, gameObject);
+    timeManager.enemyList.Remove(gameObject);
     ResetEnemy();
   }
 
@@ -36,15 +41,14 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     int damage = weaponDataLoader.weaponDamage;
     currentHealth -= damage;
     if (currentHealth <= 0) {
-      if(isAdd == true) {
+      if (isAdd == true) {
         MessageDispatcher.SendMessage(Constants.Mess_addExp);
         ObjectPool.Instance.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
         isAdd = false;
       }
-      enemy.currentState = Enemy.EnemyState.Dead;
-      Invoke("MakeDead",1f);
 
-     //MakeDead();
+      enemy.currentState = Enemy.EnemyState.Dead;
+      Invoke("MakeDead", 1f);
     }
   }
 
@@ -62,7 +66,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag(Constants.Tag_Bullets)){
+    if (collision.CompareTag(Constants.Tag_Bullets)) {
       TakeDamage();
     }
 
