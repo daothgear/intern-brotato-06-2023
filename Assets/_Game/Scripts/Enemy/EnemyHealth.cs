@@ -16,7 +16,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   private WeaponDataLoader weaponDataLoader {
     get => WeaponDataLoader.Instance;
   }
-
+  
   [SerializeField] private float currentHealth;
 
   [SerializeField] private GameObject combatTextPrefab;
@@ -40,6 +40,10 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   public void TakeDamage() {
     int damage = weaponDataLoader.weaponDamage;
     currentHealth -= damage;
+    if (combatTextPrefab != null) {
+      var go = Instantiate(combatTextPrefab, gameObject.transform.position, Quaternion.identity);
+      go.GetComponent<TextMesh>().text = weaponDataLoader.weaponDamage.ToString();
+    }
     if (currentHealth <= 0) {
       if (isAdd == true) {
         MessageDispatcher.SendMessage(Constants.Mess_addExp);
