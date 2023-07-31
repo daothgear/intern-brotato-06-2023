@@ -30,7 +30,6 @@ public class TimeManager : Singleton<TimeManager> {
 
   // Flag to control time updates
   private bool isTimeStopped = false;
-  public List<GameObject> enemyList = new List<GameObject>();
 
   private void OnValidate() {
     if (textWave == null) {
@@ -122,7 +121,7 @@ public class TimeManager : Singleton<TimeManager> {
   private void SpawnEnemyRandom() {
     GameObject newEnemy =
         ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
-    enemyList.Add(newEnemy);
+        ObjectPool.Instance.enemyList.Add(newEnemy);
   }
 
   private Vector3 GetRandomSpawnPosition() {
@@ -130,19 +129,18 @@ public class TimeManager : Singleton<TimeManager> {
     Vector3 wallSize = wallCollider.bounds.size;
     Vector3 spawnPosition = wallCheck.transform.position + new Vector3(
         Random.Range(-wallSize.x / 2f, wallSize.x / 2f),
-        Random.Range(-wallSize.y / 2f, wallSize.y / 2f),
-        Random.Range(0, 0)
+        Random.Range(-wallSize.y / 2f, wallSize.y / 2f)
     );
 
     return spawnPosition;
   }
 
   private void ClearEnemies() {
-    foreach (GameObject enemy in enemyList) {
+    foreach (GameObject enemy in  ObjectPool.Instance.enemyList) {
       ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, enemy);
     }
 
-    enemyList.Clear();
+    ObjectPool.Instance.enemyList.Clear();
   }
 
   private float CalculateTotalTimer() {

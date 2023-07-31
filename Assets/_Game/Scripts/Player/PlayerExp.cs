@@ -19,6 +19,10 @@ public class PlayerExp : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
   }
 
+  private void OnDestroy() {
+    MessageDispatcher.RemoveListener(Constants.Mess_addExp, AddExp);
+  }
+
   private void Update() {
     UpdateExpUI();
   }

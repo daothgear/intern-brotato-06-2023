@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour {
     Transform nearestEnemy = null;
     float minDistance = Mathf.Infinity;
 
-    foreach (GameObject enemy in timeManager.enemyList) {
+    foreach (GameObject enemy in  ObjectPool.Instance.enemyList) {
       float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
       if (distanceToEnemy <= weaponDataLoader.weaponAttackRange) {
         if (distanceToEnemy < minDistance) {

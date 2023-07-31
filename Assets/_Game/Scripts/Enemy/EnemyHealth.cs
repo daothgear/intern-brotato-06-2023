@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
 
   public void MakeDead() {
     ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, gameObject);
-    timeManager.enemyList.Remove(gameObject);
+    ObjectPool.Instance.enemyList.Remove(gameObject);
     ResetEnemy();
   }
 

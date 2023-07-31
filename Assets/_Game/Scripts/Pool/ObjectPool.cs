@@ -10,6 +10,7 @@ public class ObjectPool : Singleton<ObjectPool> {
   }
 
   public List<Pool> pools;
+  public List<GameObject> enemyList = new List<GameObject>();
   public Dictionary<string, Queue<GameObject>> poolDictionary;
 
   void Start() {
