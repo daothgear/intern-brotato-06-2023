@@ -114,11 +114,14 @@ public class TimeManager : Singleton<TimeManager> {
     StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
   }
 
-  private IEnumerator SpawnEnemiesWithDelays(int numEnemies) {
-    for (int i = 0; i < numEnemies; i++) {
-      float delayTime = i * waveDataLoader.spawnDelay;
+  private IEnumerator SpawnEnemiesWithDelays(int numEnemies)
+  {
+    float delayTime = waveDataLoader.spawnDelay;
+    WaitForSeconds wait = new WaitForSeconds(delayTime);
+    for (int i = 0; i < numEnemies; i++)
+    {
       SpawnEnemyRandom();
-      yield return new WaitForSeconds(delayTime);
+      yield return wait;
     }
   }
 
