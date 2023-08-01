@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4231225923911106976}
   m_Layer: 0
   m_Name: CombatText
-  m_TagString: Untagged
+  m_TagString: CombatText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

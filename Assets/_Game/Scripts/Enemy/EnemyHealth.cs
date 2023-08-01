@@ -41,7 +41,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     int damage = weaponDataLoader.weaponDamage;
     currentHealth -= damage;
     if (combatTextPrefab != null) {
-      var go = Instantiate(combatTextPrefab, gameObject.transform.position, Quaternion.identity);
+      var go = ObjectPool.Instance.SpawnFromPool("CombatText" , gameObject.transform.position , Quaternion.identity);
       go.GetComponent<TextMesh>().text = weaponDataLoader.weaponDamage.ToString();
     }
     if (currentHealth <= 0) {

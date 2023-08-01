@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatText : MonoBehaviour {
-   private float destroyTime = 0.5f;
 
-   private void Start() {
-      Destroy(gameObject,destroyTime);
-   }
+  private void Start() {
+    Invoke("DestroyText" ,0.3f);
+  }
+
+  private void DestroyText() {
+    ObjectPool.Instance.ReturnToPool("CombatText" , gameObject);
+    Debug.Log("Return text to pool");
+  }
 }

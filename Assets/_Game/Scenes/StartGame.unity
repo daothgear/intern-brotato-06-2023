@@ -22607,7 +22607,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1561028277}
         m_TargetAssemblyTypeName: Card, Assembly-CSharp
         m_MethodName: NextWave
         m_Mode: 1
@@ -24959,18 +24959,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: Coin
-    prefab: {fileID: 1177456871395797748, guid: f71f8bcc98d8547f1afc9b5806b17f72, type: 3}
-    size: 50
   - tag: Enemy
     prefab: {fileID: 2900440498428525068, guid: 6fc599b4efd394e77a90c98fb81b8ba5, type: 3}
+    size: 500
+  - tag: Coin
+    prefab: {fileID: 1177456871395797748, guid: f71f8bcc98d8547f1afc9b5806b17f72, type: 3}
     size: 500
   - tag: Bullets
     prefab: {fileID: 7509030963474128735, guid: adda5635ff37e412bb01c524c263f31d, type: 3}
     size: 500
   - tag: CombatText
     prefab: {fileID: 8713641180744901204, guid: bdb0759e8f69a41c0b86c57fa4774a2e, type: 3}
-    size: 100
+    size: 500
   enemyList: []
 --- !u!114 &617973926
 MonoBehaviour:
@@ -27755,7 +27755,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1561028277}
         m_TargetAssemblyTypeName: Card, Assembly-CSharp
         m_MethodName: DoubleMoney
         m_Mode: 1
