@@ -6,7 +6,7 @@ public class PlayerWeapon : MonoBehaviour {
   [SerializeField] private Transform[] weaponPositions = new Transform[6];
   private List<GameObject> collectedWeapons = new List<GameObject>();
   public GameObject weaponLevel1Prefab;
-  private int nextAvailableWeaponIndex = 0;
+  private int nextAvailableWeaponIndex = 1;
 
   private WeaponDataLoader weaponDataLoader => WeaponDataLoader.Instance;
 

@@ -8,7 +8,7 @@
             "damage": 4,
             "attackRange": 6.0,
             "attackSpeed": 5.0,
-            "pierce": 0,
+            "pierce": 10,
             "pierceDamageReduce": 0.0
         },
         {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using com.ootii.Messages;
 
 public class Weapon : MonoBehaviour {
@@ -25,6 +26,12 @@ public class Weapon : MonoBehaviour {
   }
 
   void Start() {
+    MessageDispatcher.AddListener(Constants.Mess_playerFlipRight, Flip);
+    MessageDispatcher.AddListener(Constants.Mess_playerFlipLeft, Flip);
+  }
+
+
+  private void OnDestroy() {
     MessageDispatcher.AddListener(Constants.Mess_playerFlipRight, Flip);
     MessageDispatcher.AddListener(Constants.Mess_playerFlipLeft, Flip);
   }
