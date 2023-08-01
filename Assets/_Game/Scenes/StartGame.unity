@@ -22607,7 +22607,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 290515804}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Card, Assembly-CSharp
         m_MethodName: NextWave
         m_Mode: 1
@@ -23506,7 +23506,6 @@ GameObject:
   - component: {fileID: 290515803}
   - component: {fileID: 290515802}
   - component: {fileID: 290515801}
-  - component: {fileID: 290515804}
   m_Layer: 5
   m_Name: Card_3
   m_TagString: Untagged
@@ -23625,26 +23624,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290515799}
   m_CullTransparentMesh: 1
---- !u!114 &290515804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 290515799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b7d3d3001baa4d3c9d315a7ee687a1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonUplevel: {fileID: 0}
-  ButtonNextWave: {fileID: 0}
-  ButtonAddWeapon: {fileID: 0}
-  ButtonX2Coin: {fileID: 0}
-  addWeapon: 0
-  uplevel: 0
-  nextWave: 0
-  x2Coin: 0
 --- !u!1 &322586873
 GameObject:
   m_ObjectHideFlags: 0
@@ -24197,14 +24176,13 @@ GameObject:
   - component: {fileID: 516717799}
   - component: {fileID: 516717798}
   - component: {fileID: 516717800}
-  - component: {fileID: 516717801}
   m_Layer: 5
   m_Name: UIBuyWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &516717797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24276,23 +24254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6366fbc3a44744bca8281476f7634ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &516717801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516717796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f3f76ca6955a435680917fe0991140c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listPointAddCard:
-  - {fileID: 620238136}
-  - {fileID: 775765023}
-  - {fileID: 1730281325}
-  - {fileID: 1242952779}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -27114,7 +27075,6 @@ GameObject:
   - component: {fileID: 1168008731}
   - component: {fileID: 1168008730}
   - component: {fileID: 1168008729}
-  - component: {fileID: 1168008732}
   m_Layer: 5
   m_Name: Card_4
   m_TagString: Untagged
@@ -27233,26 +27193,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168008727}
   m_CullTransparentMesh: 1
---- !u!114 &1168008732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168008727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b7d3d3001baa4d3c9d315a7ee687a1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonUplevel: {fileID: 387661067}
-  ButtonNextWave: {fileID: 0}
-  ButtonAddWeapon: {fileID: 0}
-  ButtonX2Coin: {fileID: 485097847}
-  addWeapon: 0
-  uplevel: 0
-  nextWave: 0
-  x2Coin: 0
 --- !u!1 &1168594789
 GameObject:
   m_ObjectHideFlags: 0
@@ -27815,7 +27755,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1168008732}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Card, Assembly-CSharp
         m_MethodName: DoubleMoney
         m_Mode: 1
@@ -29766,6 +29706,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2098284045}
+  - component: {fileID: 2098284046}
+  - component: {fileID: 2098284047}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
@@ -29795,6 +29737,79 @@ RectTransform:
   m_AnchoredPosition: {x: 8.879883, y: -104.54297}
   m_SizeDelta: {x: 257.04, y: 35.074005}
   m_Pivot: {x: 0, y: 1}
+--- !u!212 &2098284046
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098284044}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!223 &2098284047
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098284044}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 1
+  m_TargetDisplay: 0
 --- !u!1 &2145260065
 GameObject:
   m_ObjectHideFlags: 0
