@@ -22,10 +22,10 @@ public class Card : MonoBehaviour {
   [SerializeField] private int x2Coin;
 
   private void Start() {
-    addWeapon = 1;
-    uplevel = 1;
-    nextWave = 1;
-    x2Coin = 1;
+    addWeapon = 2;
+    uplevel = 3;
+    nextWave = 3;
+    x2Coin = 3;
   }
 
   public void Update() {
@@ -43,7 +43,7 @@ public class Card : MonoBehaviour {
     int cost = GetCost(addWeapon);
     if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
       addWeapon++;
-      MessageDispatcher.SendMessage("addweapon1");
+      MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
       PlayerCoin.Instance.DeductCoins(cost);
     }
   }
@@ -52,7 +52,7 @@ public class Card : MonoBehaviour {
     int cost = GetCost(uplevel);
     if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
       uplevel++;
-      MessageDispatcher.SendMessage("plus1level");
+      MessageDispatcher.SendMessage(Constants.Mess_plus1Level);
       PlayerCoin.Instance.DeductCoins(cost);
     }
   }
@@ -61,7 +61,7 @@ public class Card : MonoBehaviour {
     int cost = GetCost(nextWave);
     if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
       nextWave++;
-      MessageDispatcher.SendMessage("nextwave");
+      MessageDispatcher.SendMessage(Constants.Mess_nextwave);
       PlayerCoin.Instance.DeductCoins(cost);
     }
   }
@@ -70,7 +70,7 @@ public class Card : MonoBehaviour {
     int cost = GetCost(x2Coin);
     if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
       x2Coin++;
-      MessageDispatcher.SendMessage("doubleMoney");
+      MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
       PlayerCoin.Instance.DeductCoins(cost);
     }
   }

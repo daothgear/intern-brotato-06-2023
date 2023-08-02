@@ -17,12 +17,12 @@ public class PlayerExp : MonoBehaviour {
 
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
-    MessageDispatcher.AddListener("plus1level", LevelUp); 
+    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
   }
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_addExp, AddExp);
-    MessageDispatcher.RemoveListener("plus1level", LevelUp);
+    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
   }
 
   private void Update() {

@@ -11,7 +11,7 @@ public class PlayerWeapon : MonoBehaviour {
   private WeaponDataLoader weaponDataLoader => WeaponDataLoader.Instance;
 
   private void Start() {
-    MessageDispatcher.AddListener("addweapon1" , AddWeaponLevel1);
+    MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeaponLevel1);
 
     if (weaponPositions.Length > 0 && weaponPositions[0] != null) {
       CreateWeaponAtPosition(weaponLevel1Prefab , weaponPositions[0]);

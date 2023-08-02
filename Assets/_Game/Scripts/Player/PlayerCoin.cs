@@ -1,3 +1,4 @@
+using System;
 using com.ootii.Messages;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,9 +11,13 @@ public class PlayerCoin : Singleton<PlayerCoin> {
   [SerializeField] private Text textCoin;
 
   private void Start() {
-    MessageDispatcher.AddListener("doubleMoney" , AddCoin);
+    MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
     coinAmount = 0;
     textCoin.text = coinAmount.ToString();
+  }
+
+  private void OnDestroy() {
+    MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
   }
 
   public bool HasEnoughCoins(int amount) {
@@ -25,7 +30,7 @@ public class PlayerCoin : Singleton<PlayerCoin> {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag("Coin")) {
+    if (collision.CompareTag(Constants.Tag_Coin)) {
       coinAmount++;
       textCoin.text = coinAmount.ToString();
       ObjectPool.Instance.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
