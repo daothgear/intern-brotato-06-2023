@@ -11,14 +11,14 @@ public class PlayerWeapon : MonoBehaviour {
   private WeaponDataLoader weaponDataLoader => WeaponDataLoader.Instance;
 
   private void Start() {
-    MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeaponLevel1);
+    MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
 
     if (weaponPositions.Length > 0 && weaponPositions[0] != null) {
       CreateWeaponAtPosition(weaponLevel1Prefab , weaponPositions[0]);
     }
   }
 
-  public void AddWeaponLevel1(IMessage msg) {
+  public void AddWeapon(IMessage msg) {
     if (nextAvailableWeaponIndex < weaponPositions.Length && weaponPositions[nextAvailableWeaponIndex] != null) {
       CreateWeaponAtPosition(weaponLevel1Prefab , weaponPositions[nextAvailableWeaponIndex]);
       nextAvailableWeaponIndex++;

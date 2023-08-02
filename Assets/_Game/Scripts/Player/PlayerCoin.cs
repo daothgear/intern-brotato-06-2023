@@ -7,12 +7,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCoin : Singleton<PlayerCoin> {
-  [SerializeField] private int coinAmount;
+  private int coinAmount = 500;
   [SerializeField] private Text textCoin;
 
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
-    coinAmount = 0;
     textCoin.text = coinAmount.ToString();
   }
 

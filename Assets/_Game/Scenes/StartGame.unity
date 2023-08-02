@@ -22909,7 +22909,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1561028277}
         m_TargetAssemblyTypeName: Card, Assembly-CSharp
-        m_MethodName: AddWeapon1
+        m_MethodName: AddWeapon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24074,7 +24074,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buy
+  m_Text: 
 --- !u!222 &483600641
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24182,7 +24182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &516717797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24966,9 +24966,6 @@ MonoBehaviour:
     size: 500
   - tag: Bullets
     prefab: {fileID: 7509030963474128735, guid: adda5635ff37e412bb01c524c263f31d, type: 3}
-    size: 500
-  - tag: CombatText
-    prefab: {fileID: 6301709588197486867, guid: 4c954473569984454bccf679ed894099, type: 3}
     size: 500
   enemyList: []
 --- !u!114 &617973926
@@ -26579,7 +26576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4daa081064444dabf49c0ecbbb7feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinAmount: 0
   textCoin: {fileID: 892613999}
 --- !u!114 &1058422520
 MonoBehaviour:
@@ -27437,7 +27433,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buy
+  m_Text: 
 --- !u!222 &1253285652
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27907,7 +27903,7 @@ GameObject:
   - component: {fileID: 1471593788}
   - component: {fileID: 1471593787}
   m_Layer: 5
-  m_Name: Text x2 coin
+  m_Name: Text Double Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27966,7 +27962,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buy
+  m_Text: 
 --- !u!222 &1471593788
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28418,11 +28414,7 @@ MonoBehaviour:
   ButtonUplevel: {fileID: 1754207569}
   ButtonNextWave: {fileID: 483600640}
   ButtonAddWeapon: {fileID: 1253285651}
-  ButtonX2Coin: {fileID: 1471593787}
-  addWeapon: 0
-  uplevel: 0
-  nextWave: 0
-  x2Coin: 0
+  ButtonDoubleCoin: {fileID: 1471593787}
 --- !u!1 &1611178427
 GameObject:
   m_ObjectHideFlags: 0
@@ -28814,7 +28806,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buy
+  m_Text: 
 --- !u!222 &1754207570
 CanvasRenderer:
   m_ObjectHideFlags: 0

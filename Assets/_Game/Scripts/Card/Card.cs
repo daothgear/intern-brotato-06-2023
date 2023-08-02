@@ -14,38 +14,32 @@ public class Card : MonoBehaviour {
   [SerializeField] private Text ButtonUplevel;
   [SerializeField] private Text ButtonNextWave;
   [SerializeField] private Text ButtonAddWeapon;
-  [SerializeField] private Text ButtonX2Coin;
+  [SerializeField] private Text ButtonDoubleCoin;
 
-  [SerializeField] private int addWeapon;
-  [SerializeField] private int uplevel;
-  [SerializeField] private int nextWave;
-  [SerializeField] private int x2Coin;
-
-  private void Start() {
-    addWeapon = 2;
-    uplevel = 3;
-    nextWave = 3;
-    x2Coin = 3;
-  }
-
-  public void Update() {
+  private int addWeapon = 2;
+  private int uplevel = 3;
+  private int nextWave = 3;
+  private int doubleCoin = 3;
+  
+  public void Start() {
     ButtonAddWeapon.text = (addWeapon * weaponDataLoader.weaponPierce).ToString() + "$";
     ButtonNextWave.text = (nextWave * weaponDataLoader.weaponPierce).ToString() + "$";
     ButtonUplevel.text = (uplevel * weaponDataLoader.weaponPierce).ToString() + "$";
-    ButtonX2Coin.text = (x2Coin * weaponDataLoader.weaponPierce).ToString() + "$";
+    ButtonDoubleCoin.text = (doubleCoin * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 
   private int GetCost(int value) {
     return value * weaponDataLoader.weaponPierce;
   }
 
-  public void AddWeapon1() {
+  public void AddWeapon() {
     int cost = GetCost(addWeapon);
     if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
       addWeapon++;
       MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
       PlayerCoin.Instance.DeductCoins(cost);
     }
+    ButtonAddWeapon.text = (addWeapon * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 
   public void AddLevel() {
@@ -55,6 +49,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_plus1Level);
       PlayerCoin.Instance.DeductCoins(cost);
     }
+    ButtonUplevel.text = (uplevel * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 
   public void NextWave() {
@@ -64,14 +59,16 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_nextwave);
       PlayerCoin.Instance.DeductCoins(cost);
     }
+    ButtonNextWave.text = (nextWave * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 
   public void DoubleMoney() {
-    int cost = GetCost(x2Coin);
+    int cost = GetCost(doubleCoin);
     if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
-      x2Coin++;
+      doubleCoin++;
       MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
       PlayerCoin.Instance.DeductCoins(cost);
     }
+    ButtonDoubleCoin.text = (doubleCoin * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 }
