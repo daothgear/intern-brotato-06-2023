@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7788012871347156316}
   - component: {fileID: -8874410109785580293}
   m_Layer: 0
-  m_Name: Piston
+  m_Name: PistonLevel1
   m_TagString: Piston
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eab4238d68014831bd579714cc48bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponId: 1
+  currentWeaponLevel: 1
   attackPoint: {fileID: 3470359112280392211}
 --- !u!61 &-8874410109785580293
 BoxCollider2D:

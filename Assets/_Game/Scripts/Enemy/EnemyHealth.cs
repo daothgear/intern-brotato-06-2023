@@ -35,7 +35,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   public void TakeDamage() {
     int damage = weaponDataLoader.weaponDamage;
     currentHealth -= damage;
-    UICombatTextManager.Instance.CreateUICombatText(transform.position, $"-{damage}", Color.black);
+    //ReferenceHolder.Ins.Comba.CreateUICombatText(transform.position, $"-{damage}", Color.black);
     // var go = ObjectPool.Instance.SpawnFromPool(Constants.Tag_CombatText, gameObject.transform.position , Quaternion.identity);
     // go.GetComponent<TextMeshProUGUI>().text = weaponDataLoader.weaponDamage.ToString();
     if (currentHealth <= 0) {

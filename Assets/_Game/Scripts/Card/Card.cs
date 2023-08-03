@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour {
 
-  private WeaponDataLoader weaponDataLoader {
-    get => WeaponDataLoader.Instance;
-  }
 
   [SerializeField] private Text ButtonUplevel;
   [SerializeField] private Text ButtonNextWave;
@@ -22,53 +19,53 @@ public class Card : MonoBehaviour {
   private int doubleCoin = 3;
   
   public void Start() {
-    ButtonAddWeapon.text = (addWeapon * weaponDataLoader.weaponPierce).ToString() + "$";
-    ButtonNextWave.text = (nextWave * weaponDataLoader.weaponPierce).ToString() + "$";
-    ButtonUplevel.text = (uplevel * weaponDataLoader.weaponPierce).ToString() + "$";
-    ButtonDoubleCoin.text = (doubleCoin * weaponDataLoader.weaponPierce).ToString() + "$";
+    ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
+    ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
+    ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
+    ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   private int GetCost(int value) {
-    return value * weaponDataLoader.weaponPierce;
+    return value * WeaponDataLoader.Ins.weaponPierce;
   }
 
   public void AddWeapon() {
     int cost = GetCost(addWeapon);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       addWeapon++;
       MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonAddWeapon.text = (addWeapon * weaponDataLoader.weaponPierce).ToString() + "$";
+    ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   public void AddLevel() {
     int cost = GetCost(uplevel);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       uplevel++;
       MessageDispatcher.SendMessage(Constants.Mess_plus1Level);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonUplevel.text = (uplevel * weaponDataLoader.weaponPierce).ToString() + "$";
+    ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   public void NextWave() {
     int cost = GetCost(nextWave);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       nextWave++;
       MessageDispatcher.SendMessage(Constants.Mess_nextwave);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonNextWave.text = (nextWave * weaponDataLoader.weaponPierce).ToString() + "$";
+    ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   public void DoubleMoney() {
     int cost = GetCost(doubleCoin);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       doubleCoin++;
       MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonDoubleCoin.text = (doubleCoin * weaponDataLoader.weaponPierce).ToString() + "$";
+    ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 }

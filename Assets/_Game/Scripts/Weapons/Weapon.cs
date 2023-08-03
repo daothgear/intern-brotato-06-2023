@@ -3,6 +3,8 @@ using UnityEngine;
 using com.ootii.Messages;
 
 public class Weapon : MonoBehaviour {
+  [SerializeField] private int currentWeaponId;
+  [SerializeField] private int currentWeaponLevel;
   private WeaponDataLoader weaponDataLoader {
     get => WeaponDataLoader.Ins;
   }
@@ -24,6 +26,7 @@ public class Weapon : MonoBehaviour {
   void Start() {
     MessageDispatcher.AddListener(Constants.Mess_playerFlipRight, Flip);
     MessageDispatcher.AddListener(Constants.Mess_playerFlipLeft, Flip);
+    weaponDataLoader.LoadWeaponInfo(currentWeaponId,currentWeaponLevel);
   }
 
 
