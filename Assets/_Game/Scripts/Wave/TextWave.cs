@@ -8,9 +8,9 @@ public class TextWave : MonoBehaviour {
   [SerializeField] private Text totalTimerText;
 
   public void UpdateText() {
-    waveText.text = "WAVE " + timeManger.currentWave.ToString();
+    waveText.text = "WAVE " + ReferenceHolder.Ins.timeManager.currentWave.ToString();
     //subWaveText.text = "Sub wave: " + timeManger.currentSubWave.ToString() + " / " + waveDataLoader.numSubWaves.ToString();
    //countdownText.text = "Countdown: " + Mathf.Round(timeManger.timer).ToString() + "s";
-    totalTimerText.text = Mathf.Round(timeManger.totalTimer).ToString();
+    totalTimerText.text = Mathf.Round(ReferenceHolder.Ins.timeManager.totalTimer).ToString();
   }
 }

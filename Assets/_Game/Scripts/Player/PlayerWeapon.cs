@@ -8,8 +8,6 @@ public class PlayerWeapon : MonoBehaviour {
   public GameObject weaponLevel1Prefab;
   private int nextAvailableWeaponIndex = 1;
 
-  private WeaponDataLoader weaponDataLoader => WeaponDataLoader.Instance;
-
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
 

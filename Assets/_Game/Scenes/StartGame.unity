@@ -26375,6 +26375,7 @@ GameObject:
   - component: {fileID: 1058422515}
   - component: {fileID: 1058422519}
   - component: {fileID: 1058422520}
+  - component: {fileID: 1058422521}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -28566,7 +28567,7 @@ Transform:
   m_Children:
   - {fileID: 1315146303}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679662951
 GameObject:
@@ -29225,6 +29226,7 @@ MonoBehaviour:
   playerCoin: {fileID: 1058422519}
   playerTran: {fileID: 1058422510}
   timeManager: {fileID: 617973924}
+  combatTextManager: {fileID: 1668993645}
 --- !u!4 &1829477220
 Transform:
   m_ObjectHideFlags: 0

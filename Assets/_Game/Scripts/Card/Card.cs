@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour {
 
   private WeaponDataLoader weaponDataLoader {
-    get => WeaponDataLoader.Instance;
+    get => WeaponDataLoader.Ins;
   }
 
   [SerializeField] private Text ButtonUplevel;
@@ -34,40 +34,40 @@ public class Card : MonoBehaviour {
 
   public void AddWeapon() {
     int cost = GetCost(addWeapon);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       addWeapon++;
       MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
     ButtonAddWeapon.text = (addWeapon * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 
   public void AddLevel() {
     int cost = GetCost(uplevel);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       uplevel++;
       MessageDispatcher.SendMessage(Constants.Mess_plus1Level);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
     ButtonUplevel.text = (uplevel * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 
   public void NextWave() {
     int cost = GetCost(nextWave);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       nextWave++;
       MessageDispatcher.SendMessage(Constants.Mess_nextwave);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
     ButtonNextWave.text = (nextWave * weaponDataLoader.weaponPierce).ToString() + "$";
   }
 
   public void DoubleMoney() {
     int cost = GetCost(doubleCoin);
-    if (PlayerCoin.Instance.HasEnoughCoins(cost)) {
+    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       doubleCoin++;
       MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
-      PlayerCoin.Instance.DeductCoins(cost);
+      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
     ButtonDoubleCoin.text = (doubleCoin * weaponDataLoader.weaponPierce).ToString() + "$";
   }
