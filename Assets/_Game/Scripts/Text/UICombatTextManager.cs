@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UICombatTextManager : Singleton<UICombatTextManager> {
+public class UICombatTextManager : MonoBehaviour {
     [SerializeField] private UICombatText uicombatTextPrefabs;
     [SerializeField] private Transform canvasText;
     public void CreateUICombatText(Vector3 position, string text , Color color) {

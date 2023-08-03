@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Card : MonoBehaviour {
-
-
+  
   [SerializeField] private Text ButtonUplevel;
   [SerializeField] private Text ButtonNextWave;
   [SerializeField] private Text ButtonAddWeapon;

@@ -9,7 +9,7 @@ public class PlayerWeapon : MonoBehaviour {
   public GameObject weaponLelvel2Prefab;
   public GameObject weaponLevel3Prefab;
   private int nextAvailableWeaponIndex = 1;
-  
+
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
 
