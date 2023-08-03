@@ -11,7 +11,7 @@ public class PlayerCoin : MonoBehaviour {
     if (collision.CompareTag("Coin")) {
       coinAmount++;
       textCoin.text = coinAmount.ToString();
-      ObjectPool.Instance.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
+      ObjectPool.Ins.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
       Debug.Log("Coin return done");
     }
   }

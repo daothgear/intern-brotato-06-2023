@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class PlayerDataLoader : Singleton<PlayerDataLoader> {
+public class PlayerDataLoader : InstanceStatic<PlayerDataLoader> {
   private CharacterLevelData characterLevelData;
   public float speed;
   public int maxHealth;
@@ -10,7 +10,6 @@ public class PlayerDataLoader : Singleton<PlayerDataLoader> {
   public int maxExp;
 
   protected override void Awake() {
-    base.Awake();
     LoadCharacterInfo(1);
   }
 

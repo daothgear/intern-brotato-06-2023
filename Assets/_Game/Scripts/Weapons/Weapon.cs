@@ -3,11 +3,7 @@ using com.ootii.Messages;
 
 public class Weapon : MonoBehaviour {
   private WeaponDataLoader weaponDataLoader {
-    get => WeaponDataLoader.Instance;
-  }
-
-  private TimeManager timeManager {
-    get => TimeManager.Instance;
+    get => WeaponDataLoader.Ins;
   }
 
   public Transform attackPoint;
@@ -42,7 +38,7 @@ public class Weapon : MonoBehaviour {
     Transform nearestEnemy = null;
     float minDistance = Mathf.Infinity;
 
-    foreach (GameObject enemy in  ObjectPool.Instance.enemyList) {
+    foreach (GameObject enemy in  ObjectPool.Ins.enemyList) {
       float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
       if (distanceToEnemy <= weaponDataLoader.weaponAttackRange) {
         if (distanceToEnemy < minDistance) {
@@ -64,7 +60,7 @@ public class Weapon : MonoBehaviour {
 
   void FireBulletTowardsEnemy(Transform targetEnemy) {
     GameObject bulletObject =
-        ObjectPool.Instance.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
+        ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
     bullet.SetTarget(targetEnemy);
   }

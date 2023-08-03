@@ -3,7 +3,7 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : Component {
   private static T instance;
 
-  public static T Instance {
+  public static T Ins {
     get {
       if (instance == null) {
         instance = FindObjectOfType<T>();
@@ -11,7 +11,7 @@ public class Singleton<T> : MonoBehaviour where T : Component {
           GameObject singletonObject = new GameObject();
           instance = singletonObject.AddComponent<T>();
           singletonObject.name = typeof(T).ToString() + " (Singleton)";
-          //DontDestroyOnLoad(singletonObject);
+          DontDestroyOnLoad(singletonObject);
         }
       }
       return instance;

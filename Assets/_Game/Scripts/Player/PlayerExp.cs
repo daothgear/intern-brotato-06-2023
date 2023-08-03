@@ -8,11 +8,11 @@ public class PlayerExp : MonoBehaviour {
   [SerializeField] private Text textExp;
 
   private PlayerDataLoader playerLoader {
-    get => PlayerDataLoader.Instance;
+    get => PlayerDataLoader.Ins;
   }
 
   private EnemyDataLoader enemyLoader {
-    get => EnemyDataLoader.Instance;
+    get => EnemyDataLoader.Ins;
   }
 
   private void Start() {
