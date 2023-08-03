@@ -10,8 +10,8 @@ public class TextWave : MonoBehaviour {
   public void UpdateText() {
     TimeManager timeManager = ReferenceHolder.Ins.timeManager;
     waveText.text = "WAVE " + timeManager.currentWave.ToString();
-    subWaveText.text = "Sub wave: " + timeManager.currentSubWave.ToString() + " / " + WaveDataLoader.Ins.numSubWaves.ToString();
-    countdownText.text = "Countdown: " + Mathf.Round(timeManager.timer).ToString() + "s";
+    //subWaveText.text = "Sub wave: " + timeManager.currentSubWave.ToString() + " / " + WaveDataLoader.Ins.numSubWaves.ToString();
+    //countdownText.text = "Countdown: " + Mathf.Round(timeManager.timer).ToString() + "s";
     totalTimerText.text = Mathf.Round(timeManager.totalTimer).ToString();
   }
 }
