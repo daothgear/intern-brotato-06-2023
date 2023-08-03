@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class TimeManager : Singleton<TimeManager> {
+public class TimeManager : MonoBehaviour {
   public float timer;
   public float totalTimer;
   public int currentWave;
@@ -15,11 +13,11 @@ public class TimeManager : Singleton<TimeManager> {
   [SerializeField] private GameObject wallCheck;
 
   private PlayerDataLoader playerLoader {
-    get => PlayerDataLoader.Instance;
+    get => PlayerDataLoader.Ins;
   }
 
   private WaveDataLoader waveDataLoader {
-    get => WaveDataLoader.Instance;
+    get => WaveDataLoader.Ins;
   }
 
   private TextWave textWave;
@@ -129,8 +127,8 @@ public class TimeManager : Singleton<TimeManager> {
   }
   private void SpawnEnemyRandom() {
     GameObject newEnemy =
-        ObjectPool.Instance.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
-    ObjectPool.Instance.enemyList.Add(newEnemy);
+        ObjectPool.Ins.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
+    ObjectPool.Ins.enemyList.Add(newEnemy);
   }
 
   private Vector3 GetRandomSpawnPosition() {
@@ -145,11 +143,11 @@ public class TimeManager : Singleton<TimeManager> {
   }
 
   private void ClearEnemies() {
-    foreach (GameObject enemy in ObjectPool.Instance.enemyList) {
-      ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, enemy);
+    foreach (GameObject enemy in ObjectPool.Ins.enemyList) {
+      ObjectPool.Ins.ReturnToPool(Constants.Tag_Enemy, enemy);
     }
 
-    ObjectPool.Instance.enemyList.Clear();
+    ObjectPool.Ins.enemyList.Clear();
   }
 
   private float CalculateTotalTimer() {

@@ -4,7 +4,7 @@ using UnityEngine;
 using com.ootii.Messages;
 
 public class PlayerMove : MonoBehaviour {
-  private PlayerDataLoader playerLoader { get => PlayerDataLoader.Instance; }
+  private PlayerDataLoader playerLoader { get => PlayerDataLoader.Ins; }
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
   private bool isFacingRight = true;

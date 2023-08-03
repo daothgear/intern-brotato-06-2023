@@ -3,7 +3,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class EnemyDataLoader : Singleton<EnemyDataLoader> {
+public class EnemyDataLoader : InstanceStatic<EnemyDataLoader> {
   private EnemyData enemyData;
   public float speed;
   public int maxHealth;
@@ -11,7 +11,6 @@ public class EnemyDataLoader : Singleton<EnemyDataLoader> {
   public int enemyExp;
 
   protected override void Awake() {
-    base.Awake();
     LoadEnemyInfo(1);
   }
   

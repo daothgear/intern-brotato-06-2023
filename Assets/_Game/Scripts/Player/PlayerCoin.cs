@@ -32,7 +32,7 @@ public class PlayerCoin : Singleton<PlayerCoin> {
     if (collision.CompareTag(Constants.Tag_Coin)) {
       coinAmount++;
       textCoin.text = coinAmount.ToString();
-      ObjectPool.Instance.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
+      ObjectPool.Ins.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
       Debug.Log("Coin return done");
     }
   }

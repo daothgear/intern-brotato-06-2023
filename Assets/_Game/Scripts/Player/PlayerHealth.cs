@@ -12,11 +12,11 @@ public class PlayerHealth : MonoBehaviour {
   private PlayerExp playerExp;
 
   private PlayerDataLoader playerLoader {
-    get => PlayerDataLoader.Instance;
+    get => PlayerDataLoader.Ins;
   }
 
   private EnemyDataLoader enemyLoader {
-    get => EnemyDataLoader.Instance;
+    get => EnemyDataLoader.Ins;
   }
 
   private void OnValidate() {
