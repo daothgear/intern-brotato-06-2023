@@ -7,15 +7,11 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   private bool isAdd = true;
 
   private EnemyDataLoader enemyLoader {
-    get => EnemyDataLoader.Instance;
-  }
-
-  private TimeManager timeManager {
-    get => TimeManager.Instance;
+    get => EnemyDataLoader.Ins;
   }
 
   private WeaponDataLoader weaponDataLoader {
-    get => WeaponDataLoader.Instance;
+    get => WeaponDataLoader.Ins;
   }
   
   [SerializeField] private float currentHealth;
@@ -31,8 +27,8 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   public void MakeDead() {
-    ObjectPool.Instance.ReturnToPool(Constants.Tag_Enemy, gameObject);
-    ObjectPool.Instance.enemyList.Remove(gameObject);
+    ObjectPool.Ins.ReturnToPool(Constants.Tag_Enemy, gameObject);
+    ObjectPool.Ins.enemyList.Remove(gameObject);
     ResetEnemy();
   }
 
@@ -45,7 +41,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     if (currentHealth <= 0) {
       if (isAdd == true) {
         MessageDispatcher.SendMessage(Constants.Mess_addExp);
-        ObjectPool.Instance.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
+        ObjectPool.Ins.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
         isAdd = false;
       }
 

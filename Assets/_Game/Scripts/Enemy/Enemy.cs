@@ -10,12 +10,9 @@ public class Enemy : MonoBehaviour {
   }
 
   private EnemyDataLoader enemyLoader {
-    get => EnemyDataLoader.Instance;
+    get => EnemyDataLoader.Ins;
   }
 
-  private PlayerFollow playerFollow {
-    get => PlayerFollow.Instance;
-  }
 
   public EnemyState currentState;
 
@@ -63,18 +60,18 @@ public class Enemy : MonoBehaviour {
   public void Walk() {
     isTrigger = true;
     Debug.Log(isTrigger);
-    if (playerFollow.player != null) {
+    if (ReferenceHolder.Ins.playerTran != null) {
       transform.position =
-          Vector3.MoveTowards(transform.position, playerFollow.player.transform.position,
+          Vector3.MoveTowards(transform.position, ReferenceHolder.Ins.playerTran.position,
               enemyLoader.speed * Time.deltaTime);
-      if (transform.position.x > playerFollow.player.transform.position.x && isFacingRight) {
+      if (transform.position.x > ReferenceHolder.Ins.playerTran.position.x && isFacingRight) {
         Flip();
       }
-      else if (transform.position.x < playerFollow.player.transform.position.x && !isFacingRight) {
+      else if (transform.position.x < ReferenceHolder.Ins.playerTran.position.x && !isFacingRight) {
         Flip();
       }
 
-      float distanceToPlayer = Vector3.Distance(transform.position, playerFollow.player.transform.position);
+      float distanceToPlayer = Vector3.Distance(transform.position, ReferenceHolder.Ins.playerTran.position);
       if (distanceToPlayer <= 1f) {
         currentState = EnemyState.Attack;
       }

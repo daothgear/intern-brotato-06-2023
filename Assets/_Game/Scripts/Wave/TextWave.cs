@@ -1,17 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextWave : MonoBehaviour {
-  private TimeManager timeManger {
-    get => TimeManager.Instance;
-  }
-  private WaveDataLoader waveDataLoader {
-    get => WaveDataLoader.Instance;
-  }
   [SerializeField] private Text waveText;
   //[SerializeField] private Text subWaveText;
   //[SerializeField] private Text countdownText;

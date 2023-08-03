@@ -38,17 +38,22 @@ public class BuildCommand : MonoBehaviour
         {
             Directory.CreateDirectory(buildDir);
         }
+        
+        string buildTargetDir = Path.Combine(buildDir, buildTarget.ToString());
+        if (!Directory.Exists(buildTargetDir))
+        {
+            Directory.CreateDirectory(buildTargetDir);
+        }
 
-        string dayStr = System.DateTime.Now.ToString("dd-MM-yyyy");
-        string path = Path.Combine(buildDir, targetGroup.ToString());
-        path = Path.Combine(path, dayStr);
-        return path;
+        System.DateTime now = System.DateTime.Now;
+        string dayStr = $"{now:yyyy-MM-dd}";
+        return Path.Combine(buildTargetDir, dayStr);
     }
 
-    private static string GetFileName(BuildTarget buildTarget, BuildTargetGroup targetGroup)
-    {
-        string dayStr = System.DateTime.Now.ToString("dd-MM-yyyy");
-        string hourStr = System.DateTime.Now.ToString("HH-mm");
+    private static string GetFileName(BuildTarget buildTarget, BuildTargetGroup targetGroup, bool inculeMinuteInBuildName) {
+        System.DateTime now = System.DateTime.Now;
+        string dayStr = $"{now:yyyy-MM-dd}";
+        string hourStr = inculeMinuteInBuildName ? $"{now:HH-mm}" : $"{now:HH-00}"; // zero minute
         string uniqueTime = $"{dayStr.Replace("-", "")}-{hourStr.Replace("-", "")}";
         return $"{ProductName}-{uniqueTime}" + GetExtension(buildTarget);
     }
@@ -165,6 +170,11 @@ public class BuildCommand : MonoBehaviour
 
     static void DefaultBuild(BuildTarget buildTarget) {
         Dictionary<string, string> args = GetCommandLineArgs();
+        bool inculeMinuteInBuildName = false;
+        if (args.TryGetValue("inculeMinuteInBuildName", out string inculeMinuteInBuildNameStr)) {
+            inculeMinuteInBuildName = bool.Parse(inculeMinuteInBuildNameStr);
+        }
+        
         foreach (var arg in args) {
             Debug.LogError($"GetCommandLineArgs key {arg.Key} __ value {arg.Value}");
         }
@@ -173,11 +183,10 @@ public class BuildCommand : MonoBehaviour
         BuildTargetGroup targetGroup = ConvertBuildTarget(buildTarget);
 
         string path = GetBuildPathRoot(buildTarget, targetGroup);
-        string name = GetFileName(buildTarget, targetGroup);
+        string name = GetFileName(buildTarget, targetGroup, inculeMinuteInBuildName);
 
 
         string defineSymbole = PlayerSettings.GetScriptingDefineSymbolsForGroup(targetGroup);
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, defineSymbole + ";BUILD");
 
         if (buildTarget == BuildTarget.Android)
         {
@@ -195,7 +204,6 @@ public class BuildCommand : MonoBehaviour
 
         string result = buildPlayerOptions.locationPathName + ": " + BuildPipeline.BuildPlayer(buildPlayerOptions);
         Debug.Log(result);
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, defineSymbole);
 
         if (buildTarget == BuildTarget.Android)
         {

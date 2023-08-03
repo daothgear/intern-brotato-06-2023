@@ -1,14 +1,13 @@
 using System.IO;
 using UnityEngine;
 
-public class WaveDataLoader : Singleton<WaveDataLoader> {
+public class WaveDataLoader : InstanceStatic<WaveDataLoader> {
   private WaveData waveData;
   public float[] subWaveTimes;
   public int numSubWaves;
   public int numEnemiesPerWave;
   public float spawnDelay;
   protected override void Awake() {
-    base.Awake();
     LoadWaveData();
   }
 

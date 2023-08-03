@@ -2,7 +2,7 @@
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class WeaponDataLoader : Singleton<WeaponDataLoader> {
+public class WeaponDataLoader : InstanceStatic<WeaponDataLoader> {
   private WeaponLevelData weaponLevelData;
   public int currentWeaponLevel;
   public float firerate;
@@ -14,7 +14,6 @@ public class WeaponDataLoader : Singleton<WeaponDataLoader> {
   public float weaponPierceDamageReduce;
 
   protected override void Awake() {
-    base.Awake();
     LoadWeaponInfo(1);
   }
 
