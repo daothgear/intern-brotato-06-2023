@@ -29,24 +29,16 @@ public class PlayerMove : MonoBehaviour {
       animator.SetTrigger(Constants.Anim_PlayerIdle);
     }
 
-    if (ShouldFlip()) {
-      Flip();
-    }
-  }
-
-  private bool ShouldFlip() {
     if (joystick.Horizontal < 0 && isFacingRight) {
+      Flip();
       MessageDispatcher.SendMessage(Constants.Mess_playerFlipRight);
-      return true;
     }
     else if (joystick.Horizontal > 0 && !isFacingRight) {
+      Flip();
       MessageDispatcher.SendMessage(Constants.Mess_playerFlipRight);
-      return true;
     }
-
-    return false;
   }
-
+  
   private void Flip() {
     isFacingRight = !isFacingRight;
     Vector3 scale = transform.localScale;

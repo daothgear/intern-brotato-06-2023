@@ -21,10 +21,8 @@ public class TimeManager : MonoBehaviour {
   }
 
   private TextWave textWave;
-
-  private bool isShowingShop = false;
+  
   [SerializeField] private GameObject UIShop;
-  [SerializeField] private Button ButtonNextLevel;
 
   // Flag to control time updates
   private bool isTimeStopped = false;
@@ -37,6 +35,7 @@ public class TimeManager : MonoBehaviour {
 
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_playerDie, Stoptime);
+    MessageDispatcher.AddListener(Constants.Mess_nextwave, UpWave);
     currentWave = 1;
     StartWave();
   }
@@ -122,7 +121,10 @@ public class TimeManager : MonoBehaviour {
       yield return wait;
     }
   }
-
+  
+  private void UpWave(IMessage img) {
+    currentWave++;
+  }
   private void SpawnEnemyRandom() {
     GameObject newEnemy =
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
@@ -160,10 +162,7 @@ public class TimeManager : MonoBehaviour {
   private void ShowShop() {
     // Show the UI shop
     UIShop.SetActive(true);
-
-    // Set the flag to true
-    isShowingShop = true;
-
+    
     // Debug message to indicate that the shop is shown
     Debug.Log("Shop is shown!");
   }
@@ -171,10 +170,7 @@ public class TimeManager : MonoBehaviour {
   private void HideShop() {
     // Hide the UI shop
     UIShop.SetActive(false);
-
-    // Set the flag to false
-    isShowingShop = false;
-
+    
     // Debug message to indicate that the shop is hidden
     Debug.Log("Shop is hidden!");
   }

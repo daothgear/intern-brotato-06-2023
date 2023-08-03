@@ -17,16 +17,16 @@ public class PlayerExp : MonoBehaviour {
 
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
+    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
+    textExp.text = "LV." + playerLoader.characterLevel;
   }
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_addExp, AddExp);
+    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
   }
 
-  private void Update() {
-    UpdateExpUI();
-  }
-
+  
   private void UpdateExpUI() {
     playerExpSlider.maxValue = playerLoader.maxExp;
     playerExpSlider.value = currentExp;
@@ -40,7 +40,12 @@ public class PlayerExp : MonoBehaviour {
       currentExp -= playerLoader.maxExp;
       playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
     }
+    UpdateExpUI();
+  }
 
+  public void LevelUp(IMessage msg) {
+    playerLoader.characterLevel++;
+    playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
     UpdateExpUI();
   }
 }

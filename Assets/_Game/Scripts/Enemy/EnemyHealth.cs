@@ -1,5 +1,6 @@
 using UnityEngine;
 using com.ootii.Messages;
+using TMPro;
 
 public class EnemyHealth : MonoBehaviour, IPooledObject {
   [SerializeField] private Enemy enemy;
@@ -12,11 +13,9 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   private WeaponDataLoader weaponDataLoader {
     get => WeaponDataLoader.Ins;
   }
-
+  
   [SerializeField] private float currentHealth;
-
-  [SerializeField] private GameObject combatTextPrefab;
-
+  
   private void OnValidate() {
     if (enemy == null) {
       enemy = GetComponent<Enemy>();
@@ -36,6 +35,9 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   public void TakeDamage() {
     int damage = weaponDataLoader.weaponDamage;
     currentHealth -= damage;
+    UICombatTextManager.Instance.CreateUICombatText(transform.position, $"-{damage}", Color.black);
+    // var go = ObjectPool.Instance.SpawnFromPool(Constants.Tag_CombatText, gameObject.transform.position , Quaternion.identity);
+    // go.GetComponent<TextMeshProUGUI>().text = weaponDataLoader.weaponDamage.ToString();
     if (currentHealth <= 0) {
       if (isAdd == true) {
         MessageDispatcher.SendMessage(Constants.Mess_addExp);
@@ -64,10 +66,6 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag(Constants.Tag_Bullets)) {
       TakeDamage();
-    }
-
-    if (collision.CompareTag("Player")) {
-      ResetEnemy();
     }
   }
 
