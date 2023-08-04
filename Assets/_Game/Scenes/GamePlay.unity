@@ -1105,7 +1105,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1896700774}
   - component: {fileID: 1896700773}
-  - component: {fileID: 1896700775}
   m_Layer: 0
   m_Name: JSONLoadData
   m_TagString: Untagged
@@ -1125,132 +1124,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d922419216f6947408cefa1bbcced901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterLevelData:
-    characterInfo:
+  playerData:
+    playerInfo:
     - characterID: 1
       exp: 10
       maxHP: 10
       moveSpeed: 5
     - characterID: 2
-      exp: 15
-      maxHP: 11
-      moveSpeed: 5
+      exp: 11
+      maxHP: 12
+      moveSpeed: 5.25
     - characterID: 3
-      exp: 20
-      maxHP: 13
-      moveSpeed: 5
-    - characterID: 4
-      exp: 25
+      exp: 12
       maxHP: 14
-      moveSpeed: 5
+      moveSpeed: 5.5
+    - characterID: 4
+      exp: 13
+      maxHP: 15
+      moveSpeed: 5.75
     - characterID: 5
-      exp: 40
-      maxHP: 20
+      exp: 14
+      maxHP: 16
       moveSpeed: 6
-    - characterID: 6
-      exp: 50
-      maxHP: 30
-      moveSpeed: 6
-    - characterID: 7
-      exp: 60
-      maxHP: 40
-      moveSpeed: 6
-    - characterID: 8
-      exp: 60
-      maxHP: 40
-      moveSpeed: 6
-    - characterID: 9
-      exp: 70
-      maxHP: 50
-      moveSpeed: 6
-    - characterID: 10
-      exp: 90
-      maxHP: 65
-      moveSpeed: 7
-    - characterID: 11
-      exp: 100
-      maxHP: 80
-      moveSpeed: 7.25
-    - characterID: 12
-      exp: 120
-      maxHP: 100
-      moveSpeed: 7.5
-    - characterID: 13
-      exp: 140
-      maxHP: 120
-      moveSpeed: 7.75
-    - characterID: 14
-      exp: 160
-      maxHP: 140
-      moveSpeed: 8
-    - characterID: 15
-      exp: 190
-      maxHP: 180
-      moveSpeed: 10
-  weaponLevelData:
+  weaponData:
     weaponInfo:
     - weaponID: 1
       currentlevel: 1
-      firerate: 0.3
-      cost: 10
-      damage: 4
-      attackRange: 6
-      attackSpeed: 5
-      pierce: 0
-      pierceDamageReduce: 0
-    - weaponID: 1
-      currentlevel: 2
       firerate: 0.4
-      cost: 15
-      damage: 5
-      attackRange: 6.5
-      attackSpeed: 7
-      pierce: 0
-      pierceDamageReduce: 0
-    - weaponID: 1
-      currentlevel: 3
-      firerate: 0
-      cost: 25
-      damage: 7
-      attackRange: 7
-      attackSpeed: 7.5
-      pierce: 0
-      pierceDamageReduce: 0
-    - weaponID: 2
-      currentlevel: 1
-      firerate: 0
       cost: 10
       damage: 2
-      attackRange: 7
-      attackSpeed: 7
-      pierce: 1
-      pierceDamageReduce: 1
-    - weaponID: 2
+      attackRange: 10
+      attackSpeed: 6
+      pierce: 10
+      pierceDamageReduce: 10
+    - weaponID: 1
       currentlevel: 2
-      firerate: 0
+      firerate: 0.35
       cost: 15
       damage: 3
-      attackRange: 8
-      attackSpeed: 8
-      pierce: 2
-      pierceDamageReduce: 1
-    - weaponID: 2
+      attackRange: 11
+      attackSpeed: 7
+      pierce: 10
+      pierceDamageReduce: 10
+    - weaponID: 1
       currentlevel: 3
-      firerate: 0
-      cost: 25
+      firerate: 0.3
+      cost: 20
       damage: 4
-      attackRange: 10
-      attackSpeed: 10
-      pierce: 3
-      pierceDamageReduce: 2
+      attackRange: 12
+      attackSpeed: 8
+      pierce: 10
+      pierceDamageReduce: 10
   waveData:
-    subWaveTimes:
-    - 5
-    - 10
-    - 15
-    numSubWaves: 3
-    numEnemiesPerWave: 3
-    spawnDelay: 0.5
+    WaveInfos:
+    - currentWave: 1
+      subWaveTimes:
+      - 3
+      - 15
+      - 20
+      numSubWaves: 3
+      numEnemiesPerWave: 5
+      spawnDelay: 0.5
   enemyData:
     enemyInfo:
     - enemyID: 1
@@ -1273,29 +1207,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1896700775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896700772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d922419216f6947408cefa1bbcced901, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterLevelData:
-    characterInfo: []
-  weaponLevelData:
-    weaponInfo: []
-  waveData:
-    subWaveTimes: []
-    numSubWaves: 0
-    numEnemiesPerWave: 0
-    spawnDelay: 0
-  enemyData:
-    enemyInfo: []
 --- !u!1 &1926256356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,7 +1413,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: -430.61005, y: 312.89}
+  m_AnchoredPosition: {x: -430.61, y: 312.89}
   m_SizeDelta: {x: -960.29, y: -727.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981369996

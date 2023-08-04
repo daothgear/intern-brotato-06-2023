@@ -24124,7 +24124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &516717797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24705,7 +24705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 8.8811035, y: -44.135864}
+  m_AnchoredPosition: {x: 8.880859, y: -44.135742}
   m_SizeDelta: {x: 257.0379, y: 60.5283}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &599647140
@@ -24883,7 +24883,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   totalTimer: 0
-  currentWave: 0
   currentSubWave: 0
   wallCheck: {fileID: 1105329708}
   UIShop: {fileID: 516717796}
@@ -24905,10 +24904,10 @@ MonoBehaviour:
     size: 50
   - tag: Enemy
     prefab: {fileID: 2900440498428525068, guid: 6fc599b4efd394e77a90c98fb81b8ba5, type: 3}
-    size: 100
+    size: 500
   - tag: Bullets
     prefab: {fileID: 7509030963474128735, guid: adda5635ff37e412bb01c524c263f31d, type: 3}
-    size: 500
+    size: 100
   enemyList: []
 --- !u!114 &617973926
 MonoBehaviour:
@@ -25623,7 +25622,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 8.8811035, y: -4.0358887}
+  m_AnchoredPosition: {x: 8.880859, y: -4.0358887}
   m_SizeDelta: {x: 257.0379, y: 60.5283}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &849933767
@@ -29410,7 +29409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9528302, g: 0.23870398, b: 0.03146139, a: 1}
+  m_Color: {r: 0.23118682, g: 0.9529412, b: 0.031372532, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

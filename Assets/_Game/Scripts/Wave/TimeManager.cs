@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 public class TimeManager : MonoBehaviour {
   public float timer;
   public float totalTimer;
-  public int currentWave;
   public int currentSubWave;
 
   [SerializeField] private GameObject wallCheck;
@@ -34,9 +33,10 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void Start() {
+    waveDataLoader.LoadWaveInfo(1);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, Stoptime);
     MessageDispatcher.AddListener(Constants.Mess_nextwave, UpWave);
-    currentWave = 1;
+    waveDataLoader.currentWave = 1;
     StartWave();
   }
 
@@ -58,7 +58,7 @@ public class TimeManager : MonoBehaviour {
 
   private int CalculateTotalSubWaves() {
     int totalSubWaves = 0;
-    for (int i = 0; i < currentWave - 1; i++) {
+    for (int i = 0; i < waveDataLoader.currentWave - 1; i++) {
       totalSubWaves += waveDataLoader.numSubWaves;
     }
 
@@ -97,7 +97,7 @@ public class TimeManager : MonoBehaviour {
   }
 
   public void CloseShopUI() {
-    currentWave++;
+    waveDataLoader.currentWave++;
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
     MessageDispatcher.SendMessage(Constants.Mess_resetHealth);
@@ -107,7 +107,7 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void SpawnEnemies() {
-    int numEnemies = currentWave * waveDataLoader.numEnemiesPerWave * currentSubWave;
+    int numEnemies = waveDataLoader.currentWave * waveDataLoader.numEnemiesPerWave * currentSubWave;
     StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
   }
 
@@ -123,7 +123,7 @@ public class TimeManager : MonoBehaviour {
   }
   
   private void UpWave(IMessage img) {
-    currentWave++;
+    waveDataLoader.currentWave++;
   }
   private void SpawnEnemyRandom() {
     GameObject newEnemy =

@@ -1,0 +1,34 @@
+{
+    "playerInfo": [
+        {
+            "characterID": 1,
+            "exp": 10,
+            "maxHP": 10,
+            "moveSpeed": 5.0
+        },
+        {
+            "characterID": 2,
+            "exp": 11,
+            "maxHP": 12,
+            "moveSpeed": 5.25
+        },
+        {
+            "characterID": 3,
+            "exp": 12,
+            "maxHP": 14,
+            "moveSpeed": 5.5
+        },
+        {
+            "characterID": 4,
+            "exp": 13,
+            "maxHP": 15,
+            "moveSpeed": 5.75
+        },
+        {
+            "characterID": 5,
+            "exp": 14,
+            "maxHP": 16,
+            "moveSpeed": 6.0
+        }
+    ]
+}

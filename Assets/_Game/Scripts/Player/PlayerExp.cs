@@ -16,6 +16,7 @@ public class PlayerExp : MonoBehaviour {
   }
 
   private void Start() {
+    PlayerDataLoader.Ins.LoadCharacterInfo(1);
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
     MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
     textExp.text = "LV." + playerLoader.characterLevel;

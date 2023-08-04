@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class EnemyData {
-  public EnemyInfo[] enemyInfo;
+  public List<EnemyInfo> enemyInfo;
 
   [System.Serializable]
   public class EnemyInfo {

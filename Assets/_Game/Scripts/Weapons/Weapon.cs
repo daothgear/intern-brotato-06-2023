@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour {
   }
 
   public Transform attackPoint;
-  private bool isFacingRight = true;
+  private bool isFacingRight;
   private float fireTimer;
 
   void Update() {
@@ -31,8 +31,8 @@ public class Weapon : MonoBehaviour {
 
 
   private void OnDestroy() {
-    MessageDispatcher.AddListener(Constants.Mess_playerFlipRight, Flip);
-    MessageDispatcher.AddListener(Constants.Mess_playerFlipLeft, Flip);
+    MessageDispatcher.RemoveListener(Constants.Mess_playerFlipRight, Flip);
+    MessageDispatcher.RemoveListener(Constants.Mess_playerFlipLeft, Flip);
   }
 
   void FindAndFireAtTarget() {
