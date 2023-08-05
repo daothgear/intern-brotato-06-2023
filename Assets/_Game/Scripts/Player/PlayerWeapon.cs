@@ -6,7 +6,7 @@ public class PlayerWeapon : MonoBehaviour {
   [SerializeField] private Transform[] weaponPositions = new Transform[6];
   private List<GameObject> collectedWeapons = new List<GameObject>();
   public GameObject weaponLevel1Prefab;
-  public GameObject weaponLelvel2Prefab;
+  public GameObject weaponLevel2Prefab;
   public GameObject weaponLevel3Prefab;
   private int nextAvailableWeaponIndex = 1;
 
@@ -14,7 +14,7 @@ public class PlayerWeapon : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
 
     if (weaponPositions.Length > 0 && weaponPositions[0] != null) {
-      CreateWeaponAtPosition(weaponLevel1Prefab , weaponPositions[0]);
+      CreateWeaponAtPosition(weaponLevel2Prefab, weaponPositions[0]);
     }
   }
 

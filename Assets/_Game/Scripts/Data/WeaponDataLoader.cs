@@ -47,4 +47,13 @@ public class WeaponDataLoader : InstanceStatic<WeaponDataLoader> {
       }
     } 
   }
-}
+
+    public int GetWeaponDamage(int weaponID , int level) {
+      foreach (var weaponInfo in weaponLevelData.weaponInfo) {
+        if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
+          return weaponInfo.damage;
+        }
+      }
+      return 0;
+    }
+ }

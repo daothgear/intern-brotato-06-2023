@@ -40,6 +40,9 @@ public class Weapon : MonoBehaviour {
 
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
+      int weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId , currentWeaponLevel);
+      nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
+
       FireBulletTowardsEnemy(nearestEnemy);
     }
   }

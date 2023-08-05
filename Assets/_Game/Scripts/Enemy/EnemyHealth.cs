@@ -32,13 +32,9 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     ResetEnemy();
   }
 
-  public void TakeDamage() {
-    int damage = weaponDataLoader.weaponDamage;
-    currentHealth -= damage;
-
-    ReferenceHolder.Ins.combatTextManager.CreateUICombatText(transform.position, $"-{damage}", Color.black);
-    // var go = ObjectPool.Instance.SpawnFromPool(Constants.Tag_CombatText, gameObject.transform.position , Quaternion.identity);
-    // go.GetComponent<TextMeshProUGUI>().text = weaponDataLoader.weaponDamage.ToString();
+  public void TakeDamage(int weaponDamage) {
+    currentHealth -= weaponDamage;
+    ReferenceHolder.Ins.combatTextManager.CreateUICombatText(transform.position , $"-{weaponDamage}" , Color.black);
     if (currentHealth <= 0) {
       if (isAdd == true) {
         MessageDispatcher.SendMessage(Constants.Mess_addExp);
@@ -62,12 +58,6 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
 
   private void ResetHealth() {
     currentHealth = enemyLoader.maxHealth;
-  }
-
-  private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag(Constants.Tag_Bullets)) {
-      TakeDamage();
-    }
   }
 
   public void OnObjectSpawn() {
