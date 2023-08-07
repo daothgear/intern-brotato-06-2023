@@ -3,9 +3,9 @@ using UnityEngine;
 using com.ootii.Messages;
 
 public class Weapon : MonoBehaviour {
-  [SerializeField] private int currentWeaponId;
-  [SerializeField] private int currentWeaponLevel;
-  private WeaponDataLoader weaponDataLoader {
+  public int currentWeaponId;
+  public int currentWeaponLevel;
+  public WeaponDataLoader weaponDataLoader {
     get => WeaponDataLoader.Ins;
   }
 
@@ -88,5 +88,10 @@ public class Weapon : MonoBehaviour {
     Vector3 scale = transform.localScale;
     scale.x *= -1;
     transform.localScale = scale;
+  }
+
+  void MergerWeapon() {
+    int mergelevel = weaponDataLoader.GetWeaponLevel(currentWeaponId, currentWeaponLevel);
+    mergelevel++;
   }
 }

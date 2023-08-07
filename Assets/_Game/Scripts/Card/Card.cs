@@ -17,7 +17,7 @@ public class Card : MonoBehaviour {
   private int nextWave = 3;
   private int doubleCoin = 3;
   
-  public void Start() {
+  public void Update() {
     ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
     ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
     ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
