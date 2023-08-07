@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7788012871347156316}
   - component: {fileID: -8874410109785580293}
   m_Layer: 0
-  m_Name: PistonLevel1
+  m_Name: PistonPrefabs
   m_TagString: Piston
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
