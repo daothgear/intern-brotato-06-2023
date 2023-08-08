@@ -6,7 +6,7 @@ public class PlayerExp : MonoBehaviour {
   [SerializeField] private int currentExp;
   [SerializeField] private Slider playerExpSlider;
   [SerializeField] private Text textExp;
-
+  private const string PlayerExpPrefsKey = "PlayerExp";
   private PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Ins;
   }
@@ -16,9 +16,11 @@ public class PlayerExp : MonoBehaviour {
   }
 
   private void Start() {
-    PlayerDataLoader.Ins.LoadCharacterInfo(1);
+    LoadLevel();
+    PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
     MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
+    MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetLevel);
     textExp.text = "LV." + playerLoader.characterLevel;
   }
 
@@ -40,6 +42,7 @@ public class PlayerExp : MonoBehaviour {
       playerLoader.characterLevel++;
       currentExp -= playerLoader.maxExp;
       playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
+      SaveLevel();
     }
     UpdateExpUI();
   }
@@ -48,5 +51,20 @@ public class PlayerExp : MonoBehaviour {
     playerLoader.characterLevel++;
     playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
     UpdateExpUI();
+  }
+  
+  private void SaveLevel() {
+    PlayerPrefs.SetInt(PlayerExpPrefsKey, playerLoader.characterLevel);
+  }
+
+  private void LoadLevel() {
+    if (PlayerPrefs.HasKey(PlayerExpPrefsKey)) {
+      playerLoader.characterLevel = PlayerPrefs.GetInt(PlayerExpPrefsKey);
+    }
+  }
+
+  private void ResetLevel(IMessage img) {
+    PlayerDataLoader.Ins.LoadCharacterInfo(1);
+    SaveLevel();
   }
 }

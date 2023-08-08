@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour {
   }
 
   private void Start() {
-    PlayerDataLoader.Ins.LoadCharacterInfo(1);
+    PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
     MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
