@@ -13,7 +13,7 @@ public class ObjectPool : Singleton<ObjectPool> {
   public List<GameObject> enemyList = new List<GameObject>();
   public Dictionary<string, Queue<GameObject>> poolDictionary;
 
-  void Start() {
+  void Awake() {
     poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
     foreach (Pool pool in pools) {

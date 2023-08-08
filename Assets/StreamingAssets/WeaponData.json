@@ -32,6 +32,28 @@
             "attackSpeed": 8.0,
             "pierce": 10,
             "pierceDamageReduce": 10.0
+        },
+        {
+            "weaponID": 1,
+            "currentlevel": 4,
+            "firerate": 0.25,
+            "cost": 25,
+            "damage": 5,
+            "attackRange": 13.0,
+            "attackSpeed": 9.0,
+            "pierce": 10,
+            "pierceDamageReduce": 10.0
+        },
+        {
+            "weaponID": 1,
+            "currentlevel": 5,
+            "firerate": 0.20000000298023225,
+            "cost": 25,
+            "damage": 6,
+            "attackRange": 14.0,
+            "attackSpeed": 10.0,
+            "pierce": 10,
+            "pierceDamageReduce": 10.0
         }
     ]
 }

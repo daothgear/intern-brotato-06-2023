@@ -19,7 +19,7 @@ public class TimeManager : MonoBehaviour {
     get => WaveDataLoader.Ins;
   }
 
-  private TextWave textWave;
+  public TextWave textWave;
   
   [SerializeField] private GameObject UIShop;
 

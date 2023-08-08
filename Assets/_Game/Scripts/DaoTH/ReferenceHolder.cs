@@ -13,7 +13,7 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
       playerTran = playerCoin.gameObject.transform;
     }
 
-    if (timeManager != null) {
+    if (timeManager == null) {
       timeManager = FindObjectOfType<TimeManager>();
     }
 

@@ -759,7 +759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71300006, y: 1}
-  m_AnchoredPosition: {x: 31.080078, y: -278.51013}
+  m_AnchoredPosition: {x: 31.080078, y: -278.51016}
   m_SizeDelta: {x: -842.95, y: -730.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961232636
@@ -1146,6 +1146,22 @@ MonoBehaviour:
       exp: 14
       maxHP: 16
       moveSpeed: 6
+    - characterID: 6
+      exp: 16
+      maxHP: 18
+      moveSpeed: 6.25
+    - characterID: 5
+      exp: 20
+      maxHP: 22
+      moveSpeed: 6.5
+    - characterID: 6
+      exp: 22
+      maxHP: 24
+      moveSpeed: 7
+    - characterID: 7
+      exp: 24
+      maxHP: 26
+      moveSpeed: 7
   weaponData:
     weaponInfo:
     - weaponID: 1
@@ -1175,15 +1191,33 @@ MonoBehaviour:
       attackSpeed: 8
       pierce: 10
       pierceDamageReduce: 10
+    - weaponID: 1
+      currentlevel: 4
+      firerate: 0.25
+      cost: 25
+      damage: 5
+      attackRange: 13
+      attackSpeed: 9
+      pierce: 10
+      pierceDamageReduce: 10
+    - weaponID: 1
+      currentlevel: 5
+      firerate: 0.2
+      cost: 25
+      damage: 6
+      attackRange: 14
+      attackSpeed: 10
+      pierce: 10
+      pierceDamageReduce: 10
   waveData:
     WaveInfos:
     - currentWave: 1
       subWaveTimes:
       - 3
+      - 12
       - 15
-      - 20
       numSubWaves: 3
-      numEnemiesPerWave: 5
+      numEnemiesPerWave: 3
       spawnDelay: 0.5
   enemyData:
     enemyInfo:

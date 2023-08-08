@@ -4,11 +4,11 @@
             "currentWave": 1,
             "subWaveTimes": [
                 3.0,
-                15.0,
-                20.0
+                12.0,
+                15.0
             ],
             "numSubWaves": 3,
-            "numEnemiesPerWave": 5,
+            "numEnemiesPerWave": 3,
             "spawnDelay": 0.5
         }
     ]
