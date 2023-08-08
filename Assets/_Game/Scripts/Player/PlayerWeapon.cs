@@ -8,11 +8,23 @@ public class PlayerWeapon : MonoBehaviour {
   public GameObject weaponPrefab;
   private int nextAvailableWeaponIndex = 1;
 
+  private const string CollectedWeaponsCountPrefsKey = "CollectedWeaponsCount";
+  private const string CollectedWeaponsLevelsPrefsKey = "CollectedWeaponsLevels";
+
+  private bool hasCreatedInitialWeapon = false;
+
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon , AddWeapon);
+    MessageDispatcher.AddListener(Constants.Mess_playerDie , ResetWeapon);
 
-    if (weaponPositions.Count > 0 && weaponPositions[0] != null) {
-      CreateWeaponAtPosition(weaponPrefab , weaponPositions[0]);
+    LoadCollectedWeapons();
+
+    if (collectedWeapons == null) {
+      if (!hasCreatedInitialWeapon && weaponPositions.Count > 0 && weaponPositions[0] != null) {
+        CreateWeaponAtPosition(weaponPrefab , weaponPositions[0]);
+        hasCreatedInitialWeapon = true;
+        nextAvailableWeaponIndex++;
+      }
     }
   }
 
@@ -58,4 +70,55 @@ public class PlayerWeapon : MonoBehaviour {
   private void ShowWarningForMissingWeaponPosition() {
     Debug.LogWarning("Not enough weapon positions or position missing in weaponPositions list!");
   }
+
+  private void OnDestroy() {
+    SaveCollectedWeapons();
+  }
+
+  private void SaveCollectedWeapons() {
+    PlayerPrefs.SetInt(CollectedWeaponsCountPrefsKey , collectedWeapons.Count);
+
+    string weaponLevelsData = "";
+    foreach (GameObject weapon in collectedWeapons) {
+      Weapon weaponComponent = weapon.GetComponent<Weapon>();
+      weaponLevelsData += weaponComponent.currentWeaponLevel + ",";
+    }
+    PlayerPrefs.SetString(CollectedWeaponsLevelsPrefsKey , weaponLevelsData);
+
+    PlayerPrefs.Save();
+  }
+
+  private void LoadCollectedWeapons() {
+    if (PlayerPrefs.HasKey(CollectedWeaponsCountPrefsKey)) {
+      int collectedCount = PlayerPrefs.GetInt(CollectedWeaponsCountPrefsKey);
+      string weaponLevelsData = PlayerPrefs.GetString(CollectedWeaponsLevelsPrefsKey);
+      string[] weaponLevels = weaponLevelsData.Split(',');
+
+      for (int i = 0 ; i < collectedCount ; i++) {
+        if (i < weaponPositions.Count && weaponPositions[i] != null) {
+          CreateWeaponAtPosition(weaponPrefab , weaponPositions[i]);
+          Weapon weaponComponent = collectedWeapons[i].GetComponent<Weapon>();
+          weaponComponent.currentWeaponLevel = int.Parse(weaponLevels[i]);
+          WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId , weaponComponent.currentWeaponLevel);
+          nextAvailableWeaponIndex++;
+        }
+      }
+    }
+  }
+
+  private void ResetWeapon(IMessage msg) {
+    foreach (GameObject weapon in collectedWeapons) {
+      Destroy(weapon);
+    }
+    collectedWeapons.Clear();
+    nextAvailableWeaponIndex = 1;
+    hasCreatedInitialWeapon = false;
+
+    if (weaponPositions.Count > 0 && weaponPositions[0] != null) {
+      CreateWeaponAtPosition(weaponPrefab , weaponPositions[0]);
+      hasCreatedInitialWeapon = true;
+      nextAvailableWeaponIndex++;
+    }
+  }
+
 }

@@ -20,7 +20,6 @@ public class TimeManager : MonoBehaviour {
   }
 
   public TextWave textWave;
-  
   [SerializeField] private GameObject UIShop;
 
   // Flag to control time updates
@@ -36,7 +35,10 @@ public class TimeManager : MonoBehaviour {
     waveDataLoader.LoadWaveInfo(1);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, Stoptime);
     MessageDispatcher.AddListener(Constants.Mess_nextwave, UpWave);
-    waveDataLoader.currentWave = 1;
+
+    // Load PlayerPrefs data
+    LoadPlayerPrefsData();
+
     StartWave();
   }
 
@@ -54,21 +56,6 @@ public class TimeManager : MonoBehaviour {
 
       textWave.UpdateText();
     }
-  }
-
-  private int CalculateTotalSubWaves() {
-    int totalSubWaves = 0;
-    for (int i = 0; i < waveDataLoader.currentWave - 1; i++) {
-      totalSubWaves += waveDataLoader.numSubWaves;
-    }
-
-    totalSubWaves += currentSubWave;
-    return totalSubWaves;
-  }
-
-  private void NextLevelButtonClicked() {
-    HideShop();
-    StartNextSubWave();
   }
 
   private void StartWave() {
@@ -104,6 +91,9 @@ public class TimeManager : MonoBehaviour {
     textWave.UpdateText();
     StartWave();
     UIShop.SetActive(false);
+
+    // Save PlayerPrefs data
+    SavePlayerPrefsData();
   }
 
   private void SpawnEnemies() {
@@ -111,17 +101,15 @@ public class TimeManager : MonoBehaviour {
     StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
   }
 
-  private IEnumerator SpawnEnemiesWithDelays(int numEnemies)
-  {
+  private IEnumerator SpawnEnemiesWithDelays(int numEnemies) {
     float delayTime = waveDataLoader.spawnDelay;
     WaitForSeconds wait = new WaitForSeconds(delayTime);
-    for (int i = 0; i < numEnemies; i++)
-    {
+    for (int i = 0 ; i < numEnemies ; i++) {
       SpawnEnemyRandom();
       yield return wait;
     }
   }
-  
+
   private void UpWave(IMessage img) {
     waveDataLoader.currentWave++;
   }
@@ -130,7 +118,6 @@ public class TimeManager : MonoBehaviour {
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
     ObjectPool.Ins.enemyList.Add(newEnemy);
   }
-
   private Vector3 GetRandomSpawnPosition() {
     Collider2D wallCollider = wallCheck.GetComponent<Collider2D>();
     Vector3 wallSize = wallCollider.bounds.size;
@@ -162,21 +149,26 @@ public class TimeManager : MonoBehaviour {
   private void ShowShop() {
     // Show the UI shop
     UIShop.SetActive(true);
-    
     // Debug message to indicate that the shop is shown
     Debug.Log("Shop is shown!");
-  }
-
-  private void HideShop() {
-    // Hide the UI shop
-    UIShop.SetActive(false);
-    
-    // Debug message to indicate that the shop is hidden
-    Debug.Log("Shop is hidden!");
   }
 
   private void Stoptime(IMessage img) {
     // Set the time stopped flag to true, which will stop further updates of timers.
     isTimeStopped = true;
+    WaveDataLoader.Ins.currentWave = 1;
+    SavePlayerPrefsData();
+  }
+
+  private void SavePlayerPrefsData() {
+    PlayerPrefs.SetInt("CurrentWave" , waveDataLoader.currentWave);
+    PlayerPrefs.SetInt("CurrentSubWave" , currentSubWave);
+    PlayerPrefs.SetFloat("TotalTimer" , totalTimer);
+  }
+
+  private void LoadPlayerPrefsData() {
+    waveDataLoader.currentWave = PlayerPrefs.GetInt("CurrentWave" , 1);
+    currentSubWave = PlayerPrefs.GetInt("CurrentSubWave" , 1);
+    totalTimer = PlayerPrefs.GetFloat("TotalTimer" , CalculateTotalTimer());
   }
 }
