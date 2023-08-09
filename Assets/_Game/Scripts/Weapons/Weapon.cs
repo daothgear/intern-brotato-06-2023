@@ -3,12 +3,14 @@ using UnityEngine;
 using com.ootii.Messages;
 
 public class Weapon : MonoBehaviour {
-  private WeaponDataLoader weaponDataLoader {
+  public int currentWeaponId;
+  public int currentWeaponLevel;
+  public WeaponDataLoader weaponDataLoader {
     get => WeaponDataLoader.Ins;
   }
 
   public Transform attackPoint;
-  private bool isFacingRight = true;
+  private bool isFacingRight;
   private float fireTimer;
 
   void Update() {
@@ -24,12 +26,13 @@ public class Weapon : MonoBehaviour {
   void Start() {
     MessageDispatcher.AddListener(Constants.Mess_playerFlipRight, Flip);
     MessageDispatcher.AddListener(Constants.Mess_playerFlipLeft, Flip);
+    weaponDataLoader.LoadWeaponInfo(currentWeaponId,currentWeaponLevel);
   }
 
 
   private void OnDestroy() {
-    MessageDispatcher.AddListener(Constants.Mess_playerFlipRight, Flip);
-    MessageDispatcher.AddListener(Constants.Mess_playerFlipLeft, Flip);
+    MessageDispatcher.RemoveListener(Constants.Mess_playerFlipRight, Flip);
+    MessageDispatcher.RemoveListener(Constants.Mess_playerFlipLeft, Flip);
   }
 
   void FindAndFireAtTarget() {
@@ -37,6 +40,9 @@ public class Weapon : MonoBehaviour {
 
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
+      int weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId , currentWeaponLevel);
+      nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
+
       FireBulletTowardsEnemy(nearestEnemy);
     }
   }
@@ -82,5 +88,10 @@ public class Weapon : MonoBehaviour {
     Vector3 scale = transform.localScale;
     scale.x *= -1;
     transform.localScale = scale;
+  }
+
+  void MergerWeapon() {
+    int mergelevel = weaponDataLoader.GetWeaponLevel(currentWeaponId, currentWeaponLevel);
+    mergelevel++;
   }
 }

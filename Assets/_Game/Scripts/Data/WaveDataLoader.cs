@@ -1,29 +1,39 @@
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class WaveDataLoader : InstanceStatic<WaveDataLoader> {
   private WaveData waveData;
+  public int currentWave;
   public float[] subWaveTimes;
   public int numSubWaves;
   public int numEnemiesPerWave;
   public float spawnDelay;
+
   protected override void Awake() {
-    LoadWaveData();
+    ReadData();
   }
 
-  private void LoadWaveData() {
-    string filePath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Wave);
-
-    if (File.Exists(filePath)) {
-      string jsonData = File.ReadAllText(filePath);
-      waveData = JsonUtility.FromJson<WaveData>(jsonData);
-      subWaveTimes = waveData.subWaveTimes;
-      numSubWaves = waveData.numSubWaves;
-      numEnemiesPerWave = waveData.numEnemiesPerWave;
-      spawnDelay = waveData.spawnDelay;
+  public void ReadData() {
+    string waveLevelPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Wave);
+    if (File.Exists(waveLevelPath)) {
+      string waveDataJson = File.ReadAllText(waveLevelPath);
+      waveData = JsonConvert.DeserializeObject<WaveData>(waveDataJson);
     }
-    else {
-      Debug.LogError("WaveData file not found at path: " + filePath);
+  }
+
+  public void LoadWaveInfo(int currenwave) {
+    foreach (var waveInfo in waveData.WaveInfos) {
+      if (waveInfo.currentWave == currenwave) {
+        WaveData.WaveInfo currentwaveInfo = waveInfo;
+        Debug.Log("Character level data loaded successfully.");
+        currentWave = currentwaveInfo.currentWave;
+        subWaveTimes = currentwaveInfo.subWaveTimes;
+        numSubWaves = currentwaveInfo.numSubWaves;
+        numEnemiesPerWave = currentwaveInfo.numEnemiesPerWave;
+        spawnDelay = currentwaveInfo.spawnDelay;
+        break;
+      }
     }
   }
 }

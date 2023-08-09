@@ -11,28 +11,27 @@ public class EnemyDataLoader : InstanceStatic<EnemyDataLoader> {
   public int enemyExp;
 
   protected override void Awake() {
-    LoadEnemyInfo(1);
+    ReadData();
   }
-  
-  public void LoadEnemyInfo(int enemyID) {
+
+  private void ReadData() {
     string enemyDataPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Enemy);
     if (File.Exists(enemyDataPath)) {
       string enemyDataJson = File.ReadAllText(enemyDataPath);
       enemyData = JsonConvert.DeserializeObject<EnemyData>(enemyDataJson);
-      foreach (var enemyInfo in enemyData.enemyInfo) {
-        if (enemyInfo.enemyID == enemyID) {
-          EnemyData.EnemyInfo currentEnemyInfo = enemyInfo;
-          speed = currentEnemyInfo.moveSpeed;
-          maxHealth = currentEnemyInfo.maxHP;
-          damageEnemy = currentEnemyInfo.damage;
-          enemyExp = currentEnemyInfo.expEnemy;
-          //Debug.Log("Enemy data loaded successfully.");
-          break;
-        }
-      }
     }
-    else {
-      Debug.LogError("File not found: " + enemyDataPath);
+  }
+
+  public void LoadEnemyInfo(int enemyID) {
+    foreach (var enemyInfo in enemyData.enemyInfo) {
+      if (enemyInfo.enemyID == enemyID) {
+        EnemyData.EnemyInfo currentEnemyInfo = enemyInfo;
+        speed = currentEnemyInfo.moveSpeed;
+        maxHealth = currentEnemyInfo.maxHP;
+        damageEnemy = currentEnemyInfo.damage;
+        enemyExp = currentEnemyInfo.expEnemy;
+        break;
+      }
     }
   }
 }

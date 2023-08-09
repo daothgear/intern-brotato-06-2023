@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using UnityEngine.Serialization;
 
 public class BlueprintLoader : MonoBehaviour {
-  public CharacterLevelData characterLevelData;
-  public WeaponLevelData weaponLevelData;
+  public PlayerData playerData;
+  public WeaponData weaponData;
   public WaveData waveData;
   public EnemyData enemyData;
 
   [ContextMenu("OutputJson")]
   public void OutputJson() {
-    string characterLevelJson = JsonUtility.ToJson(characterLevelData, true);
+    string characterLevelJson = JsonUtility.ToJson(playerData, true);
     string characterLevelPath = Path.Combine(Application.streamingAssetsPath,Constants.Data_Player);
     File.WriteAllText(characterLevelPath, characterLevelJson);
 
-    string weaponLevelJson = JsonUtility.ToJson(weaponLevelData, true);
+    string weaponLevelJson = JsonUtility.ToJson(weaponData, true);
     string weaponLevelPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Weapon);
     File.WriteAllText(weaponLevelPath, weaponLevelJson);
 

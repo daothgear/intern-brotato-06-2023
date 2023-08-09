@@ -6,11 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Card : MonoBehaviour {
-
-  private WeaponDataLoader weaponDataLoader {
-    get => WeaponDataLoader.Ins;
-  }
-
+  
   [SerializeField] private Text ButtonUplevel;
   [SerializeField] private Text ButtonNextWave;
   [SerializeField] private Text ButtonAddWeapon;
@@ -21,15 +17,15 @@ public class Card : MonoBehaviour {
   private int nextWave = 3;
   private int doubleCoin = 3;
   
-  public void Start() {
-    ButtonAddWeapon.text = (addWeapon * weaponDataLoader.weaponPierce).ToString() + "$";
-    ButtonNextWave.text = (nextWave * weaponDataLoader.weaponPierce).ToString() + "$";
-    ButtonUplevel.text = (uplevel * weaponDataLoader.weaponPierce).ToString() + "$";
-    ButtonDoubleCoin.text = (doubleCoin * weaponDataLoader.weaponPierce).ToString() + "$";
+  public void Update() {
+    ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
+    ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
+    ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
+    ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   private int GetCost(int value) {
-    return value * weaponDataLoader.weaponPierce;
+    return value * WeaponDataLoader.Ins.weaponPierce;
   }
 
   public void AddWeapon() {
@@ -39,7 +35,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonAddWeapon.text = (addWeapon * weaponDataLoader.weaponPierce).ToString() + "$";
+    //.ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   public void AddLevel() {
@@ -49,7 +45,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_plus1Level);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonUplevel.text = (uplevel * weaponDataLoader.weaponPierce).ToString() + "$";
+    //ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   public void NextWave() {
@@ -59,7 +55,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_nextwave);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonNextWave.text = (nextWave * weaponDataLoader.weaponPierce).ToString() + "$";
+    //ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 
   public void DoubleMoney() {
@@ -69,6 +65,6 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonDoubleCoin.text = (doubleCoin * weaponDataLoader.weaponPierce).ToString() + "$";
+    //ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
   }
 }

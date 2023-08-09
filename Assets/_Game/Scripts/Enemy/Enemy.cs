@@ -27,6 +27,9 @@ public class Enemy : MonoBehaviour {
     }
   }
 
+  private void Start() {
+    enemyLoader.LoadEnemyInfo(1);
+  }
   private void Update() {
     switch (currentState) {
       case EnemyState.Idle:

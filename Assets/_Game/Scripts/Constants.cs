@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Constants : MonoBehaviour {
   //Data
-  public const string Data_Player = "CharacterLevelData.json";
-  public const string Data_Weapon = "WeaponLevelData.json";
+  public const string Data_Player = "PlayerData.json";
+  public const string Data_Weapon = "WeaponData.json";
   public const string Data_Wave = "WaveData.json";
   public const string Data_Enemy = "EnemyData.json";
   //Tag
