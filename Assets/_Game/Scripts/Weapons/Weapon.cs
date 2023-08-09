@@ -24,17 +24,9 @@ public class Weapon : MonoBehaviour {
   }
 
   void Start() {
-    MessageDispatcher.AddListener(Constants.Mess_playerFlipRight, Flip);
-    MessageDispatcher.AddListener(Constants.Mess_playerFlipLeft, Flip);
     weaponDataLoader.LoadWeaponInfo(currentWeaponId,currentWeaponLevel);
   }
-
-
-  private void OnDestroy() {
-    MessageDispatcher.RemoveListener(Constants.Mess_playerFlipRight, Flip);
-    MessageDispatcher.RemoveListener(Constants.Mess_playerFlipLeft, Flip);
-  }
-
+  
   void FindAndFireAtTarget() {
     Transform nearestEnemy = GetNearestEnemy();
 
@@ -82,14 +74,7 @@ public class Weapon : MonoBehaviour {
     Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, weaponDataLoader.weaponAttackRange);
   }
-
-  private void Flip(IMessage img) {
-    isFacingRight = !isFacingRight;
-    Vector3 scale = transform.localScale;
-    scale.x *= -1;
-    transform.localScale = scale;
-  }
-
+  
   void MergerWeapon() {
     int mergelevel = weaponDataLoader.GetWeaponLevel(currentWeaponId, currentWeaponLevel);
     mergelevel++;

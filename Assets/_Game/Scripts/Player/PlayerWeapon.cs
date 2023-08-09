@@ -36,8 +36,6 @@ public class PlayerWeapon : MonoBehaviour {
     if (nextAvailableWeaponIndex < weaponPositions.Count && weaponPositions[nextAvailableWeaponIndex] != null) {
       CreateWeaponAtPosition(weaponPrefab , weaponPositions[nextAvailableWeaponIndex]);
       nextAvailableWeaponIndex++;
-    } else {
-      ShowWarningForMissingWeaponPosition();
     }
   }
 
@@ -64,14 +62,11 @@ public class PlayerWeapon : MonoBehaviour {
     GameObject newWeapon = Instantiate(weaponPrefab , position.position , position.rotation);
     newWeapon.transform.parent = position;
     collectedWeapons.Add(newWeapon);
-    Debug.Log("Weapon added at position: " + position.name);
   }
-
-  private void ShowWarningForMissingWeaponPosition() {
-    Debug.LogWarning("Not enough weapon positions or position missing in weaponPositions list!");
-  }
-
+  
   private void OnDestroy() {
+    MessageDispatcher.RemoveListener(Constants.Mess_addWeapon , AddWeapon);
+    MessageDispatcher.RemoveListener(Constants.Mess_playerDie , ResetWeapon);
     SaveCollectedWeapons();
   }
 
@@ -105,7 +100,6 @@ public class PlayerWeapon : MonoBehaviour {
       }
     }
   }
-
   private void ResetWeapon(IMessage msg) {
     foreach (GameObject weapon in collectedWeapons) {
       Destroy(weapon);

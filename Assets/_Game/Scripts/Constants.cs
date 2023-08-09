@@ -14,6 +14,7 @@ public class Constants : MonoBehaviour {
   public const string Tag_Bullets = "Bullets";
   public const string Tag_Coin = "Coin";
   public const string Tag_CombatText = "CombatText";
+  public const string Tag_Pistol = "Pistol";
   //Anim-Enemy
   public const string Anim_Idle = "Idle";
   public const string Anim_Walk = "Walk";

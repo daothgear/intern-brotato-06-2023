@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4541206582622460110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4541206582622460108}
+  - component: {fileID: 4541206582622460111}
+  m_Layer: 0
+  m_Name: JSONLoadData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4541206582622460108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541206582622460110}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1335123, y: 0.058846667, z: 306.0561}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4541206582622460111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541206582622460110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d922419216f6947408cefa1bbcced901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    playerInfo:
+    - characterID: 1
+      exp: 10
+      maxHP: 10
+      moveSpeed: 5
+    - characterID: 2
+      exp: 11
+      maxHP: 12
+      moveSpeed: 5.25
+    - characterID: 3
+      exp: 12
+      maxHP: 14
+      moveSpeed: 5.5
+    - characterID: 4
+      exp: 13
+      maxHP: 15
+      moveSpeed: 5.75
+    - characterID: 5
+      exp: 14
+      maxHP: 16
+      moveSpeed: 6
+    - characterID: 6
+      exp: 16
+      maxHP: 18
+      moveSpeed: 6.25
+    - characterID: 5
+      exp: 20
+      maxHP: 22
+      moveSpeed: 6.5
+    - characterID: 6
+      exp: 22
+      maxHP: 24
+      moveSpeed: 7
+    - characterID: 7
+      exp: 24
+      maxHP: 26
+      moveSpeed: 7
+  weaponData:
+    weaponInfo:
+    - weaponID: 1
+      currentlevel: 1
+      firerate: 0.4
+      cost: 10
+      damage: 2
+      attackRange: 10
+      attackSpeed: 6
+      pierce: 10
+      pierceDamageReduce: 10
+    - weaponID: 1
+      currentlevel: 2
+      firerate: 0.35
+      cost: 15
+      damage: 3
+      attackRange: 11
+      attackSpeed: 7
+      pierce: 10
+      pierceDamageReduce: 10
+    - weaponID: 1
+      currentlevel: 3
+      firerate: 0.3
+      cost: 20
+      damage: 4
+      attackRange: 12
+      attackSpeed: 8
+      pierce: 10
+      pierceDamageReduce: 10
+    - weaponID: 1
+      currentlevel: 4
+      firerate: 0.25
+      cost: 25
+      damage: 5
+      attackRange: 13
+      attackSpeed: 9
+      pierce: 10
+      pierceDamageReduce: 10
+    - weaponID: 1
+      currentlevel: 5
+      firerate: 0.2
+      cost: 25
+      damage: 6
+      attackRange: 14
+      attackSpeed: 10
+      pierce: 10
+      pierceDamageReduce: 10
+  waveData:
+    WaveInfos:
+    - currentWave: 1
+      subWaveTimes:
+      - 3
+      - 12
+      - 15
+      numSubWaves: 3
+      numEnemiesPerWave: 3
+      spawnDelay: 0.5
+  enemyData:
+    enemyInfo:
+    - enemyID: 1
+      moveSpeed: 3
+      maxHP: 5
+      damage: 2
+      expEnemy: 1

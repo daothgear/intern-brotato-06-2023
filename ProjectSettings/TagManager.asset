@@ -8,9 +8,9 @@ TagManager:
   - Wall
   - Enemy
   - Coin
-  - Piston
   - Bullets
   - CombatText
+  - Pistol
   layers:
   - Default
   - TransparentFX

@@ -26,7 +26,6 @@ public class WaveDataLoader : InstanceStatic<WaveDataLoader> {
     foreach (var waveInfo in waveData.WaveInfos) {
       if (waveInfo.currentWave == currenwave) {
         WaveData.WaveInfo currentwaveInfo = waveInfo;
-        Debug.Log("Character level data loaded successfully.");
         currentWave = currentwaveInfo.currentWave;
         subWaveTimes = currentwaveInfo.subWaveTimes;
         numSubWaves = currentwaveInfo.numSubWaves;

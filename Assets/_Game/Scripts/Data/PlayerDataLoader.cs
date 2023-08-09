@@ -25,7 +25,6 @@ public class PlayerDataLoader : InstanceStatic<PlayerDataLoader> {
     foreach (var characterInfo in characterData.playerInfo) {
       if (characterInfo.characterID == currentLevel) {
         PlayerData.PlayerInfo currentPlayerInfo = characterInfo;
-        Debug.Log("Character level data loaded successfully.");
         speed = currentPlayerInfo.moveSpeed;
         maxHealth = currentPlayerInfo.maxHP;
         characterLevel = currentPlayerInfo.characterID;
