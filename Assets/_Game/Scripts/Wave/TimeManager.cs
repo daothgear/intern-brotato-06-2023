@@ -44,6 +44,9 @@ public class TimeManager : MonoBehaviour {
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_playerDie, Stoptime);
+
+    // Save PlayerPrefs data
+    SavePlayerPrefsData();
   }
 
   private void Update() {
@@ -59,18 +62,19 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void StartWave() {
+    if (currentSubWave == 1 && waveDataLoader.currentWave > 1) {
+      UIShop.SetActive(false);
+    }
     currentSubWave++;
     if (currentSubWave > waveDataLoader.numSubWaves) {
       ShowShop();
       return;
     }
-
     timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
     totalTimer = CalculateTotalTimer();
     SpawnEnemies();
     textWave.UpdateText();
   }
-
   private void StartNextSubWave() {
     currentSubWave++;
     if (currentSubWave > waveDataLoader.numSubWaves) {
@@ -149,14 +153,13 @@ public class TimeManager : MonoBehaviour {
   private void ShowShop() {
     // Show the UI shop
     UIShop.SetActive(true);
-    // Debug message to indicate that the shop is shown
-    Debug.Log("Shop is shown!");
   }
 
   private void Stoptime(IMessage img) {
-    // Set the time stopped flag to true, which will stop further updates of timers.
+    UIShop.SetActive(false);
     isTimeStopped = true;
-    WaveDataLoader.Ins.currentWave = 1;
+    waveDataLoader.currentWave = 1;
+    currentSubWave = 1;
     SavePlayerPrefsData();
   }
 

@@ -18,22 +18,18 @@ public class WeaponDataLoader : InstanceStatic<WeaponDataLoader> {
   protected override void Awake() {
     ReadData();
   }
-
+  
   public void ReadData() {
     string weaponLevelPath = Path.Combine(Application.streamingAssetsPath , Constants.Data_Weapon);
     if (File.Exists(weaponLevelPath)) {
       string weaponLevelJson = File.ReadAllText(weaponLevelPath);
       weaponLevelData = JsonConvert.DeserializeObject<WeaponData>(weaponLevelJson);
     }
-    else {
-      Debug.LogError("File not found: " + weaponLevelPath);
-    }
   }
   public void LoadWeaponInfo(int currentWeaponID , int currentLevel) {
     foreach (var weaponInfo in weaponLevelData.weaponInfo) {
       if (weaponInfo.weaponID == currentWeaponID && weaponInfo.currentlevel == currentLevel) {
         WeaponData.WeaponInfo currentWeaponInfo = weaponInfo;
-        Debug.Log("Weapon level data loaded successfully.");
         this.currentWeaponID = currentWeaponInfo.weaponID;
         currentWeaponLevel = currentWeaponInfo.currentlevel;
         firerate = currentWeaponInfo.firerate;

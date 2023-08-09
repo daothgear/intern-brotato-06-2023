@@ -39,7 +39,6 @@ public class PlayerCoin : Singleton<PlayerCoin> {
       textCoin.text = coinAmount.ToString();
       ObjectPool.Ins.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
       SaveCoinAmount();
-      Debug.Log("Coin return done");
     }
   }
 
@@ -51,7 +50,6 @@ public class PlayerCoin : Singleton<PlayerCoin> {
 
   private void SaveCoinAmount() {
     PlayerPrefs.SetInt(CoinPlayerPrefsKey, coinAmount);
-    Debug.Log("Save Done" + coinAmount);
   }
 
   private void LoadCoinAmount() {

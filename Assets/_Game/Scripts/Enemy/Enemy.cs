@@ -62,7 +62,6 @@ public class Enemy : MonoBehaviour {
 
   public void Walk() {
     isTrigger = true;
-    Debug.Log(isTrigger);
     if (ReferenceHolder.Ins.playerTran != null) {
       transform.position =
           Vector3.MoveTowards(transform.position, ReferenceHolder.Ins.playerTran.position,
