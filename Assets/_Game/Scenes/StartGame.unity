@@ -24909,6 +24909,9 @@ MonoBehaviour:
   - tag: Bullets
     prefab: {fileID: 7509030963474128735, guid: adda5635ff37e412bb01c524c263f31d, type: 3}
     size: 100
+  - tag: Weapons
+    prefab: {fileID: 5829852352044861097, guid: 1239ec2e202e34506ab4965e216459e4, type: 3}
+    size: 10
   enemyList: []
 --- !u!114 &617973926
 MonoBehaviour:
@@ -24923,8 +24926,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveText: {fileID: 1190333839}
-  subWaveText: {fileID: 1143541130}
-  countdownText: {fileID: 2014384387}
   totalTimerText: {fileID: 918702190}
 --- !u!1 &657717774
 GameObject:
@@ -29140,6 +29141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCoin: {fileID: 1058422519}
+  playerMove: {fileID: 1058422511}
   playerTran: {fileID: 1058422510}
   timeManager: {fileID: 617973924}
   combatTextManager: {fileID: 1668993645}
