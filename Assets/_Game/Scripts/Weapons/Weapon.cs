@@ -5,6 +5,7 @@ using com.ootii.Messages;
 public class Weapon : MonoBehaviour {
   public int currentWeaponId;
   public int currentWeaponLevel;
+  [SerializeField] private AudioClip shootBullet;
   public WeaponDataLoader weaponDataLoader {
     get => WeaponDataLoader.Ins;
   }
@@ -64,6 +65,7 @@ public class Weapon : MonoBehaviour {
   }
 
   void FireBulletTowardsEnemy(Transform targetEnemy) {
+    AudioManager.Ins.PlaySound(shootBullet);
     GameObject bulletObject =
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
