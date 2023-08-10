@@ -41,4 +41,5 @@ public class Constants : MonoBehaviour {
   public const string PrefsKey_TotalTimer = "TotalTimer";
   //scene
   public const string Scene_StartGame = "StartGame";
+  public const string Scene_Menu = "Menu";
 }

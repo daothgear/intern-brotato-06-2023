@@ -26205,6 +26205,7 @@ GameObject:
   - component: {fileID: 1058422515}
   - component: {fileID: 1058422519}
   - component: {fileID: 1058422520}
+  - component: {fileID: 1058422521}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -26426,6 +26427,18 @@ MonoBehaviour:
   - {fileID: 992103500}
   - {fileID: 120655287}
   weaponPrefab: {fileID: 5829852352044861097, guid: 1239ec2e202e34506ab4965e216459e4, type: 3}
+--- !u!114 &1058422521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058422507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5db8300dd72c423caeba39ea51c47a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1105329708
 GameObject:
   m_ObjectHideFlags: 0
@@ -29141,7 +29154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCoin: {fileID: 1058422519}
-  playerMove: {fileID: 1058422511}
   playerTran: {fileID: 1058422510}
   timeManager: {fileID: 617973924}
   combatTextManager: {fileID: 1668993645}
