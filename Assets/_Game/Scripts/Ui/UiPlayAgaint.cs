@@ -7,6 +7,6 @@ using UnityEngine.SceneManagement;
 public class UiPlayAgaint : MonoBehaviour
 {
   public void PLayAgaint() {
-    SceneManager.LoadScene("StartGame");
+    SceneManager.LoadScene(Constants.Scene_StartGame);
   }
 }

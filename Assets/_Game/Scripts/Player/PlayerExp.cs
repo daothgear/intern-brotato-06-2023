@@ -6,7 +6,6 @@ public class PlayerExp : MonoBehaviour {
   [SerializeField] private int currentExp;
   [SerializeField] private Slider playerExpSlider;
   [SerializeField] private Text textExp;
-  private const string PlayerExpPrefsKey = "PlayerExp";
   private PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Ins;
   }
@@ -54,12 +53,12 @@ public class PlayerExp : MonoBehaviour {
   }
   
   private void SaveLevel() {
-    PlayerPrefs.SetInt(PlayerExpPrefsKey, playerLoader.characterLevel);
+    PlayerPrefs.SetInt(Constants.PrefsKey_PlayerExp, playerLoader.characterLevel);
   }
 
   private void LoadLevel() {
-    if (PlayerPrefs.HasKey(PlayerExpPrefsKey)) {
-      playerLoader.characterLevel = PlayerPrefs.GetInt(PlayerExpPrefsKey);
+    if (PlayerPrefs.HasKey(Constants.PrefsKey_PlayerExp)) {
+      playerLoader.characterLevel = PlayerPrefs.GetInt(Constants.PrefsKey_PlayerExp);
     }
   }
 
