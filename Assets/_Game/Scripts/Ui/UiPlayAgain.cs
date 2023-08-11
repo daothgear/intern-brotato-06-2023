@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UiPlayAgaint : MonoBehaviour
+public class UiPlayAgain : MonoBehaviour
 {
   public void PLayAgaint() {
     SceneManager.LoadScene(Constants.Scene_StartGame);
