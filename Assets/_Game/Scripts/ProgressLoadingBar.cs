@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class ProgressLoadingBar : MonoBehaviour {
   public Slider loadingSlider;
+  public float waitTimeBetweenFiles = 1f;
 
   private void Start() {
     StartCoroutine(LoadData());
@@ -29,12 +30,16 @@ public class ProgressLoadingBar : MonoBehaviour {
 
       loadedFiles++;
       float progress = loadedFiles / totalFiles;
-      loadingSlider.value = progress;
-      Invoke("LoadSceneGame", 2f);
-    }
-  }
 
-  private void LoadSceneGame() {
+      float targetValue = progress;
+      float currentValue = loadingSlider.value;
+
+      while (currentValue < targetValue) {
+        currentValue += Time.deltaTime * (1.0f / waitTimeBetweenFiles);
+        loadingSlider.value = currentValue;
+        yield return null;
+      }
+    }
     SceneManager.LoadScene(Constants.Scene_Menu);
   }
 }
