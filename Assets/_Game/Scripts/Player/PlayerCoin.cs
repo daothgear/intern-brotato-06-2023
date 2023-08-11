@@ -9,9 +9,6 @@ using UnityEngine.UI;
 public class PlayerCoin : Singleton<PlayerCoin> {
   private int coinAmount = 0;
   [SerializeField] private Text textCoin;
-
-  private const string CoinPlayerPrefsKey = "PlayerCoinAmount";
-
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetData);
@@ -49,12 +46,12 @@ public class PlayerCoin : Singleton<PlayerCoin> {
   }
 
   private void SaveCoinAmount() {
-    PlayerPrefs.SetInt(CoinPlayerPrefsKey, coinAmount);
+    PlayerPrefs.SetInt(Constants.PrefsKey_Coin, coinAmount);
   }
 
   private void LoadCoinAmount() {
-    if (PlayerPrefs.HasKey(CoinPlayerPrefsKey)) {
-      coinAmount = PlayerPrefs.GetInt(CoinPlayerPrefsKey);
+    if (PlayerPrefs.HasKey(Constants.PrefsKey_Coin)) {
+      coinAmount = PlayerPrefs.GetInt(Constants.PrefsKey_Coin);
     }
   }
 

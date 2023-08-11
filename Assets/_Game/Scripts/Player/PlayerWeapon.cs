@@ -8,9 +8,6 @@ public class PlayerWeapon : MonoBehaviour {
   public GameObject weaponPrefab;
   private int nextAvailableWeaponIndex = 1;
 
-  private const string CollectedWeaponsCountPrefsKey = "CollectedWeaponsCount";
-  private const string CollectedWeaponsLevelsPrefsKey = "CollectedWeaponsLevels";
-
   private bool hasCreatedInitialWeapon = false;
 
   private void Start() {
@@ -71,22 +68,22 @@ public class PlayerWeapon : MonoBehaviour {
   }
 
   private void SaveCollectedWeapons() {
-    PlayerPrefs.SetInt(CollectedWeaponsCountPrefsKey , collectedWeapons.Count);
+    PlayerPrefs.SetInt(Constants.PrefsKey_CollectedWeaponsCount , collectedWeapons.Count);
 
     string weaponLevelsData = "";
     foreach (GameObject weapon in collectedWeapons) {
       Weapon weaponComponent = weapon.GetComponent<Weapon>();
       weaponLevelsData += weaponComponent.currentWeaponLevel + ",";
     }
-    PlayerPrefs.SetString(CollectedWeaponsLevelsPrefsKey , weaponLevelsData);
+    PlayerPrefs.SetString(Constants.PrefsKey_CollectedWeaponsLevels , weaponLevelsData);
 
     PlayerPrefs.Save();
   }
 
   private void LoadCollectedWeapons() {
-    if (PlayerPrefs.HasKey(CollectedWeaponsCountPrefsKey)) {
-      int collectedCount = PlayerPrefs.GetInt(CollectedWeaponsCountPrefsKey);
-      string weaponLevelsData = PlayerPrefs.GetString(CollectedWeaponsLevelsPrefsKey);
+    if (PlayerPrefs.HasKey(Constants.PrefsKey_CollectedWeaponsCount)) {
+      int collectedCount = PlayerPrefs.GetInt(Constants.PrefsKey_CollectedWeaponsCount);
+      string weaponLevelsData = PlayerPrefs.GetString(Constants.PrefsKey_CollectedWeaponsLevels);
       string[] weaponLevels = weaponLevelsData.Split(',');
 
       for (int i = 0 ; i < collectedCount ; i++) {

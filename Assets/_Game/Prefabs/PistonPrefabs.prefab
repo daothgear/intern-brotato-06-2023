@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeaponId: 1
   currentWeaponLevel: 1
+  shootBullet: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
   attackPoint: {fileID: 3470359112280392211}
 --- !u!61 &-8874410109785580293
 BoxCollider2D:

@@ -164,14 +164,14 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void SavePlayerPrefsData() {
-    PlayerPrefs.SetInt("CurrentWave" , waveDataLoader.currentWave);
-    PlayerPrefs.SetInt("CurrentSubWave" , currentSubWave);
-    PlayerPrefs.SetFloat("TotalTimer" , totalTimer);
+    PlayerPrefs.SetInt(Constants.PrefsKey_CurrentWave, waveDataLoader.currentWave);
+    PlayerPrefs.SetInt(Constants.PrefsKey_CurrentSubWave, currentSubWave);
+    PlayerPrefs.SetFloat(Constants.PrefsKey_TotalTimer, totalTimer);
   }
 
   private void LoadPlayerPrefsData() {
-    waveDataLoader.currentWave = PlayerPrefs.GetInt("CurrentWave" , 1);
-    currentSubWave = PlayerPrefs.GetInt("CurrentSubWave" , 1);
-    totalTimer = PlayerPrefs.GetFloat("TotalTimer" , CalculateTotalTimer());
+    waveDataLoader.currentWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentWave, 1);
+    currentSubWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentSubWave, 1);
+    totalTimer = PlayerPrefs.GetFloat(Constants.PrefsKey_TotalTimer, CalculateTotalTimer());
   }
 }

@@ -27,10 +27,19 @@ public class Constants : MonoBehaviour {
   public const string Mess_addExp = "addExp";
   public const string Mess_resetHealth = "resetHealth";
   public const string Mess_playerDie = "PlayerDie";
-  public const string Mess_playerFlipRight = "Right";
-  public const string Mess_playerFlipLeft = "Left";
   public const string Mess_addWeapon = "addweapon1";
   public const string Mess_plus1Level = "plus1level";
   public const string Mess_nextwave = "nextwave";
   public const string Mess_doubleMoney = "doubleMoney";
+  //PrefKey
+  public const string PrefsKey_Coin = "PlayerCoinAmount";
+  public const string PrefsKey_PlayerExp = "PlayerExp";
+  public const string PrefsKey_CollectedWeaponsCount = "CollectedWeaponsCount";
+  public const string PrefsKey_CollectedWeaponsLevels = "CollectedWeaponsLevels";
+  public const string PrefsKey_CurrentWave = "CurrentWave";
+  public const string PrefsKey_CurrentSubWave = "CurrentSubWave";
+  public const string PrefsKey_TotalTimer = "TotalTimer";
+  //scene
+  public const string Scene_StartGame = "StartGame";
+  public const string Scene_Menu = "Menu";
 }
