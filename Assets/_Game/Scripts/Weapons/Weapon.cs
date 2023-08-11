@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour {
   void FireBulletTowardsEnemy(Transform targetEnemy) {
     GameObject bulletObject =
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
-    AudioManager.Ins.PlaySfx("SfxShoot");
+    AudioManager.Ins.PlaySfx(SoundName.SfxShoot);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
     bullet.SetTarget(targetEnemy);
   }

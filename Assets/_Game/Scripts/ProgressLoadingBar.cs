@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class ProgressLoadingBar : MonoBehaviour {
   public Slider loadingSlider;
-  public float waitTimeBetweenFiles = 1f;
+  public float waitTimeBetweenFiles = 0.375f;
 
   private void Start() {
     StartCoroutine(LoadData());

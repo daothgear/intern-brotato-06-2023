@@ -12,11 +12,11 @@ public class AudioManager : Singleton<AudioManager> {
   }
 
   private void Start() {
-    PlayMusic("BackGroundMusic");
+    PlayMusic(SoundName.BackGroundMusic);
   }
 
-  public void PlayMusic(string name) {
-    Sound s = Array.Find(musicSounds, x => x.name == name);
+  public void PlayMusic(SoundName soundName) {
+    Sound s = Array.Find(musicSounds, x => x.name == soundName);
 
     if (s == null) {
       Debug.Log("Sound Not Found");
@@ -27,8 +27,8 @@ public class AudioManager : Singleton<AudioManager> {
     }
   }
   
-  public void PlaySfx(string name) {
-    Sound s = Array.Find(sfxSounds, x => x.name == name);
+  public void PlaySfx(SoundName soundName) {
+    Sound s = Array.Find(sfxSounds, x => x.name == soundName);
 
     if (s == null) {
       Debug.Log("Sound Not Found");
@@ -51,7 +51,7 @@ public class AudioManager : Singleton<AudioManager> {
     musicSource.volume = volume;
   }
 
-  public void SfxVolume(float volumn) {
-    sfxSource.volume = volumn;
+  public void SfxVolume(float volume) {
+    sfxSource.volume = volume;
   }
 }
