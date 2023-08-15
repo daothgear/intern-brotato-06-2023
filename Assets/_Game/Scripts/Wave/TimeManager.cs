@@ -44,9 +44,6 @@ public class TimeManager : MonoBehaviour {
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_playerDie, Stoptime);
-
-    // Save PlayerPrefs data
-    SavePlayerPrefsData();
   }
 
   private void Update() {
@@ -62,7 +59,7 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void StartWave() {
-    if (currentSubWave == 1 && waveDataLoader.currentWave > 1) {
+    if (currentSubWave == 1) {
       UIShop.SetActive(false);
     }
     currentSubWave++;
@@ -167,11 +164,14 @@ public class TimeManager : MonoBehaviour {
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentWave, waveDataLoader.currentWave);
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentSubWave, currentSubWave);
     PlayerPrefs.SetFloat(Constants.PrefsKey_TotalTimer, totalTimer);
+    PlayerPrefs.SetInt(Constants.PrefsKey_ShopState, UIShop.activeSelf ? 1 : 0);
   }
 
   private void LoadPlayerPrefsData() {
     waveDataLoader.currentWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentWave, 1);
     currentSubWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentSubWave, 1);
     totalTimer = PlayerPrefs.GetFloat(Constants.PrefsKey_TotalTimer, CalculateTotalTimer());
+    int shopState = PlayerPrefs.GetInt(Constants.PrefsKey_ShopState, 0);
+    UIShop.SetActive(shopState == 1);
   }
 }

@@ -831,8 +831,10 @@ MonoBehaviour:
   - name: 0
     clip: {fileID: 8300000, guid: 9669960e415ea604d81fb0784634df79, type: 3}
   sfxSounds:
-  - name: 0
+  - name: 1
     clip: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
+  - name: 2
+    clip: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
   musicSource: {fileID: 383059470}
   sfxSource: {fileID: 353269013}
 --- !u!4 &1238377526

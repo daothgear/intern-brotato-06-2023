@@ -18,6 +18,7 @@ public class GuidePlayCanvas : MonoBehaviour
 
 	public void ClickButtonNext()
 	{
+		AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
 		currentCanvasIndex++;
 		ShowCanvas(currentCanvasIndex);
 		UpdateButtonVisibility();
@@ -25,6 +26,7 @@ public class GuidePlayCanvas : MonoBehaviour
 
 	public void ClickButtonPrev()
 	{
+		AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
 		currentCanvasIndex--;
 		ShowCanvas(currentCanvasIndex);
 		UpdateButtonVisibility();
