@@ -5,7 +5,8 @@ using UnityEngine;
 [Serializable]
 public enum SoundName {
   BackGroundMusic,
-  SfxShoot
+  SfxShoot,
+  SfxClickButton
 }
 
 [Serializable]
