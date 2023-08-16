@@ -18,10 +18,10 @@ public class Card : MonoBehaviour {
   private int doubleCoin = 3;
   
   public void Update() {
-    ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
-    ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
-    ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
-    ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString() + "$";
+    ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString();
   }
 
   private int GetCost(int value) {

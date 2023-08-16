@@ -2912,7 +2912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1874358542
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3765,7 +3765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3342150837882629029, guid: 4803b97ecafdf435d9e8f7f2c15257e4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MusicVolumn
+      value: MusicVolume
       objectReference: {fileID: 0}
     - target: {fileID: 3342150837882629029, guid: 4803b97ecafdf435d9e8f7f2c15257e4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -3833,7 +3833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5564038874646773380, guid: 4803b97ecafdf435d9e8f7f2c15257e4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SFXVolumn
+      value: SFXVolume
       objectReference: {fileID: 0}
     - target: {fileID: 5564038874646773380, guid: 4803b97ecafdf435d9e8f7f2c15257e4, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

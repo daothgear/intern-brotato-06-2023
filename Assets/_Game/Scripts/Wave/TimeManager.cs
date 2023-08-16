@@ -44,9 +44,6 @@ public class TimeManager : MonoBehaviour {
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_playerDie, Stoptime);
-
-    // Save PlayerPrefs data
-    SavePlayerPrefsData();
   }
 
   private void Update() {
@@ -62,29 +59,30 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void StartWave() {
-    if (currentSubWave == 1 && waveDataLoader.currentWave > 1) {
+    if (currentSubWave == 0) {
       UIShop.SetActive(false);
     }
-    currentSubWave++;
-    if (currentSubWave > waveDataLoader.numSubWaves) {
+
+    if (currentSubWave >= waveDataLoader.numSubWaves) {
       ShowShop();
       return;
     }
-    timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
+
+    timer = waveDataLoader.subWaveTimes[currentSubWave];
     totalTimer = CalculateTotalTimer();
     SpawnEnemies();
     textWave.UpdateText();
   }
   private void StartNextSubWave() {
     currentSubWave++;
-    if (currentSubWave > waveDataLoader.numSubWaves) {
+    if (currentSubWave >= waveDataLoader.numSubWaves) {
       ClearEnemies();
       ShowShop();
       return;
     }
 
     SpawnEnemies();
-    timer = waveDataLoader.subWaveTimes[currentSubWave - 1];
+    timer = waveDataLoader.subWaveTimes[currentSubWave];
   }
 
   public void CloseShopUI() {
@@ -101,7 +99,7 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void SpawnEnemies() {
-    int numEnemies = waveDataLoader.currentWave * waveDataLoader.numEnemiesPerWave * currentSubWave;
+    int numEnemies = waveDataLoader.currentWave * waveDataLoader.numEnemiesPerWave * (currentSubWave + 1);
     StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
   }
 
@@ -159,7 +157,7 @@ public class TimeManager : MonoBehaviour {
     UIShop.SetActive(false);
     isTimeStopped = true;
     waveDataLoader.currentWave = 1;
-    currentSubWave = 1;
+    currentSubWave = 0;
     SavePlayerPrefsData();
   }
 
@@ -167,11 +165,14 @@ public class TimeManager : MonoBehaviour {
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentWave, waveDataLoader.currentWave);
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentSubWave, currentSubWave);
     PlayerPrefs.SetFloat(Constants.PrefsKey_TotalTimer, totalTimer);
+    PlayerPrefs.SetInt(Constants.PrefsKey_ShopState, UIShop.activeSelf ? 1 : 0);
   }
 
   private void LoadPlayerPrefsData() {
     waveDataLoader.currentWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentWave, 1);
-    currentSubWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentSubWave, 1);
+    currentSubWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentSubWave, 0);
     totalTimer = PlayerPrefs.GetFloat(Constants.PrefsKey_TotalTimer, CalculateTotalTimer());
+    int shopState = PlayerPrefs.GetInt(Constants.PrefsKey_ShopState, 0);
+    UIShop.SetActive(shopState == 1);
   }
 }

@@ -39,7 +39,10 @@ public class Constants : MonoBehaviour {
   public const string PrefsKey_CurrentWave = "CurrentWave";
   public const string PrefsKey_CurrentSubWave = "CurrentSubWave";
   public const string PrefsKey_TotalTimer = "TotalTimer";
+  public const string PrefsKey_ShopState = "ShopState";
+  public const string PrefsKey_SettingVolume = "Volume";
   //scene
   public const string Scene_StartGame = "StartGame";
   public const string Scene_Menu = "Menu";
+  public const string Scene_GamePlay = "GamePlay";
 }

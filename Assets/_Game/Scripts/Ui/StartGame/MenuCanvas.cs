@@ -28,24 +28,28 @@ public class MenuCanvas : MonoBehaviour
 
   public void StartGame()
   {
+    AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     currentCanvasMenu = MenuState.StartGame;
-    SceneManager.LoadScene("GamePlay");
+    SceneManager.LoadScene(Constants.Scene_GamePlay);
   }
 
   public void ShowSettingGameCanvas()
   {
+    AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     currentCanvasMenu = MenuState.SettingGame;
     ShowCanvas(currentCanvasMenu);
   }
 
   public void ShowGuildGameCanvas()
   {
+    AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     currentCanvasMenu = MenuState.GuideGame;
     ShowCanvas(currentCanvasMenu);
   }
 
   public void GoBack()
   {
+    AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     if (currentCanvasMenu == MenuState.SettingGame || currentCanvasMenu == MenuState.GuideGame)
     {
       currentCanvasMenu = MenuState.MenuGame;
