@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class ProgressLoadingBar : MonoBehaviour {
   public Slider loadingSlider;
   public float waitTimeBetweenFiles = 0.375f;
-
   private void Start() {
     StartCoroutine(LoadData());
   }
@@ -23,22 +22,27 @@ public class ProgressLoadingBar : MonoBehaviour {
       if (filePath.Contains("://")) {
         UnityWebRequest www = UnityWebRequest.Get(filePath);
         yield return www.SendWebRequest();
+        if (www.result == UnityWebRequest.Result.Success) {
+          string jsonData = www.downloadHandler.text;
+          WeaponDataLoader.Ins.ReceiveData(fileName, jsonData);
+          WaveDataLoader.Ins.ReceiveData(fileName, jsonData);
+          PlayerDataLoader.Ins.ReceiveData(fileName, jsonData);
+          EnemyDataLoader.Ins.ReceiveData(fileName, jsonData);
+        }
       }
       else {
         string jsonData = File.ReadAllText(filePath);
+        WeaponDataLoader.Ins.ReceiveData(fileName, jsonData);
+        WaveDataLoader.Ins.ReceiveData(fileName, jsonData);
+        PlayerDataLoader.Ins.ReceiveData(fileName, jsonData);
+        EnemyDataLoader.Ins.ReceiveData(fileName, jsonData);
       }
 
       loadedFiles++;
       float progress = loadedFiles / totalFiles;
+      loadingSlider.value = progress;
 
-      float targetValue = progress;
-      float currentValue = loadingSlider.value;
-
-      while (currentValue < targetValue) {
-        currentValue += Time.deltaTime * (1.0f / waitTimeBetweenFiles);
-        loadingSlider.value = currentValue;
-        yield return null;
-      }
+      yield return new WaitForSeconds(waitTimeBetweenFiles);
     }
     SceneManager.LoadScene(Constants.Scene_Menu);
   }

@@ -9,15 +9,11 @@ public class PlayerDataLoader : InstanceStatic<PlayerDataLoader> {
   public int characterLevel;
   public int maxExp;
 
-  protected override void Awake() {
-    ReadData();
-  }
-
-  public void ReadData() {
-    string characterLevelPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Player);
-    if (File.Exists(characterLevelPath)) {
-      string characterLevelJson = File.ReadAllText(characterLevelPath);
-      characterData = JsonConvert.DeserializeObject<PlayerData>(characterLevelJson);
+  public void ReceiveData(string fileName, string jsonData)
+  {
+    if (fileName == Constants.Data_Player)
+    {
+      characterData = JsonConvert.DeserializeObject<PlayerData>(jsonData);
     }
   }
 

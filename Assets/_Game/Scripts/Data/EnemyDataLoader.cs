@@ -10,15 +10,11 @@ public class EnemyDataLoader : InstanceStatic<EnemyDataLoader> {
   public int damageEnemy;
   public int enemyExp;
 
-  protected override void Awake() {
-    ReadData();
-  }
-
-  private void ReadData() {
-    string enemyDataPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Enemy);
-    if (File.Exists(enemyDataPath)) {
-      string enemyDataJson = File.ReadAllText(enemyDataPath);
-      enemyData = JsonConvert.DeserializeObject<EnemyData>(enemyDataJson);
+  public void ReceiveData(string fileName, string jsonData)
+  {
+    if (fileName == Constants.Data_Enemy)
+    {
+      enemyData = JsonConvert.DeserializeObject<EnemyData>(jsonData); ;
     }
   }
 

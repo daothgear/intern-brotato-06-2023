@@ -99,8 +99,10 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void SpawnEnemies() {
-    int numEnemies = waveDataLoader.currentWave * waveDataLoader.numEnemiesPerWave * (currentSubWave + 1);
-    StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
+    if (!UIShop.activeSelf) {
+      int numEnemies = waveDataLoader.currentWave * waveDataLoader.numEnemiesPerWave * (currentSubWave + 1);
+      StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
+    }
   }
 
   private IEnumerator SpawnEnemiesWithDelays(int numEnemies) {
