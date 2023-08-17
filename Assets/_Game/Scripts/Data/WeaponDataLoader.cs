@@ -13,17 +13,12 @@ public class WeaponDataLoader : InstanceStatic<WeaponDataLoader> {
   public float weaponAttackSpeed;
   public int weaponPierce;
   public float weaponPierceDamageReduce;
-
-
-  protected override void Awake() {
-    ReadData();
-  }
   
-  public void ReadData() {
-    string weaponLevelPath = Path.Combine(Application.streamingAssetsPath , Constants.Data_Weapon);
-    if (File.Exists(weaponLevelPath)) {
-      string weaponLevelJson = File.ReadAllText(weaponLevelPath);
-      weaponLevelData = JsonConvert.DeserializeObject<WeaponData>(weaponLevelJson);
+  public void ReceiveData(string fileName, string jsonData)
+  {
+    if (fileName == Constants.Data_Weapon)
+    {
+      weaponLevelData = JsonConvert.DeserializeObject<WeaponData>(jsonData);
     }
   }
   public void LoadWeaponInfo(int currentWeaponID , int currentLevel) {

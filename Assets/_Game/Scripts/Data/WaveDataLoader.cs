@@ -10,15 +10,11 @@ public class WaveDataLoader : InstanceStatic<WaveDataLoader> {
   public int numEnemiesPerWave;
   public float spawnDelay;
 
-  protected override void Awake() {
-    ReadData();
-  }
-
-  public void ReadData() {
-    string waveLevelPath = Path.Combine(Application.streamingAssetsPath, Constants.Data_Wave);
-    if (File.Exists(waveLevelPath)) {
-      string waveDataJson = File.ReadAllText(waveLevelPath);
-      waveData = JsonConvert.DeserializeObject<WaveData>(waveDataJson);
+  public void ReceiveData(string fileName, string jsonData)
+  {
+    if (fileName == Constants.Data_Wave)
+    {
+      waveData = JsonConvert.DeserializeObject<WaveData>(jsonData);
     }
   }
 
