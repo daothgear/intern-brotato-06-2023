@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using com.ootii.Messages;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TimeManager : MonoBehaviour {
@@ -118,9 +117,11 @@ public class TimeManager : MonoBehaviour {
     waveDataLoader.currentWave++;
   }
   private void SpawnEnemyRandom() {
-    GameObject newEnemy =
-        ObjectPool.Ins.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
-    ObjectPool.Ins.enemyList.Add(newEnemy);
+    if (!UIShop.activeSelf) {
+      GameObject newEnemy =
+          ObjectPool.Ins.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
+      ObjectPool.Ins.enemyList.Add(newEnemy);
+    }
   }
   private Vector3 GetRandomSpawnPosition() {
     Collider2D wallCollider = wallCheck.GetComponent<Collider2D>();

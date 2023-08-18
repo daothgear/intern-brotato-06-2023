@@ -6,23 +6,22 @@ public class PlayerWeapon : MonoBehaviour {
   public List<Transform> weaponPositions = new List<Transform>();
   private List<GameObject> collectedWeapons = new List<GameObject>();
   public GameObject weaponPrefab;
+  private PlayerHealth playerHealth;
   private int nextAvailableWeaponIndex = 1;
 
   private bool hasCreatedInitialWeapon = false;
+
+  private void OnValidate() {
+    if (playerHealth == null) {
+      playerHealth = GetComponent<PlayerHealth>();
+    }
+  }
 
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon , AddWeapon);
     MessageDispatcher.AddListener(Constants.Mess_playerDie , ResetWeapon);
 
     LoadCollectedWeapons();
-
-    if (collectedWeapons == null) {
-      if (!hasCreatedInitialWeapon && weaponPositions.Count > 0 && weaponPositions[0] != null) {
-        CreateWeaponAtPosition(weaponPrefab , weaponPositions[0]);
-        hasCreatedInitialWeapon = true;
-        nextAvailableWeaponIndex++;
-      }
-    }
   }
 
   private void Update() {
@@ -81,18 +80,27 @@ public class PlayerWeapon : MonoBehaviour {
   }
 
   private void LoadCollectedWeapons() {
-    if (PlayerPrefs.HasKey(Constants.PrefsKey_CollectedWeaponsCount)) {
-      int collectedCount = PlayerPrefs.GetInt(Constants.PrefsKey_CollectedWeaponsCount);
-      string weaponLevelsData = PlayerPrefs.GetString(Constants.PrefsKey_CollectedWeaponsLevels);
-      string[] weaponLevels = weaponLevelsData.Split(',');
+    if (playerHealth.die == true) {
+      if (weaponPositions.Count > 0 && weaponPositions[0] == null) {
+        CreateWeaponAtPosition(weaponPrefab , weaponPositions[0]);
+        hasCreatedInitialWeapon = true;
+        nextAvailableWeaponIndex++;
+      }
+    }
+    else {
+      if (PlayerPrefs.HasKey(Constants.PrefsKey_CollectedWeaponsCount)) {
+        int collectedCount = PlayerPrefs.GetInt(Constants.PrefsKey_CollectedWeaponsCount);
+        string weaponLevelsData = PlayerPrefs.GetString(Constants.PrefsKey_CollectedWeaponsLevels);
+        string[] weaponLevels = weaponLevelsData.Split(',');
 
-      for (int i = 0 ; i < collectedCount ; i++) {
-        if (i < weaponPositions.Count && weaponPositions[i] != null) {
-          CreateWeaponAtPosition(weaponPrefab , weaponPositions[i]);
-          Weapon weaponComponent = collectedWeapons[i].GetComponent<Weapon>();
-          weaponComponent.currentWeaponLevel = int.Parse(weaponLevels[i]);
-          WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId , weaponComponent.currentWeaponLevel);
-          nextAvailableWeaponIndex++;
+        for (int i = 0 ; i < collectedCount ; i++) {
+          if (i < weaponPositions.Count && weaponPositions[i] != null) {
+            CreateWeaponAtPosition(weaponPrefab , weaponPositions[i]);
+            Weapon weaponComponent = collectedWeapons[i].GetComponent<Weapon>();
+            weaponComponent.currentWeaponLevel = int.Parse(weaponLevels[i]);
+            WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId , weaponComponent.currentWeaponLevel);
+            nextAvailableWeaponIndex++;
+          }
         }
       }
     }
