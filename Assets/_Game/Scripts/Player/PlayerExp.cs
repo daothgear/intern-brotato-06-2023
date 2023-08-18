@@ -1,3 +1,4 @@
+using System;
 using com.ootii.Messages;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,12 @@ public class PlayerExp : MonoBehaviour {
     get => EnemyDataLoader.Ins;
   }
 
-  private void Start() {
+  private void Awake() {
     LoadLevel();
     PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
+  }
+
+  private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
     MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetLevel);

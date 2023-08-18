@@ -21,10 +21,11 @@ public class Weapon : MonoBehaviour {
 
       FindAndFireAtTarget();
     }
+    RotateWeaponBasedOnPlayerDirection();
   }
 
   void Start() {
-    weaponDataLoader.LoadWeaponInfo(currentWeaponId,currentWeaponLevel);
+    weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
   }
   
   void FindAndFireAtTarget() {
@@ -32,7 +33,7 @@ public class Weapon : MonoBehaviour {
 
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
-      int weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId , currentWeaponLevel);
+      int weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId, currentWeaponLevel);
       nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
 
       FireBulletTowardsEnemy(nearestEnemy);
@@ -70,14 +71,23 @@ public class Weapon : MonoBehaviour {
     Bullets bullet = bulletObject.GetComponent<Bullets>();
     bullet.SetTarget(targetEnemy);
   }
-
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, weaponDataLoader.weaponAttackRange);
   }
-  
-  void MergerWeapon() {
-    int mergelevel = weaponDataLoader.GetWeaponLevel(currentWeaponId, currentWeaponLevel);
-    mergelevel++;
+  private void RotateWeaponBasedOnPlayerDirection() {
+    Vector3 playerScale = ReferenceHolder.Ins.playerTran.localScale;
+    if (playerScale.x > 0 && !isFacingRight) {
+      isFacingRight = true;
+      Vector3 scale = transform.localScale;
+      scale.x = Mathf.Abs(scale.x);
+      transform.localScale = scale;
+    }
+    else if (playerScale.x < 0 && isFacingRight) {
+      isFacingRight = false;
+      Vector3 scale = transform.localScale;
+      scale.x = -Mathf.Abs(scale.x);
+      transform.localScale = scale;
+    }
   }
 }

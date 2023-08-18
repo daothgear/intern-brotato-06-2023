@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
   public int currentHealth;
-  [SerializeField] private bool die = true;
+  public bool die = true;
   [SerializeField] private GameObject UiEndGame;
   [SerializeField] private Slider playerHealthSlider;
   [SerializeField] private Text textHealth;
@@ -37,11 +37,7 @@ public class PlayerHealth : MonoBehaviour {
     MessageDispatcher.RemoveListener(Constants.Mess_playerTakeDamage, TakeDamage);
     MessageDispatcher.RemoveListener(Constants.Mess_resetHealth, ResetHealth);
   }
-
-  private void FixUpdate() {
-    playerLoader.maxHealth = playerLoader.characterLevel + playerLoader.maxHealth;
-  }
-
+  
   private void Update() {
     UpdateHealthUI();
   }
