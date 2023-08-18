@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour {
 
   private bool isFacingRight;
   public bool isTrigger;
+  private float damageInterval = 0.5f;
+  private float lastDamageTime = 0.0f;
 
   private void OnValidate() {
     if (animator == null) {
@@ -41,6 +43,9 @@ public class Enemy : MonoBehaviour {
       case EnemyState.Dead:
         Dead();
         break;
+      case EnemyState.Attack:
+        Attack();
+        break;
     }
   }
 
@@ -57,11 +62,10 @@ public class Enemy : MonoBehaviour {
   private void TransitionToWalk() {
     animator.SetTrigger(Constants.Anim_Walk);
     currentState = EnemyState.Walk;
-    isTrigger = true;
+    isTrigger = false;
   }
 
   public void Walk() {
-    isTrigger = true;
     if (ReferenceHolder.Ins.playerTran != null) {
       transform.position =
           Vector3.MoveTowards(transform.position, ReferenceHolder.Ins.playerTran.position,
@@ -76,6 +80,16 @@ public class Enemy : MonoBehaviour {
       float distanceToPlayer = Vector3.Distance(transform.position, ReferenceHolder.Ins.playerTran.position);
       if (distanceToPlayer <= 1f) {
         currentState = EnemyState.Attack;
+        isTrigger = true;
+      }
+    }
+  }
+
+  private void Attack() {
+    if (isTrigger) {
+      if (Time.time - lastDamageTime >= damageInterval) {
+        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
+        lastDamageTime = Time.time;
       }
     }
   }
@@ -87,9 +101,16 @@ public class Enemy : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag(Constants.Tag_Player)) {
-      if (isTrigger == true) {
-        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
-      }
+      currentState = EnemyState.Attack;
+      isTrigger = true;
+    }
+  }
+
+  private void OnTriggerExit2D(Collider2D collision) {
+    if (collision.CompareTag(Constants.Tag_Player)) {
+      currentState = EnemyState.Walk;
+      isTrigger = false;
+      lastDamageTime = 0.0f;
     }
   }
 }
