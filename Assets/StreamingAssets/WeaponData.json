@@ -7,7 +7,7 @@
             "cost": 10,
             "damage": 2,
             "attackRange": 10.0,
-            "attackSpeed": 8.0,
+            "attackSpeed": 9.0,
             "pierce": 10,
             "pierceDamageReduce": 10.0
         },
@@ -18,7 +18,7 @@
             "cost": 15,
             "damage": 3,
             "attackRange": 11.0,
-            "attackSpeed": 8.5,
+            "attackSpeed": 9.5,
             "pierce": 10,
             "pierceDamageReduce": 10.0
         },
@@ -29,7 +29,7 @@
             "cost": 20,
             "damage": 4,
             "attackRange": 12.0,
-            "attackSpeed": 9.0,
+            "attackSpeed": 10.0,
             "pierce": 10,
             "pierceDamageReduce": 10.0
         },
@@ -40,7 +40,7 @@
             "cost": 25,
             "damage": 5,
             "attackRange": 13.0,
-            "attackSpeed": 9.5,
+            "attackSpeed": 10.5,
             "pierce": 10,
             "pierceDamageReduce": 10.0
         },
@@ -51,7 +51,7 @@
             "cost": 25,
             "damage": 6,
             "attackRange": 14.0,
-            "attackSpeed": 10.0,
+            "attackSpeed": 11.0,
             "pierce": 10,
             "pierceDamageReduce": 10.0
         }
