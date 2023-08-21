@@ -1,9 +1,16 @@
 ﻿using com.ootii.Messages;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class WeaponPositionInfo {
+  public Transform positionWeapon;
+  public int currentLevelWeapon;
+}
 public class PlayerWeapon : MonoBehaviour {
   public List<Transform> weaponPositions = new List<Transform>();
+  public List<WeaponPositionInfo> weaponPositionInfo = new List<WeaponPositionInfo>();
   private List<GameObject> collectedWeapons = new List<GameObject>();
   public GameObject weaponPrefab;
   private PlayerHealth playerHealth;
@@ -100,22 +107,24 @@ public class PlayerWeapon : MonoBehaviour {
     foreach (GameObject weapon in collectedWeapons) {
       Destroy(weapon);
     }
+
     collectedWeapons.Clear();
     nextAvailableWeaponIndex = 1;
     hasCreatedInitialWeapon = false;
 
     if (weaponPositions.Count > 0 && weaponPositions[0] != null) {
-      CreateWeaponAtPosition(weaponPrefab , weaponPositions[0]);
-      hasCreatedInitialWeapon = true;
-      nextAvailableWeaponIndex++;
-      if (weaponPositions.Count > 1 && weaponPositions[1] != null) {
-        GameObject newWeapon = Instantiate(weaponPrefab, weaponPositions[1].position, weaponPositions[1].rotation);
-        newWeapon.transform.parent = weaponPositions[1];
-        collectedWeapons.Add(newWeapon);
+      foreach (WeaponPositionInfo weaponInfo in weaponPositionInfo) {
+        if (weaponInfo.positionWeapon != null) {
+          GameObject newWeapon = Instantiate(weaponPrefab, weaponInfo.positionWeapon.position, weaponInfo.positionWeapon.rotation);
+          newWeapon.transform.parent = weaponInfo.positionWeapon;
+          collectedWeapons.Add(newWeapon);
 
-        Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
-        weaponComponent.currentWeaponLevel = 2;
-        WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+          Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
+          weaponComponent.currentWeaponLevel = weaponInfo.currentLevelWeapon;
+          WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+
+          nextAvailableWeaponIndex++;
+        }
       }
     }
   }

@@ -26424,6 +26424,11 @@ MonoBehaviour:
   - {fileID: 1629869652}
   - {fileID: 992103500}
   - {fileID: 120655287}
+  weaponPositionInfo:
+  - positionWeapon: {fileID: 1307084193}
+    currentLevelWeapon: 1
+  - positionWeapon: {fileID: 143151996}
+    currentLevelWeapon: 2
   weaponPrefab: {fileID: 5829852352044861097, guid: 1239ec2e202e34506ab4965e216459e4, type: 3}
 --- !u!1 &1105329708
 GameObject:
@@ -28090,7 +28095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1528846609
 Transform:
   m_ObjectHideFlags: 0
