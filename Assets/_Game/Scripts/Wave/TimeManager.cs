@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using com.ootii.Messages;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TimeManager : MonoBehaviour {
