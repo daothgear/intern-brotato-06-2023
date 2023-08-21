@@ -75,19 +75,11 @@ public class Weapon : MonoBehaviour {
     Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, weaponDataLoader.weaponAttackRange);
   }
+
   private void RotateWeaponBasedOnPlayerDirection() {
-    Vector3 playerScale = ReferenceHolder.Ins.playerTran.localScale;
-    if (playerScale.x > 0 && !isFacingRight) {
-      isFacingRight = true;
-      Vector3 scale = transform.localScale;
-      scale.x = Mathf.Abs(scale.x);
-      transform.localScale = scale;
-    }
-    else if (playerScale.x < 0 && isFacingRight) {
-      isFacingRight = false;
-      Vector3 scale = transform.localScale;
-      scale.x = -Mathf.Abs(scale.x);
-      transform.localScale = scale;
-    }
+    isFacingRight = true;
+    Vector3 scale = transform.localScale;
+    scale.x = Mathf.Abs(scale.x);
+    transform.localScale = scale;
   }
 }
