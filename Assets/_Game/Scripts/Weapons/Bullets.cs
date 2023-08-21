@@ -3,11 +3,12 @@ using com.ootii.Messages;
 using UnityEngine;
 
 public class Bullets : MonoBehaviour {
-  public float bulletSpeed = 10f;
+  public float bulletSpeed;
   private Transform targetEnemy;
 
-  public void SetTarget(Transform enemy) {
+  public void SetTarget(Transform enemy, float speed) {
     targetEnemy = enemy;
+    bulletSpeed = speed;
   }
 
   void FixedUpdate() {

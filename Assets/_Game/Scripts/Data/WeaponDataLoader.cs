@@ -48,10 +48,28 @@ public class WeaponDataLoader : InstanceStatic<WeaponDataLoader> {
       return 0;
     }
 
-    public int GetWeaponLevel(int weaponID , int level) {
+    public float GetWeaponRange(int weaponID , int level) {
       foreach (var weaponInfo in weaponLevelData.weaponInfo) {
         if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
-          return weaponInfo.currentlevel;
+          return weaponInfo.attackRange;
+        }
+      }
+      return 0;
+    }
+    
+    public float GetWeaponFirerate(int weaponID , int level) {
+      foreach (var weaponInfo in weaponLevelData.weaponInfo) {
+        if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
+          return weaponInfo.firerate;
+        }
+      }
+      return 0;
+    }
+    
+    public float GetWeaponSpeed(int weaponID , int level) {
+      foreach (var weaponInfo in weaponLevelData.weaponInfo) {
+        if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
+          return weaponInfo.attackSpeed;
         }
       }
       return 0;

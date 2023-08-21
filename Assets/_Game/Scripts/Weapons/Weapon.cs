@@ -12,11 +12,14 @@ public class Weapon : MonoBehaviour {
   public Transform attackPoint;
   private bool isFacingRight;
   private float fireTimer;
-
+  private float weaponAttackRange;
+  public float speedbullets;
+  [SerializeField] private float weaponFireRate;
+  [SerializeField] private int weaponDamage;
   void Update() {
     fireTimer += Time.deltaTime;
-
-    if (fireTimer >= weaponDataLoader.firerate) {
+    weaponFireRate = weaponDataLoader.GetWeaponFirerate(currentWeaponId, currentWeaponLevel);
+    if (fireTimer >= weaponFireRate) {
       fireTimer = 0f;
 
       FindAndFireAtTarget();
@@ -33,7 +36,7 @@ public class Weapon : MonoBehaviour {
 
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
-      int weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId, currentWeaponLevel);
+      weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId, currentWeaponLevel);
       nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
 
       FireBulletTowardsEnemy(nearestEnemy);
@@ -46,7 +49,8 @@ public class Weapon : MonoBehaviour {
 
     foreach (GameObject enemy in  ObjectPool.Ins.enemyList) {
       float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-      if (distanceToEnemy <= weaponDataLoader.weaponAttackRange) {
+      weaponAttackRange = weaponDataLoader.GetWeaponRange(currentWeaponId, currentWeaponLevel);
+      if (distanceToEnemy <= weaponAttackRange) {
         if (distanceToEnemy < minDistance) {
           nearestEnemy = enemy.transform;
           minDistance = distanceToEnemy;
@@ -69,11 +73,13 @@ public class Weapon : MonoBehaviour {
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
     AudioManager.Ins.PlaySfx(SoundName.SfxShoot);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
-    bullet.SetTarget(targetEnemy);
+    float bulletSpeed = weaponDataLoader.GetWeaponSpeed(currentWeaponId, currentWeaponLevel);
+    bullet.SetTarget(targetEnemy, bulletSpeed);
   }
+
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, weaponDataLoader.weaponAttackRange);
+    Gizmos.DrawWireSphere(transform.position, weaponAttackRange);
   }
 
   private void RotateWeaponBasedOnPlayerDirection() {
