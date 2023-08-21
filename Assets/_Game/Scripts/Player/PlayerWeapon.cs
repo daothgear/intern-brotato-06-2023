@@ -121,8 +121,11 @@ public class PlayerWeapon : MonoBehaviour {
 
           Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
           weaponComponent.currentWeaponLevel = weaponInfo.currentLevelWeapon;
-          WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
-
+          WeaponDataLoader.Ins.GetWeaponDamage(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+          WeaponDataLoader.Ins.GetWeaponRange(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+          WeaponDataLoader.Ins.GetWeaponFirerate(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+          WeaponDataLoader.Ins.GetWeaponSpeed(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+          
           nextAvailableWeaponIndex++;
         }
       }

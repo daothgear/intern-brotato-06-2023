@@ -12,11 +12,13 @@ public class Weapon : MonoBehaviour {
   public Transform attackPoint;
   private bool isFacingRight;
   private float fireTimer;
-
+  private float weaponAttackRange;
+  [SerializeField] private float weaponFireRate;
+  [SerializeField] private int weaponDamage;
   void Update() {
     fireTimer += Time.deltaTime;
-
-    if (fireTimer >= weaponDataLoader.firerate) {
+    weaponFireRate = weaponDataLoader.GetWeaponFirerate(currentWeaponId, currentWeaponLevel);
+    if (fireTimer >= weaponFireRate) {
       fireTimer = 0f;
 
       FindAndFireAtTarget();
@@ -33,7 +35,7 @@ public class Weapon : MonoBehaviour {
 
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
-      int weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId, currentWeaponLevel);
+      weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId, currentWeaponLevel);
       nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
 
       FireBulletTowardsEnemy(nearestEnemy);
@@ -46,7 +48,8 @@ public class Weapon : MonoBehaviour {
 
     foreach (GameObject enemy in  ObjectPool.Ins.enemyList) {
       float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-      if (distanceToEnemy <= weaponDataLoader.weaponAttackRange) {
+      weaponAttackRange = weaponDataLoader.GetWeaponRange(currentWeaponId, currentWeaponLevel);
+      if (distanceToEnemy <= weaponAttackRange) {
         if (distanceToEnemy < minDistance) {
           nearestEnemy = enemy.transform;
           minDistance = distanceToEnemy;
@@ -73,7 +76,7 @@ public class Weapon : MonoBehaviour {
   }
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, weaponDataLoader.weaponAttackRange);
+    Gizmos.DrawWireSphere(transform.position, weaponAttackRange);
   }
 
   private void RotateWeaponBasedOnPlayerDirection() {
