@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class WeaponPositionInfo {
@@ -14,6 +15,7 @@ public class PlayerWeapon : MonoBehaviour {
   private List<GameObject> collectedWeapons = new List<GameObject>();
   public GameObject weaponPrefab;
   private PlayerHealth playerHealth;
+  public Text[] weaponInfoTexts;
   private int nextAvailableWeaponIndex = 1;
 
   private bool hasCreatedInitialWeapon = false;
@@ -33,6 +35,7 @@ public class PlayerWeapon : MonoBehaviour {
 
   private void Update() {
     CheckAndMergeWeapons();
+    UpdateWeaponInfoTexts();
   }
 
   public void AddWeapon(IMessage msg) {
@@ -132,4 +135,19 @@ public class PlayerWeapon : MonoBehaviour {
     }
   }
 
+  private void UpdateWeaponInfoTexts() {
+    for (int i = 0; i < weaponPositions.Count && i < weaponInfoTexts.Length; i++) {
+      if (collectedWeapons.Count > i) {
+        Weapon weaponComponent = collectedWeapons[i].GetComponent<Weapon>();
+        string weaponInfo = "Position: " + i +
+                            "\nID: " + weaponComponent.currentWeaponId +
+                            "\nLevel: " + weaponComponent.currentWeaponLevel +
+                            "\nDamage: " + WeaponDataLoader.Ins.GetWeaponDamage(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel) +
+                            "\nRange: " + WeaponDataLoader.Ins.GetWeaponRange(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel) +
+                            "\nFirerate: " + WeaponDataLoader.Ins.GetWeaponFirerate(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel) +
+                            "\nSpeed: " + WeaponDataLoader.Ins.GetWeaponSpeed(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+        weaponInfoTexts[i].text = weaponInfo;
+      }
+    }
+  }
 }

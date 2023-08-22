@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour {
   private bool isFacingRight;
   private float fireTimer;
   private float weaponAttackRange;
+  public float speedbullets;
   [SerializeField] private float weaponFireRate;
   [SerializeField] private int weaponDamage;
   void Update() {
@@ -72,8 +73,10 @@ public class Weapon : MonoBehaviour {
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
     AudioManager.Ins.PlaySfx(SoundName.SfxShoot);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
-    bullet.SetTarget(targetEnemy);
+    float bulletSpeed = weaponDataLoader.GetWeaponSpeed(currentWeaponId, currentWeaponLevel);
+    bullet.SetTarget(targetEnemy, bulletSpeed);
   }
+
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, weaponAttackRange);
