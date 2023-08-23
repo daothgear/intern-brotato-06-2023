@@ -62,7 +62,7 @@ public class PlayerWeapon : MonoBehaviour {
           collectedWeapons.RemoveAt(j);
           Destroy(weaponB);
           weaponComponentA.currentWeaponLevel++;
-          WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponentA.currentWeaponId , weaponComponentA.currentWeaponLevel);
+          MessageDispatcher.SendMessage("UpdateDataWeapon");
           nextAvailableWeaponIndex--;
         }
       }
@@ -129,7 +129,6 @@ public class PlayerWeapon : MonoBehaviour {
 
           Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
           weaponComponent.currentWeaponLevel = weaponInfo.currentLevelWeapon;
-          WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
           nextAvailableWeaponIndex++;
         }
       }
@@ -141,7 +140,6 @@ public class PlayerWeapon : MonoBehaviour {
       Weapon weaponComponent = collectedWeapons[position].GetComponent<Weapon>();
       WeaponDataLoader weaponDataLoader = WeaponDataLoader.Ins;
       weaponinfo = weaponDataLoader.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
-
       weaponInfoText.text = "Position: " + position +
                             "\nID: " + weaponComponent.currentWeaponId +
                             "\nLevel: " + weaponComponent.currentWeaponLevel +

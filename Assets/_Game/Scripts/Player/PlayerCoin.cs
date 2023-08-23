@@ -56,7 +56,7 @@ public class PlayerCoin : Singleton<PlayerCoin> {
   }
 
   private void ResetData(IMessage img) {
-    coinAmount = 0;
+    coinAmount = 500;
     SaveCoinAmount();
   }
 }
