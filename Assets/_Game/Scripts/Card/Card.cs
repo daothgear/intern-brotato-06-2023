@@ -18,14 +18,14 @@ public class Card : MonoBehaviour {
   private int doubleCoin = 3;
   
   public void Awake() {
-    ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString();
-    ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString();
-    ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString();
-    ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonAddWeapon.text = (addWeapon * 10).ToString();
+    ButtonNextWave.text = (nextWave * 10).ToString();
+    ButtonUplevel.text = (uplevel * 10).ToString();
+    ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
   }
 
   private int GetCost(int value) {
-    return value * WeaponDataLoader.Ins.weaponPierce;
+    return value * 10;
   }
 
   public void AddWeapon() {
@@ -35,7 +35,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonAddWeapon.text = (addWeapon * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonAddWeapon.text = (addWeapon * 10).ToString();
   }
 
   public void AddLevel() {
@@ -45,7 +45,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_plus1Level);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonUplevel.text = (uplevel * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonUplevel.text = (uplevel * 10).ToString();
   }
 
   public void NextWave() {
@@ -55,7 +55,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_nextwave);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonNextWave.text = (nextWave * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonNextWave.text = (nextWave * 10).ToString();
   }
 
   public void DoubleMoney() {
@@ -65,6 +65,6 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonDoubleCoin.text = (doubleCoin * WeaponDataLoader.Ins.weaponPierce).ToString();
+    ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
   }
 }

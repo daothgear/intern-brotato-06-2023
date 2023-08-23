@@ -9,17 +9,13 @@ public class Weapon : MonoBehaviour {
     get => WeaponDataLoader.Ins;
   }
 
+  private WeaponData.WeaponInfo weapon;
   public Transform attackPoint;
   private bool isFacingRight;
-  private float fireTimer;
-  private float weaponAttackRange;
-  public float speedbullets;
-  [SerializeField] private float weaponFireRate;
-  [SerializeField] private int weaponDamage;
+  public float fireTimer;
   void Update() {
     fireTimer += Time.deltaTime;
-    weaponFireRate = weaponDataLoader.GetWeaponFirerate(currentWeaponId, currentWeaponLevel);
-    if (fireTimer >= weaponFireRate) {
+    if (fireTimer >= weapon.firerate) {
       fireTimer = 0f;
 
       FindAndFireAtTarget();
@@ -28,7 +24,7 @@ public class Weapon : MonoBehaviour {
   }
 
   void Start() {
-    weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
+    weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
   }
   
   void FindAndFireAtTarget() {
@@ -36,9 +32,7 @@ public class Weapon : MonoBehaviour {
 
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
-      weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId, currentWeaponLevel);
-      nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
-
+      nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weapon.damage);
       FireBulletTowardsEnemy(nearestEnemy);
     }
   }
@@ -49,8 +43,7 @@ public class Weapon : MonoBehaviour {
 
     foreach (GameObject enemy in  ObjectPool.Ins.enemyList) {
       float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-      weaponAttackRange = weaponDataLoader.GetWeaponRange(currentWeaponId, currentWeaponLevel);
-      if (distanceToEnemy <= weaponAttackRange) {
+      if (distanceToEnemy <= weapon.attackRange) {
         if (distanceToEnemy < minDistance) {
           nearestEnemy = enemy.transform;
           minDistance = distanceToEnemy;
@@ -73,13 +66,12 @@ public class Weapon : MonoBehaviour {
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
     AudioManager.Ins.PlaySfx(SoundName.SfxShoot);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
-    float bulletSpeed = weaponDataLoader.GetWeaponSpeed(currentWeaponId, currentWeaponLevel);
-    bullet.SetTarget(targetEnemy, bulletSpeed);
+    bullet.SetTarget(targetEnemy, weapon.attackSpeed);
   }
 
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, weaponAttackRange);
+    Gizmos.DrawWireSphere(transform.position, weapon.attackRange);
   }
 
   private void RotateWeaponBasedOnPlayerDirection() {

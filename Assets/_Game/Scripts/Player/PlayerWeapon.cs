@@ -20,7 +20,8 @@ public class PlayerWeapon : MonoBehaviour {
   public Button[] weaponInfoButtons;
   public Text weaponInfoText;
   private bool hasCreatedInitialWeapon = false;
-
+  private PlayerData.PlayerInfo playerInfo;
+  private WeaponData.WeaponInfo weaponinfo;
   private void OnValidate() {
     if (playerHealth == null) {
       playerHealth = GetComponent<PlayerHealth>();
@@ -128,11 +129,7 @@ public class PlayerWeapon : MonoBehaviour {
 
           Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
           weaponComponent.currentWeaponLevel = weaponInfo.currentLevelWeapon;
-          WeaponDataLoader.Ins.GetWeaponDamage(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
-          WeaponDataLoader.Ins.GetWeaponRange(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
-          WeaponDataLoader.Ins.GetWeaponFirerate(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
-          WeaponDataLoader.Ins.GetWeaponSpeed(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
-          
+          WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
           nextAvailableWeaponIndex++;
         }
       }
@@ -142,16 +139,19 @@ public class PlayerWeapon : MonoBehaviour {
   private void UpdateWeaponInfoTexts(int position) {
     if (position < collectedWeapons.Count) {
       Weapon weaponComponent = collectedWeapons[position].GetComponent<Weapon>();
+      WeaponDataLoader weaponDataLoader = WeaponDataLoader.Ins;
+      weaponinfo = weaponDataLoader.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+
       weaponInfoText.text = "Position: " + position +
                             "\nID: " + weaponComponent.currentWeaponId +
                             "\nLevel: " + weaponComponent.currentWeaponLevel +
-                            "\nDamage: " + WeaponDataLoader.Ins.GetWeaponDamage(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel) +
-                            "\nRange: " + WeaponDataLoader.Ins.GetWeaponRange(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel) +
-                            "\nFirerate: " + WeaponDataLoader.Ins.GetWeaponFirerate(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel) +
-                            "\nSpeed: " + WeaponDataLoader.Ins.GetWeaponSpeed(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
-    }
-    else {
+                            "\nDamage: " + weaponinfo.damage +
+                            "\nRange: " + weaponinfo.attackRange +
+                            "\nFirerate: " + weaponinfo.firerate +
+                            "\nSpeed: " + weaponinfo.attackSpeed;
+    } else {
       weaponInfoText.text = "You don't have any weapons in this position";
     }
   }
+
 }

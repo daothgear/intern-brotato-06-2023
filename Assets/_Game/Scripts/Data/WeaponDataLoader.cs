@@ -4,16 +4,7 @@ using Newtonsoft.Json;
 
 public class WeaponDataLoader : InstanceStatic<WeaponDataLoader> {
   private WeaponData weaponLevelData;
-  public int currentWeaponID;
-  public int currentWeaponLevel;
-  public float firerate;
-  public int weaponCost;
-  public int weaponDamage;
-  public float weaponAttackRange;
-  public float weaponAttackSpeed;
-  public int weaponPierce;
-  public float weaponPierceDamageReduce;
-  
+
   public void ReceiveData(string fileName, string jsonData)
   {
     if (fileName == Constants.Data_Weapon)
@@ -21,57 +12,12 @@ public class WeaponDataLoader : InstanceStatic<WeaponDataLoader> {
       weaponLevelData = JsonConvert.DeserializeObject<WeaponData>(jsonData);
     }
   }
-  public void LoadWeaponInfo(int currentWeaponID , int currentLevel) {
-    foreach (var weaponInfo in weaponLevelData.weaponInfo) {
+  public WeaponData.WeaponInfo LoadWeaponInfo(int currentWeaponID, int currentLevel) {
+    foreach (WeaponData.WeaponInfo weaponInfo in weaponLevelData.weaponInfo) {
       if (weaponInfo.weaponID == currentWeaponID && weaponInfo.currentlevel == currentLevel) {
-        WeaponData.WeaponInfo currentWeaponInfo = weaponInfo;
-        this.currentWeaponID = currentWeaponInfo.weaponID;
-        currentWeaponLevel = currentWeaponInfo.currentlevel;
-        firerate = currentWeaponInfo.firerate;
-        weaponCost = currentWeaponInfo.cost;
-        weaponDamage = currentWeaponInfo.damage;
-        weaponAttackRange = currentWeaponInfo.attackRange;
-        weaponAttackSpeed = currentWeaponInfo.attackSpeed;
-        weaponPierce = currentWeaponInfo.pierce;
-        weaponPierceDamageReduce = currentWeaponInfo.pierceDamageReduce;
-        break;
+        return weaponInfo;
       }
-    } 
+    }
+    return null; 
   }
-
-    public int GetWeaponDamage(int weaponID , int level) {
-      foreach (var weaponInfo in weaponLevelData.weaponInfo) {
-        if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
-          return weaponInfo.damage;
-        }
-      }
-      return 0;
-    }
-
-    public float GetWeaponRange(int weaponID , int level) {
-      foreach (var weaponInfo in weaponLevelData.weaponInfo) {
-        if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
-          return weaponInfo.attackRange;
-        }
-      }
-      return 0;
-    }
-    
-    public float GetWeaponFirerate(int weaponID , int level) {
-      foreach (var weaponInfo in weaponLevelData.weaponInfo) {
-        if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
-          return weaponInfo.firerate;
-        }
-      }
-      return 0;
-    }
-    
-    public float GetWeaponSpeed(int weaponID , int level) {
-      foreach (var weaponInfo in weaponLevelData.weaponInfo) {
-        if (weaponInfo.weaponID == weaponID && weaponInfo.currentlevel == level) {
-          return weaponInfo.attackSpeed;
-        }
-      }
-      return 0;
-    }
- }
+}
