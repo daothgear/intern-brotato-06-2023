@@ -9,14 +9,13 @@ public class Weapon : MonoBehaviour {
     get => WeaponDataLoader.Ins;
   }
 
+  private WeaponData.WeaponInfo weapon;
   public Transform attackPoint;
   private bool isFacingRight;
-  private float fireTimer;
-
+  public float fireTimer;
   void Update() {
     fireTimer += Time.deltaTime;
-
-    if (fireTimer >= weaponDataLoader.firerate) {
+    if (fireTimer >= weapon.firerate) {
       fireTimer = 0f;
 
       FindAndFireAtTarget();
@@ -25,7 +24,7 @@ public class Weapon : MonoBehaviour {
   }
 
   void Start() {
-    weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
+    weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
   }
   
   void FindAndFireAtTarget() {
@@ -33,9 +32,7 @@ public class Weapon : MonoBehaviour {
 
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
-      int weaponDamage = weaponDataLoader.GetWeaponDamage(currentWeaponId, currentWeaponLevel);
-      nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
-
+      nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weapon.damage);
       FireBulletTowardsEnemy(nearestEnemy);
     }
   }
@@ -46,7 +43,7 @@ public class Weapon : MonoBehaviour {
 
     foreach (GameObject enemy in  ObjectPool.Ins.enemyList) {
       float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-      if (distanceToEnemy <= weaponDataLoader.weaponAttackRange) {
+      if (distanceToEnemy <= weapon.attackRange) {
         if (distanceToEnemy < minDistance) {
           nearestEnemy = enemy.transform;
           minDistance = distanceToEnemy;
@@ -69,25 +66,18 @@ public class Weapon : MonoBehaviour {
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
     AudioManager.Ins.PlaySfx(SoundName.SfxShoot);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
-    bullet.SetTarget(targetEnemy);
+    bullet.SetTarget(targetEnemy, weapon.attackSpeed);
   }
+
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, weaponDataLoader.weaponAttackRange);
+    Gizmos.DrawWireSphere(transform.position, weapon.attackRange);
   }
+
   private void RotateWeaponBasedOnPlayerDirection() {
-    Vector3 playerScale = ReferenceHolder.Ins.playerTran.localScale;
-    if (playerScale.x > 0 && !isFacingRight) {
-      isFacingRight = true;
-      Vector3 scale = transform.localScale;
-      scale.x = Mathf.Abs(scale.x);
-      transform.localScale = scale;
-    }
-    else if (playerScale.x < 0 && isFacingRight) {
-      isFacingRight = false;
-      Vector3 scale = transform.localScale;
-      scale.x = -Mathf.Abs(scale.x);
-      transform.localScale = scale;
-    }
+    isFacingRight = true;
+    Vector3 scale = transform.localScale;
+    scale.x = Mathf.Abs(scale.x);
+    transform.localScale = scale;
   }
 }
