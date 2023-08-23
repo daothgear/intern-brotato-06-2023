@@ -23,13 +23,16 @@ public class Weapon : MonoBehaviour {
     RotateWeaponBasedOnPlayerDirection();
   }
 
-  void Start() {
+  private void Awake() {
     weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
+  }
+
+  void Start() {
+    MessageDispatcher.AddListener("UpdateDataWeapon", UpdateInfo);
   }
   
   void FindAndFireAtTarget() {
     Transform nearestEnemy = GetNearestEnemy();
-
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
       nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weapon.damage);
@@ -79,5 +82,9 @@ public class Weapon : MonoBehaviour {
     Vector3 scale = transform.localScale;
     scale.x = Mathf.Abs(scale.x);
     transform.localScale = scale;
+  }
+
+  private void UpdateInfo(IMessage img) {
+    weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
   }
 }
