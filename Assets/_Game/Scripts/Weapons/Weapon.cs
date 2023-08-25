@@ -23,11 +23,9 @@ public class Weapon : MonoBehaviour {
     RotateWeaponBasedOnPlayerDirection();
   }
 
-  private void Awake() {
-    weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
-  }
 
   void Start() {
+    weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
     MessageDispatcher.AddListener("UpdateDataWeapon", UpdateInfo);
   }
   
