@@ -5,13 +5,6 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour {
   public Transform player;
-
-  private void OnValidate() {
-    if (player == null) {
-      player = ReferenceHolder.Ins.playerTran;
-    }
-  }
-
   private void Update() {
     FollowPlayer();
   }
