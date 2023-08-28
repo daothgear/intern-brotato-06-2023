@@ -26,7 +26,6 @@ public class Weapon : MonoBehaviour {
 
   void Start() {
     weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
-    MessageDispatcher.AddListener("UpdateDataWeapon", UpdateInfo);
   }
   
   void FindAndFireAtTarget() {
@@ -79,9 +78,5 @@ public class Weapon : MonoBehaviour {
     Vector3 scale = transform.localScale;
     scale.x = Mathf.Abs(scale.x);
     transform.localScale = scale;
-  }
-
-  private void UpdateInfo(IMessage img) {
-    weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
   }
 }

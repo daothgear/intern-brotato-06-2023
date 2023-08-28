@@ -16,7 +16,7 @@ public class PlayerWeapon : MonoBehaviour {
   public GameObject weaponPrefab;
   private PlayerHealth playerHealth;
   public Text[] weaponInfoTexts;
-  private int nextAvailableWeaponIndex = 1;
+  public int nextAvailableWeaponIndex;
   public Button[] weaponInfoButtons;
   public Text weaponInfoText;
   private bool hasCreatedInitialWeapon = false;
@@ -31,12 +31,12 @@ public class PlayerWeapon : MonoBehaviour {
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon , AddWeapon);
     MessageDispatcher.AddListener(Constants.Mess_playerDie , ResetWeapon);
-
     LoadCollectedWeapons();
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
       int position = i;
       weaponInfoButtons[i].onClick.AddListener(() => UpdateWeaponInfoTexts(position));
     }
+    CheckButtonWeapon();
   }
 
   private void Update() {
@@ -47,6 +47,7 @@ public class PlayerWeapon : MonoBehaviour {
     if (nextAvailableWeaponIndex < weaponPositions.Count && weaponPositions[nextAvailableWeaponIndex] != null) {
       CreateWeaponAtPosition(weaponPrefab , weaponPositions[nextAvailableWeaponIndex]);
       nextAvailableWeaponIndex++;
+      CheckButtonWeapon();
     }
   }
 
@@ -62,8 +63,8 @@ public class PlayerWeapon : MonoBehaviour {
           collectedWeapons.RemoveAt(j);
           Destroy(weaponB);
           weaponComponentA.currentWeaponLevel++;
-          MessageDispatcher.SendMessage("UpdateDataWeapon");
           nextAvailableWeaponIndex--;
+          CheckButtonWeapon();
         }
       }
     }
@@ -114,6 +115,7 @@ public class PlayerWeapon : MonoBehaviour {
   private void ResetWeapon(IMessage msg) {
     foreach (GameObject weapon in collectedWeapons) {
       Destroy(weapon);
+      CheckButtonWeapon();
     }
 
     collectedWeapons.Clear();
@@ -151,5 +153,14 @@ public class PlayerWeapon : MonoBehaviour {
       weaponInfoText.text = "You don't have any weapons in this position";
     }
   }
-
+  
+  private void CheckButtonWeapon() {
+    for (int i = 0; i < weaponInfoButtons.Length; i++) {
+      if (i < collectedWeapons.Count) {
+        weaponInfoButtons[i].gameObject.SetActive(true);
+      } else {
+        weaponInfoButtons[i].gameObject.SetActive(false);
+      }
+    }
+  }
 }
