@@ -1,6 +1,7 @@
 ﻿using com.ootii.Messages;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,7 @@ public class PlayerWeapon : MonoBehaviour {
   private bool hasCreatedInitialWeapon = false;
   private PlayerData.PlayerInfo playerInfo;
   private WeaponData.WeaponInfo weaponinfo;
+  public TextMeshProUGUI textRandom;
   private void OnValidate() {
     if (playerHealth == null) {
       playerHealth = GetComponent<PlayerHealth>();
@@ -74,6 +76,10 @@ public class PlayerWeapon : MonoBehaviour {
   private void CreateWeaponAtPosition(GameObject weaponPrefab , Transform position) {
     GameObject newWeapon = Instantiate(weaponPrefab , position.position , position.rotation);
     newWeapon.transform.parent = position;
+    Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
+    weaponComponent.currentWeaponLevel = UnityEngine.Random.Range(1 , 4);
+    WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId , weaponComponent.currentWeaponLevel);
+    textRandom.text = "Random: " + weaponComponent.currentWeaponLevel;
     collectedWeapons.Add(newWeapon);
   }
   
