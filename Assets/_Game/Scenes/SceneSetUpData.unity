@@ -323,20 +323,40 @@ PrefabInstance:
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: weaponData.weaponInfo.Array.data[0].weaponID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: weaponData.weaponInfo.Array.data[1].firerate
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: weaponData.weaponInfo.Array.data[1].weaponID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: weaponData.weaponInfo.Array.data[2].firerate
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: weaponData.weaponInfo.Array.data[2].weaponID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: weaponData.weaponInfo.Array.data[3].firerate
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: weaponData.weaponInfo.Array.data[3].weaponID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: weaponData.weaponInfo.Array.data[4].firerate
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: weaponData.weaponInfo.Array.data[4].weaponID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[8].moveSpeed
@@ -387,20 +407,44 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: playerData.playerInfo.Array.data[0].characterID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: playerData.playerInfo.Array.data[1].characterID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: playerData.playerInfo.Array.data[2].characterID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: playerData.playerInfo.Array.data[3].characterID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: playerData.playerInfo.Array.data[4].characterID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
+      propertyPath: playerData.playerInfo.Array.data[5].characterID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[6].characterID
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[7].characterID
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[8].characterID
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[9].characterID
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: weaponData.weaponInfo.Array.data[0].attackSpeed
@@ -420,43 +464,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[10].characterID
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[11].characterID
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[12].characterID
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[13].characterID
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[14].characterID
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[15].characterID
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[16].characterID
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[17].characterID
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[18].characterID
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: playerData.playerInfo.Array.data[19].characterID
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 4541206582622460111, guid: 71e6146c7e1bd45b8b922a8c558b5043, type: 3}
       propertyPath: waveData.WaveInfos.Array.data[0].numEnemiesPerWave

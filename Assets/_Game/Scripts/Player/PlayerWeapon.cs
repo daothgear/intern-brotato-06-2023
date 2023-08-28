@@ -63,6 +63,7 @@ public class PlayerWeapon : MonoBehaviour {
           collectedWeapons.RemoveAt(j);
           Destroy(weaponB);
           weaponComponentA.currentWeaponLevel++;
+          MessageDispatcher.SendMessage("UpdateDataWeapon");
           nextAvailableWeaponIndex--;
           CheckButtonWeapon();
         }
