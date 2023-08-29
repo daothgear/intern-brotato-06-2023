@@ -155,6 +155,7 @@ public class TimeManager : MonoBehaviour {
   private void ShowShop() {
     // Show the UI shop
     UIShop.SetActive(true);
+    MessageDispatcher.SendMessage(Constants.Mess_randomWeapon);
   }
 
   private void Stoptime(IMessage img) {
