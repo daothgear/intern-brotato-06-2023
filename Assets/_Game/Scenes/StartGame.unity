@@ -27248,9 +27248,9 @@ MonoBehaviour:
   - {fileID: 120655287}
   weaponPositionInfo:
   - positionWeapon: {fileID: 1307084193}
-    currentLevelWeapon: 1
+    currentLevelWeapon: 0
   - positionWeapon: {fileID: 143151996}
-    currentLevelWeapon: 2
+    currentLevelWeapon: 1
   weaponPrefab: {fileID: 5829852352044861097, guid: 1239ec2e202e34506ab4965e216459e4, type: 3}
   weaponInfoTexts:
   - {fileID: 1968195218}

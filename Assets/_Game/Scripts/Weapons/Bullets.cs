@@ -20,16 +20,14 @@ public class Bullets : MonoBehaviour {
       transform.position += direction * bulletSpeed * Time.deltaTime;
       float distanceToTarget = Vector3.Distance(transform.position, targetEnemy.position);
       if (distanceToTarget < 0.5f) {
-        ObjectPool.Ins.ReturnToPool(Constants.Tag_Bullets, gameObject);
-        CheckTargetEnemy();
-        targetEnemy.GetComponent<EnemyHealth>().TakeDamage(bulletDamage);
+        if (!targetEnemy.gameObject.activeSelf) {
+          ObjectPool.Ins.ReturnToPool(Constants.Tag_Bullets, gameObject);
+        }
+        else {
+          ObjectPool.Ins.ReturnToPool(Constants.Tag_Bullets, gameObject);
+          targetEnemy.GetComponent<EnemyHealth>().TakeDamage(bulletDamage);
+        }
       }
-    }
-  }
-
-  private void CheckTargetEnemy() {
-    if (!targetEnemy.gameObject.activeSelf) {
-      ObjectPool.Ins.ReturnToPool(Constants.Tag_Bullets, gameObject);
     }
   }
 }
