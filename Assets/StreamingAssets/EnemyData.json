@@ -2,7 +2,7 @@
     "enemyInfo": [
         {
             "enemyID": 1,
-            "moveSpeed": 5.0,
+            "moveSpeed": 4.0,
             "maxHP": 8,
             "damage": 1,
             "expEnemy": 1

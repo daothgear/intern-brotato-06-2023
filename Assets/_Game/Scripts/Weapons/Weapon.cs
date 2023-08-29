@@ -23,16 +23,16 @@ public class Weapon : MonoBehaviour {
     RotateWeaponBasedOnPlayerDirection();
   }
 
+
   void Start() {
     weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
+    MessageDispatcher.AddListener("UpdateDataWeapon", UpdateInfo);
   }
   
   void FindAndFireAtTarget() {
     Transform nearestEnemy = GetNearestEnemy();
-
     if (nearestEnemy != null) {
       RotateWeaponTowardsEnemy(nearestEnemy);
-      nearestEnemy.GetComponent<EnemyHealth>().TakeDamage(weapon.damage);
       FireBulletTowardsEnemy(nearestEnemy);
     }
   }
@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour {
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Bullets, attackPoint.position, attackPoint.rotation);
     AudioManager.Ins.PlaySfx(SoundName.SfxShoot);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
-    bullet.SetTarget(targetEnemy, weapon.attackSpeed);
+    bullet.SetTarget(targetEnemy, weapon.attackSpeed, weapon.damage);
   }
 
   private void OnDrawGizmosSelected() {
@@ -79,5 +79,9 @@ public class Weapon : MonoBehaviour {
     Vector3 scale = transform.localScale;
     scale.x = Mathf.Abs(scale.x);
     transform.localScale = scale;
+  }
+
+  private void UpdateInfo(IMessage img) {
+    weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
   }
 }

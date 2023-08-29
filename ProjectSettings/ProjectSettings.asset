@@ -767,6 +767,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     Android: OOTII_MD
     Standalone: OOTII_MD
+    iPhone: OOTII_MD
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
