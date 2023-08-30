@@ -27,10 +27,12 @@ public class PlayerHealth : MonoBehaviour {
 
   private void Start() {
     PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
-    UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
+    UpdateHealthUI(null);
+    UiEndGame.SetActive(die);
     MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
     MessageDispatcher.AddListener(Constants.Mess_resetHealth, ResetHealth);
+    MessageDispatcher.AddListener(Constants.Mess_UpdateUIHealth, UpdateHealthUI);
   }
   
   private void OnDestroy() {
@@ -38,11 +40,7 @@ public class PlayerHealth : MonoBehaviour {
     MessageDispatcher.RemoveListener(Constants.Mess_resetHealth, ResetHealth);
   }
   
-  private void Update() {
-    UpdateHealthUI();
-  }
-
-  public void UpdateHealthUI() {
+  public void UpdateHealthUI(IMessage img) {
     playerHealthSlider.maxValue = playerLoader.maxHealth;
     playerHealthSlider.value = currentHealth;
     textHealth.text = currentHealth + "/" + playerLoader.maxHealth;
@@ -57,18 +55,18 @@ public class PlayerHealth : MonoBehaviour {
         Destroy(gameObject);
         Die();
       }
-
-      UpdateHealthUI();
+      MessageDispatcher.SendMessage(Constants.Mess_UpdateUIHealth);
     }
   }
 
   private void Die() {
     die = true;
     UiEndGame.SetActive(die);
+    ReferenceHolder.Ins.timeManager.ClearEnemies();
   }
 
   private void ResetHealth(IMessage img) {
     currentHealth = playerLoader.maxHealth;
-    UpdateHealthUI();
+    MessageDispatcher.SendMessage(Constants.Mess_UpdateUIHealth);
   }
 }
