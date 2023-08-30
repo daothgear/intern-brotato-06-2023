@@ -135,7 +135,7 @@ public class TimeManager : MonoBehaviour {
     return spawnPosition;
   }
 
-  public void ClearEnemies() {
+  private void ClearEnemies() {
     foreach (GameObject enemy in ObjectPool.Ins.enemyList) {
       ObjectPool.Ins.ReturnToPool(Constants.Tag_Enemy, enemy);
     }

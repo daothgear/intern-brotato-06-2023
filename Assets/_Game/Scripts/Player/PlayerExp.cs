@@ -24,7 +24,7 @@ public class PlayerExp : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
     MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetLevel);
-    textExp.text = "LV." + (playerLoader.characterLevel + 1);
+    UpdateExpUI();
   }
 
   private void OnDestroy() {
@@ -45,7 +45,6 @@ public class PlayerExp : MonoBehaviour {
       playerLoader.characterLevel++;
       currentExp -= playerLoader.maxExp;
       playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
-      MessageDispatcher.SendMessage(Constants.Mess_UpdateUIHealth);
       SaveLevel();
     }
     UpdateExpUI();
