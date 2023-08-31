@@ -163,6 +163,7 @@ public class TimeManager : MonoBehaviour {
     UIShop.SetActive(true);
     isSpawnEnemy = false;
     MessageDispatcher.SendMessage(Constants.Mess_randomWeapon);
+    MessageDispatcher.SendMessage("Showlevelweapon");
   }
 
   private void Stoptime(IMessage img) {
