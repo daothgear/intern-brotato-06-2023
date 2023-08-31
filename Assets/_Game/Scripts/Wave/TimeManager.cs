@@ -24,6 +24,7 @@ public class TimeManager : MonoBehaviour {
 
   // Flag to control time updates
   private bool isTimeStopped = false;
+  private bool isSpawnEnemy;
 
   private void OnValidate() {
     if (textWave == null) {
@@ -33,6 +34,7 @@ public class TimeManager : MonoBehaviour {
 
   private void Start() {
     waveDataLoader.LoadWaveInfo(1);
+    isSpawnEnemy = true;
     MessageDispatcher.AddListener(Constants.Mess_playerDie, Stoptime);
     MessageDispatcher.AddListener(Constants.Mess_nextwave, UpWave);
 
@@ -61,6 +63,7 @@ public class TimeManager : MonoBehaviour {
   private void StartWave() {
     if (currentSubWave == 0) {
       UIShop.SetActive(false);
+      isSpawnEnemy = true;
     }
 
     if (currentSubWave >= waveDataLoader.numSubWaves) {
@@ -73,6 +76,7 @@ public class TimeManager : MonoBehaviour {
     SpawnEnemies();
     textWave.UpdateText();
   }
+
   private void StartNextSubWave() {
     currentSubWave++;
     if (currentSubWave >= waveDataLoader.numSubWaves) {
@@ -99,16 +103,16 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void SpawnEnemies() {
-    if (!UIShop.activeSelf) {
+    if (isSpawnEnemy == true) {
       int numEnemies = waveDataLoader.currentWave * waveDataLoader.numEnemiesPerWave * (currentSubWave + 1);
-      StartCoroutine(SpawnEnemiesWithDelays(numEnemies));
+      StartCoroutine(SpawnEnemiesWithDelays(numEnemies)); 
     }
   }
 
   private IEnumerator SpawnEnemiesWithDelays(int numEnemies) {
     float delayTime = waveDataLoader.spawnDelay;
     WaitForSeconds wait = new WaitForSeconds(delayTime);
-    for (int i = 0 ; i < numEnemies ; i++) {
+    for (int i = 0; i < numEnemies; i++) {
       SpawnEnemyRandom();
       yield return wait;
     }
@@ -117,13 +121,15 @@ public class TimeManager : MonoBehaviour {
   private void UpWave(IMessage img) {
     waveDataLoader.currentWave++;
   }
+
   private void SpawnEnemyRandom() {
-    if (!UIShop.activeSelf) {
+    if (isSpawnEnemy == true) {
       GameObject newEnemy =
           ObjectPool.Ins.SpawnFromPool(Constants.Tag_Enemy, GetRandomSpawnPosition(), Quaternion.identity);
       ObjectPool.Ins.enemyList.Add(newEnemy);
     }
   }
+
   private Vector3 GetRandomSpawnPosition() {
     Collider2D wallCollider = wallCheck.GetComponent<Collider2D>();
     Vector3 wallSize = wallCollider.bounds.size;
@@ -155,12 +161,15 @@ public class TimeManager : MonoBehaviour {
   private void ShowShop() {
     // Show the UI shop
     UIShop.SetActive(true);
+    isSpawnEnemy = false;
     MessageDispatcher.SendMessage(Constants.Mess_randomWeapon);
   }
 
   private void Stoptime(IMessage img) {
     UIShop.SetActive(false);
+    isSpawnEnemy = false;
     isTimeStopped = true;
+    ClearEnemies();
     waveDataLoader.currentWave = 1;
     currentSubWave = 0;
     SavePlayerPrefsData();

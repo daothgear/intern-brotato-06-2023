@@ -97,6 +97,7 @@ public class Enemy : MonoBehaviour {
   private void Dead() {
     isTrigger = false;
     animator.SetBool(Constants.Anim_Die, true);
+    ObjectPool.Ins.enemyList.Remove(gameObject);
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
