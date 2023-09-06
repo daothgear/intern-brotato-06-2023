@@ -101,9 +101,11 @@ public class Enemy : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag(Constants.Tag_Player)) {
-      currentState = EnemyState.Attack;
-      isTrigger = true;
+    if (currentState == EnemyState.Attack) {
+      if (collision.CompareTag(Constants.Tag_Player)) {
+        currentState = EnemyState.Attack;
+        isTrigger = true;
+      }
     }
   }
 

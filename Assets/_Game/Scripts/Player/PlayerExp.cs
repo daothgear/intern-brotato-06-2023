@@ -29,7 +29,7 @@ public class PlayerExp : MonoBehaviour {
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_addExp, AddExp);
-    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
+    MessageDispatcher.RemoveListener(Constants.Mess_plus1Level, LevelUp); 
   }
 
   

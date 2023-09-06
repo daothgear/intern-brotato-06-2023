@@ -29,6 +29,7 @@ public class Card : MonoBehaviour {
   }
 
   public void AddWeapon() {
+    AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     int cost = GetCost(addWeapon);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       addWeapon++;
@@ -39,6 +40,7 @@ public class Card : MonoBehaviour {
   }
 
   public void AddLevel() {
+    AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     int cost = GetCost(uplevel);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       uplevel++;
@@ -49,6 +51,7 @@ public class Card : MonoBehaviour {
   }
 
   public void NextWave() {
+    AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     int cost = GetCost(nextWave);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       nextWave++;
@@ -59,12 +62,19 @@ public class Card : MonoBehaviour {
   }
 
   public void DoubleMoney() {
-    int cost = GetCost(doubleCoin);
-    if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
-      doubleCoin++;
-      MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
-      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
+    if (PlayerCoin.Ins.coinAmount >= 999999) {
+      ButtonDoubleCoin.text = "Max";
     }
-    ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
+    else {
+      AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
+      int cost = GetCost(doubleCoin);
+      if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
+        doubleCoin++;
+        MessageDispatcher.SendMessage(Constants.Mess_doubleMoney);
+        ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
+      }
+
+      ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
+    }
   }
 }

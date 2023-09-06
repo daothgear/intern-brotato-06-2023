@@ -13,6 +13,9 @@ public class Weapon : MonoBehaviour {
   public Transform attackPoint;
   private bool isFacingRight;
   public float fireTimer;
+  private float currentRotation;
+  private float targetRotation;
+  private float speedRotation = 30f;
   void Update() {
     fireTimer += Time.deltaTime;
     if (fireTimer >= weapon.firerate) {
@@ -20,7 +23,6 @@ public class Weapon : MonoBehaviour {
 
       FindAndFireAtTarget();
     }
-    RotateWeaponBasedOnPlayerDirection();
   }
 
 
@@ -54,11 +56,12 @@ public class Weapon : MonoBehaviour {
     return nearestEnemy;
   }
 
-  private void RotateWeaponTowardsEnemy(Transform targetEnemy) {
-    Vector2 directionToEnemy = targetEnemy.position - attackPoint.position;
-    float angle = Mathf.Atan2(directionToEnemy.y, directionToEnemy.x) * Mathf.Rad2Deg;
-    attackPoint.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+  private void RotateWeaponTowardsEnemy(Transform target) {
+    Vector2 directionToTarget = target.position - attackPoint.position;
+    targetRotation = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+    currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, Time.deltaTime * speedRotation);
+    attackPoint.rotation = Quaternion.Euler(new Vector3(0, 0, currentRotation));
+    transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentRotation));
   }
 
   void FireBulletTowardsEnemy(Transform targetEnemy) {
@@ -72,13 +75,6 @@ public class Weapon : MonoBehaviour {
   private void OnDrawGizmosSelected() {
     Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, weapon.attackRange);
-  }
-
-  private void RotateWeaponBasedOnPlayerDirection() {
-    isFacingRight = true;
-    Vector3 scale = transform.localScale;
-    scale.x = Mathf.Abs(scale.x);
-    transform.localScale = scale;
   }
 
   private void UpdateInfo(IMessage img) {

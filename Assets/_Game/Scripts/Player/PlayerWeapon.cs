@@ -32,14 +32,15 @@ public class PlayerWeapon : MonoBehaviour {
   }
 
   private void Start() {
+    LoadCollectedWeapons();
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetWeapon);
     MessageDispatcher.AddListener(Constants.Mess_randomWeapon, RandomLevel);
-    LoadCollectedWeapons();
     UpdateWeaponLevelTexts();
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
       int position = i;
       weaponInfoButtons[i].onClick.AddListener(() => UpdateWeaponInfoTexts(position));
+      AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     }
     CheckButtonWeapon();
   }
@@ -52,6 +53,7 @@ public class PlayerWeapon : MonoBehaviour {
     if (nextAvailableWeaponIndex < weaponPositions.Count && weaponPositions[nextAvailableWeaponIndex] != null) {
       CreateWeaponAtPosition(weaponPrefab, weaponPositions[nextAvailableWeaponIndex]);
       nextAvailableWeaponIndex++;
+      UpdateWeaponLevelTexts();
       CheckButtonWeapon();
     }
   }
@@ -68,8 +70,9 @@ public class PlayerWeapon : MonoBehaviour {
           collectedWeapons.RemoveAt(j);
           Destroy(weaponB);
           weaponComponentA.currentWeaponLevel++;
-          MessageDispatcher.SendMessage("UpdateDataWeapon");
+          MessageDispatcher.SendMessage(Constants.Mess_UpdateDataWeapon);
           nextAvailableWeaponIndex--;
+          UpdateWeaponLevelTexts();
           CheckButtonWeapon();
         }
       }
@@ -154,7 +157,7 @@ public class PlayerWeapon : MonoBehaviour {
       weaponinfo = weaponDataLoader.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
       weaponInfoText.text = "Position: " + position +
                             "\nID: " + weaponComponent.currentWeaponId +
-                            "\nLevel: " + weaponComponent.currentWeaponLevel +
+                            "\nLevel: " + (weaponComponent.currentWeaponLevel + 1) +
                             "\nDamage: " + weaponinfo.damage +
                             "\nRange: " + weaponinfo.attackRange +
                             "\nFirerate: " + weaponinfo.firerate +
@@ -185,9 +188,9 @@ public class PlayerWeapon : MonoBehaviour {
     for (int i = 0; i < weaponInfoTexts.Length; i++) {
       if (i < collectedWeapons.Count) {
         Weapon weaponComponent = collectedWeapons[i].GetComponent<Weapon>();
-        weaponInfoTexts[i].text = "Weapon Level: " + weaponComponent.currentWeaponLevel;
+        weaponInfoTexts[i].text = "Weapon Level: " + (weaponComponent.currentWeaponLevel + 1);
       } else {
-        weaponInfoTexts[i].text = "No weapon at this position";
+        weaponInfoTexts[i].text = "";
       }
     }
   }

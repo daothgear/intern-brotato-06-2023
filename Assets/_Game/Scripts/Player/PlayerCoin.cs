@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCoin : Singleton<PlayerCoin> {
-  private int coinAmount = 0;
+  public int coinAmount;
   [SerializeField] private Text textCoin;
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
