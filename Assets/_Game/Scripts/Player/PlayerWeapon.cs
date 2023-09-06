@@ -36,6 +36,7 @@ public class PlayerWeapon : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetWeapon);
     MessageDispatcher.AddListener(Constants.Mess_randomWeapon, RandomLevel);
     LoadCollectedWeapons();
+    UpdateWeaponLevelTexts();
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
       int position = i;
       weaponInfoButtons[i].onClick.AddListener(() => UpdateWeaponInfoTexts(position));
@@ -178,5 +179,16 @@ public class PlayerWeapon : MonoBehaviour {
   private void RandomLevel(IMessage img) {
     randomLevel = UnityEngine.Random.Range(1, 5);
     textLevel.text = "Level: " + randomLevel;
+  }
+
+  private void UpdateWeaponLevelTexts() {
+    for (int i = 0; i < weaponInfoTexts.Length; i++) {
+      if (i < collectedWeapons.Count) {
+        Weapon weaponComponent = collectedWeapons[i].GetComponent<Weapon>();
+        weaponInfoTexts[i].text = "Weapon Level: " + weaponComponent.currentWeaponLevel;
+      } else {
+        weaponInfoTexts[i].text = "No weapon at this position";
+      }
+    }
   }
 }
