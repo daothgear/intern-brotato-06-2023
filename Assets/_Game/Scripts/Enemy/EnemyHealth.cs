@@ -27,9 +27,9 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   public void MakeDead() {
+    ResetEnemy();
     ObjectPool.Ins.ReturnToPool(Constants.Tag_Enemy, gameObject);
     ObjectPool.Ins.enemyList.Remove(gameObject);
-    ResetEnemy();
   }
 
   public void TakeDamage(int weaponDamage) {

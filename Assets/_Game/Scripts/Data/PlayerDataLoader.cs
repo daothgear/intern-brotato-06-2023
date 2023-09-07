@@ -29,4 +29,8 @@ public class PlayerDataLoader : InstanceStatic<PlayerDataLoader> {
       }
     }
   }
+
+  public int GetLastPlayerID() {
+    return characterData.playerInfo[characterData.playerInfo.Count - 1].characterID;
+  }
 }

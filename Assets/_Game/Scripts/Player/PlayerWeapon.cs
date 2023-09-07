@@ -55,6 +55,7 @@ public class PlayerWeapon : MonoBehaviour {
       nextAvailableWeaponIndex++;
       UpdateWeaponLevelTexts();
       CheckButtonWeapon();
+      SaveCollectedWeapons();
     }
   }
 
@@ -122,6 +123,21 @@ public class PlayerWeapon : MonoBehaviour {
           WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
           nextAvailableWeaponIndex++;
         }
+      }
+    } else {
+      if (weaponPositions.Count > 0 && weaponPositions[0] != null) {
+        CreateWeaponAtPosition(weaponPrefab, weaponPositions[0]);
+        Weapon weaponComponent = collectedWeapons[0].GetComponent<Weapon>();
+        weaponComponent.currentWeaponLevel = 1;
+        WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+        nextAvailableWeaponIndex++;
+      }
+      if (weaponPositions.Count > 1 && weaponPositions[1] != null) {
+        CreateWeaponAtPosition(weaponPrefab, weaponPositions[1]);
+        Weapon weaponComponent = collectedWeapons[1].GetComponent<Weapon>();
+        weaponComponent.currentWeaponLevel = 2;
+        WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
+        nextAvailableWeaponIndex++;
       }
     }
   }
