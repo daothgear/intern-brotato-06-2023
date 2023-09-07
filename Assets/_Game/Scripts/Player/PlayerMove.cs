@@ -7,6 +7,12 @@ public class PlayerMove : MonoBehaviour {
   private PlayerDataLoader playerLoader { get => PlayerDataLoader.Ins; }
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
+
+  [SerializeField] private Transform pointLeft;
+  [SerializeField] private Transform pointRight;
+  [SerializeField] private Transform pointTop;
+  [SerializeField] private Transform pointDown;
+
   private bool isFacingRight = true;
 
   private void OnValidate() {
@@ -21,7 +27,13 @@ public class PlayerMove : MonoBehaviour {
 
   private void Move() {
     Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * playerLoader.speed;
-    transform.position += movement;
+    Vector3 newPosition = transform.position + movement;
+
+    newPosition.x = Mathf.Clamp(newPosition.x, pointLeft.position.x, pointRight.position.x);
+    newPosition.y = Mathf.Clamp(newPosition.y, pointDown.position.y, pointTop.position.y);
+
+    transform.position = newPosition;
+
     if (movement.magnitude > 0) {
       animator.SetTrigger(Constants.Anim_PlayerWalk);
     }
