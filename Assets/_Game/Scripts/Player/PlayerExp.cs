@@ -7,6 +7,7 @@ public class PlayerExp : MonoBehaviour {
   [SerializeField] private int currentExp;
   [SerializeField] private Slider playerExpSlider;
   [SerializeField] private Text textExp;
+  public int maxLevel;
   private PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Ins;
   }
@@ -18,6 +19,7 @@ public class PlayerExp : MonoBehaviour {
   private void Awake() {
     LoadLevel();
     PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
+    maxLevel = PlayerDataLoader.Ins.GetLastPlayerID();
   }
 
   private void Start() {
@@ -34,25 +36,36 @@ public class PlayerExp : MonoBehaviour {
 
   
   private void UpdateExpUI() {
-    playerExpSlider.maxValue = playerLoader.maxExp;
-    playerExpSlider.value = currentExp;
-    textExp.text = "LV." + (playerLoader.characterLevel + 1);
+    if (playerLoader.characterLevel == maxLevel) {
+      textExp.text = "LV. Max";
+    }
+    else {
+      playerExpSlider.maxValue = playerLoader.maxExp;
+      playerExpSlider.value = currentExp;
+      textExp.text = "LV." + (playerLoader.characterLevel + 1);
+    }
   }
 
   public void AddExp(IMessage img) {
-    currentExp += enemyLoader.enemyExp;
-    while (currentExp >= playerLoader.maxExp) {
-      playerLoader.characterLevel++;
-      currentExp -= playerLoader.maxExp;
+    if (playerLoader.characterLevel == maxLevel) {
       playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
-      SaveLevel();
     }
+    else {
+      currentExp += enemyLoader.enemyExp;
+      while (currentExp >= playerLoader.maxExp) {
+        playerLoader.characterLevel++;
+        currentExp -= playerLoader.maxExp;
+        playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
+      }
+    }
+    SaveLevel();
     UpdateExpUI();
   }
 
   public void LevelUp(IMessage msg) {
     playerLoader.characterLevel++;
     playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
+    SaveLevel();
     UpdateExpUI();
   }
   

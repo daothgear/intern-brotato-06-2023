@@ -41,6 +41,9 @@ public class PlayerCoin : Singleton<PlayerCoin> {
 
   private void AddCoin(IMessage img) {
     coinAmount *= 2;
+    if (coinAmount < 0) {
+      coinAmount = Int32.MaxValue;
+    }
     textCoin.text = coinAmount.ToString();
     SaveCoinAmount();
   }

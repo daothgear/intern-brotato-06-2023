@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour {
   [SerializeField] private Animator animator;
 
   private bool isFacingRight;
-  public bool isTrigger;
   private float damageInterval = 0.5f;
   private float lastDamageTime = 0.0f;
 
@@ -43,9 +42,6 @@ public class Enemy : MonoBehaviour {
       case EnemyState.Dead:
         Dead();
         break;
-      case EnemyState.Attack:
-        Attack();
-        break;
     }
   }
 
@@ -62,7 +58,6 @@ public class Enemy : MonoBehaviour {
   private void TransitionToWalk() {
     animator.SetTrigger(Constants.Anim_Walk);
     currentState = EnemyState.Walk;
-    isTrigger = false;
   }
 
   public void Walk() {
@@ -79,41 +74,29 @@ public class Enemy : MonoBehaviour {
 
       float distanceToPlayer = Vector3.Distance(transform.position, ReferenceHolder.Ins.playerTran.position);
       if (distanceToPlayer <= 1f) {
-        currentState = EnemyState.Attack;
-        isTrigger = true;
-      }
-    }
-  }
-
-  private void Attack() {
-    if (isTrigger) {
-      if (Time.time - lastDamageTime >= damageInterval) {
-        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
-        lastDamageTime = Time.time;
+        currentState = EnemyState.Walk;
       }
     }
   }
 
   private void Dead() {
-    isTrigger = false;
     animator.SetBool(Constants.Anim_Die, true);
     ObjectPool.Ins.enemyList.Remove(gameObject);
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (currentState == EnemyState.Attack) {
-      if (collision.CompareTag(Constants.Tag_Player)) {
-        currentState = EnemyState.Attack;
-        isTrigger = true;
-      }
+    if (collision.CompareTag(Constants.Tag_Player)) {
+      MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
     }
   }
 
-  private void OnTriggerExit2D(Collider2D collision) {
-    if (collision.CompareTag(Constants.Tag_Player)) {
-      currentState = EnemyState.Walk;
-      isTrigger = false;
-      lastDamageTime = 0.0f;
+  private void OnTriggerStay2D(Collider2D other) {
+    if (other.CompareTag(Constants.Tag_Player)) {
+      lastDamageTime += Time.deltaTime;
+      if (lastDamageTime >= damageInterval) {
+        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
+        lastDamageTime = 0f;
+      }
     }
   }
 }
