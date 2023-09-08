@@ -72,23 +72,19 @@ public class Enemy : MonoBehaviour {
       else if (transform.position.x < ReferenceHolder.Ins.playerTran.position.x && !isFacingRight) {
         Flip();
       }
-
-      float distanceToPlayer = Vector3.Distance(transform.position, ReferenceHolder.Ins.playerTran.position);
-      if (distanceToPlayer <= 1f) {
-        currentState = EnemyState.Walk;
-      }
     }
   }
 
   private void Dead() {
     animator.SetBool(Constants.Anim_Die, true);
-    ObjectPool.Ins.enemyList.Remove(gameObject);
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag(Constants.Tag_Player)) {
-      isCollidingWithPlayer = true;
-      MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
+      if (currentState == EnemyState.Walk) {
+        isCollidingWithPlayer = true;
+        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
+      }
     }
   }
 

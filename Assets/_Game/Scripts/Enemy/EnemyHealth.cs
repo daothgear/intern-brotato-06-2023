@@ -43,7 +43,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
       }
 
       enemy.currentState = Enemy.EnemyState.Dead;
-      Invoke("MakeDead", 1f);
+      Invoke("MakeDead", 0.5f);
     }
   }
 

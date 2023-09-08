@@ -23,6 +23,10 @@ public class Weapon : MonoBehaviour {
 
       FindAndFireAtTarget();
     }
+    
+    currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, Time.deltaTime * speedRotation);
+    attackPoint.rotation = Quaternion.Euler(new Vector3(0, 0, currentRotation));
+    transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentRotation));
   }
 
 
@@ -59,9 +63,6 @@ public class Weapon : MonoBehaviour {
   private void RotateWeaponTowardsEnemy(Transform target) {
     Vector2 directionToTarget = target.position - attackPoint.position;
     targetRotation = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-    currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, Time.deltaTime * speedRotation);
-    attackPoint.rotation = Quaternion.Euler(new Vector3(0, 0, currentRotation));
-    transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentRotation));
   }
 
   void FireBulletTowardsEnemy(Transform targetEnemy) {
