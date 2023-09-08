@@ -36,11 +36,16 @@ public class Card : MonoBehaviour {
     AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     int cost = GetCost(addWeapon);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
-      addWeapon++;
-      MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
-      ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
+      if (ReferenceHolder.Ins.playerWeapon.isBuydone == true) {
+        addWeapon++;
+        MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
+        ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
+        ButtonAddWeapon.text = (addWeapon * 10).ToString();
+      }
+      else {
+        ButtonAddWeapon.text = "Max";
+      }
     }
-    ButtonAddWeapon.text = (addWeapon * 10).ToString();
   }
 
   public void AddLevel() {

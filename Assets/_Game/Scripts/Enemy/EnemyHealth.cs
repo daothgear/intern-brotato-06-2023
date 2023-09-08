@@ -53,7 +53,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void ResetEnemyState() {
-    enemy.currentState = Enemy.EnemyState.Idle;
+    enemy.currentState = Enemy.EnemyState.Walk;
   }
 
   private void ResetHealth() {

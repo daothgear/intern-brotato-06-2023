@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
   public enum EnemyState {
-    Idle,
     Walk,
-    Attack,
     Dead
   }
 
@@ -34,9 +32,6 @@ public class Enemy : MonoBehaviour {
   }
   private void Update() {
     switch (currentState) {
-      case EnemyState.Idle:
-        Idle();
-        break;
       case EnemyState.Walk:
         Walk();
         break;
@@ -51,18 +46,9 @@ public class Enemy : MonoBehaviour {
     transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
   }
 
-  private void Idle() {
-    animator.SetTrigger(Constants.Anim_Idle);
-    Invoke("TransitionToWalk", 0.5f);
-  }
-
-  private void TransitionToWalk() {
-    animator.SetTrigger(Constants.Anim_Walk);
-    currentState = EnemyState.Walk;
-  }
-
   public void Walk() {
     if (ReferenceHolder.Ins.playerTran != null) {
+      animator.SetTrigger(Constants.Anim_Walk);
       transform.position =
           Vector3.MoveTowards(transform.position, ReferenceHolder.Ins.playerTran.position,
               enemyLoader.speed * Time.deltaTime);
