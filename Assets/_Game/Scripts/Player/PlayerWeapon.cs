@@ -56,6 +56,32 @@ public class PlayerWeapon : MonoBehaviour {
       UpdateWeaponLevelTexts();
       CheckButtonWeapon();
       SaveCollectedWeapons();
+    } else {
+      Weapon newWeaponComponent = weaponPrefab.GetComponent<Weapon>();
+      newWeaponComponent.currentWeaponLevel = randomLevel;
+      bool canMerge = false;
+
+      foreach (GameObject weapon in collectedWeapons) {
+        Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
+
+        if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
+          canMerge = true;
+          collectedWeaponComponent.currentWeaponLevel++; 
+          WeaponDataLoader.Ins.LoadWeaponInfo(collectedWeaponComponent.currentWeaponId, collectedWeaponComponent.currentWeaponLevel);
+          break;
+        }
+      }
+
+      if (canMerge) {
+        for (int i = 0; i < weaponInfoButtons.Length; i++) {
+          int position = i;
+          weaponInfoButtons[i].onClick.AddListener(() => UpdateWeaponInfoTexts(position));
+        }
+        UpdateWeaponLevelTexts();
+        CheckButtonWeapon();
+        SaveCollectedWeapons();
+        MessageDispatcher.SendMessage(Constants.Mess_UpdateDataWeapon);
+      }
     }
   }
 
@@ -197,7 +223,7 @@ public class PlayerWeapon : MonoBehaviour {
 
   private void RandomLevel(IMessage img) {
     randomLevel = UnityEngine.Random.Range(1, 5);
-    textLevel.text = "Level: " + randomLevel;
+    textLevel.text = "Level: " + (randomLevel + 1);
   }
 
   private void UpdateWeaponLevelTexts() {

@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour {
   private bool isFacingRight;
   private float damageInterval = 0.5f;
   private float lastDamageTime = 0.0f;
+  private bool isCollidingWithPlayer = false;
 
   private void OnValidate() {
     if (animator == null) {
@@ -86,13 +87,20 @@ public class Enemy : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag(Constants.Tag_Player)) {
+      isCollidingWithPlayer = true;
       MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
     }
   }
 
-  private void OnTriggerStay2D(Collider2D other) {
-    if (other.CompareTag(Constants.Tag_Player)) {
-      lastDamageTime += Time.deltaTime;
+  private void OnTriggerExit2D(Collider2D collision) {
+    if (collision.CompareTag(Constants.Tag_Player)) {
+      isCollidingWithPlayer = false;
+    }
+  }
+
+  private void FixedUpdate() {
+    if (isCollidingWithPlayer) {
+      lastDamageTime += Time.fixedDeltaTime;
       if (lastDamageTime >= damageInterval) {
         MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
         lastDamageTime = 0f;

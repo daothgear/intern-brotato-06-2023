@@ -6,6 +6,7 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
   public TimeManager timeManager;
   public UICombatTextManager combatTextManager;
   public PlayerExp playerExp;
+  public PlayerWeapon playerWeapon;
   
   private void OnValidate() {
     // find and assign reference here
@@ -24,6 +25,10 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
 
     if (playerExp == null) {
       playerExp = FindObjectOfType<PlayerExp>();
+    }
+
+    if (playerWeapon == null) {
+      playerWeapon = FindObjectOfType<PlayerWeapon>();
     }
   }
 }
