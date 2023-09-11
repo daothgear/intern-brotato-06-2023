@@ -21,11 +21,16 @@ public class Card : MonoBehaviour {
   private int nextWave = 3;
   private int doubleCoin = 3;
   
-  public void Awake() {
-    ButtonAddWeapon.text = (addWeapon * 10).ToString();
+  public void Start() {
     ButtonNextWave.text = (nextWave * 10).ToString();
     ButtonUplevel.text = (uplevel * 10).ToString();
     ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
+    
+    if (ReferenceHolder.Ins.playerWeapon.isBuydone == true) {
+      ButtonAddWeapon.text = (addWeapon * 10).ToString();
+    } else {
+      ButtonAddWeapon.text = "Max";
+    }
   }
 
   private int GetCost(int value) {
@@ -35,6 +40,7 @@ public class Card : MonoBehaviour {
   public void AddWeapon() {
     AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     int cost = GetCost(addWeapon);
+    MessageDispatcher.SendMessage("abc");
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       if (ReferenceHolder.Ins.playerWeapon.isBuydone == true) {
         addWeapon++;
