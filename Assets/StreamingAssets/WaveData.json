@@ -8,8 +8,8 @@
                 15.0
             ],
             "numSubWaves": 3,
-            "numEnemiesPerWave": 2,
-            "spawnDelay": 0.5
+            "numEnemiesPerWave": 1,
+            "spawnDelay": 0.4000000059604645
         }
     ]
 }
