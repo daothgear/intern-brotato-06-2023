@@ -40,7 +40,7 @@ public class Card : MonoBehaviour {
   public void AddWeapon() {
     AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     int cost = GetCost(addWeapon);
-    MessageDispatcher.SendMessage("abc");
+    MessageDispatcher.SendMessage(Constants.Mess_UpdateTextCoin);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       if (ReferenceHolder.Ins.playerWeapon.isBuydone == true) {
         addWeapon++;

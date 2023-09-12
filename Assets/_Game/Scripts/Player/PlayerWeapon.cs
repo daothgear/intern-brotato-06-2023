@@ -39,7 +39,7 @@ public class PlayerWeapon : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetWeapon);
     MessageDispatcher.AddListener(Constants.Mess_randomWeapon, RandomLevel);
-    MessageDispatcher.AddListener("abc",CheckCoinStart);
+    MessageDispatcher.AddListener(Constants.Mess_UpdateTextCoin,CheckCoinStart);
     UpdateWeaponLevelTexts();
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
       int position = i;

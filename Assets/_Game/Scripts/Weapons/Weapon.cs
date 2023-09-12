@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour {
   public float fireTimer;
   private float currentRotation;
   private float targetRotation;
-  private float speedRotation = 30f;
+  private float speedRotation = 10f;
   void Update() {
     fireTimer += Time.deltaTime;
     if (fireTimer >= weapon.firerate) {

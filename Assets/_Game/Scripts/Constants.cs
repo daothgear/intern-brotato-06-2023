@@ -33,6 +33,7 @@ public class Constants : MonoBehaviour {
   public const string Mess_doubleMoney = "doubleMoney";
   public const string Mess_randomWeapon = "RandomLevel";
   public const string Mess_UpdateDataWeapon = "UpdateDataWeapon";
+  public const string Mess_UpdateTextCoin = "UpdateTextCoin";
   //PrefKey
   public const string PrefsKey_Coin = "PlayerCoinAmount";
   public const string PrefsKey_PlayerExp = "PlayerExp";
