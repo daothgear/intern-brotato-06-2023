@@ -2,6 +2,7 @@ using com.ootii.Messages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class Card : MonoBehaviour {
   [SerializeField] private Text ButtonNextWave;
   [SerializeField] private Text ButtonAddWeapon;
   [SerializeField] private Text ButtonDoubleCoin;
+  [SerializeField] private TextMeshProUGUI textLevel;
+  public int randomLevel;
 
   private PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Ins;
@@ -22,16 +25,13 @@ public class Card : MonoBehaviour {
   private int doubleCoin = 3;
   
   public void Start() {
+    MessageDispatcher.AddListener(Constants.Mess_randomWeapon, RandomLevel);
+    textLevel.text = "Level: " + (randomLevel + 1);
     ButtonNextWave.text = (nextWave * 10).ToString();
     ButtonUplevel.text = (uplevel * 10).ToString();
     ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
-    
-    if (ReferenceHolder.Ins.playerWeapon.isBuydone == true) {
-      ButtonAddWeapon.text = (addWeapon * 10).ToString();
-    } else {
-      ButtonAddWeapon.text = "Max";
+    ButtonAddWeapon.text = (addWeapon * 10).ToString();
     }
-  }
 
   private int GetCost(int value) {
     return value * 10;
@@ -90,5 +90,10 @@ public class Card : MonoBehaviour {
     }
 
     ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
+  }
+  
+  private void RandomLevel(IMessage img) {
+    randomLevel = UnityEngine.Random.Range(1, 3);
+    textLevel.text = "Level: " + (randomLevel + 1);
   }
 }

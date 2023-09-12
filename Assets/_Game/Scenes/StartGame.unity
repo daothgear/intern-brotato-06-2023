@@ -27280,6 +27280,7 @@ MonoBehaviour:
   currentExp: 0
   playerExpSlider: {fileID: 599647140}
   textExp: {fileID: 1769298676}
+  maxLevel: 0
 --- !u!114 &1058422517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27352,7 +27353,7 @@ MonoBehaviour:
   - {fileID: 456052357}
   - {fileID: 1643285890}
   weaponInfoText: {fileID: 1968195218}
-  textLevel: {fileID: 775096280}
+  isBuydone: 1
 --- !u!1 &1105329708
 GameObject:
   m_ObjectHideFlags: 0
@@ -29354,6 +29355,8 @@ MonoBehaviour:
   ButtonNextWave: {fileID: 1754207569}
   ButtonAddWeapon: {fileID: 1471593787}
   ButtonDoubleCoin: {fileID: 483600640}
+  textLevel: {fileID: 775096280}
+  randomLevel: 0
 --- !u!1 &1611178427
 GameObject:
   m_ObjectHideFlags: 0
@@ -30726,6 +30729,9 @@ MonoBehaviour:
   playerTran: {fileID: 1058422510}
   timeManager: {fileID: 617973924}
   combatTextManager: {fileID: 1668993645}
+  playerExp: {fileID: 1058422515}
+  playerWeapon: {fileID: 1058422520}
+  card: {fileID: 1561028277}
 --- !u!4 &1829477220
 Transform:
   m_ObjectHideFlags: 0

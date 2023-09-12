@@ -24,8 +24,6 @@ public class PlayerWeapon : MonoBehaviour {
   private bool hasCreatedInitialWeapon = false;
   private PlayerData.PlayerInfo playerInfo;
   private WeaponData.WeaponInfo weaponinfo;
-  public TextMeshProUGUI textLevel;
-  private int randomLevel;
   public bool isBuydone = true;
 
   private void OnValidate() {
@@ -38,7 +36,6 @@ public class PlayerWeapon : MonoBehaviour {
     LoadCollectedWeapons();
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetWeapon);
-    MessageDispatcher.AddListener(Constants.Mess_randomWeapon, RandomLevel);
     MessageDispatcher.AddListener(Constants.Mess_UpdateTextCoin,CheckCoinStart);
     UpdateWeaponLevelTexts();
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
@@ -65,7 +62,7 @@ public class PlayerWeapon : MonoBehaviour {
       }
       else {
         Weapon newWeaponComponent = weaponPrefab.GetComponent<Weapon>();
-        newWeaponComponent.currentWeaponLevel = randomLevel;
+        newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
         bool canMerge = false;
 
         foreach (GameObject weapon in collectedWeapons) {
@@ -74,8 +71,6 @@ public class PlayerWeapon : MonoBehaviour {
           if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
             canMerge = true;
             collectedWeaponComponent.currentWeaponLevel++;
-            WeaponDataLoader.Ins.LoadWeaponInfo(collectedWeaponComponent.currentWeaponId,
-                collectedWeaponComponent.currentWeaponLevel);
             if (canMerge) {
               for (int i = 0; i < weaponInfoButtons.Length; i++) {
                 int position = i;
@@ -98,7 +93,7 @@ public class PlayerWeapon : MonoBehaviour {
   public void CheckCoinStart(IMessage img) {
     if (nextAvailableWeaponIndex == weaponPositions.Count) {
       Weapon newWeaponComponent = weaponPrefab.GetComponent<Weapon>();
-      newWeaponComponent.currentWeaponLevel = randomLevel;
+      newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
       foreach (GameObject weapon in collectedWeapons) {
         Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
         if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
@@ -140,7 +135,7 @@ public class PlayerWeapon : MonoBehaviour {
     GameObject newWeapon = Instantiate(weaponPrefab, position.position,
         position.rotation, position.parent);
     Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
-    weaponComponent.currentWeaponLevel = randomLevel;
+    weaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
     collectedWeapons.Add(newWeapon);
   }
 
@@ -185,7 +180,6 @@ public class PlayerWeapon : MonoBehaviour {
         CreateWeaponAtPosition(weaponPrefab, weaponPositions[0]);
         Weapon weaponComponent = collectedWeapons[0].GetComponent<Weapon>();
         weaponComponent.currentWeaponLevel = 1;
-        WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
         nextAvailableWeaponIndex++;
       }
 
@@ -193,7 +187,6 @@ public class PlayerWeapon : MonoBehaviour {
         CreateWeaponAtPosition(weaponPrefab, weaponPositions[1]);
         Weapon weaponComponent = collectedWeapons[1].GetComponent<Weapon>();
         weaponComponent.currentWeaponLevel = 2;
-        WeaponDataLoader.Ins.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
         nextAvailableWeaponIndex++;
       }
     }
@@ -252,11 +245,7 @@ public class PlayerWeapon : MonoBehaviour {
       }
     }
   }
-
-  private void RandomLevel(IMessage img) {
-    randomLevel = UnityEngine.Random.Range(1, 5);
-    textLevel.text = "Level: " + (randomLevel + 1);
-  }
+  
 
   private void UpdateWeaponLevelTexts() {
     for (int i = 0; i < weaponInfoTexts.Length; i++) {
