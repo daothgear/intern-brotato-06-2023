@@ -24,8 +24,11 @@ public class Card : MonoBehaviour {
   private int nextWave = 3;
   private int doubleCoin = 3;
   
+  public void Awake() {
+    MessageDispatcher.AddListener(Constants.Mess_randomWeapon,RandomLevel);
+  }
+
   public void Start() {
-    MessageDispatcher.AddListener(Constants.Mess_randomWeapon, RandomLevel);
     textLevel.text = "Level: " + (randomLevel + 1);
     ButtonNextWave.text = (nextWave * 10).ToString();
     ButtonUplevel.text = (uplevel * 10).ToString();
@@ -95,5 +98,6 @@ public class Card : MonoBehaviour {
   private void RandomLevel(IMessage img) {
     randomLevel = UnityEngine.Random.Range(1, 3);
     textLevel.text = "Level: " + (randomLevel + 1);
+    MessageDispatcher.SendMessage(Constants.Mess_LevelWeapon,randomLevel);
   }
 }

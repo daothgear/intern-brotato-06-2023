@@ -32,7 +32,7 @@ public class Weapon : MonoBehaviour {
 
   void Start() {
     weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
-    MessageDispatcher.AddListener("UpdateDataWeapon", UpdateInfo);
+    MessageDispatcher.AddListener(Constants.Mess_UpdateDataWeapon, UpdateInfo);
   }
   
   void FindAndFireAtTarget() {

@@ -25,7 +25,7 @@ public class PlayerWeapon : MonoBehaviour {
   private PlayerData.PlayerInfo playerInfo;
   private WeaponData.WeaponInfo weaponinfo;
   public bool isBuydone = true;
-
+  public int levelrandom;
   private void OnValidate() {
     if (playerHealth == null) {
       playerHealth = GetComponent<PlayerHealth>();
@@ -37,6 +37,7 @@ public class PlayerWeapon : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetWeapon);
     MessageDispatcher.AddListener(Constants.Mess_UpdateTextCoin,CheckCoinStart);
+    MessageDispatcher.AddListener(Constants.Mess_LevelWeapon, SetDataLevel);
     UpdateWeaponLevelTexts();
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
       int position = i;
@@ -51,6 +52,9 @@ public class PlayerWeapon : MonoBehaviour {
     CheckAndMergeWeapons();
   }
 
+  private void SetDataLevel(IMessage msg) {
+    levelrandom = (int)msg.Data;
+  }
   public void AddWeapon(IMessage msg) {
     if (isBuydone == true) {
       if (nextAvailableWeaponIndex < weaponPositions.Count && weaponPositions[nextAvailableWeaponIndex] != null) {
@@ -62,7 +66,7 @@ public class PlayerWeapon : MonoBehaviour {
       }
       else {
         Weapon newWeaponComponent = weaponPrefab.GetComponent<Weapon>();
-        newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
+        newWeaponComponent.currentWeaponLevel = levelrandom;
         bool canMerge = false;
 
         foreach (GameObject weapon in collectedWeapons) {
@@ -88,7 +92,7 @@ public class PlayerWeapon : MonoBehaviour {
   public void CheckCoinStart(IMessage img) {
     if (nextAvailableWeaponIndex == weaponPositions.Count) {
       Weapon newWeaponComponent = weaponPrefab.GetComponent<Weapon>();
-      newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
+      newWeaponComponent.currentWeaponLevel = levelrandom;
       foreach (GameObject weapon in collectedWeapons) {
         Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
         if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {

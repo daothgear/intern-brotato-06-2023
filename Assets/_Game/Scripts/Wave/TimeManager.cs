@@ -46,6 +46,7 @@ public class TimeManager : MonoBehaviour {
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_playerDie, Stoptime);
+    MessageDispatcher.RemoveListener(Constants.Mess_nextwave, UpWave);
   }
 
   private void Update() {
