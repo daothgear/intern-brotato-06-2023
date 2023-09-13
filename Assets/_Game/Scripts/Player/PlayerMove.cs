@@ -27,8 +27,9 @@ public class PlayerMove : MonoBehaviour {
   }
 
   private void Move() {
-    Vector2 movement = new Vector2(joystick.Horizontal, joystick.Vertical) * playerLoader.speed;
-    rb.velocity = movement;
+    Vector2 movement = new Vector2(joystick.Horizontal, joystick.Vertical);
+    Vector2 newPosition = rb.position + movement * (playerLoader.speed * Time.fixedDeltaTime);
+    rb.MovePosition(newPosition);
 
     if (movement.magnitude > 0) {
       animator.SetTrigger(Constants.Anim_PlayerWalk);
