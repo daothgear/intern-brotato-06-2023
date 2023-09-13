@@ -72,11 +72,6 @@ public class PlayerWeapon : MonoBehaviour {
             canMerge = true;
             collectedWeaponComponent.currentWeaponLevel++;
             if (canMerge) {
-              for (int i = 0; i < weaponInfoButtons.Length; i++) {
-                int position = i;
-                weaponInfoButtons[i].onClick.AddListener(() => UpdateWeaponInfoTexts(position));
-              }
-
               UpdateWeaponLevelTexts();
               CheckButtonWeapon();
               SaveCollectedWeapons();

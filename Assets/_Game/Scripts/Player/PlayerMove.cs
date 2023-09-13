@@ -8,16 +8,17 @@ public class PlayerMove : MonoBehaviour {
   [SerializeField] private Animator animator;
   [SerializeField] private Joystick joystick;
 
-  [SerializeField] private Transform pointLeft;
-  [SerializeField] private Transform pointRight;
-  [SerializeField] private Transform pointTop;
-  [SerializeField] private Transform pointDown;
-
   private bool isFacingRight = true;
+
+  private Rigidbody2D rb;
 
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponent<Animator>();
+    }
+
+    if (rb == null) {
+      rb = GetComponent<Rigidbody2D>();
     }
   }
   
@@ -26,13 +27,8 @@ public class PlayerMove : MonoBehaviour {
   }
 
   private void Move() {
-    Vector3 movement = new Vector3(joystick.Horizontal, joystick.Vertical, 0) * Time.deltaTime * playerLoader.speed;
-    Vector3 newPosition = transform.position + movement;
-
-    newPosition.x = Mathf.Clamp(newPosition.x, pointLeft.position.x, pointRight.position.x);
-    newPosition.y = Mathf.Clamp(newPosition.y, pointDown.position.y, pointTop.position.y);
-
-    transform.position = newPosition;
+    Vector2 movement = new Vector2(joystick.Horizontal, joystick.Vertical) * playerLoader.speed;
+    rb.velocity = movement;
 
     if (movement.magnitude > 0) {
       animator.SetTrigger(Constants.Anim_PlayerWalk);
@@ -48,7 +44,7 @@ public class PlayerMove : MonoBehaviour {
       Flip();
     }
   }
-  
+
   private void Flip() {
     isFacingRight = !isFacingRight;
     Vector3 scale = transform.localScale;
