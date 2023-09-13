@@ -29,6 +29,7 @@ public class PlayerHealth : MonoBehaviour {
     PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
     UiEndGame.SetActive(die);
     currentHealth = playerLoader.maxHealth;
+    UpdateHealthUI();
     MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
     MessageDispatcher.AddListener(Constants.Mess_resetHealth, ResetHealth);
   }
@@ -37,11 +38,6 @@ public class PlayerHealth : MonoBehaviour {
     MessageDispatcher.RemoveListener(Constants.Mess_playerTakeDamage, TakeDamage);
     MessageDispatcher.RemoveListener(Constants.Mess_resetHealth, ResetHealth);
   }
-  
-  private void Update() {
-    UpdateHealthUI();
-  }
-
   public void UpdateHealthUI() {
     playerHealthSlider.maxValue = playerLoader.maxHealth;
     playerHealthSlider.value = currentHealth;
