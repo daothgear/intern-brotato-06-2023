@@ -134,14 +134,14 @@ public class PlayerWeapon : MonoBehaviour {
     GameObject newWeapon = Instantiate(weaponPrefab, position.position,
         position.rotation, position.parent);
     Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
-    weaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
+    weaponComponent.currentWeaponLevel = levelrandom;
     collectedWeapons.Add(newWeapon);
   }
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_addWeapon, AddWeapon);
     MessageDispatcher.RemoveListener(Constants.Mess_playerDie, ResetWeapon);
-    SaveCollectedWeapons();
+    MessageDispatcher.RemoveListener(Constants.Mess_LevelWeapon, SetDataLevel);
   }
 
   private void SaveCollectedWeapons() {
@@ -214,6 +214,7 @@ public class PlayerWeapon : MonoBehaviour {
         }
       }
     }
+    SaveCollectedWeapons();
   }
 
   private void UpdateWeaponInfoTexts(int position) {
