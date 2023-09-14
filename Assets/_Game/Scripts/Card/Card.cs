@@ -28,6 +28,10 @@ public class Card : MonoBehaviour {
     MessageDispatcher.AddListener(Constants.Mess_randomWeapon,RandomLevel);
   }
 
+  public void OnDestroy() {
+    MessageDispatcher.RemoveListener(Constants.Mess_randomWeapon,RandomLevel);
+  }
+
   public void Start() {
     textLevel.text = "Level: " + (randomLevel + 1);
     ButtonNextWave.text = (nextWave * 10).ToString();
@@ -98,6 +102,6 @@ public class Card : MonoBehaviour {
   private void RandomLevel(IMessage img) {
     randomLevel = UnityEngine.Random.Range(1, 3);
     textLevel.text = "Level: " + (randomLevel + 1);
-    MessageDispatcher.SendMessage(Constants.Mess_LevelWeapon,randomLevel);
+    MessageDispatcher.SendMessage(gameObject,Constants.Mess_LevelWeapon,gameObject.GetComponent<Card>().randomLevel,0);
   }
 }

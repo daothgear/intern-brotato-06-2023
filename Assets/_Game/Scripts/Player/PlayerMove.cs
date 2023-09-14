@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour {
 
   private bool isFacingRight = true;
 
-  private Rigidbody2D rb;
+  [SerializeField] private Rigidbody2D rb;
 
   private void OnValidate() {
     if (animator == null) {
