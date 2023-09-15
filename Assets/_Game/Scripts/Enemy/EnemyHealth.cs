@@ -27,15 +27,15 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   public void MakeDead() {
-    ObjectPool.Ins.ReturnToPool(Constants.Tag_Enemy, gameObject);
-    ObjectPool.Ins.enemyList.Remove(gameObject);
     ResetEnemy();
+    ObjectPool.Ins.ReturnToPool(Constants.Tag_Enemy, gameObject);
   }
 
   public void TakeDamage(int weaponDamage) {
     currentHealth -= weaponDamage;
     ReferenceHolder.Ins.combatTextManager.CreateUICombatText(transform.position , $"-{weaponDamage}" , Color.black);
     if (currentHealth <= 0) {
+      ObjectPool.Ins.enemyList.Remove(gameObject);
       if (isAdd == true) {
         MessageDispatcher.SendMessage(Constants.Mess_addExp);
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
@@ -43,7 +43,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
       }
 
       enemy.currentState = Enemy.EnemyState.Dead;
-      Invoke("MakeDead", 1f);
+      Invoke("MakeDead", 0.5f);
     }
   }
 
@@ -53,7 +53,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void ResetEnemyState() {
-    enemy.currentState = Enemy.EnemyState.Idle;
+    enemy.currentState = Enemy.EnemyState.Walk;
   }
 
   private void ResetHealth() {

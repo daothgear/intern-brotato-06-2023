@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCoin : Singleton<PlayerCoin> {
-  private int coinAmount = 0;
+  public int coinAmount;
   [SerializeField] private Text textCoin;
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
@@ -41,6 +41,9 @@ public class PlayerCoin : Singleton<PlayerCoin> {
 
   private void AddCoin(IMessage img) {
     coinAmount *= 2;
+    if (coinAmount < 0) {
+      coinAmount = Int32.MaxValue;
+    }
     textCoin.text = coinAmount.ToString();
     SaveCoinAmount();
   }

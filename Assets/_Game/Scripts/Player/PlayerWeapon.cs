@@ -10,6 +10,7 @@ public class WeaponPositionInfo {
   public Transform positionWeapon;
   public int currentLevelWeapon;
 }
+
 public class PlayerWeapon : MonoBehaviour {
   public List<Transform> weaponPositions = new List<Transform>();
   public List<WeaponPositionInfo> weaponPositionInfo = new List<WeaponPositionInfo>();
@@ -23,8 +24,8 @@ public class PlayerWeapon : MonoBehaviour {
   private bool hasCreatedInitialWeapon = false;
   private PlayerData.PlayerInfo playerInfo;
   private WeaponData.WeaponInfo weaponinfo;
-  public TextMeshProUGUI textLevel;
-  private int randomLevel;
+  public bool isBuydone = true;
+  public int levelrandom;
   private void OnValidate() {
     if (playerHealth == null) {
       playerHealth = GetComponent<PlayerHealth>();
@@ -32,14 +33,18 @@ public class PlayerWeapon : MonoBehaviour {
   }
 
   private void Start() {
+    LoadCollectedWeapons();
     MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetWeapon);
-    MessageDispatcher.AddListener(Constants.Mess_randomWeapon, RandomLevel);
-    LoadCollectedWeapons();
+    MessageDispatcher.AddListener(Constants.Mess_UpdateTextCoin,CheckCoinStart);
+    MessageDispatcher.AddListener(Constants.Mess_LevelWeapon, SetDataLevel);
+    UpdateWeaponLevelTexts();
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
       int position = i;
       weaponInfoButtons[i].onClick.AddListener(() => UpdateWeaponInfoTexts(position));
+      AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     }
+
     CheckButtonWeapon();
   }
 
@@ -47,11 +52,59 @@ public class PlayerWeapon : MonoBehaviour {
     CheckAndMergeWeapons();
   }
 
+  private void SetDataLevel(IMessage msg) {
+    levelrandom = (int)msg.Data;
+  }
   public void AddWeapon(IMessage msg) {
-    if (nextAvailableWeaponIndex < weaponPositions.Count && weaponPositions[nextAvailableWeaponIndex] != null) {
-      CreateWeaponAtPosition(weaponPrefab, weaponPositions[nextAvailableWeaponIndex]);
-      nextAvailableWeaponIndex++;
-      CheckButtonWeapon();
+    if (isBuydone == true) {
+      if (nextAvailableWeaponIndex < weaponPositions.Count && weaponPositions[nextAvailableWeaponIndex] != null) {
+        CreateWeaponAtPosition(weaponPrefab, weaponPositions[nextAvailableWeaponIndex]);
+        nextAvailableWeaponIndex++;
+        UpdateWeaponLevelTexts();
+        CheckButtonWeapon();
+        SaveCollectedWeapons();
+      }
+      else {
+        Weapon newWeaponComponent = weaponPrefab.GetComponent<Weapon>();
+        newWeaponComponent.currentWeaponLevel = levelrandom;
+        bool canMerge = false;
+
+        foreach (GameObject weapon in collectedWeapons) {
+          Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
+
+          if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
+            canMerge = true;
+            collectedWeaponComponent.currentWeaponLevel++;
+            if (canMerge) {
+              UpdateWeaponLevelTexts();
+              CheckButtonWeapon();
+              SaveCollectedWeapons();
+              MessageDispatcher.SendMessage(Constants.Mess_UpdateDataWeapon);
+            }
+
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  public void CheckCoinStart(IMessage img) {
+    if (nextAvailableWeaponIndex == weaponPositions.Count) {
+      Weapon newWeaponComponent = weaponPrefab.GetComponent<Weapon>();
+      newWeaponComponent.currentWeaponLevel = levelrandom;
+      foreach (GameObject weapon in collectedWeapons) {
+        Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
+        if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
+          isBuydone = true;
+          return;
+        }
+
+        isBuydone = false;
+      }
+    }
+    else {
+      isBuydone = true;
     }
   }
 
@@ -67,26 +120,28 @@ public class PlayerWeapon : MonoBehaviour {
           collectedWeapons.RemoveAt(j);
           Destroy(weaponB);
           weaponComponentA.currentWeaponLevel++;
-          MessageDispatcher.SendMessage("UpdateDataWeapon");
+          MessageDispatcher.SendMessage(Constants.Mess_UpdateDataWeapon);
           nextAvailableWeaponIndex--;
+          UpdateWeaponLevelTexts();
           CheckButtonWeapon();
         }
       }
     }
   }
 
+
   private void CreateWeaponAtPosition(GameObject weaponPrefab, Transform position) {
     GameObject newWeapon = Instantiate(weaponPrefab, position.position,
         position.rotation, position.parent);
     Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
-    weaponComponent.currentWeaponLevel = randomLevel;
+    weaponComponent.currentWeaponLevel = levelrandom;
     collectedWeapons.Add(newWeapon);
   }
-  
+
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_addWeapon, AddWeapon);
     MessageDispatcher.RemoveListener(Constants.Mess_playerDie, ResetWeapon);
-    SaveCollectedWeapons();
+    MessageDispatcher.RemoveListener(Constants.Mess_LevelWeapon, SetDataLevel);
   }
 
   private void SaveCollectedWeapons() {
@@ -119,7 +174,23 @@ public class PlayerWeapon : MonoBehaviour {
         }
       }
     }
+    else {
+      if (weaponPositions.Count > 0 && weaponPositions[0] != null) {
+        CreateWeaponAtPosition(weaponPrefab, weaponPositions[0]);
+        Weapon weaponComponent = collectedWeapons[0].GetComponent<Weapon>();
+        weaponComponent.currentWeaponLevel = 1;
+        nextAvailableWeaponIndex++;
+      }
+
+      if (weaponPositions.Count > 1 && weaponPositions[1] != null) {
+        CreateWeaponAtPosition(weaponPrefab, weaponPositions[1]);
+        Weapon weaponComponent = collectedWeapons[1].GetComponent<Weapon>();
+        weaponComponent.currentWeaponLevel = 2;
+        nextAvailableWeaponIndex++;
+      }
+    }
   }
+
   private void ResetWeapon(IMessage msg) {
     foreach (GameObject weapon in collectedWeapons) {
       Destroy(weapon);
@@ -143,6 +214,7 @@ public class PlayerWeapon : MonoBehaviour {
         }
       }
     }
+    SaveCollectedWeapons();
   }
 
   private void UpdateWeaponInfoTexts(int position) {
@@ -152,7 +224,7 @@ public class PlayerWeapon : MonoBehaviour {
       weaponinfo = weaponDataLoader.LoadWeaponInfo(weaponComponent.currentWeaponId, weaponComponent.currentWeaponLevel);
       weaponInfoText.text = "Position: " + position +
                             "\nID: " + weaponComponent.currentWeaponId +
-                            "\nLevel: " + weaponComponent.currentWeaponLevel +
+                            "\nLevel: " + (weaponComponent.currentWeaponLevel + 1) +
                             "\nDamage: " + weaponinfo.damage +
                             "\nRange: " + weaponinfo.attackRange +
                             "\nFirerate: " + weaponinfo.firerate +
@@ -162,7 +234,7 @@ public class PlayerWeapon : MonoBehaviour {
       weaponInfoText.text = "You don't have any weapons in this position";
     }
   }
-  
+
   private void CheckButtonWeapon() {
     for (int i = 0; i < weaponInfoButtons.Length; i++) {
       if (i < collectedWeapons.Count) {
@@ -173,9 +245,17 @@ public class PlayerWeapon : MonoBehaviour {
       }
     }
   }
+  
 
-  private void RandomLevel(IMessage img) {
-    randomLevel = UnityEngine.Random.Range(1, 5);
-    textLevel.text = "Level: " + randomLevel;
+  private void UpdateWeaponLevelTexts() {
+    for (int i = 0; i < weaponInfoTexts.Length; i++) {
+      if (i < collectedWeapons.Count) {
+        Weapon weaponComponent = collectedWeapons[i].GetComponent<Weapon>();
+        weaponInfoTexts[i].text = "Weapon Level: " + (weaponComponent.currentWeaponLevel + 1);
+      }
+      else {
+        weaponInfoTexts[i].text = "";
+      }
+    }
   }
 }

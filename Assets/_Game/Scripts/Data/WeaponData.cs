@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class WeaponData {
-  public WeaponInfo[] weaponInfo;
+  public List<WeaponInfo> weaponInfo;
 
   [System.Serializable]
   public class WeaponInfo {
