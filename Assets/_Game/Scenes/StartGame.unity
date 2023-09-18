@@ -25337,7 +25337,6 @@ MonoBehaviour:
   currentSubWave: 0
   wallCheck: {fileID: 1105329708}
   textWave: {fileID: 617973926}
-  UIShop: {fileID: 516717796}
 --- !u!114 &617973925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27155,11 +27154,13 @@ GameObject:
   - component: {fileID: 1058422508}
   - component: {fileID: 1058422512}
   - component: {fileID: 1058422513}
+  - component: {fileID: 1058422522}
   - component: {fileID: 1058422511}
   - component: {fileID: 1058422517}
   - component: {fileID: 1058422515}
   - component: {fileID: 1058422519}
   - component: {fileID: 1058422520}
+  - component: {fileID: 1058422524}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -27267,8 +27268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1a9ed922faf4f418aeb5b20c9726d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1058422513}
-  joystick: {fileID: 149279359}
 --- !u!61 &1058422512
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27327,10 +27326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab9f4b60784a3640b1ed67fbdc4c21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentExp: 0
-  playerExpSlider: {fileID: 599647140}
-  textExp: {fileID: 1769298676}
-  maxLevel: 0
 --- !u!114 &1058422517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27343,11 +27338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f4f5d57da5e5a4e8ba1bfe89b47cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  die: 0
-  UiEndGame: {fileID: 1134331264}
-  playerHealthSlider: {fileID: 849933767}
-  textHealth: {fileID: 1787223260}
 --- !u!114 &1058422519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27360,8 +27350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4daa081064444dabf49c0ecbbb7feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinAmount: 0
-  textCoin: {fileID: 892613999}
 --- !u!114 &1058422520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27374,6 +27362,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe95ea96330ac4a8cb67d023b68604fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1058422522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058422507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03543e24acfe446e2911c1e77a1a2132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1058422513}
+  joystick: {fileID: 149279359}
+  rb: {fileID: 1058422508}
+  isFacingRight: 1
+  currentHealth: 0
+  die: 1
+  playerExp: {fileID: 1058422515}
+  playerHealthSlider: {fileID: 849933767}
+  textHealth: {fileID: 1787223260}
+  currentExp: 0
+  maxLevel: 0
+  playerExpSlider: {fileID: 599647140}
+  textExp: {fileID: 1769298676}
+  coinAmount: 0
+  textCoin: {fileID: 892613999}
   weaponPositions:
   - {fileID: 1307084193}
   - {fileID: 143151996}
@@ -27386,7 +27401,11 @@ MonoBehaviour:
     currentLevelWeapon: 0
   - positionWeapon: {fileID: 143151996}
     currentLevelWeapon: 1
+  collectedWeapons: []
   weaponPrefab: {fileID: 5829852352044861097, guid: 1239ec2e202e34506ab4965e216459e4, type: 3}
+  nextAvailableWeaponIndex: 0
+  isBuydone: 1
+  levelrandom: 0
   weaponInfoTexts:
   - {fileID: 2088271449}
   - {fileID: 1336728190}
@@ -27394,7 +27413,7 @@ MonoBehaviour:
   - {fileID: 1037009045}
   - {fileID: 691188113}
   - {fileID: 1397103291}
-  nextAvailableWeaponIndex: 0
+  weaponInfoText: {fileID: 1968195218}
   weaponInfoButtons:
   - {fileID: 626389880}
   - {fileID: 1495854306}
@@ -27402,9 +27421,28 @@ MonoBehaviour:
   - {fileID: 1714763590}
   - {fileID: 456052357}
   - {fileID: 1643285890}
-  weaponInfoText: {fileID: 1968195218}
-  isBuydone: 1
-  levelrandom: 0
+  weaponinfo:
+    weaponID: 0
+    currentlevel: 0
+    firerate: 0
+    cost: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    pierce: 0
+    pierceDamageReduce: 0
+--- !u!114 &1058422524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058422507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decf37f0cb9b345fea8411183b0dfaac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1105329708
 GameObject:
   m_ObjectHideFlags: 0
@@ -29063,6 +29101,7 @@ GameObject:
   - component: {fileID: 1498001232}
   - component: {fileID: 1498001231}
   - component: {fileID: 1498001230}
+  - component: {fileID: 1498001234}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -29159,6 +29198,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1498001234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498001229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc6e8528d44748d3be41e8c3f49d562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UiEndGame: {fileID: 1134331264}
+  UIShop: {fileID: 516717796}
 --- !u!1 &1509087805
 GameObject:
   m_ObjectHideFlags: 0
@@ -29355,6 +29408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1561028276}
   - component: {fileID: 1561028277}
+  - component: {fileID: 1561028278}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -29402,12 +29456,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7d3d3001baa4d3c9d315a7ee687a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomLevel: 0
+  addWeapon: 2
+  uplevel: 3
+  nextWave: 3
+  doubleCoin: 3
+--- !u!114 &1561028278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561028275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c42639af47f4377b4afd4864384024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   ButtonUplevel: {fileID: 1253285651}
   ButtonNextWave: {fileID: 1754207569}
   ButtonAddWeapon: {fileID: 1471593787}
   ButtonDoubleCoin: {fileID: 483600640}
   textLevel: {fileID: 775096280}
-  randomLevel: 0
 --- !u!1 &1611178427
 GameObject:
   m_ObjectHideFlags: 0
@@ -30810,6 +30880,8 @@ MonoBehaviour:
   playerExp: {fileID: 1058422515}
   playerWeapon: {fileID: 1058422520}
   card: {fileID: 1561028277}
+  uicontroller: {fileID: 1498001234}
+  player: {fileID: 1058422522}
 --- !u!4 &1829477220
 Transform:
   m_ObjectHideFlags: 0

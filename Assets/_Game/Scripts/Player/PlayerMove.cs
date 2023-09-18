@@ -1,53 +1,40 @@
-using System;
-using System.Security.Cryptography;
 using UnityEngine;
-using com.ootii.Messages;
 
 public class PlayerMove : MonoBehaviour {
-  private PlayerDataLoader playerLoader { get => PlayerDataLoader.Ins; }
-  [SerializeField] private Animator animator;
-  [SerializeField] private Joystick joystick;
-
-  private bool isFacingRight = true;
-
-  [SerializeField] private Rigidbody2D rb;
+  private Player player;
 
   private void OnValidate() {
-    if (animator == null) {
-      animator = GetComponent<Animator>();
-    }
-
-    if (rb == null) {
-      rb = GetComponent<Rigidbody2D>();
+    if (player == null) {
+      player = GetComponent<Player>();
     }
   }
-  
+
   private void Update() {
     Move();
   }
 
   private void Move() {
-    Vector2 movement = new Vector2(joystick.Horizontal, joystick.Vertical);
-    Vector2 newPosition = rb.position + movement * (playerLoader.speed * Time.fixedDeltaTime);
-    rb.MovePosition(newPosition);
+    Vector2 movement = new Vector2(player.joystick.Horizontal, player.joystick.Vertical);
+    Vector2 newPosition = player.rb.position + movement * (player.playerLoader.speed * Time.fixedDeltaTime);
+    player.rb.MovePosition(newPosition);
 
     if (movement.magnitude > 0) {
-      animator.SetTrigger(Constants.Anim_PlayerWalk);
+      player.animator.SetTrigger(Constants.Anim_PlayerWalk);
     }
     else {
-      animator.SetTrigger(Constants.Anim_PlayerIdle);
+      player.animator.SetTrigger(Constants.Anim_PlayerIdle);
     }
 
-    if (joystick.Horizontal < 0 && isFacingRight) {
+    if (player.joystick.Horizontal < 0 && player.isFacingRight) {
       Flip();
     }
-    else if (joystick.Horizontal > 0 && !isFacingRight) {
+    else if (player.joystick.Horizontal > 0 && !player.isFacingRight) {
       Flip();
     }
   }
 
   private void Flip() {
-    isFacingRight = !isFacingRight;
+    player.isFacingRight = !player.isFacingRight;
     Vector3 scale = transform.localScale;
     scale.x *= -1;
     transform.localScale = scale;

@@ -20,12 +20,10 @@ public class TimeManager : MonoBehaviour {
   }
 
   public TextWave textWave;
-  [SerializeField] private GameObject UIShop;
 
   // Flag to control time updates
   private bool isTimeStopped = false;
   private bool isSpawnEnemy;
-
   private void OnValidate() {
     if (textWave == null) {
       textWave = GetComponent<TextWave>();
@@ -63,7 +61,7 @@ public class TimeManager : MonoBehaviour {
 
   private void StartWave() {
     if (currentSubWave == 0) {
-      UIShop.SetActive(false);
+      ReferenceHolder.Ins.uicontroller.UIShop.SetActive(false);
       isSpawnEnemy = true;
     }
 
@@ -97,7 +95,7 @@ public class TimeManager : MonoBehaviour {
     MessageDispatcher.SendMessage(Constants.Mess_resetHealth);
     textWave.UpdateText();
     StartWave();
-    UIShop.SetActive(false);
+    ReferenceHolder.Ins.uicontroller.UIShop.SetActive(false);
 
     // Save PlayerPrefs data
     SavePlayerPrefsData();
@@ -161,14 +159,14 @@ public class TimeManager : MonoBehaviour {
 
   private void ShowShop() {
     // Show the UI shop
-    UIShop.SetActive(true);
+    ReferenceHolder.Ins.uicontroller.UIShop.SetActive(true);
     isSpawnEnemy = false;
     MessageDispatcher.SendMessage(Constants.Mess_randomWeapon);
     MessageDispatcher.SendMessage(Constants.Mess_UpdateTextCoin);
   }
 
   private void Stoptime(IMessage img) {
-    UIShop.SetActive(false);
+    ReferenceHolder.Ins.uicontroller.UIShop.SetActive(false);
     isSpawnEnemy = false;
     isTimeStopped = true;
     ClearEnemies();
@@ -181,7 +179,7 @@ public class TimeManager : MonoBehaviour {
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentWave, waveDataLoader.currentWave);
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentSubWave, currentSubWave);
     PlayerPrefs.SetFloat(Constants.PrefsKey_TotalTimer, totalTimer);
-    PlayerPrefs.SetInt(Constants.PrefsKey_ShopState, UIShop.activeSelf ? 1 : 0);
+    PlayerPrefs.SetInt(Constants.PrefsKey_ShopState, ReferenceHolder.Ins.uicontroller.UIShop.activeSelf ? 1 : 0);
   }
 
   private void LoadPlayerPrefsData() {
@@ -189,6 +187,6 @@ public class TimeManager : MonoBehaviour {
     currentSubWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentSubWave, 0);
     totalTimer = PlayerPrefs.GetFloat(Constants.PrefsKey_TotalTimer, CalculateTotalTimer());
     int shopState = PlayerPrefs.GetInt(Constants.PrefsKey_ShopState, 0);
-    UIShop.SetActive(shopState == 1);
+    ReferenceHolder.Ins.uicontroller.UIShop.SetActive(shopState == 1);
   }
 }

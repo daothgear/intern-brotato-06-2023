@@ -1,81 +1,69 @@
-using System;
 using com.ootii.Messages;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerExp : MonoBehaviour {
-  [SerializeField] private int currentExp;
-  [SerializeField] private Slider playerExpSlider;
-  [SerializeField] private Text textExp;
-  public int maxLevel;
-  private PlayerDataLoader playerLoader {
-    get => PlayerDataLoader.Ins;
-  }
+  private Player player;
+  private PlayerUi playerUi;
 
-  private EnemyDataLoader enemyLoader {
-    get => EnemyDataLoader.Ins;
+  private void OnValidate() {
+    if (player == null) {
+      player = GetComponent<Player>();
+    }
+
+    if (playerUi == null) {
+      playerUi = GetComponent<PlayerUi>();
+    }
   }
 
   private void Awake() {
     LoadLevel();
-    PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
-    maxLevel = PlayerDataLoader.Ins.GetLastPlayerID();
+    PlayerDataLoader.Ins.LoadCharacterInfo(player.playerLoader.characterLevel);
+    player.maxLevel = PlayerDataLoader.Ins.GetLastPlayerID();
   }
 
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
-    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp); 
+    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetLevel);
-    UpdateExpUI();
+    playerUi.UpdateExpUI();
   }
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_addExp, AddExp);
-    MessageDispatcher.RemoveListener(Constants.Mess_plus1Level, LevelUp); 
-  }
-
-  
-  private void UpdateExpUI() {
-    if (playerLoader.characterLevel == maxLevel) {
-      textExp.text = "LV. Max";
-    }
-    else {
-      playerExpSlider.maxValue = playerLoader.maxExp;
-      playerExpSlider.value = currentExp;
-      textExp.text = "LV." + (playerLoader.characterLevel + 1);
-    }
+    MessageDispatcher.RemoveListener(Constants.Mess_plus1Level, LevelUp);
   }
 
   public void AddExp(IMessage img) {
-    if (playerLoader.characterLevel == maxLevel) {
-      playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
+    if (player.playerLoader.characterLevel == player.maxLevel) {
+      player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
     }
     else {
-      currentExp += enemyLoader.enemyExp;
-      while (currentExp >= playerLoader.maxExp) {
-        playerLoader.characterLevel++;
-        currentExp -= playerLoader.maxExp;
-        playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
+      player.currentExp += player.enemyLoader.enemyExp;
+      while (player.currentExp >= player.playerLoader.maxExp) {
+        player.playerLoader.characterLevel++;
+        player.currentExp -= player.playerLoader.maxExp;
+        player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
       }
     }
+
     SaveLevel();
-    UpdateExpUI();
+    playerUi.UpdateExpUI();
   }
 
   public void LevelUp(IMessage msg) {
-    playerLoader.characterLevel++;
-    playerLoader.LoadCharacterInfo(playerLoader.characterLevel);
+    player.playerLoader.characterLevel++;
+    player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
     SaveLevel();
-    UpdateExpUI();
+    playerUi.UpdateExpUI();
   }
-  
+
   private void SaveLevel() {
-    PlayerPrefs.SetInt(Constants.PrefsKey_PlayerExp, playerLoader.characterLevel);
+    PlayerPrefs.SetInt(Constants.PrefsKey_PlayerExp, player.playerLoader.characterLevel);
   }
 
   private void LoadLevel() {
     if (PlayerPrefs.HasKey(Constants.PrefsKey_PlayerExp)) {
-      playerLoader.characterLevel = PlayerPrefs.GetInt(Constants.PrefsKey_PlayerExp);
+      player.playerLoader.characterLevel = PlayerPrefs.GetInt(Constants.PrefsKey_PlayerExp);
     }
   }
 
