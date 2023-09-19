@@ -1,29 +1,28 @@
-using com.ootii.Messages;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using com.ootii.Messages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Card : MonoBehaviour {
-  
-  [SerializeField] private Text ButtonUplevel;
-  [SerializeField] private Text ButtonNextWave;
-  [SerializeField] private Text ButtonAddWeapon;
-  [SerializeField] private Text ButtonDoubleCoin;
-  [SerializeField] private TextMeshProUGUI textLevel;
   public int randomLevel;
-
   private PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Ins;
   }
+
+  private CardUi cardUi;
   
-  private int addWeapon = 2;
-  private int uplevel = 3;
-  private int nextWave = 3;
-  private int doubleCoin = 3;
-  
+  public int addWeapon = 2;
+  public int uplevel = 3;
+  public int nextWave = 3;
+  public int doubleCoin = 3;
+
+  private void OnValidate() {
+    if (cardUi == null) {
+      cardUi = GetComponent<CardUi>();
+    }
+  }
+
   public void Awake() {
     MessageDispatcher.AddListener(Constants.Mess_randomWeapon,RandomLevel);
   }
@@ -31,15 +30,7 @@ public class Card : MonoBehaviour {
   public void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_randomWeapon,RandomLevel);
   }
-
-  public void Start() {
-    textLevel.text = "Level: " + (randomLevel + 1);
-    ButtonNextWave.text = (nextWave * 10).ToString();
-    ButtonUplevel.text = (uplevel * 10).ToString();
-    ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
-    ButtonAddWeapon.text = (addWeapon * 10).ToString();
-    }
-
+  
   private int GetCost(int value) {
     return value * 10;
   }
@@ -49,22 +40,22 @@ public class Card : MonoBehaviour {
     int cost = GetCost(addWeapon);
     MessageDispatcher.SendMessage(Constants.Mess_UpdateTextCoin);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
-      if (ReferenceHolder.Ins.playerWeapon.isBuydone == true) {
+      if (ReferenceHolder.Ins.player.isBuydone == true) {
         addWeapon++;
         MessageDispatcher.SendMessage(Constants.Mess_addWeapon);
         ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
-        ButtonAddWeapon.text = (addWeapon * 10).ToString();
+        cardUi.ButtonAddWeapon.text = (addWeapon * 10).ToString();
       }
       else {
-        ButtonAddWeapon.text = "Max";
+        cardUi. ButtonAddWeapon.text = "Max";
       }
     }
   }
 
   public void AddLevel() {
     AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
-    if (playerLoader.characterLevel == ReferenceHolder.Ins.playerExp.maxLevel) {
-      ButtonUplevel.text = "Max";
+    if (playerLoader.characterLevel == ReferenceHolder.Ins.player.maxLevel) {
+      cardUi.ButtonUplevel.text = "Max";
       return;
     }
     int cost = GetCost(uplevel);
@@ -73,7 +64,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_plus1Level);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonUplevel.text = (uplevel * 10).ToString();
+    cardUi.ButtonUplevel.text = (uplevel * 10).ToString();
   }
 
   public void NextWave() {
@@ -84,7 +75,7 @@ public class Card : MonoBehaviour {
       MessageDispatcher.SendMessage(Constants.Mess_nextwave);
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
-    ButtonNextWave.text = (nextWave * 10).ToString();
+    cardUi.ButtonNextWave.text = (nextWave * 10).ToString();
   }
 
   public void DoubleMoney() {
@@ -96,12 +87,12 @@ public class Card : MonoBehaviour {
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
 
-    ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
+    cardUi.ButtonDoubleCoin.text = (doubleCoin * 10).ToString();
   }
   
   private void RandomLevel(IMessage img) {
     randomLevel = UnityEngine.Random.Range(1, 3);
-    textLevel.text = "Level: " + (randomLevel + 1);
+    cardUi.textLevel.text = "Level: " + (randomLevel + 1);
     MessageDispatcher.SendMessage(gameObject,Constants.Mess_LevelWeapon,gameObject.GetComponent<Card>().randomLevel,0);
   }
 }

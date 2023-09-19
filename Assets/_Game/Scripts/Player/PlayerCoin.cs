@@ -1,65 +1,74 @@
 using System;
 using com.ootii.Messages;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PlayerCoin : Singleton<PlayerCoin> {
-  public int coinAmount;
-  [SerializeField] private Text textCoin;
+public class PlayerCoin : MonoBehaviour {
+  private Player player;
+  private PlayerUi playerUi;
+
+  private void OnValidate() {
+    if (player == null) {
+      player = GetComponent<Player>();
+    }
+
+    if (playerUi == null) {
+      playerUi = GetComponent<PlayerUi>();
+    }
+  }
+
   private void Start() {
     MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
     MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetData);
     LoadCoinAmount();
-    textCoin.text = coinAmount.ToString();
+    playerUi.GetTextCoin();
   }
 
   private void OnDestroy() {
     MessageDispatcher.RemoveListener(Constants.Mess_doubleMoney, AddCoin);
+    MessageDispatcher.RemoveListener(Constants.Mess_playerDie, ResetData);
   }
 
   public bool HasEnoughCoins(int amount) {
-    return coinAmount >= amount;
+    return player.coinAmount >= amount;
   }
 
   public void DeductCoins(int amount) {
-    coinAmount -= amount;
-    textCoin.text = coinAmount.ToString();
+    player.coinAmount -= amount;
+    playerUi.GetTextCoin();
     SaveCoinAmount();
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag(Constants.Tag_Coin)) {
-      coinAmount++;
-      textCoin.text = coinAmount.ToString();
+      player.coinAmount++;
+      playerUi.GetTextCoin();
       ObjectPool.Ins.ReturnToPool(Constants.Tag_Coin, collision.gameObject);
       SaveCoinAmount();
     }
   }
 
   private void AddCoin(IMessage img) {
-    coinAmount *= 2;
-    if (coinAmount < 0) {
-      coinAmount = Int32.MaxValue;
+    player.coinAmount *= 2;
+    if (player.coinAmount < 0) {
+      player.coinAmount = Int32.MaxValue;
     }
-    textCoin.text = coinAmount.ToString();
+
+    playerUi.GetTextCoin();
     SaveCoinAmount();
   }
 
   private void SaveCoinAmount() {
-    PlayerPrefs.SetInt(Constants.PrefsKey_Coin, coinAmount);
+    PlayerPrefs.SetInt(Constants.PrefsKey_Coin, player.coinAmount);
   }
 
   private void LoadCoinAmount() {
     if (PlayerPrefs.HasKey(Constants.PrefsKey_Coin)) {
-      coinAmount = PlayerPrefs.GetInt(Constants.PrefsKey_Coin);
+      player.coinAmount = PlayerPrefs.GetInt(Constants.PrefsKey_Coin);
     }
   }
 
   private void ResetData(IMessage img) {
-    coinAmount = 500;
+    player.coinAmount = 500;
     SaveCoinAmount();
   }
 }
