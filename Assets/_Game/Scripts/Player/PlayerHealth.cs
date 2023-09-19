@@ -1,5 +1,4 @@
-﻿using com.ootii.Messages;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
   private Player player;
@@ -19,21 +18,18 @@ public class PlayerHealth : MonoBehaviour {
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
     player.currentHealth = player.playerLoader.maxHealth;
     playerUi.UpdateHealthUI();
-    MessageDispatcher.AddListener(Constants.Mess_playerTakeDamage, TakeDamage);
-    MessageDispatcher.AddListener(Constants.Mess_resetHealth, ResetHealth);
   }
-
-  private void OnDestroy() {
-    MessageDispatcher.RemoveListener(Constants.Mess_playerTakeDamage, TakeDamage);
-    MessageDispatcher.RemoveListener(Constants.Mess_resetHealth, ResetHealth);
-  }
-
-  public void TakeDamage(IMessage img) {
+  
+  public void TakeDamage(int damage) {
     if (player.currentHealth > 0) {
-      player.currentHealth -= player.enemyLoader.damageEnemy;
+      //player.currentHealth -= player.enemyLoader.damageEnemy;
+      player.currentHealth -= damage;
       if (player.currentHealth <= 0) {
         player.currentHealth = 0;
-        MessageDispatcher.SendMessage(Constants.Mess_playerDie);
+        ReferenceHolder.Ins.playerCoin.ResetData();
+        ReferenceHolder.Ins.playerExp.ResetLevel();
+        ReferenceHolder.Ins.playerWeapon.ResetWeapon();
+        ReferenceHolder.Ins.timeManager.Stoptime();
         Destroy(gameObject);
         Die();
       }
@@ -47,8 +43,8 @@ public class PlayerHealth : MonoBehaviour {
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
   }
 
-  private void ResetHealth(IMessage img) {
-    player.currentHealth = player.playerLoader.maxHealth;
+  public void ResetHealth(int maxHealth) {
+    player.currentHealth = maxHealth;
     playerUi.UpdateHealthUI();
   }
 }

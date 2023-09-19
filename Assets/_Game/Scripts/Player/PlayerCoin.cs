@@ -1,5 +1,4 @@
 using System;
-using com.ootii.Messages;
 using UnityEngine;
 
 public class PlayerCoin : MonoBehaviour {
@@ -17,17 +16,10 @@ public class PlayerCoin : MonoBehaviour {
   }
 
   private void Start() {
-    MessageDispatcher.AddListener(Constants.Mess_doubleMoney, AddCoin);
-    MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetData);
     LoadCoinAmount();
     playerUi.GetTextCoin();
   }
-
-  private void OnDestroy() {
-    MessageDispatcher.RemoveListener(Constants.Mess_doubleMoney, AddCoin);
-    MessageDispatcher.RemoveListener(Constants.Mess_playerDie, ResetData);
-  }
-
+  
   public bool HasEnoughCoins(int amount) {
     return player.coinAmount >= amount;
   }
@@ -47,7 +39,7 @@ public class PlayerCoin : MonoBehaviour {
     }
   }
 
-  private void AddCoin(IMessage img) {
+  public void AddCoin() {
     player.coinAmount *= 2;
     if (player.coinAmount < 0) {
       player.coinAmount = Int32.MaxValue;
@@ -67,7 +59,7 @@ public class PlayerCoin : MonoBehaviour {
     }
   }
 
-  private void ResetData(IMessage img) {
+  public void ResetData() {
     player.coinAmount = 500;
     SaveCoinAmount();
   }

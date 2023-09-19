@@ -1,5 +1,4 @@
-﻿using com.ootii.Messages;
-using System;
+﻿using System;
 using UnityEngine;
 
 [Serializable]
@@ -24,10 +23,6 @@ public class PlayerWeapon : MonoBehaviour {
 
   private void Start() {
     LoadCollectedWeapons();
-    MessageDispatcher.AddListener(Constants.Mess_addWeapon, AddWeapon);
-    MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetWeapon);
-    MessageDispatcher.AddListener(Constants.Mess_UpdateTextCoin, CheckCoinStart);
-    MessageDispatcher.AddListener(Constants.Mess_LevelWeapon, SetDataLevel);
     playerUi.UpdateWeaponLevelTexts();
     for (int i = 0; i < player.weaponInfoButtons.Length; i++) {
       int position = i;
@@ -41,12 +36,8 @@ public class PlayerWeapon : MonoBehaviour {
   private void Update() {
     CheckAndMergeWeapons();
   }
-
-  private void SetDataLevel(IMessage msg) {
-    player.levelrandom = (int)msg.Data;
-  }
-
-  public void AddWeapon(IMessage msg) {
+  
+  public void AddWeapon() {
     if (player.isBuydone == true) {
       if (player.nextAvailableWeaponIndex < player.weaponPositions.Count &&
           player.weaponPositions[player.nextAvailableWeaponIndex] != null) {
@@ -58,7 +49,7 @@ public class PlayerWeapon : MonoBehaviour {
       }
       else {
         Weapon newWeaponComponent = player.weaponPrefab.GetComponent<Weapon>();
-        newWeaponComponent.currentWeaponLevel = player.levelrandom;
+        newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
         bool canMerge = false;
 
         foreach (GameObject weapon in player.collectedWeapons) {
@@ -71,7 +62,6 @@ public class PlayerWeapon : MonoBehaviour {
               playerUi.UpdateWeaponLevelTexts();
               playerUi.CheckButtonWeapon();
               SaveCollectedWeapons();
-              MessageDispatcher.SendMessage(Constants.Mess_UpdateDataWeapon);
             }
 
             return;
@@ -81,10 +71,10 @@ public class PlayerWeapon : MonoBehaviour {
     }
   }
 
-  public void CheckCoinStart(IMessage img) {
+  public void CheckCoinStart() {
     if (player.nextAvailableWeaponIndex == player.weaponPositions.Count) {
       Weapon newWeaponComponent = player.weaponPrefab.GetComponent<Weapon>();
-      newWeaponComponent.currentWeaponLevel = player.levelrandom;
+      newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
       foreach (GameObject weapon in player.collectedWeapons) {
         Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
         if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
@@ -112,7 +102,7 @@ public class PlayerWeapon : MonoBehaviour {
           player.collectedWeapons.RemoveAt(j);
           Destroy(weaponB);
           weaponComponentA.currentWeaponLevel++;
-          MessageDispatcher.SendMessage(Constants.Mess_UpdateDataWeapon);
+          weaponComponentA.UpdateInfo();
           player.nextAvailableWeaponIndex--;
           playerUi.UpdateWeaponLevelTexts();
           playerUi.CheckButtonWeapon();
@@ -126,16 +116,10 @@ public class PlayerWeapon : MonoBehaviour {
     GameObject newWeapon = Instantiate(weaponPrefab, position.position,
         position.rotation, position.parent);
     Weapon weaponComponent = newWeapon.GetComponent<Weapon>();
-    weaponComponent.currentWeaponLevel = player.levelrandom;
+    weaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
     player.collectedWeapons.Add(newWeapon);
   }
-
-  private void OnDestroy() {
-    MessageDispatcher.RemoveListener(Constants.Mess_addWeapon, AddWeapon);
-    MessageDispatcher.RemoveListener(Constants.Mess_playerDie, ResetWeapon);
-    MessageDispatcher.RemoveListener(Constants.Mess_LevelWeapon, SetDataLevel);
-  }
-
+  
   private void SaveCollectedWeapons() {
     PlayerPrefs.SetInt(Constants.PrefsKey_CollectedWeaponsCount, player.collectedWeapons.Count);
 
@@ -183,7 +167,7 @@ public class PlayerWeapon : MonoBehaviour {
     }
   }
 
-  private void ResetWeapon(IMessage msg) {
+  public void ResetWeapon() {
     foreach (GameObject weapon in player.collectedWeapons) {
       Destroy(weapon);
       playerUi.CheckButtonWeapon();

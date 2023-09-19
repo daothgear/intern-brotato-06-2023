@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using com.ootii.Messages;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TimeManager : MonoBehaviour {
@@ -33,20 +31,12 @@ public class TimeManager : MonoBehaviour {
   private void Start() {
     waveDataLoader.LoadWaveInfo(1);
     isSpawnEnemy = true;
-    MessageDispatcher.AddListener(Constants.Mess_playerDie, Stoptime);
-    MessageDispatcher.AddListener(Constants.Mess_nextwave, UpWave);
-
     // Load PlayerPrefs data
     LoadPlayerPrefsData();
 
     StartWave();
   }
-
-  private void OnDestroy() {
-    MessageDispatcher.RemoveListener(Constants.Mess_playerDie, Stoptime);
-    MessageDispatcher.RemoveListener(Constants.Mess_nextwave, UpWave);
-  }
-
+  
   private void Update() {
     if (!isTimeStopped && timer > 0f) {
       timer -= Time.deltaTime;
@@ -92,7 +82,7 @@ public class TimeManager : MonoBehaviour {
     waveDataLoader.currentWave++;
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
-    MessageDispatcher.SendMessage(Constants.Mess_resetHealth);
+    ReferenceHolder.Ins.playerHealth.ResetHealth(ReferenceHolder.Ins.player.playerLoader.maxHealth);
     textWave.UpdateText();
     StartWave();
     ReferenceHolder.Ins.uicontroller.UIShop.SetActive(false);
@@ -117,7 +107,7 @@ public class TimeManager : MonoBehaviour {
     }
   }
 
-  private void UpWave(IMessage img) {
+  public void UpWave() {
     waveDataLoader.currentWave++;
   }
 
@@ -161,11 +151,10 @@ public class TimeManager : MonoBehaviour {
     // Show the UI shop
     ReferenceHolder.Ins.uicontroller.UIShop.SetActive(true);
     isSpawnEnemy = false;
-    MessageDispatcher.SendMessage(Constants.Mess_randomWeapon);
-    MessageDispatcher.SendMessage(Constants.Mess_UpdateTextCoin);
+    ReferenceHolder.Ins.card.RandomLevel();
   }
 
-  private void Stoptime(IMessage img) {
+  public void Stoptime() {
     ReferenceHolder.Ins.uicontroller.UIShop.SetActive(false);
     isSpawnEnemy = false;
     isTimeStopped = true;

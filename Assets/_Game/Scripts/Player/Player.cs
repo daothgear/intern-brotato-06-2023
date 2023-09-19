@@ -39,8 +39,7 @@ public class Player : MonoBehaviour {
   public GameObject weaponPrefab;
   public int nextAvailableWeaponIndex;
   public bool isBuydone = true;
-  public int levelrandom;
-  
+
   [Header("Player weapon UI")] 
   public Text[] weaponInfoTexts;
   public Text weaponInfoText;

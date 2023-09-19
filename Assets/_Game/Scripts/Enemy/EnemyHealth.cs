@@ -1,6 +1,4 @@
 using UnityEngine;
-using com.ootii.Messages;
-using TMPro;
 
 public class EnemyHealth : MonoBehaviour, IPooledObject {
   [SerializeField] private Enemy enemy;
@@ -37,7 +35,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     if (currentHealth <= 0) {
       ObjectPool.Ins.enemyList.Remove(gameObject);
       if (isAdd == true) {
-        MessageDispatcher.SendMessage(Constants.Mess_addExp);
+        ReferenceHolder.Ins.playerExp.AddExp(enemyLoader.enemyExp);
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
         isAdd = false;
       }

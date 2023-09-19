@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Constants : MonoBehaviour {
@@ -22,19 +20,6 @@ public class Constants : MonoBehaviour {
   //Anim-Player
   public const string Anim_PlayerIdle = "PlayerIdle";
   public const string Anim_PlayerWalk = "PlayerWalk";
-  //Mess
-  public const string Mess_playerTakeDamage = "playerTakeDamage";
-  public const string Mess_addExp = "addExp";
-  public const string Mess_resetHealth = "resetHealth";
-  public const string Mess_playerDie = "PlayerDie";
-  public const string Mess_addWeapon = "addweapon1";
-  public const string Mess_plus1Level = "plus1level";
-  public const string Mess_nextwave = "nextwave";
-  public const string Mess_doubleMoney = "doubleMoney";
-  public const string Mess_randomWeapon = "RandomLevel";
-  public const string Mess_UpdateDataWeapon = "UpdateDataWeapon";
-  public const string Mess_UpdateTextCoin = "UpdateTextCoin";
-  public const string Mess_LevelWeapon = "LevelWeapon";
   //PrefKey
   public const string PrefsKey_Coin = "PlayerCoinAmount";
   public const string PrefsKey_PlayerExp = "PlayerExp";

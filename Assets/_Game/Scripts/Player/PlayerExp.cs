@@ -1,4 +1,3 @@
-using com.ootii.Messages;
 using UnityEngine;
 
 public class PlayerExp : MonoBehaviour {
@@ -22,23 +21,15 @@ public class PlayerExp : MonoBehaviour {
   }
 
   private void Start() {
-    MessageDispatcher.AddListener(Constants.Mess_addExp, AddExp);
-    MessageDispatcher.AddListener(Constants.Mess_plus1Level, LevelUp);
-    MessageDispatcher.AddListener(Constants.Mess_playerDie, ResetLevel);
     playerUi.UpdateExpUI();
   }
-
-  private void OnDestroy() {
-    MessageDispatcher.RemoveListener(Constants.Mess_addExp, AddExp);
-    MessageDispatcher.RemoveListener(Constants.Mess_plus1Level, LevelUp);
-  }
-
-  public void AddExp(IMessage img) {
+  
+  public void AddExp(int exp) {
     if (player.playerLoader.characterLevel == player.maxLevel) {
       player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
     }
     else {
-      player.currentExp += player.enemyLoader.enemyExp;
+      player.currentExp += exp;
       while (player.currentExp >= player.playerLoader.maxExp) {
         player.playerLoader.characterLevel++;
         player.currentExp -= player.playerLoader.maxExp;
@@ -50,7 +41,7 @@ public class PlayerExp : MonoBehaviour {
     playerUi.UpdateExpUI();
   }
 
-  public void LevelUp(IMessage msg) {
+  public void LevelUp() {
     player.playerLoader.characterLevel++;
     player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
     SaveLevel();
@@ -67,7 +58,7 @@ public class PlayerExp : MonoBehaviour {
     }
   }
 
-  private void ResetLevel(IMessage img) {
+  public void ResetLevel() {
     PlayerDataLoader.Ins.LoadCharacterInfo(0);
     SaveLevel();
   }

@@ -32,7 +32,6 @@ public class Weapon : MonoBehaviour {
 
   void Start() {
     weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
-    MessageDispatcher.AddListener(Constants.Mess_UpdateDataWeapon, UpdateInfo);
   }
   
   void FindAndFireAtTarget() {
@@ -78,7 +77,7 @@ public class Weapon : MonoBehaviour {
     Gizmos.DrawWireSphere(transform.position, weapon.attackRange);
   }
 
-  private void UpdateInfo(IMessage img) {
+  public void UpdateInfo() {
     weapon = weaponDataLoader.LoadWeaponInfo(currentWeaponId, currentWeaponLevel);
   }
 }
