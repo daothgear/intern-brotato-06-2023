@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour {
 
   [Header("Player health Ui")] 
   public Slider playerHealthSlider;
-  public Text textHealth;
+  public TMP_Text textHealth;
 
   [Header("Player exp Logic")] 
   public int currentExp;
@@ -24,13 +25,13 @@ public class Player : MonoBehaviour {
 
   [Header("Player exp Ui")] 
   public Slider playerExpSlider;
-  public Text textExp;
+  public TMP_Text textExp;
 
   [Header("Player coin Logic")] 
   public int coinAmount;
 
   [Header("Player coinUi")] 
-  public Text textCoin;
+  public TMP_Text textCoin;
 
   [Header("Player weapons Logic")] 
   public List<Transform> weaponPositions = new List<Transform>();
@@ -41,8 +42,8 @@ public class Player : MonoBehaviour {
   public bool isBuydone = true;
 
   [Header("Player weapon UI")] 
-  public Text[] weaponInfoTexts;
-  public Text weaponInfoText;
+  public TMP_Text[] weaponInfoTexts;
+  public TMP_Text weaponInfoText;
   public Button[] weaponInfoButtons;
   
   [Header("Data")]

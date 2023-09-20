@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class CardUi : MonoBehaviour
 {
-  public Text ButtonUplevel;
-  public Text ButtonNextWave;
-  public Text ButtonAddWeapon;
-  public Text ButtonDoubleCoin;
+  public TMP_Text ButtonUplevel;
+  public TMP_Text ButtonNextWave;
+  public TMP_Text ButtonAddWeapon;
+  public TMP_Text ButtonDoubleCoin;
   public TextMeshProUGUI textLevel;
   private Card card;
 

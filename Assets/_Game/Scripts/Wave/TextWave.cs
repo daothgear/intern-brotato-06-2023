@@ -1,9 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextWave : MonoBehaviour {
-  [SerializeField] private Text waveText;
-  [SerializeField] private Text totalTimerText;
+  [SerializeField] private TMP_Text waveText;
+  [SerializeField] private TMP_Text totalTimerText;
 
   public void UpdateText() {
     TimeManager timeManager = ReferenceHolder.Ins.timeManager;
