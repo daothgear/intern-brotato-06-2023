@@ -49,7 +49,7 @@ public class PlayerUi : MonoBehaviour {
     }
   }
 
-  public void CheckButtonWeapon() {
+  public void UpdateButtonWeapon() {
     for (int i = 0; i < player.weaponInfoButtons.Length; i++) {
       if (i < player.collectedWeapons.Count) {
         player.weaponInfoButtons[i].gameObject.SetActive(true);

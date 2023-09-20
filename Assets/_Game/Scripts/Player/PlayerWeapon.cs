@@ -30,7 +30,7 @@ public class PlayerWeapon : MonoBehaviour {
       AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     }
 
-    playerUi.CheckButtonWeapon();
+    playerUi.UpdateButtonWeapon();
   }
 
   private void Update() {
@@ -44,7 +44,7 @@ public class PlayerWeapon : MonoBehaviour {
         CreateWeaponAtPosition(player.weaponPrefab, player.weaponPositions[player.nextAvailableWeaponIndex]);
         player.nextAvailableWeaponIndex++;
         playerUi.UpdateWeaponLevelTexts();
-        playerUi.CheckButtonWeapon();
+        playerUi.UpdateButtonWeapon();
         SaveCollectedWeapons();
       }
       else {
@@ -60,7 +60,7 @@ public class PlayerWeapon : MonoBehaviour {
             collectedWeaponComponent.currentWeaponLevel++;
             if (canMerge) {
               playerUi.UpdateWeaponLevelTexts();
-              playerUi.CheckButtonWeapon();
+              playerUi.UpdateButtonWeapon();
               SaveCollectedWeapons();
             }
 
@@ -105,7 +105,7 @@ public class PlayerWeapon : MonoBehaviour {
           weaponComponentA.UpdateInfo();
           player.nextAvailableWeaponIndex--;
           playerUi.UpdateWeaponLevelTexts();
-          playerUi.CheckButtonWeapon();
+          playerUi.UpdateButtonWeapon();
         }
       }
     }
@@ -170,7 +170,7 @@ public class PlayerWeapon : MonoBehaviour {
   public void ResetWeapon() {
     foreach (GameObject weapon in player.collectedWeapons) {
       Destroy(weapon);
-      playerUi.CheckButtonWeapon();
+      playerUi.UpdateButtonWeapon();
     }
 
     player.collectedWeapons.Clear();
