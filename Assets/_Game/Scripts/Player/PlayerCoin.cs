@@ -39,7 +39,7 @@ public class PlayerCoin : MonoBehaviour {
     }
   }
 
-  public void AddCoin() {
+  public void DoubleCurrentCoin() {
     player.coinAmount *= 2;
     if (player.coinAmount < 0) {
       player.coinAmount = Int32.MaxValue;

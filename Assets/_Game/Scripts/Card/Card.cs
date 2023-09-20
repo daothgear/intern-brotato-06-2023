@@ -71,7 +71,7 @@ public class Card : MonoBehaviour {
     int cost = GetCost(doubleCoin);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       doubleCoin++;
-      ReferenceHolder.Ins.playerCoin.AddCoin();
+      ReferenceHolder.Ins.playerCoin.DoubleCurrentCoin();
       ReferenceHolder.Ins.playerCoin.DeductCoins(cost);
     }
 

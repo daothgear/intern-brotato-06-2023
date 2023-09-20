@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UiPlayAgain : MonoBehaviour
 {
-  public void PLayAgaint() {
+  public void PLayAgain() {
     SceneManager.LoadScene(Constants.Scene_StartGame);
   }
 }
