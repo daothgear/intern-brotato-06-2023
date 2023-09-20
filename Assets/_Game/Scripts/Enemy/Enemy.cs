@@ -1,5 +1,4 @@
-﻿using com.ootii.Messages;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour {
   public enum EnemyState {
@@ -69,7 +68,7 @@ public class Enemy : MonoBehaviour {
     if (collision.CompareTag(Constants.Tag_Player)) {
       if (currentState == EnemyState.Walk) {
         isCollidingWithPlayer = true;
-        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
+        ReferenceHolder.Ins.playerHealth.TakeDamage(enemyLoader.damageEnemy);
       }
     }
   }
@@ -84,7 +83,7 @@ public class Enemy : MonoBehaviour {
     if (isCollidingWithPlayer) {
       lastDamageTime += Time.fixedDeltaTime;
       if (lastDamageTime >= damageInterval) {
-        MessageDispatcher.SendMessage(Constants.Mess_playerTakeDamage);
+        ReferenceHolder.Ins.playerHealth.TakeDamage(enemyLoader.damageEnemy);
         lastDamageTime = 0f;
       }
     }

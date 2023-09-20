@@ -6,10 +6,12 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
   public TimeManager timeManager;
   public UICombatTextManager combatTextManager;
   public PlayerExp playerExp;
+  public PlayerHealth playerHealth;
   public PlayerWeapon playerWeapon;
   public Card card;
   public UiController uicontroller;
   public Player player;
+  public Weapon weapon;
   private void OnValidate() {
     // find and assign reference here
     if (playerCoin == null) { // example
@@ -43,6 +45,14 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
 
     if (player == null) {
       player = FindObjectOfType<Player>();
+    }
+
+    if (playerHealth == null) {
+      playerHealth = FindObjectOfType<PlayerHealth>();
+    }
+
+    if (weapon == null) {
+      weapon = FindObjectOfType<Weapon>();
     }
   }
 }
