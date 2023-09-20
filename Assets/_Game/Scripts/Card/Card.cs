@@ -83,4 +83,8 @@ public class Card : MonoBehaviour {
     cardUi.textLevel.text = "Level: " + (randomLevel + 1);
     ReferenceHolder.Ins.playerWeapon.CheckCoinStart();
   }
+  
+  public void ClickNextButton() {
+    ReferenceHolder.Ins.timeManager.CloseShopUI();
+  }
 }
