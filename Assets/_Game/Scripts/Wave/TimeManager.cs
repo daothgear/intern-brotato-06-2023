@@ -6,7 +6,7 @@ public class TimeManager : MonoBehaviour {
   public float timer;
   public float totalTimer;
   public int currentSubWave;
-
+  public WaveData.WaveInfo waveInfo;
   [SerializeField] private GameObject wallCheck;
 
   private PlayerDataLoader playerLoader {
@@ -29,7 +29,7 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void Start() {
-    waveDataLoader.LoadWaveInfo(1);
+    waveInfo = waveDataLoader.LoadWaveInfo(1);
     isSpawnEnemy = true;
     // Load PlayerPrefs data
     LoadPlayerPrefsData();
@@ -55,12 +55,12 @@ public class TimeManager : MonoBehaviour {
       isSpawnEnemy = true;
     }
 
-    if (currentSubWave >= waveDataLoader.numSubWaves) {
+    if (currentSubWave >= waveInfo.numSubWaves) {
       ShowShop();
       return;
     }
 
-    timer = waveDataLoader.subWaveTimes[currentSubWave];
+    timer = waveInfo.subWaveTimes[currentSubWave];
     totalTimer = CalculateTotalTimer();
     SpawnEnemies();
     textWave.UpdateText();
@@ -68,18 +68,18 @@ public class TimeManager : MonoBehaviour {
 
   private void StartNextSubWave() {
     currentSubWave++;
-    if (currentSubWave >= waveDataLoader.numSubWaves) {
+    if (currentSubWave >= waveInfo.numSubWaves) {
       ClearEnemies();
       ShowShop();
       return;
     }
 
     SpawnEnemies();
-    timer = waveDataLoader.subWaveTimes[currentSubWave];
+    timer = waveInfo.subWaveTimes[currentSubWave];
   }
 
   public void CloseShopUI() {
-    waveDataLoader.currentWave++;
+    waveInfo.currentWave++;
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
     ReferenceHolder.Ins.playerHealth.ResetHealth(ReferenceHolder.Ins.player.playerLoader.maxHealth);
@@ -93,13 +93,13 @@ public class TimeManager : MonoBehaviour {
 
   private void SpawnEnemies() {
     if (isSpawnEnemy == true) {
-      int numEnemies = waveDataLoader.currentWave * waveDataLoader.numEnemiesPerWave * (currentSubWave + 1);
+      int numEnemies = waveInfo.currentWave * waveInfo.numEnemiesPerWave * (currentSubWave + 1);
       StartCoroutine(SpawnEnemiesWithDelays(numEnemies)); 
     }
   }
 
   private IEnumerator SpawnEnemiesWithDelays(int numEnemies) {
-    float delayTime = waveDataLoader.spawnDelay;
+    float delayTime = waveInfo.spawnDelay;
     WaitForSeconds wait = new WaitForSeconds(delayTime);
     for (int i = 0; i < numEnemies; i++) {
       SpawnEnemyRandom();
@@ -108,7 +108,7 @@ public class TimeManager : MonoBehaviour {
   }
 
   public void UpWave() {
-    waveDataLoader.currentWave++;
+    waveInfo.currentWave++;
   }
 
   private void SpawnEnemyRandom() {
@@ -140,8 +140,8 @@ public class TimeManager : MonoBehaviour {
 
   private float CalculateTotalTimer() {
     float total = 0f;
-    for (int i = 0; i < waveDataLoader.numSubWaves; i++) {
-      total += waveDataLoader.subWaveTimes[i];
+    for (int i = 0; i < waveInfo.numSubWaves; i++) {
+      total += waveInfo.subWaveTimes[i];
     }
 
     return total;
@@ -159,20 +159,20 @@ public class TimeManager : MonoBehaviour {
     isSpawnEnemy = false;
     isTimeStopped = true;
     ClearEnemies();
-    waveDataLoader.currentWave = 1;
+    waveInfo.currentWave = 1;
     currentSubWave = 0;
     SavePlayerPrefsData();
   }
 
   private void SavePlayerPrefsData() {
-    PlayerPrefs.SetInt(Constants.PrefsKey_CurrentWave, waveDataLoader.currentWave);
+    PlayerPrefs.SetInt(Constants.PrefsKey_CurrentWave, waveInfo.currentWave);
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentSubWave, currentSubWave);
     PlayerPrefs.SetFloat(Constants.PrefsKey_TotalTimer, totalTimer);
     PlayerPrefs.SetInt(Constants.PrefsKey_ShopState, ReferenceHolder.Ins.uicontroller.UIShop.activeSelf ? 1 : 0);
   }
 
   private void LoadPlayerPrefsData() {
-    waveDataLoader.currentWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentWave, 1);
+    waveInfo.currentWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentWave, 1);
     currentSubWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentSubWave, 0);
     totalTimer = PlayerPrefs.GetFloat(Constants.PrefsKey_TotalTimer, CalculateTotalTimer());
     int shopState = PlayerPrefs.GetInt(Constants.PrefsKey_ShopState, 0);

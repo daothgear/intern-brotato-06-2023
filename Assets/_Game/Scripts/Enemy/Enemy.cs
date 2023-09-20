@@ -10,13 +10,13 @@ public class Enemy : MonoBehaviour {
     get => EnemyDataLoader.Ins;
   }
 
-
+  public EnemyData.EnemyInfo enemyInfo;
   public EnemyState currentState;
 
   [SerializeField] private Animator animator;
 
   private bool isFacingRight;
-  private float damageInterval = 0.5f;
+  private float damageInterval = 1f;
   private float lastDamageTime = 0.0f;
   private bool isCollidingWithPlayer = false;
 
@@ -26,8 +26,8 @@ public class Enemy : MonoBehaviour {
     }
   }
 
-  private void Start() {
-    enemyLoader.LoadEnemyInfo(1);
+  private void Awake() {
+    enemyInfo = enemyLoader.LoadEnemyInfo(1);
   }
   private void Update() {
     switch (currentState) {
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour {
       animator.SetTrigger(Constants.Anim_Walk);
       transform.position =
           Vector3.MoveTowards(transform.position, ReferenceHolder.Ins.playerTran.position,
-              enemyLoader.speed * Time.deltaTime);
+              enemyInfo.moveSpeed * Time.deltaTime);
       if (transform.position.x > ReferenceHolder.Ins.playerTran.position.x && isFacingRight) {
         Flip();
       }
@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour {
     if (collision.CompareTag(Constants.Tag_Player)) {
       if (currentState == EnemyState.Walk) {
         isCollidingWithPlayer = true;
-        ReferenceHolder.Ins.playerHealth.TakeDamage(enemyLoader.damageEnemy);
+        ReferenceHolder.Ins.playerHealth.TakeDamage(enemyInfo.damage);
       }
     }
   }
@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour {
     if (isCollidingWithPlayer) {
       lastDamageTime += Time.fixedDeltaTime;
       if (lastDamageTime >= damageInterval) {
-        ReferenceHolder.Ins.playerHealth.TakeDamage(enemyLoader.damageEnemy);
+        ReferenceHolder.Ins.playerHealth.TakeDamage(enemyInfo.damage);
         lastDamageTime = 0f;
       }
     }

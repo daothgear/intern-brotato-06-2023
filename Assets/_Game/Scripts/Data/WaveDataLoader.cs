@@ -4,11 +4,6 @@ using Newtonsoft.Json;
 
 public class WaveDataLoader : InstanceStatic<WaveDataLoader> {
   private WaveData waveData;
-  public int currentWave;
-  public float[] subWaveTimes;
-  public int numSubWaves;
-  public int numEnemiesPerWave;
-  public float spawnDelay;
 
   public void ReceiveData(string fileName, string jsonData)
   {
@@ -18,17 +13,12 @@ public class WaveDataLoader : InstanceStatic<WaveDataLoader> {
     }
   }
 
-  public void LoadWaveInfo(int currenwave) {
-    foreach (var waveInfo in waveData.WaveInfos) {
+  public WaveData.WaveInfo LoadWaveInfo(int currenwave) {
+    foreach (WaveData.WaveInfo waveInfo in waveData.WaveInfos) {
       if (waveInfo.currentWave == currenwave) {
-        WaveData.WaveInfo currentwaveInfo = waveInfo;
-        currentWave = currentwaveInfo.currentWave;
-        subWaveTimes = currentwaveInfo.subWaveTimes;
-        numSubWaves = currentwaveInfo.numSubWaves;
-        numEnemiesPerWave = currentwaveInfo.numEnemiesPerWave;
-        spawnDelay = currentwaveInfo.spawnDelay;
-        break;
+        return waveInfo;
       }
     }
+    return null;
   }
 }

@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void Start() {
-    currentHealth = enemyLoader.maxHealth;
+    currentHealth = enemy.enemyInfo.maxHP;
   }
 
   public void MakeDead() {
@@ -35,7 +35,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
     if (currentHealth <= 0) {
       ObjectPool.Ins.enemyList.Remove(gameObject);
       if (isAdd == true) {
-        ReferenceHolder.Ins.playerExp.AddExp(enemyLoader.enemyExp);
+        ReferenceHolder.Ins.playerExp.AddExp(enemy.enemyInfo.expEnemy);
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
         isAdd = false;
       }
@@ -55,7 +55,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void ResetHealth() {
-    currentHealth = enemyLoader.maxHealth;
+    currentHealth = enemy.enemyInfo.maxHP;
   }
 
   public void OnObjectSpawn() {
