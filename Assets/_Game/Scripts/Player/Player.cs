@@ -39,7 +39,6 @@ public class Player : MonoBehaviour {
   public List<GameObject> collectedWeapons = new List<GameObject>();
   public GameObject weaponPrefab;
   public int nextAvailableWeaponIndex;
-  public bool isBuydone = true;
 
   [Header("Player weapon UI")] 
   public TMP_Text[] weaponInfoTexts;
