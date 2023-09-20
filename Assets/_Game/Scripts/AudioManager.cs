@@ -12,6 +12,16 @@ public class AudioManager : Singleton<AudioManager> {
   }
 
   private void Start() {
+    if (PlayerPrefs.HasKey(Constants.PrefsKey_MusicVolume)) {
+      float musicVolume = PlayerPrefs.GetFloat(Constants.PrefsKey_MusicVolume);
+      musicSource.volume = musicVolume;
+    }
+
+    if (PlayerPrefs.HasKey(Constants.PrefsKey_SfxVolume)) {
+      float sfxVolume = PlayerPrefs.GetFloat(Constants.PrefsKey_SfxVolume);
+      sfxSource.volume = sfxVolume;
+    }
+
     PlayMusic(SoundName.BackGroundMusic);
   }
 
