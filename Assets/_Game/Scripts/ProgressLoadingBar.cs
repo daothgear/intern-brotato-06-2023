@@ -18,26 +18,23 @@ public class ProgressLoadingBar : MonoBehaviour {
 
     foreach (string fileName in dataFiles) {
       string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+      string jsonData = "";
 
       if (filePath.Contains("://")) {
         UnityWebRequest www = UnityWebRequest.Get(filePath);
         yield return www.SendWebRequest();
         if (www.result == UnityWebRequest.Result.Success) {
-          string jsonData = www.downloadHandler.text;
-          WeaponDataLoader.Ins.ReceiveData(fileName, jsonData);
-          WaveDataLoader.Ins.ReceiveData(fileName, jsonData);
-          PlayerDataLoader.Ins.ReceiveData(fileName, jsonData);
-          EnemyDataLoader.Ins.ReceiveData(fileName, jsonData);
+          jsonData = www.downloadHandler.text;
         }
       }
       else {
-        string jsonData = File.ReadAllText(filePath);
-        WeaponDataLoader.Ins.ReceiveData(fileName, jsonData);
-        WaveDataLoader.Ins.ReceiveData(fileName, jsonData);
-        PlayerDataLoader.Ins.ReceiveData(fileName, jsonData);
-        EnemyDataLoader.Ins.ReceiveData(fileName, jsonData);
+        jsonData = File.ReadAllText(filePath);
       }
 
+      WeaponDataLoader.Ins.ReceiveData(fileName, jsonData);
+      WaveDataLoader.Ins.ReceiveData(fileName, jsonData);
+      PlayerDataLoader.Ins.ReceiveData(fileName, jsonData);
+      EnemyDataLoader.Ins.ReceiveData(fileName, jsonData);
       loadedFiles++;
       float progress = loadedFiles / totalFiles;
       loadingSlider.value = progress;
