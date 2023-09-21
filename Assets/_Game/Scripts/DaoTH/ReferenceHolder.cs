@@ -34,7 +34,7 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
     if (playerWeapon == null) {
       playerWeapon = FindObjectOfType<PlayerWeapon>();
     }
-
+    
     if (card == null) {
       card = FindObjectOfType<Card>();
     }

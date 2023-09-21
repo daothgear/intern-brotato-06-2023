@@ -82,7 +82,7 @@ public class TimeManager : MonoBehaviour {
     waveInfo.currentWave++;
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
-    ReferenceHolder.Ins.playerHealth.ResetHealth(ReferenceHolder.Ins.player.playerLoader.maxHealth);
+    ReferenceHolder.Ins.playerHealth.ResetHealth(ReferenceHolder.Ins.player.maxHealth);
     textWave.UpdateText();
     StartWave();
     ReferenceHolder.Ins.uicontroller.UIShop.SetActive(false);

@@ -74,7 +74,7 @@ public class PlayerWeapon : MonoBehaviour {
     if (player.nextAvailableWeaponIndex == maxWeapon) {
       foreach (GameObject weapon in player.collectedWeapons) {
         Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
-        if (collectedWeaponComponent.currentWeaponLevel == ReferenceHolder.Ins.card.randomLevel) {
+        if (collectedWeaponComponent.currentWeaponLevel == level) {
           return true;
         }
       }

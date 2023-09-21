@@ -16,7 +16,8 @@ public class PlayerHealth : MonoBehaviour {
 
   private void Start() {
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
-    player.currentHealth = player.playerLoader.maxHealth;
+    player.UpdateData();
+    player.currentHealth = player.maxHealth;
     playerUi.UpdateHealthUI();
   }
   
