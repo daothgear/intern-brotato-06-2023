@@ -8,8 +8,8 @@ public class WeaponPositionInfo {
 }
 
 public class PlayerWeapon : MonoBehaviour {
-  private Player player;
-  private PlayerUi playerUi;
+  [SerializeField] private Player player;
+  [SerializeField] private PlayerUi playerUi;
 
   private void OnValidate() {
     if (player == null) {

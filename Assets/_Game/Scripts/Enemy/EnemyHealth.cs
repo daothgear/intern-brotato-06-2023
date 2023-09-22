@@ -31,7 +31,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
 
   public void TakeDamage(int weaponDamage) {
     currentHealth -= weaponDamage;
-    ReferenceHolder.Ins.combatTextManager.CreateUICombatText(transform.position , $"-{weaponDamage}" , Color.black);
+    ShowDamage(weaponDamage.ToString());
     if (currentHealth <= 0) {
       ObjectPool.Ins.enemyList.Remove(gameObject);
       if (isAdd == true) {
@@ -43,6 +43,12 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
       enemy.currentState = Enemy.EnemyState.Dead;
       Invoke("MakeDead", 0.5f);
     }
+  }
+
+  public void ShowDamage(string text) {
+    Vector3 combatTextPosition = transform.position + new Vector3(0f,2f,0f);
+    GameObject combattext = ObjectPool.Ins.SpawnFromPool(Constants.Tag_CombatText, combatTextPosition, Quaternion.identity);
+    combattext.GetComponent<TextMesh>().text = text;
   }
 
   public void ResetEnemy() {

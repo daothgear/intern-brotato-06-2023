@@ -6,7 +6,7 @@ public class Card : MonoBehaviour {
     get => PlayerDataLoader.Ins;
   }
 
-  private CardUi cardUi;
+  [SerializeField] private CardUi cardUi;
   
   public int addWeapon = 2;
   public int uplevel = 3;
