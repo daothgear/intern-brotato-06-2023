@@ -47,7 +47,7 @@ public class Player : MonoBehaviour {
   
   [Header("Data")]
   public WeaponData.WeaponInfo weaponinfo;
-
+  public PlayerData.PlayerInfo playerInfo;
   //Properties
   public PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Ins;
@@ -57,6 +57,11 @@ public class Player : MonoBehaviour {
     get => EnemyDataLoader.Ins;
   }
 
+  [Header("Player Data")]
+  public int characterLevel;
+  public float speed;
+  public int maxHealth;
+  public int maxExp;
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponent<Animator>();
@@ -72,6 +77,12 @@ public class Player : MonoBehaviour {
   }
 
   private void Awake() {
-    PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
+    playerInfo = PlayerDataLoader.Ins.LoadCharacterInfo(characterLevel);
+  }
+
+  public void UpdateData() {
+    maxExp = playerInfo.exp;
+    maxHealth = playerInfo.maxHP;
+    speed = playerInfo.moveSpeed;
   }
 }

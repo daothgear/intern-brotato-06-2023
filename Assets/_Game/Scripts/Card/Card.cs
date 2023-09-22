@@ -45,7 +45,7 @@ public class Card : MonoBehaviour {
 
   public void AddLevel() {
     AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
-    if (playerLoader.characterLevel == ReferenceHolder.Ins.player.maxLevel) {
+    if (ReferenceHolder.Ins.player.characterLevel == ReferenceHolder.Ins.player.maxLevel) {
       cardUi.ButtonUplevel.text = "Max";
       return;
     }

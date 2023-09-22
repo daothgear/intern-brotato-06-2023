@@ -16,50 +16,59 @@ public class PlayerExp : MonoBehaviour {
 
   private void Awake() {
     LoadLevel();
-    PlayerDataLoader.Ins.LoadCharacterInfo(player.playerLoader.characterLevel);
+    player.playerInfo = PlayerDataLoader.Ins.LoadCharacterInfo(player.characterLevel);
     player.maxLevel = PlayerDataLoader.Ins.GetLastPlayerID();
   }
 
   private void Start() {
+    player.characterLevel = player.playerInfo.characterID;
+    player.maxExp = player.playerInfo.exp;
     playerUi.UpdateExpUI();
   }
-  
+
   public void AddExp(int exp) {
-    if (player.playerLoader.characterLevel == player.maxLevel) {
-      player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
-    }
-    else {
+    if (player.characterLevel == player.maxLevel) {
+      player.playerInfo = player.playerLoader.LoadCharacterInfo(player.characterLevel);
+      player.UpdateData();
+    } else {
       player.currentExp += exp;
-      while (player.currentExp >= player.playerLoader.maxExp) {
-        player.playerLoader.characterLevel++;
-        player.currentExp -= player.playerLoader.maxExp;
-        player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
+      while (player.currentExp >= player.maxExp) {
+        player.characterLevel++;
+        player.maxExp = player.playerInfo.exp;
+        player.currentExp -= player.maxExp;
+        player.playerInfo = player.playerLoader.LoadCharacterInfo(player.characterLevel);
+        player.UpdateData();
       }
     }
 
     SaveLevel();
     playerUi.UpdateExpUI();
+    playerUi.UpdateHealthUI();
   }
 
   public void LevelUp() {
-    player.playerLoader.characterLevel++;
-    player.playerLoader.LoadCharacterInfo(player.playerLoader.characterLevel);
+    player.characterLevel++;
+    player.playerInfo = player.playerLoader.LoadCharacterInfo(player.characterLevel);
+    player.UpdateData();
     SaveLevel();
     playerUi.UpdateExpUI();
   }
 
   private void SaveLevel() {
-    PlayerPrefs.SetInt(Constants.PrefsKey_PlayerExp, player.playerLoader.characterLevel);
+    PlayerPrefs.SetInt(Constants.PrefsKey_PlayerExp, player.characterLevel);
   }
 
   private void LoadLevel() {
     if (PlayerPrefs.HasKey(Constants.PrefsKey_PlayerExp)) {
-      player.playerLoader.characterLevel = PlayerPrefs.GetInt(Constants.PrefsKey_PlayerExp);
+      player.characterLevel = PlayerPrefs.GetInt(Constants.PrefsKey_PlayerExp);
     }
   }
 
   public void ResetLevel() {
-    PlayerDataLoader.Ins.LoadCharacterInfo(0);
+    player.characterLevel = 0;
+    player.playerInfo = PlayerDataLoader.Ins.LoadCharacterInfo(player.characterLevel);
+    player.UpdateData();
     SaveLevel();
   }
+
 }
