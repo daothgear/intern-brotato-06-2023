@@ -4,10 +4,6 @@ using Newtonsoft.Json;
 
 public class PlayerDataLoader : InstanceStatic<PlayerDataLoader> {
   private PlayerData characterData;
-  public float speed;
-  public int maxHealth;
-  public int characterLevel;
-  public int maxExp;
 
   public void ReceiveData(string fileName, string jsonData)
   {
@@ -17,17 +13,13 @@ public class PlayerDataLoader : InstanceStatic<PlayerDataLoader> {
     }
   }
 
-  public void LoadCharacterInfo(int currentLevel) {
-    foreach (var characterInfo in characterData.playerInfo) {
+  public PlayerData.PlayerInfo LoadCharacterInfo(int currentLevel) {
+    foreach (PlayerData.PlayerInfo characterInfo in characterData.playerInfo) {
       if (characterInfo.characterID == currentLevel) {
-        PlayerData.PlayerInfo currentPlayerInfo = characterInfo;
-        speed = currentPlayerInfo.moveSpeed;
-        maxHealth = currentPlayerInfo.maxHP;
-        characterLevel = currentPlayerInfo.characterID;
-        maxExp = currentPlayerInfo.exp;
-        break;
+        return characterInfo;
       }
     }
+    return null;
   }
 
   public int GetLastPlayerID() {

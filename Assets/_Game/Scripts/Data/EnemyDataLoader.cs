@@ -5,10 +5,6 @@ using Newtonsoft.Json;
 
 public class EnemyDataLoader : InstanceStatic<EnemyDataLoader> {
   private EnemyData enemyData;
-  public float speed;
-  public int maxHealth;
-  public int damageEnemy;
-  public int enemyExp;
 
   public void ReceiveData(string fileName, string jsonData)
   {
@@ -18,16 +14,12 @@ public class EnemyDataLoader : InstanceStatic<EnemyDataLoader> {
     }
   }
 
-  public void LoadEnemyInfo(int enemyID) {
-    foreach (var enemyInfo in enemyData.enemyInfo) {
+  public EnemyData.EnemyInfo LoadEnemyInfo(int enemyID) {
+    foreach (EnemyData.EnemyInfo enemyInfo in enemyData.enemyInfo) {
       if (enemyInfo.enemyID == enemyID) {
-        EnemyData.EnemyInfo currentEnemyInfo = enemyInfo;
-        speed = currentEnemyInfo.moveSpeed;
-        maxHealth = currentEnemyInfo.maxHP;
-        damageEnemy = currentEnemyInfo.damage;
-        enemyExp = currentEnemyInfo.expEnemy;
-        break;
+        return enemyInfo;
       }
     }
+    return null;
   }
 }

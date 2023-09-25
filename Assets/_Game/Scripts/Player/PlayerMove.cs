@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
-  private Player player;
+  [SerializeField] private Player player;
 
   private void OnValidate() {
     if (player == null) {
@@ -13,9 +13,12 @@ public class PlayerMove : MonoBehaviour {
     Move();
   }
 
+  private void Start() {
+    player.speed = player.playerInfo.moveSpeed;
+  }
   private void Move() {
     Vector2 movement = new Vector2(player.joystick.Horizontal, player.joystick.Vertical);
-    Vector2 newPosition = player.rb.position + movement * (player.playerLoader.speed * Time.fixedDeltaTime);
+    Vector2 newPosition = player.rb.position + movement * (player.speed * Time.fixedDeltaTime);
     player.rb.MovePosition(newPosition);
 
     if (movement.magnitude > 0) {

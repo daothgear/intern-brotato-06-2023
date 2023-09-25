@@ -8,8 +8,8 @@ public class WeaponPositionInfo {
 }
 
 public class PlayerWeapon : MonoBehaviour {
-  private Player player;
-  private PlayerUi playerUi;
+  [SerializeField] private Player player;
+  [SerializeField] private PlayerUi playerUi;
 
   private void OnValidate() {
     if (player == null) {
@@ -30,7 +30,7 @@ public class PlayerWeapon : MonoBehaviour {
       AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     }
 
-    playerUi.CheckButtonWeapon();
+    playerUi.UpdateButtonWeapon();
   }
 
   private void Update() {
@@ -38,56 +38,51 @@ public class PlayerWeapon : MonoBehaviour {
   }
   
   public void AddWeapon() {
-    if (player.isBuydone == true) {
-      if (player.nextAvailableWeaponIndex < player.weaponPositions.Count &&
-          player.weaponPositions[player.nextAvailableWeaponIndex] != null) {
-        CreateWeaponAtPosition(player.weaponPrefab, player.weaponPositions[player.nextAvailableWeaponIndex]);
-        player.nextAvailableWeaponIndex++;
-        playerUi.UpdateWeaponLevelTexts();
-        playerUi.CheckButtonWeapon();
-        SaveCollectedWeapons();
-      }
-      else {
-        Weapon newWeaponComponent = player.weaponPrefab.GetComponent<Weapon>();
-        newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
-        bool canMerge = false;
+    if (player.nextAvailableWeaponIndex < player.weaponPositions.Count &&
+        player.weaponPositions[player.nextAvailableWeaponIndex] != null) {
+      CreateWeaponAtPosition(player.weaponPrefab, player.weaponPositions[player.nextAvailableWeaponIndex]);
+      player.nextAvailableWeaponIndex++;
+      playerUi.UpdateWeaponLevelTexts();
+      playerUi.UpdateButtonWeapon();
+      SaveCollectedWeapons();
+    }
+    else {
+      Weapon newWeaponComponent = player.weaponPrefab.GetComponent<Weapon>();
+      newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
+      bool canMerge = false;
 
-        foreach (GameObject weapon in player.collectedWeapons) {
-          Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
+      foreach (GameObject weapon in player.collectedWeapons) {
+        Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
 
-          if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
-            canMerge = true;
-            collectedWeaponComponent.currentWeaponLevel++;
-            if (canMerge) {
-              playerUi.UpdateWeaponLevelTexts();
-              playerUi.CheckButtonWeapon();
-              SaveCollectedWeapons();
-            }
-
-            return;
+        if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
+          canMerge = true;
+          collectedWeaponComponent.currentWeaponLevel++;
+          if (canMerge) {
+            playerUi.UpdateWeaponLevelTexts();
+            playerUi.UpdateButtonWeapon();
+            SaveCollectedWeapons();
           }
+
+          return;
         }
       }
     }
   }
 
-  public void CheckCoinStart() {
-    if (player.nextAvailableWeaponIndex == player.weaponPositions.Count) {
-      Weapon newWeaponComponent = player.weaponPrefab.GetComponent<Weapon>();
-      newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
+  public bool CheckMerge(int level) {
+    int maxWeapon = 6;
+    if (player.nextAvailableWeaponIndex == maxWeapon) {
       foreach (GameObject weapon in player.collectedWeapons) {
         Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
-        if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
-          player.isBuydone = true;
-          return;
+        if (collectedWeaponComponent.currentWeaponLevel == level) {
+          return true;
         }
-
-        player.isBuydone = false;
       }
     }
     else {
-      player.isBuydone = true;
+      return true;
     }
+    return false;
   }
 
   private void CheckAndMergeWeapons() {
@@ -105,7 +100,7 @@ public class PlayerWeapon : MonoBehaviour {
           weaponComponentA.UpdateInfo();
           player.nextAvailableWeaponIndex--;
           playerUi.UpdateWeaponLevelTexts();
-          playerUi.CheckButtonWeapon();
+          playerUi.UpdateButtonWeapon();
         }
       }
     }
@@ -170,7 +165,7 @@ public class PlayerWeapon : MonoBehaviour {
   public void ResetWeapon() {
     foreach (GameObject weapon in player.collectedWeapons) {
       Destroy(weapon);
-      playerUi.CheckButtonWeapon();
+      playerUi.UpdateButtonWeapon();
     }
 
     player.collectedWeapons.Clear();

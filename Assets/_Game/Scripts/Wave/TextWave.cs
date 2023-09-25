@@ -1,13 +1,14 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextWave : MonoBehaviour {
-  [SerializeField] private Text waveText;
-  [SerializeField] private Text totalTimerText;
-
+  [SerializeField] private TMP_Text waveText;
+  [SerializeField] private TMP_Text totalTimerText;
+  
   public void UpdateText() {
     TimeManager timeManager = ReferenceHolder.Ins.timeManager;
-    waveText.text = "WAVE " + WaveDataLoader.Ins.currentWave.ToString();
+    waveText.text = "WAVE " + ReferenceHolder.Ins.timeManager.waveInfo.currentWave.ToString();
     totalTimerText.text = Mathf.Round(timeManager.totalTimer).ToString();
   }
 }

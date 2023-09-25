@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void Start() {
-    currentHealth = enemyLoader.maxHealth;
+    currentHealth = enemy.enemyInfo.maxHP;
   }
 
   public void MakeDead() {
@@ -31,11 +31,11 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
 
   public void TakeDamage(int weaponDamage) {
     currentHealth -= weaponDamage;
-    ReferenceHolder.Ins.combatTextManager.CreateUICombatText(transform.position , $"-{weaponDamage}" , Color.black);
+    ShowDamage(weaponDamage.ToString());
     if (currentHealth <= 0) {
       ObjectPool.Ins.enemyList.Remove(gameObject);
       if (isAdd == true) {
-        ReferenceHolder.Ins.playerExp.AddExp(enemyLoader.enemyExp);
+        ReferenceHolder.Ins.playerExp.AddExp(enemy.enemyInfo.expEnemy);
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);
         isAdd = false;
       }
@@ -43,6 +43,12 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
       enemy.currentState = Enemy.EnemyState.Dead;
       Invoke("MakeDead", 0.5f);
     }
+  }
+
+  public void ShowDamage(string text) {
+    Vector3 combatTextPosition = transform.position + new Vector3(0f,2f,0f);
+    GameObject combattext = ObjectPool.Ins.SpawnFromPool(Constants.Tag_CombatText, combatTextPosition, Quaternion.identity);
+    combattext.GetComponent<TextMesh>().text = text;
   }
 
   public void ResetEnemy() {
@@ -55,7 +61,7 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   }
 
   private void ResetHealth() {
-    currentHealth = enemyLoader.maxHealth;
+    currentHealth = enemy.enemyInfo.maxHP;
   }
 
   public void OnObjectSpawn() {

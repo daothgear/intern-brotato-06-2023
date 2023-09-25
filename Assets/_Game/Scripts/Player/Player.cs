@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour {
 
   [Header("Player health Ui")] 
   public Slider playerHealthSlider;
-  public Text textHealth;
+  public TMP_Text textHealth;
 
   [Header("Player exp Logic")] 
   public int currentExp;
@@ -24,13 +25,13 @@ public class Player : MonoBehaviour {
 
   [Header("Player exp Ui")] 
   public Slider playerExpSlider;
-  public Text textExp;
+  public TMP_Text textExp;
 
   [Header("Player coin Logic")] 
   public int coinAmount;
 
   [Header("Player coinUi")] 
-  public Text textCoin;
+  public TMP_Text textCoin;
 
   [Header("Player weapons Logic")] 
   public List<Transform> weaponPositions = new List<Transform>();
@@ -38,16 +39,15 @@ public class Player : MonoBehaviour {
   public List<GameObject> collectedWeapons = new List<GameObject>();
   public GameObject weaponPrefab;
   public int nextAvailableWeaponIndex;
-  public bool isBuydone = true;
 
   [Header("Player weapon UI")] 
-  public Text[] weaponInfoTexts;
-  public Text weaponInfoText;
+  public TMP_Text[] weaponInfoTexts;
+  public TMP_Text weaponInfoText;
   public Button[] weaponInfoButtons;
   
   [Header("Data")]
   public WeaponData.WeaponInfo weaponinfo;
-
+  public PlayerData.PlayerInfo playerInfo;
   //Properties
   public PlayerDataLoader playerLoader {
     get => PlayerDataLoader.Ins;
@@ -57,6 +57,11 @@ public class Player : MonoBehaviour {
     get => EnemyDataLoader.Ins;
   }
 
+  [Header("Player Data")]
+  public int characterLevel;
+  public float speed;
+  public int maxHealth;
+  public int maxExp;
   private void OnValidate() {
     if (animator == null) {
       animator = GetComponent<Animator>();
@@ -72,6 +77,12 @@ public class Player : MonoBehaviour {
   }
 
   private void Awake() {
-    PlayerDataLoader.Ins.LoadCharacterInfo(playerLoader.characterLevel);
+    playerInfo = PlayerDataLoader.Ins.LoadCharacterInfo(characterLevel);
+  }
+
+  public void UpdateData() {
+    maxExp = playerInfo.exp;
+    maxHealth = playerInfo.maxHP;
+    speed = playerInfo.moveSpeed;
   }
 }

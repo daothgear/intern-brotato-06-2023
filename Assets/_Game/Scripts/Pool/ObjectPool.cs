@@ -7,6 +7,7 @@ public class ObjectPool : Singleton<ObjectPool> {
     public string tag;
     public GameObject prefab;
     public int size;
+    public GameObject parent;
   }
 
   public List<Pool> pools;
@@ -26,6 +27,7 @@ public class ObjectPool : Singleton<ObjectPool> {
 
         obj.SetActive(false);
         objectPool.Enqueue(obj);
+        obj.transform.SetParent(pool.parent.transform);
       }
 
       poolDictionary.Add(pool.tag, objectPool);

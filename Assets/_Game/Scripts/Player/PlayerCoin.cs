@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 
 public class PlayerCoin : MonoBehaviour {
-  private Player player;
-  private PlayerUi playerUi;
+  [SerializeField] private Player player;
+  [SerializeField] private PlayerUi playerUi;
 
   private void OnValidate() {
     if (player == null) {
@@ -39,7 +39,7 @@ public class PlayerCoin : MonoBehaviour {
     }
   }
 
-  public void AddCoin() {
+  public void DoubleCurrentCoin() {
     player.coinAmount *= 2;
     if (player.coinAmount < 0) {
       player.coinAmount = Int32.MaxValue;

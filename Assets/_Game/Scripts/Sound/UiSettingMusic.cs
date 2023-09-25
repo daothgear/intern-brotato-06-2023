@@ -13,27 +13,29 @@ public class UiSettingMusic : MonoBehaviour {
 
   public void MusicVolume() {
     AudioManager.Ins.MusicVolume(musicSlider.value);
-    SaveVolumeSettings();
+    SaveVolumeSettings(Constants.PrefsKey_MusicVolume, musicSlider.value);
   }
 
   public void SFXVolume() {
     AudioManager.Ins.SfxVolume(sfxSlider.value);
-    SaveVolumeSettings();
+    SaveVolumeSettings(Constants.PrefsKey_SfxVolume, sfxSlider.value);
   }
 
-  private void SaveVolumeSettings() {
-    PlayerPrefs.SetFloat(Constants.PrefsKey_SettingVolume, musicSlider.value);
-    PlayerPrefs.SetFloat(Constants.PrefsKey_SettingVolume, sfxSlider.value);
+  private void SaveVolumeSettings(string prefsKey, float value) {
+    PlayerPrefs.SetFloat(prefsKey, value);
     PlayerPrefs.Save();
   }
 
   private void LoadVolumeSettings() {
-    if (PlayerPrefs.HasKey(Constants.PrefsKey_SettingVolume)) {
-      float musicVolume = PlayerPrefs.GetFloat(Constants.PrefsKey_SettingVolume);
-      float sfxVolume = PlayerPrefs.GetFloat(Constants.PrefsKey_SettingVolume);
+    if (PlayerPrefs.HasKey(Constants.PrefsKey_MusicVolume)) {
+      float musicVolume = PlayerPrefs.GetFloat(Constants.PrefsKey_MusicVolume);
       musicSlider.value = musicVolume;
-      sfxSlider.value = sfxVolume;
       AudioManager.Ins.MusicVolume(musicVolume);
+    }
+
+    if (PlayerPrefs.HasKey(Constants.PrefsKey_SfxVolume)) {
+      float sfxVolume = PlayerPrefs.GetFloat(Constants.PrefsKey_SfxVolume);
+      sfxSlider.value = sfxVolume;
       AudioManager.Ins.SfxVolume(sfxVolume);
     }
   }

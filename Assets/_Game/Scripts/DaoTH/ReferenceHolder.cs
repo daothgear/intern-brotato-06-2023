@@ -4,7 +4,6 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
   public PlayerCoin playerCoin;
   public Transform playerTran;
   public TimeManager timeManager;
-  public UICombatTextManager combatTextManager;
   public PlayerExp playerExp;
   public PlayerHealth playerHealth;
   public PlayerWeapon playerWeapon;
@@ -23,10 +22,6 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
       timeManager = FindObjectOfType<TimeManager>();
     }
 
-    if (combatTextManager == null) {
-      combatTextManager = FindObjectOfType<UICombatTextManager>();
-    }
-
     if (playerExp == null) {
       playerExp = FindObjectOfType<PlayerExp>();
     }
@@ -34,7 +29,7 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
     if (playerWeapon == null) {
       playerWeapon = FindObjectOfType<PlayerWeapon>();
     }
-
+    
     if (card == null) {
       card = FindObjectOfType<Card>();
     }

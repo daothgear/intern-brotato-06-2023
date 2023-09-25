@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class PlayerUi : MonoBehaviour {
-  private Player player;
+  [SerializeField] private Player player;
 
   private void OnValidate() {
     if (player == null) {
@@ -10,20 +10,20 @@ public class PlayerUi : MonoBehaviour {
   }
 
   public void UpdateExpUI() {
-    if (player.playerLoader.characterLevel == player.maxLevel) {
+    if (player.characterLevel == player.maxLevel) {
       player.textExp.text = "LV. Max";
     }
     else {
-      player.playerExpSlider.maxValue = player.playerLoader.maxExp;
+      player.playerExpSlider.maxValue = player.maxExp;
       player.playerExpSlider.value = player.currentExp;
-      player.textExp.text = "LV." + (player.playerLoader.characterLevel + 1);
+      player.textExp.text = "LV." + (player.characterLevel + 1);
     }
   }
 
   public void UpdateHealthUI() {
-    player.playerHealthSlider.maxValue = player.playerLoader.maxHealth;
+    player.playerHealthSlider.maxValue = player.maxHealth;
     player.playerHealthSlider.value = player.currentHealth;
-    player.textHealth.text = player.currentHealth + "/" + player.playerLoader.maxHealth;
+    player.textHealth.text = player.currentHealth + "/" + player.maxHealth;
   }
 
   public void GetTextCoin() {
@@ -49,7 +49,7 @@ public class PlayerUi : MonoBehaviour {
     }
   }
 
-  public void CheckButtonWeapon() {
+  public void UpdateButtonWeapon() {
     for (int i = 0; i < player.weaponInfoButtons.Length; i++) {
       if (i < player.collectedWeapons.Count) {
         player.weaponInfoButtons[i].gameObject.SetActive(true);

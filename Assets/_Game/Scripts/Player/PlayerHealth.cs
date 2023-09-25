@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
-  private Player player;
-  private PlayerUi playerUi;
+  [SerializeField] private Player player;
+  [SerializeField] private PlayerUi playerUi;
 
   private void OnValidate() {
     if (player == null) {
@@ -16,7 +16,8 @@ public class PlayerHealth : MonoBehaviour {
 
   private void Start() {
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
-    player.currentHealth = player.playerLoader.maxHealth;
+    player.UpdateData();
+    player.currentHealth = player.maxHealth;
     playerUi.UpdateHealthUI();
   }
   
