@@ -26,8 +26,7 @@ public class Card : MonoBehaviour {
   public void AddWeapon() {
     AudioManager.Ins.PlaySfx(SoundName.SfxClickButton);
     int cost = GetCost(addWeapon);
-    bool canMerge;
-    canMerge = ReferenceHolder.Ins.playerWeapon.CheckMerge(randomLevel);
+    bool canMerge = ReferenceHolder.Ins.playerWeapon.CheckMerge(randomLevel);
     if (ReferenceHolder.Ins.playerCoin.HasEnoughCoins(cost)) {
       if (canMerge) {
         addWeapon++;
