@@ -10,7 +10,7 @@ public class CardUi : MonoBehaviour
   public TMP_Text ButtonAddWeapon;
   public TMP_Text ButtonDoubleCoin;
   public TextMeshProUGUI textLevel;
-  private Card card;
+  [SerializeField] private Card card;
 
   private void OnValidate() {
     if (card == null) {

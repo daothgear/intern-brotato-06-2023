@@ -17,7 +17,7 @@ public class TimeManager : MonoBehaviour {
     get => WaveDataLoader.Ins;
   }
 
-  public TextWave textWave;
+  [SerializeField] private TextWave textWave;
 
   // Flag to control time updates
   private bool isTimeStopped = false;

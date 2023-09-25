@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
-  private Player player;
+  [SerializeField] private Player player;
 
   private void OnValidate() {
     if (player == null) {
