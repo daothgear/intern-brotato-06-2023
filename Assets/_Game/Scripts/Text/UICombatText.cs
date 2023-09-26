@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class UICombatText : MonoBehaviour {
-  private void Update() {
+  private void OnEnable() {
     StartCoroutine(ReturnToPoolAfterDelay(0.5f));
   }
 

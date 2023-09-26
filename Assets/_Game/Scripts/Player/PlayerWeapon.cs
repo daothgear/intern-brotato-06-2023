@@ -49,20 +49,15 @@ public class PlayerWeapon : MonoBehaviour {
     else {
       Weapon newWeaponComponent = player.weaponPrefab.GetComponent<Weapon>();
       newWeaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
-      bool canMerge = false;
 
       foreach (GameObject weapon in player.collectedWeapons) {
         Weapon collectedWeaponComponent = weapon.GetComponent<Weapon>();
 
         if (collectedWeaponComponent.currentWeaponLevel == newWeaponComponent.currentWeaponLevel) {
-          canMerge = true;
           collectedWeaponComponent.currentWeaponLevel++;
-          if (canMerge) {
-            playerUi.UpdateWeaponLevelTexts();
-            playerUi.UpdateButtonWeapon();
-            SaveCollectedWeapons();
-          }
-
+          playerUi.UpdateWeaponLevelTexts();
+          playerUi.UpdateButtonWeapon();
+          SaveCollectedWeapons();
           return;
         }
       }
