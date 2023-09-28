@@ -20,8 +20,8 @@ public class TimeManager : MonoBehaviour {
   [SerializeField] private TextWave textWave;
 
   // Flag to control time updates
-  private bool isTimeStopped = false;
-  private bool isSpawnEnemy;
+  public bool isTimeStopped = false;
+  public bool isSpawnEnemy;
   private void OnValidate() {
     if (textWave == null) {
       textWave = GetComponent<TextWave>();

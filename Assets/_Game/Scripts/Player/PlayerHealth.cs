@@ -27,11 +27,7 @@ public class PlayerHealth : MonoBehaviour {
       player.currentHealth -= damage;
       if (player.currentHealth <= 0) {
         player.currentHealth = 0;
-        ReferenceHolder.Ins.playerCoin.ResetData();
-        ReferenceHolder.Ins.playerExp.ResetLevel();
-        ReferenceHolder.Ins.playerWeapon.ResetWeapon();
         ReferenceHolder.Ins.timeManager.Stoptime();
-        Destroy(gameObject);
         Die();
       }
 

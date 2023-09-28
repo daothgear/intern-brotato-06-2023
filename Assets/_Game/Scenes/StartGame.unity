@@ -25781,6 +25781,8 @@ MonoBehaviour:
     spawnDelay: 0
   wallCheck: {fileID: 1105329708}
   textWave: {fileID: 617973926}
+  isTimeStopped: 0
+  isSpawnEnemy: 0
 --- !u!114 &617973925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26453,7 +26455,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1498001234}
         m_TargetAssemblyTypeName: UiController, Assembly-CSharp
-        m_MethodName: PlayAds
+        m_MethodName: Revival
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -32800,6 +32802,7 @@ MonoBehaviour:
   card: {fileID: 1561028277}
   uicontroller: {fileID: 1498001234}
   player: {fileID: 1058422522}
+  playerUi: {fileID: 1058422524}
 --- !u!4 &1829477220
 Transform:
   m_ObjectHideFlags: 0

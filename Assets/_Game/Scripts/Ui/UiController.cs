@@ -16,6 +16,9 @@ public class UiController : MonoBehaviour {
   }
   
   public void PLayAgain() {
+    ReferenceHolder.Ins.playerCoin.ResetData();
+    ReferenceHolder.Ins.playerExp.ResetLevel();
+    ReferenceHolder.Ins.playerWeapon.ResetWeapon();
     SceneManager.LoadScene(Constants.Scene_StartGame);
   }
 
@@ -36,5 +39,13 @@ public class UiController : MonoBehaviour {
     UiEndGame.SetActive(true);
     isCountingDown = true;
     StartCoroutine(Countdown());
+  }
+
+  public void Revival() {
+    ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
+    ReferenceHolder.Ins.timeManager.isTimeStopped = false;
+    ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
+    ReferenceHolder.Ins.playerUi.UpdateHealthUI();
+    UiEndGame.SetActive(false);
   }
 }
