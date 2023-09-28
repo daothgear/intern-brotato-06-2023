@@ -42,6 +42,7 @@ public class PlayerHealth : MonoBehaviour {
   private void Die() {
     player.die = true;
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
+    ReferenceHolder.Ins.uicontroller.ShowEndGame();
   }
 
   public void ResetHealth(int maxHealth) {
