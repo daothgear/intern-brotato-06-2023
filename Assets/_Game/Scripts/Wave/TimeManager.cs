@@ -159,6 +159,9 @@ public class TimeManager : MonoBehaviour {
     isSpawnEnemy = false;
     isTimeStopped = true;
     ClearEnemies();
+  }
+
+  public void ResetWave() {
     waveInfo.currentWave = 1;
     currentSubWave = 0;
     SavePlayerPrefsData();

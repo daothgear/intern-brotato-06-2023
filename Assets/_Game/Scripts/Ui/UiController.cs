@@ -2,20 +2,22 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiController : MonoBehaviour {
   public GameObject UiEndGame;
   public GameObject UIShop;
+  public GameObject ads;
   public TMP_Text textViewAds;
 
   public float time = 5f;
-  public bool isCountingDown = false;
-
+  [SerializeField] private Button btnViewAds;
   private void Start() {
     UiEndGame.SetActive(false);
   }
   
   public void PLayAgain() {
+    ReferenceHolder.Ins.timeManager.ResetWave();
     ReferenceHolder.Ins.playerCoin.ResetData();
     ReferenceHolder.Ins.playerExp.ResetLevel();
     ReferenceHolder.Ins.playerWeapon.ResetWeapon();
@@ -37,15 +39,23 @@ public class UiController : MonoBehaviour {
 
   public void ShowEndGame() {
     UiEndGame.SetActive(true);
-    isCountingDown = true;
     StartCoroutine(Countdown());
   }
 
   public void Revival() {
+    time = 5f;
+    textViewAds.fontSize = 160;
+    textViewAds.text = Mathf.RoundToInt(time).ToString();
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
     ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
     ReferenceHolder.Ins.playerUi.UpdateHealthUI();
     UiEndGame.SetActive(false);
+  }
+
+  public void ViewAds() {
+    if (time > 0) {
+      ads.SetActive(true);
+    }
   }
 }
