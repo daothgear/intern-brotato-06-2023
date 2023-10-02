@@ -6,7 +6,16 @@ using UnityEngine.SceneManagement;
 public class UiPlayAgain : MonoBehaviour {
   [SerializeField] private TMP_Text textViewAds;
   [SerializeField] private ButtonViewAds btnViewAds;
+  public float currenttimeViewAds;
   public float time = 5f;
+
+  private void Awake() {
+    currenttimeViewAds = time;
+  }
+
+  private void OnEnable() {
+    StartCoroutine(Countdown());
+  }
 
   public void PLayAgain() {
     ReferenceHolder.Ins.timeManager.ResetWave();
@@ -17,10 +26,10 @@ public class UiPlayAgain : MonoBehaviour {
   }
 
   public IEnumerator Countdown() {
-    while (time > 0) {
+    while (currenttimeViewAds > 0) {
       yield return new WaitForSeconds(1f);
-      time--;
-      textViewAds.text = Mathf.RoundToInt(time).ToString();
+      currenttimeViewAds--;
+      textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
     }
 
     textViewAds.text = "Can replay";
@@ -30,9 +39,9 @@ public class UiPlayAgain : MonoBehaviour {
   
 
   public void Revival() {
-    time = 5f;
+    currenttimeViewAds = time;
     textViewAds.fontSize = 160;
-    textViewAds.text = Mathf.RoundToInt(time).ToString();
+    textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
     btnViewAds.ChangeColor();
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
@@ -42,7 +51,7 @@ public class UiPlayAgain : MonoBehaviour {
   }
 
   public void ViewAds() {
-    if (time > 0) {
+    if (currenttimeViewAds > 0) {
       ReferenceHolder.Ins.uicontroller.Uiads.SetActive(true);
     }
   }
