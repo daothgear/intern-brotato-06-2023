@@ -8,12 +8,6 @@ public class AdsView : MonoBehaviour {
   [SerializeField] private UiController uiController;
   [SerializeField] private TMP_Text texttimeViewAds;
   [SerializeField] private float timeViewAds = 10f;
-
-  private void OnValidate() {
-    if (uiController == null) {
-      uiController = GetComponentInParent<UiController>();
-    }
-  }
   
   public void OnEnable() {
     StartCoroutine(AdsCountdown());
@@ -32,8 +26,8 @@ public class AdsView : MonoBehaviour {
 
   public void ExitViewAds() {
     uiController.UiEndGame.SetActive(false);
-    uiController.ads.SetActive(false);
-    uiController.Revival();
+    uiController.Uiads.SetActive(false);
+    ReferenceHolder.Ins.uiPlayAgain.Revival();
     timeViewAds = 10f;
   }
 }

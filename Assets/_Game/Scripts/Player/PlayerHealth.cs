@@ -23,7 +23,6 @@ public class PlayerHealth : MonoBehaviour {
   
   public void TakeDamage(int damage) {
     if (player.currentHealth > 0) {
-      //player.currentHealth -= player.enemyLoader.damageEnemy;
       player.currentHealth -= damage;
       if (player.currentHealth <= 0) {
         player.currentHealth = 0;

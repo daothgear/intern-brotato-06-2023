@@ -26384,8 +26384,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1498001234}
-        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
+      - m_Target: {fileID: 1134331268}
+        m_TargetAssemblyTypeName: UiPlayAgain, Assembly-CSharp
         m_MethodName: PLayAgain
         m_Mode: 1
         m_Arguments:
@@ -26519,8 +26519,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1498001234}
-        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
+      - m_Target: {fileID: 1134331268}
+        m_TargetAssemblyTypeName: UiPlayAgain, Assembly-CSharp
         m_MethodName: ViewAds
         m_Mode: 1
         m_Arguments:
@@ -28812,6 +28812,7 @@ GameObject:
   - component: {fileID: 1134331265}
   - component: {fileID: 1134331267}
   - component: {fileID: 1134331266}
+  - component: {fileID: 1134331268}
   m_Layer: 5
   m_Name: PlayAgain
   m_TagString: Untagged
@@ -28880,6 +28881,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134331264}
   m_CullTransparentMesh: 1
+--- !u!114 &1134331268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134331264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ea4bc095a6b4b088ec8f30a65b30cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textViewAds: {fileID: 1435914326}
+  btnViewAds: {fileID: 762415885}
+  time: 5
 --- !u!1 &1143541126
 GameObject:
   m_ObjectHideFlags: 0
@@ -31108,10 +31124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UiEndGame: {fileID: 1134331264}
   UIShop: {fileID: 516717796}
-  ads: {fileID: 1857048614}
-  textViewAds: {fileID: 1435914326}
-  btnViewAds: {fileID: 762415885}
-  time: 5
+  Uiads: {fileID: 1857048614}
 --- !u!1 &1509087805
 GameObject:
   m_ObjectHideFlags: 0
@@ -33140,6 +33153,7 @@ MonoBehaviour:
   uicontroller: {fileID: 1498001234}
   player: {fileID: 1058422522}
   playerUi: {fileID: 1058422524}
+  uiPlayAgain: {fileID: 1134331268}
 --- !u!4 &1829477220
 Transform:
   m_ObjectHideFlags: 0
