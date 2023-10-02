@@ -1,31 +1,39 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AdsView : MonoBehaviour {
-   [SerializeField] private UiController uiController;
-   [SerializeField] private Button buttonExitAds;
+  [SerializeField] private UiController uiController;
+  [SerializeField] private TMP_Text texttimeViewAds;
+  [SerializeField] private float timeViewAds = 10f;
 
-   private void OnValidate() {
-      if (uiController == null) {
-         uiController = GetComponentInParent<UiController>();
-      }
-   }
+  private void OnValidate() {
+    if (uiController == null) {
+      uiController = GetComponentInParent<UiController>();
+    }
+  }
+  
+  public void OnEnable() {
+    StartCoroutine(AdsCountdown());
+  }
 
-   public void OnEnable() {
-      StartCoroutine(AdsOff(10f));
-   }
+  private IEnumerator AdsCountdown() {
+    while (timeViewAds > 0) {
+      texttimeViewAds.text = "View ads finish after " + timeViewAds.ToString("0") + " s";
+      yield return new WaitForSeconds(1f);
+      timeViewAds -= 1f;
+    }
 
-   private IEnumerator AdsOff(float delay) {
-      yield return new WaitForSeconds(delay);
-      buttonExitAds.gameObject.SetActive(true);
-   }
+    texttimeViewAds.text = "Ads Finished!";
+    ExitViewAds();
+  }
 
-   public void ExitViewAds() {
-      uiController.UiEndGame.SetActive(false);
-      uiController.ads.SetActive(false);
-      buttonExitAds.gameObject.SetActive(false);
-      uiController.Revival();
-   }
+  public void ExitViewAds() {
+    uiController.UiEndGame.SetActive(false);
+    uiController.ads.SetActive(false);
+    uiController.Revival();
+    timeViewAds = 10f;
+  }
 }

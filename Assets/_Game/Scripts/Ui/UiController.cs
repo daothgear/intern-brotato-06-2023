@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class UiController : MonoBehaviour {
   public GameObject UiEndGame;
@@ -10,8 +9,15 @@ public class UiController : MonoBehaviour {
   public GameObject ads;
   public TMP_Text textViewAds;
 
+  [SerializeField] private ButtonViewAds btnViewAds;
   public float time = 5f;
-  [SerializeField] private Button btnViewAds;
+
+  private void OnValidate() {
+    if (btnViewAds == null) {
+      btnViewAds = GetComponentInChildren<ButtonViewAds>();
+    }
+  }
+
   private void Start() {
     UiEndGame.SetActive(false);
   }
@@ -33,6 +39,7 @@ public class UiController : MonoBehaviour {
     } else {
       textViewAds.text = "Can replay";
       textViewAds.fontSize = 35;
+      btnViewAds.ChangeColor();
     }
   }
 
@@ -46,6 +53,7 @@ public class UiController : MonoBehaviour {
     time = 5f;
     textViewAds.fontSize = 160;
     textViewAds.text = Mathf.RoundToInt(time).ToString();
+    btnViewAds.ChangeColor();
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
     ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
