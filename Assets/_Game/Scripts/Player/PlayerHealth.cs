@@ -23,15 +23,10 @@ public class PlayerHealth : MonoBehaviour {
   
   public void TakeDamage(int damage) {
     if (player.currentHealth > 0) {
-      //player.currentHealth -= player.enemyLoader.damageEnemy;
       player.currentHealth -= damage;
       if (player.currentHealth <= 0) {
         player.currentHealth = 0;
-        ReferenceHolder.Ins.playerCoin.ResetData();
-        ReferenceHolder.Ins.playerExp.ResetLevel();
-        ReferenceHolder.Ins.playerWeapon.ResetWeapon();
         ReferenceHolder.Ins.timeManager.Stoptime();
-        Destroy(gameObject);
         Die();
       }
 
@@ -42,6 +37,7 @@ public class PlayerHealth : MonoBehaviour {
   private void Die() {
     player.die = true;
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
+    ReferenceHolder.Ins.uicontroller.ShowEndGame();
   }
 
   public void ResetHealth(int maxHealth) {
