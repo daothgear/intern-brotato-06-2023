@@ -7,10 +7,11 @@ public class UiPlayAgain : MonoBehaviour {
   [SerializeField] private TMP_Text textViewAds;
   [SerializeField] private ButtonViewAds btnViewAds;
   public float currenttimeViewAds;
-  public float currentDelayTime = 5f;
+
+  public float time = 5f;
 
   private void Awake() {
-    currenttimeViewAds = currentDelayTime;
+    currenttimeViewAds = time;
   }
 
   private void OnEnable() {
@@ -39,7 +40,7 @@ public class UiPlayAgain : MonoBehaviour {
   
 
   public void Revival() {
-    currenttimeViewAds = currentDelayTime;
+    currenttimeViewAds = time;
     textViewAds.fontSize = 160;
     textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
     btnViewAds.ChangeColor();
