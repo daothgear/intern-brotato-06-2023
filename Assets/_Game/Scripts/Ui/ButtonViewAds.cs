@@ -11,7 +11,7 @@ public class ButtonViewAds : MonoBehaviour {
   }
   
   public void ChangeColor() {
-    if (ReferenceHolder.Ins.uiPlayAgain.time <= 0) {
+    if (ReferenceHolder.Ins.uiPlayAgain.currenttimeViewAds <= 0) {
       image.color = Color.gray;
     }
     else {

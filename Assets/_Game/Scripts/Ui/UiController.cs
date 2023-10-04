@@ -14,6 +14,5 @@ public class UiController : MonoBehaviour {
   
   public void ShowEndGame() {
     UiEndGame.SetActive(true);
-    StartCoroutine(ReferenceHolder.Ins.uiPlayAgain.Countdown());
   }
 }
