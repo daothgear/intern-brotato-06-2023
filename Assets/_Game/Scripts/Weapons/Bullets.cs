@@ -13,8 +13,8 @@ public class Bullets : MonoBehaviour {
     bulletSpeed = speed;
     bulletDamage = damage;
   }
-
-  void FixedUpdate() {
+  
+  public void UpdateBullet() {
     if (targetEnemy != null) {
       Vector3 direction = (targetEnemy.position - transform.position).normalized;
       transform.position += direction * bulletSpeed * Time.deltaTime;
