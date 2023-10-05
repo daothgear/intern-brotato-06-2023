@@ -69,6 +69,7 @@ public class Weapon : MonoBehaviour {
     AudioManager.Ins.PlaySfx(SoundName.SfxShoot);
     Bullets bullet = bulletObject.GetComponent<Bullets>();
     bullet.SetTarget(targetEnemy, weapon.attackSpeed, weapon.damage);
+    ObjectPool.Ins.bulletList.Add(bulletObject);
   }
 
   private void OnDrawGizmosSelected() {
