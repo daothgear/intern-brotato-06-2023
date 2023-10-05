@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour {
   private void Awake() {
     enemyInfo = enemyLoader.LoadEnemyInfo(1);
   }
-  private void Update() {
+  public void UpdateState() {
     switch (currentState) {
       case EnemyState.Walk:
         Walk();

@@ -55,4 +55,18 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
       uiPlayAgain = FindObjectOfType<UiPlayAgain>();
     }
   }
+
+  private void FixedUpdate() {
+    foreach (GameObject bulletObject in ObjectPool.Ins.bulletList) {
+      Bullets bullet = bulletObject.GetComponent<Bullets>();
+      bullet.UpdateBullet();
+    }
+  }
+
+  private void Update() {
+    foreach (GameObject enemyObject in ObjectPool.Ins.enemyList) {
+      Enemy enemy = enemyObject.GetComponent<Enemy>();
+      enemy.UpdateState();
+    }
+  }
 }

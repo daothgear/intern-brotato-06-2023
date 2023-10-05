@@ -13,8 +13,8 @@ public class Bullets : MonoBehaviour {
     bulletSpeed = speed;
     bulletDamage = damage;
   }
-
-  void FixedUpdate() {
+  
+  public void UpdateBullet() {
     if (targetEnemy != null) {
       Vector3 direction = (targetEnemy.position - transform.position).normalized;
       transform.position += direction * bulletSpeed * Time.deltaTime;
@@ -22,6 +22,7 @@ public class Bullets : MonoBehaviour {
 
       if (distanceToTarget < 0.5f) {
         ObjectPool.Ins.ReturnToPool(Constants.Tag_Bullets, gameObject);
+        ObjectPool.Ins.bulletList.Remove(gameObject);
         if (targetEnemy.GetComponent<Enemy>().currentState == Enemy.EnemyState.Walk && targetEnemy.gameObject.activeSelf) {
           targetEnemy.GetComponent<EnemyHealth>().TakeDamage(bulletDamage);
         }
