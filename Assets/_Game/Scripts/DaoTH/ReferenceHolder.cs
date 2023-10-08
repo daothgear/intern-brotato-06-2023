@@ -57,14 +57,20 @@ public class ReferenceHolder : MonoStatic<ReferenceHolder> {
   }
 
   private void FixedUpdate() {
-    foreach (GameObject bulletObject in ObjectPool.Ins.bulletList) {
+    int bulletCount = ObjectPool.Ins.bulletList.Count;
+
+    for (int i = bulletCount - 1; i >= 0; i--) {
+      GameObject bulletObject = ObjectPool.Ins.bulletList[i];
       Bullets bullet = bulletObject.GetComponent<Bullets>();
       bullet.UpdateBullet();
     }
   }
 
   private void Update() {
-    foreach (GameObject enemyObject in ObjectPool.Ins.enemyList) {
+    int enemyCount = ObjectPool.Ins.enemyList.Count;
+
+    for (int i = enemyCount - 1; i >= 0; i--) {
+      GameObject enemyObject = ObjectPool.Ins.enemyList[i];
       Enemy enemy = enemyObject.GetComponent<Enemy>();
       enemy.UpdateState();
     }
