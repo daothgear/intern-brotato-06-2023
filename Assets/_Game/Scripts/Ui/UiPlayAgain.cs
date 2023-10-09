@@ -48,6 +48,9 @@ public class UiPlayAgain : MonoBehaviour {
     //level
     ReferenceHolder.Ins.playerExp.SaveLevel(ReferenceHolder.Ins.player.characterLevel);
 
+    //time
+    ReferenceHolder.Ins.timeManager.SavePlayerPrefsData(ReferenceHolder.Ins.timeManager.currentWave);
+
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
     ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
