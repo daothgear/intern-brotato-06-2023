@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class UiPlayAgain : MonoBehaviour {
   [SerializeField] private TMP_Text textViewAds;
-  [SerializeField] private ButtonViewAds btnViewAds;
+  [SerializeField] private GameObject btnViewAds;
+  [SerializeField] private GameObject UiCountDown;
   public float currenttimeViewAds;
 
   public float delaytime = 5f;
@@ -32,18 +33,17 @@ public class UiPlayAgain : MonoBehaviour {
       currenttimeViewAds--;
       textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
     }
-
-    textViewAds.text = "Can't revival";
-    textViewAds.fontSize = 35;
-    btnViewAds.ChangeColor();
+    
+    UiCountDown.SetActive(false);
+    btnViewAds.SetActive(false);
   }
   
 
   public void Revival() {
+    btnViewAds.SetActive(true);
+    UiCountDown.SetActive(true);
     currenttimeViewAds = delaytime;
-    textViewAds.fontSize = 160;
     textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
-    btnViewAds.ChangeColor();
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
     ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
