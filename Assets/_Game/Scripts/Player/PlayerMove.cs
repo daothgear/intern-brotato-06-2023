@@ -17,22 +17,24 @@ public class PlayerMove : MonoBehaviour {
     player.speed = player.playerInfo.moveSpeed;
   }
   private void Move() {
-    Vector2 movement = new Vector2(player.joystick.Horizontal, player.joystick.Vertical);
-    Vector2 newPosition = player.rb.position + movement * (player.speed * Time.fixedDeltaTime);
-    player.rb.MovePosition(newPosition);
+    if (!ReferenceHolder.Ins.uicontroller.UiEndGame.activeSelf) {
+      Vector2 movement = new Vector2(player.joystick.Horizontal, player.joystick.Vertical);
+      Vector2 newPosition = player.rb.position + movement * (player.speed * Time.fixedDeltaTime);
+      player.rb.MovePosition(newPosition);
 
-    if (movement.magnitude > 0) {
-      player.animator.SetTrigger(Constants.Anim_PlayerWalk);
-    }
-    else {
-      player.animator.SetTrigger(Constants.Anim_PlayerIdle);
-    }
+      if (movement.magnitude > 0) {
+        player.animator.SetTrigger(Constants.Anim_PlayerWalk);
+      }
+      else {
+        player.animator.SetTrigger(Constants.Anim_PlayerIdle);
+      }
 
-    if (player.joystick.Horizontal < 0 && player.isFacingRight) {
-      Flip();
-    }
-    else if (player.joystick.Horizontal > 0 && !player.isFacingRight) {
-      Flip();
+      if (player.joystick.Horizontal < 0 && player.isFacingRight) {
+        Flip();
+      }
+      else if (player.joystick.Horizontal > 0 && !player.isFacingRight) {
+        Flip();
+      }
     }
   }
 

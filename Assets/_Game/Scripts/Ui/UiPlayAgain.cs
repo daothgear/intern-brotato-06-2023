@@ -33,7 +33,7 @@ public class UiPlayAgain : MonoBehaviour {
       textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
     }
 
-    textViewAds.text = "Can replay";
+    textViewAds.text = "Can't revival";
     textViewAds.fontSize = 35;
     btnViewAds.ChangeColor();
   }
