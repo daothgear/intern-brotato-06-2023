@@ -27,13 +27,13 @@ public class EnemyHealth : MonoBehaviour, IPooledObject {
   public void MakeDead() {
     ResetEnemy();
     ObjectPool.Ins.ReturnToPool(Constants.Tag_Enemy, gameObject);
+    ObjectPool.Ins.enemyList.Remove(gameObject);
   }
 
   public void TakeDamage(int weaponDamage) {
     currentHealth -= weaponDamage;
     ShowDamage(weaponDamage.ToString());
     if (currentHealth <= 0) {
-      ObjectPool.Ins.enemyList.Remove(gameObject);
       if (isAdd == true) {
         ReferenceHolder.Ins.playerExp.AddExp(enemy.enemyInfo.expEnemy);
         ObjectPool.Ins.SpawnFromPool(Constants.Tag_Coin, transform.position, Quaternion.identity);

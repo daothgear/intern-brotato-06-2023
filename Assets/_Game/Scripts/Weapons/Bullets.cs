@@ -22,6 +22,7 @@ public class Bullets : MonoBehaviour {
 
       if (distanceToTarget < 0.5f) {
         ObjectPool.Ins.ReturnToPool(Constants.Tag_Bullets, gameObject);
+        ObjectPool.Ins.bulletList.Remove(gameObject);
         if (targetEnemy.GetComponent<Enemy>().currentState == Enemy.EnemyState.Walk && targetEnemy.gameObject.activeSelf) {
           targetEnemy.GetComponent<EnemyHealth>().TakeDamage(bulletDamage);
         }
