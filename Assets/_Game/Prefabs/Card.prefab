@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -448,4 +448,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7d3d3001baa4d3c9d315a7ee687a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardType: 0
+  randomLevel: 0
+  cardUi: {fileID: 0}
+  addWeapon: 2
+  uplevel: 3
+  nextWave: 3
+  doubleCoin: 3
