@@ -37,8 +37,7 @@ public class PlayerHealth : MonoBehaviour {
   private void Die() {
     player.die = true;
     //level player
-    ReferenceHolder.Ins.player.characterLevel = 0;
-    ReferenceHolder.Ins.playerExp.SaveLevel();
+    ReferenceHolder.Ins.playerExp.SaveLevel(0);
     
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
     ReferenceHolder.Ins.uicontroller.ShowEndGame();

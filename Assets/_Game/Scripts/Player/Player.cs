@@ -56,8 +56,6 @@ public class Player : MonoBehaviour {
   public EnemyDataLoader enemyLoader {
     get => EnemyDataLoader.Ins;
   }
-  [Header("current Data")]
-  public int currentLevel;
 
   [Header("Player Data")]
   public int characterLevel;

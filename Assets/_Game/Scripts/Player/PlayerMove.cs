@@ -14,10 +14,11 @@ public class PlayerMove : MonoBehaviour {
   }
 
   private void Start() {
+    player.die = false;
     player.speed = player.playerInfo.moveSpeed;
   }
   private void Move() {
-    if (!ReferenceHolder.Ins.uicontroller.UiEndGame.activeSelf) {
+    if (player.die == false) {
       Vector2 movement = new Vector2(player.joystick.Horizontal, player.joystick.Vertical);
       Vector2 newPosition = player.rb.position + movement * (player.speed * Time.fixedDeltaTime);
       player.rb.MovePosition(newPosition);

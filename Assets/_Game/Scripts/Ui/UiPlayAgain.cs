@@ -40,13 +40,13 @@ public class UiPlayAgain : MonoBehaviour {
   
 
   public void Revival() {
+    ReferenceHolder.Ins.player.die = false;
     btnViewAds.SetActive(true);
     UiCountDown.SetActive(true);
     currenttimeViewAds = delaytime;
     textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
     //level
-    ReferenceHolder.Ins.player.characterLevel = ReferenceHolder.Ins.player.currentLevel;
-    ReferenceHolder.Ins.playerExp.SaveLevel();
+    ReferenceHolder.Ins.playerExp.SaveLevel(ReferenceHolder.Ins.player.characterLevel);
 
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;

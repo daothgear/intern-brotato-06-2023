@@ -41,21 +41,21 @@ public class PlayerExp : MonoBehaviour {
       }
     }
 
-    SaveLevel();
+    SaveLevel(player.characterLevel);
     playerUi.UpdateExpUI();
     playerUi.UpdateHealthUI();
   }
 
   public void LevelUp() {
     player.characterLevel++;
-    player.currentLevel = player.characterLevel;
     player.playerInfo = player.playerLoader.LoadCharacterInfo(player.characterLevel);
     player.UpdateData();
-    SaveLevel();
+    SaveLevel(player.characterLevel);
     playerUi.UpdateExpUI();
   }
 
-  public void SaveLevel() {
+  public void SaveLevel(int level) {
+    player.characterLevel = level;
     PlayerPrefs.SetInt(Constants.PrefsKey_PlayerExp, player.characterLevel);
   }
 
@@ -69,7 +69,7 @@ public class PlayerExp : MonoBehaviour {
     player.characterLevel = 0;
     player.playerInfo = PlayerDataLoader.Ins.LoadCharacterInfo(player.characterLevel);
     player.UpdateData();
-    SaveLevel();
+    SaveLevel(player.characterLevel);
   }
 
 }
