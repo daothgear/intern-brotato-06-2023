@@ -48,13 +48,14 @@ public class PlayerExp : MonoBehaviour {
 
   public void LevelUp() {
     player.characterLevel++;
+    player.currentLevel = player.characterLevel;
     player.playerInfo = player.playerLoader.LoadCharacterInfo(player.characterLevel);
     player.UpdateData();
     SaveLevel();
     playerUi.UpdateExpUI();
   }
 
-  private void SaveLevel() {
+  public void SaveLevel() {
     PlayerPrefs.SetInt(Constants.PrefsKey_PlayerExp, player.characterLevel);
   }
 

@@ -44,6 +44,10 @@ public class UiPlayAgain : MonoBehaviour {
     UiCountDown.SetActive(true);
     currenttimeViewAds = delaytime;
     textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
+    //level
+    ReferenceHolder.Ins.player.characterLevel = ReferenceHolder.Ins.player.currentLevel;
+    ReferenceHolder.Ins.playerExp.SaveLevel();
+
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
     ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
