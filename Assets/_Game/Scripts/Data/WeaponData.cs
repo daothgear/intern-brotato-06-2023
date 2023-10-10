@@ -17,5 +17,6 @@ public class WeaponData {
     public float attackSpeed;
     public int pierce;
     public float pierceDamageReduce;
+    public GameObject weaponPrefab;
   }
 }

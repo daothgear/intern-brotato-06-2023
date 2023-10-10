@@ -109,8 +109,8 @@ public class PlayerWeapon : MonoBehaviour {
     weaponComponent.currentWeaponLevel = ReferenceHolder.Ins.card.randomLevel;
     player.collectedWeapons.Add(newWeapon);
   }
-  
-  private void SaveCollectedWeapons() {
+
+  public void SaveCollectedWeapons() {
     PlayerPrefs.SetInt(Constants.PrefsKey_CollectedWeaponsCount, player.collectedWeapons.Count);
 
     string weaponLevelsData = "";
