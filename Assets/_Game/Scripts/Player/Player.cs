@@ -29,7 +29,8 @@ public class Player : MonoBehaviour {
 
   [Header("Player coin Logic")] 
   public int coinAmount;
-
+  public int lastCoin;
+  
   [Header("Player coinUi")] 
   public TMP_Text textCoin;
 

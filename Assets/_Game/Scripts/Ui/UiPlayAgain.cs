@@ -50,7 +50,9 @@ public class UiPlayAgain : MonoBehaviour {
 
     //time
     ReferenceHolder.Ins.timeManager.SavePlayerPrefsData(ReferenceHolder.Ins.timeManager.currentWave);
-
+    
+    //coin
+    ReferenceHolder.Ins.playerCoin.SaveCoinAmount(ReferenceHolder.Ins.player.lastCoin);
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
     ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
