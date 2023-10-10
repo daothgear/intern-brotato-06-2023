@@ -38,6 +38,7 @@ public class Player : MonoBehaviour {
   public List<Transform> weaponPositions = new List<Transform>();
   public List<WeaponPositionInfo> weaponPositionInfo = new List<WeaponPositionInfo>();
   public List<GameObject> collectedWeapons = new List<GameObject>();
+  public List<GameObject> lastWeapons = new List<GameObject>();
   public GameObject weaponPrefab;
   public int nextAvailableWeaponIndex;
 
