@@ -8,7 +8,7 @@ public class TextWave : MonoBehaviour {
   
   public void UpdateText() {
     TimeManager timeManager = ReferenceHolder.Ins.timeManager;
-    waveText.text = "WAVE " + ReferenceHolder.Ins.timeManager.waveInfo.currentWave.ToString();
+    waveText.text = "WAVE " + ReferenceHolder.Ins.timeManager.currentWave.ToString();
     totalTimerText.text = Mathf.Round(timeManager.totalTimer).ToString();
   }
 }

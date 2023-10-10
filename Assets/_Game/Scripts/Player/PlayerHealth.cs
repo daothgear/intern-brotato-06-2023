@@ -36,6 +36,12 @@ public class PlayerHealth : MonoBehaviour {
 
   private void Die() {
     player.die = true;
+    //level player
+    ReferenceHolder.Ins.playerExp.SaveLevel(0);
+    //save time
+    ReferenceHolder.Ins.timeManager.SavePlayerPrefsData(1);
+    //coin
+    ReferenceHolder.Ins.playerCoin.SaveCoinAmount(500);
     ReferenceHolder.Ins.uicontroller.UiEndGame.SetActive(player.die);
     ReferenceHolder.Ins.uicontroller.ShowEndGame();
   }

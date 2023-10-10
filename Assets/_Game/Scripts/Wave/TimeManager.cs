@@ -6,6 +6,7 @@ public class TimeManager : MonoBehaviour {
   public float timer;
   public float totalTimer;
   public int currentSubWave;
+  public int currentWave;
   public WaveData.WaveInfo waveInfo;
   [SerializeField] private GameObject wallCheck;
 
@@ -30,6 +31,7 @@ public class TimeManager : MonoBehaviour {
 
   private void Start() {
     waveInfo = waveDataLoader.LoadWaveInfo(1);
+    currentWave = waveInfo.currentWave;
     isSpawnEnemy = true;
     // Load PlayerPrefs data
     LoadPlayerPrefsData();
@@ -80,6 +82,7 @@ public class TimeManager : MonoBehaviour {
 
   public void CloseShopUI() {
     waveInfo.currentWave++;
+    currentWave = waveInfo.currentWave;
     currentSubWave = 0;
     totalTimer = CalculateTotalTimer();
     ReferenceHolder.Ins.playerHealth.ResetHealth(ReferenceHolder.Ins.player.maxHealth);
@@ -88,12 +91,12 @@ public class TimeManager : MonoBehaviour {
     ReferenceHolder.Ins.uicontroller.UIShop.SetActive(false);
 
     // Save PlayerPrefs data
-    SavePlayerPrefsData();
+    SavePlayerPrefsData(currentWave);
   }
 
   private void SpawnEnemies() {
     if (isSpawnEnemy == true) {
-      int numEnemies = waveInfo.currentWave * waveInfo.numEnemiesPerWave * (currentSubWave + 1);
+      int numEnemies = currentWave * waveInfo.numEnemiesPerWave * (currentSubWave + 1);
       StartCoroutine(SpawnEnemiesWithDelays(numEnemies)); 
     }
   }
@@ -109,6 +112,7 @@ public class TimeManager : MonoBehaviour {
 
   public void UpWave() {
     waveInfo.currentWave++;
+    currentWave = waveInfo.currentWave;
   }
 
   private void SpawnEnemyRandom() {
@@ -162,12 +166,13 @@ public class TimeManager : MonoBehaviour {
   }
 
   public void ResetWave() {
-    waveInfo.currentWave = 1;
+    currentWave = 1;
     currentSubWave = 0;
-    SavePlayerPrefsData();
+    SavePlayerPrefsData(currentWave);
   }
 
-  private void SavePlayerPrefsData() {
+  public void SavePlayerPrefsData(int CurrentWave) {
+    waveInfo.currentWave = CurrentWave;
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentWave, waveInfo.currentWave);
     PlayerPrefs.SetInt(Constants.PrefsKey_CurrentSubWave, currentSubWave);
     PlayerPrefs.SetFloat(Constants.PrefsKey_TotalTimer, totalTimer);
@@ -175,7 +180,7 @@ public class TimeManager : MonoBehaviour {
   }
 
   private void LoadPlayerPrefsData() {
-    waveInfo.currentWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentWave, 1);
+    currentWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentWave, 1);
     currentSubWave = PlayerPrefs.GetInt(Constants.PrefsKey_CurrentSubWave, 0);
     totalTimer = PlayerPrefs.GetFloat(Constants.PrefsKey_TotalTimer, CalculateTotalTimer());
     int shopState = PlayerPrefs.GetInt(Constants.PrefsKey_ShopState, 0);
