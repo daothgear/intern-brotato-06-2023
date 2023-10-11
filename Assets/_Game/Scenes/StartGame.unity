@@ -25635,6 +25635,7 @@ MonoBehaviour:
   timer: 0
   totalTimer: 0
   currentSubWave: 0
+  currentWave: 0
   waveInfo:
     currentWave: 0
     subWaveTimes: []
@@ -28274,6 +28275,7 @@ MonoBehaviour:
   maxLevel: 0
   playerExpSlider: {fileID: 599647140}
   textExp: {fileID: 1769298679}
+  lastCoin: 0
   coinAmount: 0
   textCoin: {fileID: 892614002}
   weaponPositions:
@@ -28289,8 +28291,10 @@ MonoBehaviour:
   - positionWeapon: {fileID: 143151996}
     currentLevelWeapon: 1
   collectedWeapons: []
+  lastWeapon: []
   weaponPrefab: {fileID: 5829852352044861097, guid: 1239ec2e202e34506ab4965e216459e4, type: 3}
   nextAvailableWeaponIndex: 0
+  weaponParent: {fileID: 1528846609}
   weaponInfoTexts:
   - {fileID: 2088271451}
   - {fileID: 1336728192}
@@ -28316,6 +28320,7 @@ MonoBehaviour:
     attackSpeed: 0
     pierce: 0
     pierceDamageReduce: 0
+    weaponPrefab: {fileID: 0}
   playerInfo:
     characterID: 0
     exp: 0

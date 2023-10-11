@@ -46,13 +46,34 @@ public class UiPlayAgain : MonoBehaviour {
     currenttimeViewAds = delaytime;
     textViewAds.text = Mathf.RoundToInt(currenttimeViewAds).ToString();
     //level
-    ReferenceHolder.Ins.playerExp.SaveLevel(ReferenceHolder.Ins.player.characterLevel);
+    ReferenceHolder.Ins.playerExp.SaveLevel(ReferenceHolder.Ins.player.playerInfo.characterID);
 
     //time
     ReferenceHolder.Ins.timeManager.SavePlayerPrefsData(ReferenceHolder.Ins.timeManager.currentWave);
     
     //coin
     ReferenceHolder.Ins.playerCoin.SaveCoinAmount(ReferenceHolder.Ins.player.lastCoin);
+
+    foreach (GameObject weaponObject in ReferenceHolder.Ins.player.collectedWeapons) {
+      Destroy(weaponObject);
+    }
+
+    ReferenceHolder.Ins.player.collectedWeapons.Clear();
+
+    for (int i = 0; i < ReferenceHolder.Ins.player.lastWeapon.Count; i++) {
+      if (i < ReferenceHolder.Ins.player.weaponPositions.Count && ReferenceHolder.Ins.player.weaponPositions[i] != null) {
+        Transform weaponObject = Instantiate(ReferenceHolder.Ins.player.weaponPrefab, ReferenceHolder.Ins.player.weaponPositions[i].position, ReferenceHolder.Ins.player.weaponPositions[i].rotation).transform;
+        weaponObject.SetParent(ReferenceHolder.Ins.player.weaponParent);
+        Weapon weaponComponent = weaponObject.GetComponent<Weapon>();
+        weaponComponent.currentWeaponId = ReferenceHolder.Ins.player.lastWeapon[i].weaponID;
+        weaponComponent.currentWeaponLevel = ReferenceHolder.Ins.player.lastWeapon[i].currentlevel;
+        weaponComponent.UpdateInfo();
+        ReferenceHolder.Ins.player.collectedWeapons.Add(weaponObject.gameObject);
+      }
+    }
+
+    ReferenceHolder.Ins.playerWeapon.SaveCollectedWeapons();
+
     ReferenceHolder.Ins.timeManager.isSpawnEnemy = true;
     ReferenceHolder.Ins.timeManager.isTimeStopped = false;
     ReferenceHolder.Ins.player.currentHealth = ReferenceHolder.Ins.player.maxHealth;
