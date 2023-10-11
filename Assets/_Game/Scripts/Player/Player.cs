@@ -41,6 +41,7 @@ public class Player : MonoBehaviour {
   public List<WeaponData.WeaponInfo> lastWeapon = new List<WeaponData.WeaponInfo>();
   public GameObject weaponPrefab;
   public int nextAvailableWeaponIndex;
+  public int lastnextAvailableWeaponIndex;
 
   [Header("Player weapon UI")]
   public Transform weaponParent;
