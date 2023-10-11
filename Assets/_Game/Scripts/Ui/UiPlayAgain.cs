@@ -53,7 +53,9 @@ public class UiPlayAgain : MonoBehaviour {
     
     //coin
     ReferenceHolder.Ins.playerCoin.SaveCoinAmount(ReferenceHolder.Ins.player.lastCoin);
-
+    
+    //weapon
+    ReferenceHolder.Ins.player.nextAvailableWeaponIndex = ReferenceHolder.Ins.player.lastnextAvailableWeaponIndex;
     foreach (GameObject weaponObject in ReferenceHolder.Ins.player.collectedWeapons) {
       Destroy(weaponObject);
     }

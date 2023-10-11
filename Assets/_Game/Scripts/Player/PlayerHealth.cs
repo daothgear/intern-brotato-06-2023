@@ -55,6 +55,7 @@ public class PlayerHealth : MonoBehaviour {
     //coin
     ReferenceHolder.Ins.playerCoin.SaveCoinAmount(500);
     //weapon
+    player.lastnextAvailableWeaponIndex = player.nextAvailableWeaponIndex;
     ReferenceHolder.Ins.playerWeapon.ResetWeapon();
     //save data
     ReferenceHolder.Ins.playerWeapon.SaveCollectedWeapons();
